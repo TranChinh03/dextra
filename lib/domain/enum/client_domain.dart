@@ -1,0 +1,1 @@
+enum ClientDomain { defaultDomain }
