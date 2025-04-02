@@ -45,4 +45,7 @@ class AppLightColor implements IAppColor {
 
   @override
   Color get shadowXs => DextraAppColor.shadows.shadowXs;
+
+  @override
+  Color get exampleColor => DextraAppColor.primary.brand100;
 }

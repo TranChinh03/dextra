@@ -1,3 +1,5 @@
+import 'package:dextra/di/injectable.dart';
+import 'package:dextra/presentation/app/blocs/theme/app_theme_bloc.dart';
 import 'package:dextra/presentation/assets/assets.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/commonImage/common_image.dart';
@@ -20,12 +22,13 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final _appThemeBloc = getIt.get<AppThemeBloc>();
     final appColor = IAppColor.watch(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
           'Home Screen',
-          style: TextStyle(color: appColor.textPrimaryColor),
+          style: TextStyle(color: appColor.exampleColor),
         ),
         centerTitle: true,
         backgroundColor: appColor.backgroundApp,
@@ -34,23 +37,40 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text(
+              'Welcome to the Home Screen!',
+              style: TextStyle(color: appColor.exampleColor),
+            ),
             SvgPicture.asset(
               Assets.svg.check,
               fit: BoxFit.scaleDown,
             ),
-            CommonImage(imagePath: Assets.png.logo.path, width: AppSpacing.rem1000.w,),
+            CommonImage(
+              imagePath: Assets.png.logo.path,
+              width: AppSpacing.rem1000.w,
+            ),
             SizedBox(height: AppSpacing.rem100.h),
             Text(
               'Welcome to the Home Screen!',
               style: TextStyle(
                 fontSize: AppFontSize.md,
                 fontWeight: AppFontWeight.bold,
+                color: appColor.exampleColor,
               ),
             ),
             SizedBox(height: AppSpacing.rem100.h),
             CommonButton(
-              onPressed: () {},
-              text: tr('Common.continue_title'),
+              onPressed: () {
+                final currentTheme = _appThemeBloc.state.themeMode;
+                _appThemeBloc.add(
+                  ChangeAppTheme(
+                      themeMode: currentTheme == ThemeMode.dark
+                          ? ThemeMode.light
+                          : ThemeMode.dark),
+                );
+              },
+              // text: tr('Common.continue_title'),
+              text: tr('Change theme'),
             )
           ],
         ),

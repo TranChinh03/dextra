@@ -27,6 +27,9 @@ abstract class IAppColor {
    // Shadow color
   Color get shadowXs;
 
+  //
+  Color get exampleColor;
+
 
   static IAppColor watch(BuildContext context) =>
       context.watch<AppThemeBloc>().state.appColor;
