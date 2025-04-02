@@ -6,8 +6,8 @@ class AppThemeState extends Equatable {
   final IAppColor appColor;
 
   const AppThemeState({
-    this.themeMode = ThemeMode.dark,
-    this.appColor = const AppDarkColor(),
+    this.themeMode = ThemeMode.light,
+    this.appColor = const AppLightColor(),
   });
 
   AppThemeState copyWith({ThemeMode? themeMode}) {
