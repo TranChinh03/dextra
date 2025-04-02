@@ -33,6 +33,7 @@ class CameraImgItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = IAppColor.watch(context);
     return SizedBox(
       width: AppSpacing.rem4150.w,
       child: Column(
@@ -47,12 +48,12 @@ class CameraImgItem extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: AppSpacing.rem250,
+            height: AppSpacing.rem250.h,
           ),
           CommonText(
-            name ?? 'Camera 01',
+            name ?? tr('Common.cam_default_label'),
             style: TextStyle(
-              color: DarkGreyColors().grey950,
+              color: colors.textPrimaryColor,
               fontWeight: AppFontWeight.semiBold,
               fontSize: AppFontSize.xxl,
             ),
@@ -65,7 +66,7 @@ class CameraImgItem extends StatelessWidget {
               CommonText(
                 time ?? 'Time',
                 style: TextStyle(
-                  color: DarkGreyColors().grey500,
+                  color: colors.textSecondaryColor,
                   fontWeight: AppFontWeight.regular,
                   fontSize: AppFontSize.md,
                 ),

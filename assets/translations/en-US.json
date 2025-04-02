@@ -28,6 +28,17 @@
   "Common.reject": "Reject",
   "Common.percent_sign": "%",
   "Common.view": "View",
-  "Common.explore": "Explore"
+  "Common.explore": "Explore",
+  "Common.cam_default_label": "Camera 01",
+  "Common.vehicles_count_label": "Vehicles Counted Today",
+  "Common.avg_congestion_label": "Average Congestion Level",
+  "Common.default_count_value": "29,876",
+  "Common.default_avg_congestion": "55%",
+  "Common.default_compare_yesterda_value": "+55%",
+  "Common.default_peak_congestion_value": "8:30 AM",
+  "Common.peak_congestion_label": "Peak congestion at ",
+  "Common.compare_yesterday_label": "Compared to yesterday: "
+
+
 
 }

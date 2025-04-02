@@ -24,12 +24,17 @@ abstract class IAppColor {
   Color get borderSubtle;
   Color get borderDisabledSubtle;
 
-   // Shadow color
+  // Shadow color
   Color get shadowXs;
+
+  //card
+  Color get cardBackground;
+  Color get cardDecorate;
+  Color get cardBackground2;
+  Color get cardDecorate2;
 
   //
   Color get exampleColor;
-
 
   static IAppColor watch(BuildContext context) =>
       context.watch<AppThemeBloc>().state.appColor;

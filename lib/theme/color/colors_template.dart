@@ -37,6 +37,19 @@ class PrimaryColors {
   final Color brand800 = const Color(0xFF0D47A1); // Cobalt Blue
 }
 
+class AccentColors {
+  final Color accent25 = const Color(0xFFFFF3D4); // Light Yellow
+  final Color accent50 = const Color(0xFFFCF5CC); // Pale Goldenrod
+  final Color accent100 = const Color(0xFFFFC533); // Mustard Yellow
+  final Color accent200 = const Color(0xFFFFB121); // Orange Yellow
+  final Color accent300 = const Color(0xFFFF9F00); // Vivid Orange
+  final Color accent400 = const Color(0xFFFB8C00); // Darker Orange
+  final Color accent500 = const Color(0xFFF57C00); // Deep Orange
+  final Color accent600 = const Color(0xFFEF6C00); // Strong Orange
+  final Color accent700 = const Color(0xFFE65100); // Burnt Orange
+  final Color accent800 = const Color(0xFFBF360C); // Deep Amber
+}
+
 class ModernGreyColors {
   final Color grey25 = const Color(0xFFFCFCFD);
   final Color grey50 = const Color(0xFFF8FAFC);
@@ -261,6 +274,7 @@ class Divider {
 
 class DextraAppColor {
   static PrimaryColors primary = PrimaryColors();
+  static AccentColors accentColors = AccentColors();
   static ModernGreyColors modernGrey = ModernGreyColors();
   static DarkGreyColors darkGrey = DarkGreyColors();
   static ErrorColors error = ErrorColors();
