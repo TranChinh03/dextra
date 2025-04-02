@@ -1,7 +1,11 @@
 import 'package:dextra/di/injectable.dart';
 import 'package:dextra/presentation/app/blocs/theme/app_theme_bloc.dart';
 import 'package:dextra/presentation/assets/assets.dart';
+import 'package:dextra/presentation/modules/commons/widgets/button/camera_img_item.dart';
+import 'package:dextra/presentation/modules/commons/widgets/button/common_arrow_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_button.dart';
+import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
+import 'package:dextra/presentation/modules/commons/widgets/button/common_secondary_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/commonImage/common_image.dart';
 import 'package:dextra/theme/color/app_color.dart';
 import 'package:dextra/theme/font/app_font_size.dart';
@@ -71,6 +75,55 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               // text: tr('Common.continue_title'),
               text: tr('Change theme'),
+            ),
+            CommonPrimaryButton(
+              onPressed: () {
+                final currentTheme = _appThemeBloc.state.themeMode;
+                _appThemeBloc.add(
+                  ChangeAppTheme(
+                      themeMode: currentTheme == ThemeMode.dark
+                          ? ThemeMode.light
+                          : ThemeMode.dark),
+                );
+              },
+              text: tr('Common.view'),
+            ),
+            CommonSecondaryButton(
+              onPressed: () {
+                final currentTheme = _appThemeBloc.state.themeMode;
+                _appThemeBloc.add(
+                  ChangeAppTheme(
+                      themeMode: currentTheme == ThemeMode.dark
+                          ? ThemeMode.light
+                          : ThemeMode.dark),
+                );
+              },
+              text: tr('Common.explore'),
+            ),
+            CommonArrowButton(
+              onPressed: () {
+                final currentTheme = _appThemeBloc.state.themeMode;
+                _appThemeBloc.add(
+                  ChangeAppTheme(
+                      themeMode: currentTheme == ThemeMode.dark
+                          ? ThemeMode.light
+                          : ThemeMode.dark),
+                );
+              },
+            ),
+            CameraImgItem(
+              name: "VoChiCong - CauPhuHuu2",
+              time: '09 March 2025\n10:25:30',
+              onPressed: () {
+                final currentTheme = _appThemeBloc.state.themeMode;
+                _appThemeBloc.add(
+                  ChangeAppTheme(
+                      themeMode: currentTheme == ThemeMode.dark
+                          ? ThemeMode.light
+                          : ThemeMode.dark),
+                );
+              },
+              overflow: TextOverflow.ellipsis,
             )
           ],
         ),

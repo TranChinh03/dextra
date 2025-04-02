@@ -25,4 +25,7 @@ class AppSpacing {
   static const double rem1200 = _spacingFactor * 48;
   static const double rem1400 = _spacingFactor * 56;
   static const double rem1600 = _spacingFactor * 64;
+  static const double rem2350 = _spacingFactor * 94;
+  static const double rem3375 = _spacingFactor * 135;
+  static const double rem4150 = _spacingFactor * 166;
 }

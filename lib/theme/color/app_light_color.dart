@@ -38,7 +38,7 @@ class AppLightColor implements IAppColor {
   Color get buttonSecondaryColorBorder => DextraAppColor.primary.brand300;
 
   @override
-  Color get buttonSecondaryColorForeground => DextraAppColor.primary.brand700;
+  Color get buttonSecondaryColorForeground => DextraAppColor.primary.brand600;
 
   @override
   Color get foregroundDisabled => DextraAppColor.foreground.foregroundDisabled;

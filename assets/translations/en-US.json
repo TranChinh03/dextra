@@ -26,5 +26,8 @@
   "Common.philippine_peso_currency_sign": "₱",
   "Common.accept": "Accept",
   "Common.reject": "Reject",
-  "Common.percent_sign": "%"
+  "Common.percent_sign": "%",
+  "Common.view": "View",
+  "Common.explore": "Explore"
+
 }

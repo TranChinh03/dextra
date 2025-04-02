@@ -1,28 +1,40 @@
 import 'package:flutter/material.dart';
 
+// class PrimaryColors {
+//   final Color brand25 = const Color(0xFFF5EBFC);
+//   final Color brand50 = const Color(0xFFF2E6FB);
+//   final Color brand100 = const Color(0xFFD7B0F3);
+//   final Color brand200 = const Color(0xFFC38AED);
+//   final Color brand300 = const Color(0xFFA854E4);
+//   final Color brand400 = const Color(0xFF9733DF);
+//   final Color brand500 = const Color(0xFF7D00D7);
+//   final Color brand600 = const Color(0xFF7200C4);
+//   final Color brand700 = const Color(0xFF590099);
+//   final Color brand800 = const Color(0xFF450076);
+//   final Color brand900 = const Color(0xFF35005A);
+//   final Color brand950 = const Color(0xFF2A0048);
+//   final LinearGradient primaryGradient = LinearGradient(
+//     colors: [
+//       Color(0xFF2AC4FD), // Light Blue
+//       Color(0xFF7D00D7), // Dark Purple
+//       Color(0xFFC600CC), // Magenta
+//       Color(0xFFFFA525), // Orange
+//     ],
+//     begin: Alignment.centerLeft,
+//     end: Alignment.centerRight,
+//   );
+// }
 class PrimaryColors {
-  final Color brand25 = const Color(0xFFF5EBFC);
-  final Color brand50 = const Color(0xFFF2E6FB);
-  final Color brand100 = const Color(0xFFD7B0F3);
-  final Color brand200 = const Color(0xFFC38AED);
-  final Color brand300 = const Color(0xFFA854E4);
-  final Color brand400 = const Color(0xFF9733DF);
-  final Color brand500 = const Color(0xFF7D00D7);
-  final Color brand600 = const Color(0xFF7200C4);
-  final Color brand700 = const Color(0xFF590099);
-  final Color brand800 = const Color(0xFF450076);
-  final Color brand900 = const Color(0xFF35005A);
-  final Color brand950 = const Color(0xFF2A0048);
-  final LinearGradient primaryGradient = LinearGradient(
-    colors: [
-      Color(0xFF2AC4FD), // Light Blue
-      Color(0xFF7D00D7), // Dark Purple
-      Color(0xFFC600CC), // Magenta
-      Color(0xFFFFA525), // Orange
-    ],
-    begin: Alignment.centerLeft,
-    end: Alignment.centerRight,
-  );
+  final Color brand25 = const Color(0xFFD9F0FF); // Alice Blue
+  final Color brand50 = const Color(0xFFCBF0FD); // Columbia Blue
+  final Color brand100 = const Color(0xFFB6E2FD); // Uranian Blue
+  final Color brand200 = const Color(0xFFA0D3FC); // Light Sky Blue
+  final Color brand300 = const Color(0xFF8BC4FC); // Jordy Blue
+  final Color brand400 = const Color(0xFF75B5FB); // Argentinian Blue
+  final Color brand500 = const Color(0xFF5C9FE7); // Blue Gray
+  final Color brand600 = const Color(0xFF4389D3); // Tufts Blue
+  final Color brand700 = const Color(0xFF2868BA); // True Blue
+  final Color brand800 = const Color(0xFF0D47A1); // Cobalt Blue
 }
 
 class ModernGreyColors {
@@ -98,6 +110,21 @@ class WarningColors {
   final Color warning800 = const Color(0xFF8A692C);
   final Color warning900 = const Color(0xFF695022);
   final Color warning950 = const Color(0xFF54401B);
+}
+
+class SkyBlue {
+  final Color skyBlue25 = const Color(0xFFF0F5FD);
+  final Color skyBlue50 = const Color(0xFFE1EAFB);
+  final Color skyBlue100 = const Color(0xFFC4D7F7);
+  final Color skyBlue200 = const Color(0xFFA8C1F3);
+  final Color skyBlue300 = const Color(0xFF88A9F0);
+  final Color skyBlue400 = const Color(0xFF6E94ED);
+  final Color skyBlue500 = const Color(0xFF75B5FB);
+  final Color skyBlue600 = const Color(0xFF4472D7);
+  final Color skyBlue700 = const Color(0xFF3A5FB4);
+  final Color skyBlue800 = const Color(0xFF314A91);
+  final Color skyBlue900 = const Color(0xFF2A3C6D);
+  final Color skyBlue950 = const Color(0xFF233158);
 }
 
 class BlueAzure {
@@ -239,6 +266,7 @@ class DextraAppColor {
   static ErrorColors error = ErrorColors();
   static SuccessColors success = SuccessColors();
   static WarningColors warning = WarningColors();
+  static SkyBlue skyBlue = SkyBlue();
   static BlueAzure blueAzure = BlueAzure();
   static Blue blue = Blue();
   static Green green = Green();
