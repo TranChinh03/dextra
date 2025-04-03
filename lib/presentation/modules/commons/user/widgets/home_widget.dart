@@ -1,7 +1,9 @@
 import 'package:dextra/presentation/assets/assets.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_arrow_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
+import 'package:dextra/presentation/modules/commons/widgets/card/camera_img_item.dart';
 import 'package:dextra/presentation/modules/commons/widgets/commonImage/common_image.dart';
+import 'package:dextra/presentation/modules/commons/widgets/text/common_heading.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
 import 'package:dextra/theme/border/app_border_radius.dart';
 import 'package:dextra/theme/color/app_color.dart';
@@ -11,6 +13,7 @@ import 'package:dextra/theme/spacing/app_spacing.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({super.key});
@@ -162,7 +165,44 @@ class _HomeWidgetState extends State<HomeWidget> {
                   ]),
                 ),
               ],
-            )
+            ),
+            CommonHeading(
+                heading: "Search for Cameras",
+                subheading: "Enter camera name  to see what’s happening now!"),
+            SearchAnchor(
+              builder: (BuildContext context, SearchController controller) {
+                return SearchBar(
+                  controller: controller,
+                  hintText: "Search...",
+                  trailing: <Widget>[
+                    SvgPicture.asset(
+                      Assets.svg.search,
+                      fit: BoxFit.scaleDown,
+                    ),
+                    SizedBox(
+                      width: AppSpacing.rem350.w,
+                    )
+                  ],
+                );
+              },
+              suggestionsBuilder:
+                  (BuildContext context, SearchController controller) {
+                return List<ListTile>.generate(5, (int index) {
+                  final String item = '';
+                  return ListTile(
+                    title: CommonText(""),
+                  );
+                });
+              },
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: AppSpacing.rem600),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [CameraImgItem(), CameraImgItem(), CameraImgItem()],
+              ),
+            ),
+            CommonPrimaryButton(text: "All Cameras")
           ],
         ),
       ),
