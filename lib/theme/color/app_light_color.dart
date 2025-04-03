@@ -38,7 +38,7 @@ class AppLightColor implements IAppColor {
   Color get buttonSecondaryColorBorder => DextraAppColor.primary.brand300;
 
   @override
-  Color get buttonSecondaryColorForeground => DextraAppColor.primary.brand700;
+  Color get buttonSecondaryColorForeground => DextraAppColor.primary.brand600;
 
   @override
   Color get foregroundDisabled => DextraAppColor.foreground.foregroundDisabled;
@@ -48,4 +48,12 @@ class AppLightColor implements IAppColor {
 
   @override
   Color get exampleColor => DextraAppColor.primary.brand100;
+  @override
+  Color get cardBackground => DextraAppColor.primary.brand50;
+  @override
+  Color get cardDecorate => DextraAppColor.primary.brand800;
+  @override
+  Color get cardBackground2 => DextraAppColor.accentColors.accent50;
+  @override
+  Color get cardDecorate2 => DextraAppColor.accentColors.accent600;
 }
