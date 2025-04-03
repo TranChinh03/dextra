@@ -29,6 +29,7 @@
   "Common.percent_sign": "%",
   "Common.view": "View",
   "Common.explore": "Explore",
+  "Common.explore_now": "Explore Now",
   "Common.cam_default_label": "Camera 01",
   "Common.vehicles_count_label": "Vehicles Counted Today",
   "Common.avg_congestion_label": "Average Congestion Level",
@@ -37,8 +38,11 @@
   "Common.default_compare_yesterda_value": "+55%",
   "Common.default_peak_congestion_value": "8:30 AM",
   "Common.peak_congestion_label": "Peak congestion at ",
-  "Common.compare_yesterday_label": "Compared to yesterday: "
+  "Common.compare_yesterday_label": "Compared to yesterday: ",
+  "Common.home_sec_1_heading": "Smart Traffic Statistics & Analysis",
+  "Common.home_sec_1_subheading": "Real-time insights and data-driven solutions for smarter urban traffic management",
 
+  "Common.end": "End"
 
 
 }
