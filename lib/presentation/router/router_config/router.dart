@@ -1,4 +1,5 @@
 import 'package:dextra/presentation/app/screens/home_screen.dart';
+import 'package:dextra/presentation/modules/commons/user/screens/user_master_page.dart';
 import 'package:dextra/presentation/router/app_router.dart';
 import 'package:go_router/go_router.dart';
 part 'config.dart';
@@ -6,6 +7,7 @@ part 'config.dart';
 class DextraRouter {
   static const prefixPath = Config._prefixPath;
   static const homePage = Config._homePage;
+  static const userPage = Config._userPage;
 
   static final routes = Config.routes;
 
