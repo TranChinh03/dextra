@@ -8,6 +8,7 @@ import 'package:dextra/presentation/modules/commons/widgets/button/common_primar
 import 'package:dextra/presentation/modules/commons/widgets/button/common_secondary_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/card/common_statistic_card.dart';
 import 'package:dextra/presentation/modules/commons/widgets/commonImage/common_image.dart';
+import 'package:dextra/presentation/router/router_config/router.dart';
 import 'package:dextra/theme/color/app_color.dart';
 import 'package:dextra/theme/font/app_font_size.dart';
 import 'package:dextra/theme/font/app_font_weight.dart';
@@ -67,12 +68,8 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(height: AppSpacing.rem100.h),
               CommonButton(
                 onPressed: () {
-                  final currentTheme = _appThemeBloc.state.themeMode;
-                  _appThemeBloc.add(
-                    ChangeAppTheme(
-                        themeMode: currentTheme == ThemeMode.dark
-                            ? ThemeMode.light
-                            : ThemeMode.dark),
+                  DextraRouter.go(
+                    DextraRouter.userPage,
                   );
                 },
                 // text: tr('Common.continue_title'),
