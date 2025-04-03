@@ -5,9 +5,16 @@ class AssetsPng {
 
   CustomAssetImage get placeHolder =>
       const CustomAssetImage('assets/png/place_holder.png');
-    
-  CustomAssetImage get logo =>
-      const CustomAssetImage('assets/png/logo.png');
+
+  CustomAssetImage get logo => const CustomAssetImage('assets/png/logo.png');
+
+  //Home
+  CustomAssetImage get homeSec1 =>
+      const CustomAssetImage('assets/png/home_sec_1.png');
+  CustomAssetImage get cam1 => const CustomAssetImage('assets/png/ltt_cmt.png');
+  CustomAssetImage get cam2 =>
+      const CustomAssetImage('assets/png/hang_xanh.png');
+  CustomAssetImage get cam3 => const CustomAssetImage('assets/png/cau_sg.png');
 }
 
 class CustomAssetImage {

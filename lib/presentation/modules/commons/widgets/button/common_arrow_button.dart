@@ -13,6 +13,7 @@ class CommonArrowButton extends StatelessWidget {
   final String? text;
   final Color? textColor;
   final Color? borderColor;
+  final Color? backgroundColor;
   final VoidCallback? onPressed;
   final EdgeInsets? margin;
   final EdgeInsets? padding;
@@ -25,6 +26,7 @@ class CommonArrowButton extends StatelessWidget {
     this.text,
     this.textColor,
     this.borderColor,
+    this.backgroundColor,
     this.onPressed,
     this.margin,
     this.padding,
@@ -46,7 +48,7 @@ class CommonArrowButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppBorderRadius.l),
         child: Container(
           decoration: BoxDecoration(
-            color: colors.buttonSecondaryColorBackground,
+            color: backgroundColor ?? colors.buttonSecondaryColorBackground,
             shape: BoxShape.circle,
             border: Border.all(color: effectiveBorderColor),
             boxShadow: [
