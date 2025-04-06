@@ -23,4 +23,11 @@ class AppUtils {
       Navigator.pop(context);
     }
   }
+
+  static bool isDesktopScreen(BuildContext context) {
+    if (MediaQuery.of(context).size.width >= 1440) {
+      return true;
+    }
+    return false;
+  }
 }

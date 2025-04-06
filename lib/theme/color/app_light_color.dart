@@ -56,4 +56,13 @@ class AppLightColor implements IAppColor {
   Color get cardBackground2 => DextraAppColor.accentColors.accent50;
   @override
   Color get cardDecorate2 => DextraAppColor.accentColors.accent600;
+
+  @override
+  Color get menuBackground => DextraAppColor.primary.brand400;
+
+  @override
+  Color get menuActiveTextColor => DextraAppColor.menu.activeText;
+
+  @override
+  Color get appBarTextHighlight => DextraAppColor.appBar.appBarTextHighlight;
 }

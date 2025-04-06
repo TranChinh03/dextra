@@ -272,6 +272,14 @@ class Divider {
   final Color dividerColor = const Color(0xD9D9D9D9);
 }
 
+class Menu {
+  final Color activeText = const Color(0xff4489D3);
+}
+
+class AppBar {
+  final Color appBarTextHighlight = const Color(0xFF1976D2);
+}
+
 class DextraAppColor {
   static PrimaryColors primary = PrimaryColors();
   static AccentColors accentColors = AccentColors();
@@ -295,4 +303,6 @@ class DextraAppColor {
   static Text text = Text();
   static Sliders sliders = Sliders();
   static Divider divider = Divider();
+  static Menu menu = Menu();
+  static AppBar appBar = AppBar();
 }

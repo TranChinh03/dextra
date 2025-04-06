@@ -10,5 +10,6 @@ class AppBorderRadius {
   static const double spacingxl = _radiusFactor * 8;
   static const double spacing2xl = _radiusFactor * 10;
   static const double spacing3xl = _radiusFactor * 14;
+  static const double spacing4xl = _radiusFactor * 28;
   static const double extra = _radiusFactor * 32;
 }
