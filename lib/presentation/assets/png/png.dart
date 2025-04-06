@@ -8,6 +8,8 @@ class AssetsPng {
 
   CustomAssetImage get logo => const CustomAssetImage('assets/png/logo.png');
 
+  CustomAssetImage get avatar => const CustomAssetImage('assets/png/avatar.png');
+
   //Home
   CustomAssetImage get homeSec1 =>
       const CustomAssetImage('assets/png/home_sec_1.png');

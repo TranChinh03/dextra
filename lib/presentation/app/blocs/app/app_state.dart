@@ -8,7 +8,7 @@ class AppState extends Equatable {
   const AppState({
     this.locale = "vn_VN",
     // this.initialRouterLocation = DextraRouter.homePage,
-    this.initialRouterLocation = DextraRouter.userPage,
+    this.initialRouterLocation = "${DextraRouter.userPage}/${DextraRouter.homeWidget}",
   });
 
   AppState copyWith({

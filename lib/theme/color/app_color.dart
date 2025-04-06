@@ -36,6 +36,13 @@ abstract class IAppColor {
   //
   Color get exampleColor;
 
+  // menu
+  Color get menuBackground;
+  Color get menuActiveTextColor;
+
+  // app bar
+  Color get appBarTextHighlight;
+
   static IAppColor watch(BuildContext context) =>
       context.watch<AppThemeBloc>().state.appColor;
 }
