@@ -8,7 +8,8 @@ class AssetsPng {
 
   CustomAssetImage get logo => const CustomAssetImage('assets/png/logo.png');
 
-  CustomAssetImage get avatar => const CustomAssetImage('assets/png/avatar.png');
+  CustomAssetImage get avatar =>
+      const CustomAssetImage('assets/png/avatar.png');
 
   //Home
   CustomAssetImage get homeSec1 =>
@@ -17,6 +18,8 @@ class AssetsPng {
   CustomAssetImage get cam2 =>
       const CustomAssetImage('assets/png/hang_xanh.png');
   CustomAssetImage get cam3 => const CustomAssetImage('assets/png/cau_sg.png');
+  CustomAssetImage get mapDemo =>
+      const CustomAssetImage('assets/png/map_demo.png');
 }
 
 class CustomAssetImage {

@@ -56,6 +56,8 @@ class AppDarkColor implements IAppColor {
   Color get cardBackground2 => DextraAppColor.primary.brand50;
   @override
   Color get cardDecorate2 => DextraAppColor.primary.brand800;
+  @override
+  Color get primaryBannerBg => DextraAppColor.primary.brand25;
 
   @override
   Color get menuBackground => DextraAppColor.primary.brand400;

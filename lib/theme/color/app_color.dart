@@ -33,6 +33,9 @@ abstract class IAppColor {
   Color get cardBackground2;
   Color get cardDecorate2;
 
+  //banner
+  Color get primaryBannerBg;
+
   //
   Color get exampleColor;
 
