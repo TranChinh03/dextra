@@ -2,7 +2,7 @@ import 'package:dextra/presentation/modules/commons/user/screens/user_master_pag
 import 'package:dextra/presentation/modules/commons/user/widgets/configuration_screen.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/home_widget.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/map_cam_widget.dart';
-import 'package:dextra/presentation/modules/commons/user/widgets/statistic_widget.dart';
+import 'package:dextra/presentation/modules/commons/user/widgets/statistic/statistic_widget.dart';
 import 'package:dextra/presentation/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -28,5 +28,6 @@ class DextraRouter {
   static void replace(String path, {Object? params}) =>
       router.replace(path, extra: params);
   static void pop() => router.pop();
-  static String getCurrentLocation() => router.routerDelegate.currentConfiguration.uri.toString();
+  static String getCurrentLocation() =>
+      router.routerDelegate.currentConfiguration.uri.toString();
 }
