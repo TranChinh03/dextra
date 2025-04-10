@@ -33,7 +33,6 @@ class _HomeWidgetState extends State<HomeWidget> {
       child: SingleChildScrollView(
         padding: EdgeInsets.all(AppSpacing.rem600.w),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
