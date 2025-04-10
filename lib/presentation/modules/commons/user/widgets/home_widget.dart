@@ -1,5 +1,4 @@
 import 'package:dextra/presentation/assets/assets.dart';
-import 'package:dextra/presentation/modules/commons/user/widgets/statistic_widget.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_arrow_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_secondary_button.dart';
@@ -34,6 +33,7 @@ class _HomeWidgetState extends State<HomeWidget> {
       child: SingleChildScrollView(
         padding: EdgeInsets.all(AppSpacing.rem600.w),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

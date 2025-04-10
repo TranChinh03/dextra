@@ -49,6 +49,8 @@
   "Common.today_stats_info": "Live Traffic Insights at a Glance",
   "Common.export_banner": "Export Traffic Reports with One Click",
   "Common.export_banner_info": "Get detailed traffic analysis reports in multiple formats for easy sharing and insights",
+  "Common.export_report": "Export report",
+  "Common.schedule_report": "Schedule report",
 
   "Common.end": "End"
 
