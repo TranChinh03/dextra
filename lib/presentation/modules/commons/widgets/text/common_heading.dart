@@ -35,7 +35,10 @@ class CommonHeading extends StatelessWidget {
 
     return Container(
       margin: margin,
-      padding: padding ?? EdgeInsets.all(AppSpacing.rem600),
+      padding: padding ?? EdgeInsets.symmetric(
+        vertical: AppSpacing.rem600.h,
+        horizontal: AppSpacing.rem600.w,
+      ),
       child: Column(
         children: [
           CommonText(

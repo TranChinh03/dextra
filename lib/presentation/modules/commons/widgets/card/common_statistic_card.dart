@@ -64,7 +64,10 @@ class CommonStatisticCard extends StatelessWidget {
           SizedBox(
             width: AppSpacing.rem6250.w * 0.75,
             child: Padding(
-              padding: EdgeInsets.all(AppSpacing.rem450.h),
+              padding: EdgeInsets.symmetric(
+                horizontal: AppSpacing.rem450.w,
+                vertical: AppSpacing.rem450.h,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,

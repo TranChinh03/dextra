@@ -70,8 +70,9 @@ class CommonArrowButton extends StatelessWidget {
             ],
           ),
           padding: padding ??
-              EdgeInsets.all(
-                AppSpacing.rem125.w,
+              EdgeInsets.symmetric(
+                horizontal: AppSpacing.rem125.w,
+                vertical: AppSpacing.rem125.h,
               ),
           child: Center(
             child: SvgPicture.asset(

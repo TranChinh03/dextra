@@ -31,7 +31,10 @@ class _HomeWidgetState extends State<HomeWidget> {
     return SizedBox(
       width: double.infinity,
       child: SingleChildScrollView(
-        padding: EdgeInsets.all(AppSpacing.rem600.w),
+        padding: EdgeInsets.symmetric(
+          horizontal: AppSpacing.rem600.w,
+          vertical: AppSpacing.rem600.h,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
