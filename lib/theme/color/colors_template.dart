@@ -35,6 +35,7 @@ class PrimaryColors {
   final Color brand600 = const Color(0xFF4389D3); // Tufts Blue
   final Color brand700 = const Color(0xFF2868BA); // True Blue
   final Color brand800 = const Color(0xFF0D47A1); // Cobalt Blue
+  final Color brand1000 = const Color(0xFF1B3763); // Cobalt Blue
 }
 
 class AccentColors {

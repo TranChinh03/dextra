@@ -9,4 +9,7 @@ class AssetsSvg {
   String get statisticIcon => 'assets/svg/statisticIcon.svg';
   String get configurationIcon => 'assets/svg/configurationIcon.svg';
   String get signOutIcon => 'assets/svg/signOutIcon.svg';
+  String get circleIcon => 'assets/svg/circle.svg';
+  String get pdfIcon => 'assets/svg/pdf.svg';
+  String get notiIcon => 'assets/svg/noti.svg';
 }
