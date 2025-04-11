@@ -36,7 +36,6 @@ class _HomeWidgetState extends State<HomeWidget> {
           vertical: AppSpacing.rem600.h,
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
