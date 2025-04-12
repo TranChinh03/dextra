@@ -67,4 +67,7 @@ class AppDarkColor implements IAppColor {
 
   @override
   Color get appBarTextHighlight => DextraAppColor.appBar.appBarTextHighlight;
+
+  @override
+  Color get white => Colors.white;
 }

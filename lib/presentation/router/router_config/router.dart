@@ -1,3 +1,4 @@
+import 'package:dextra/presentation/modules/commons/auth/auth_screen.dart';
 import 'package:dextra/presentation/modules/commons/user/screens/user_master_page.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/configuration_screen.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/home_widget.dart';
@@ -10,6 +11,8 @@ part 'config.dart';
 
 class DextraRouter {
   static const prefixPath = Config._prefixPath;
+
+  static const authPage = Config._authPage;
 
   static const homeWidget = Config._homeWidget;
   static const mapCamWidget = Config._mapCamWidget;

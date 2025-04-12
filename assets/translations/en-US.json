@@ -52,7 +52,8 @@
   "Common.export_report": "Export report",
   "Common.schedule_report": "Schedule report",
 
-  "Common.end": "End"
+  "Common.end": "End",
 
-
+  "Auth.sub_slogan": "Automatic Traffic Statistics & Analysis",
+  "Auth.slogan": "Automated Traffic Analysis & Statistics for Smarter Urban Mobility"
 }
