@@ -11,6 +11,16 @@ class AssetsPng {
   CustomAssetImage get avatar =>
       const CustomAssetImage('assets/png/avatar.png');
 
+  // Auth
+  CustomAssetImage get authBackground =>
+      const CustomAssetImage('assets/png/auth_background.png');
+
+  CustomAssetImage get google =>
+      const CustomAssetImage('assets/png/google.png');
+
+  CustomAssetImage get facebook =>
+      const CustomAssetImage('assets/png/facebook.png');
+
   //Home
   CustomAssetImage get homeSec1 =>
       const CustomAssetImage('assets/png/home_sec_1.png');

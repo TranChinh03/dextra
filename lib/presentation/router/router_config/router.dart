@@ -1,3 +1,4 @@
+import 'package:dextra/presentation/modules/commons/auth/auth_screen.dart';
 import 'package:dextra/presentation/modules/commons/user/screens/user_master_page.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/configuration_screen.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/home_widget.dart';
@@ -10,6 +11,10 @@ part 'config.dart';
 
 class DextraRouter {
   static const prefixPath = Config._prefixPath;
+
+  static const authPage = Config._authPage;
+
+  static const userHomePage = "${Config._userPage}/${Config._homeWidget}";
 
   static const homeWidget = Config._homeWidget;
   static const mapCamWidget = Config._mapCamWidget;
@@ -24,7 +29,7 @@ class DextraRouter {
   static void pushNamed(String path, {Object? params}) =>
       router.pushNamed(path, extra: params);
   static void go(String path, {Object? params}) =>
-      router.go(path, extra: params);
+        router.go(path, extra: params);
   static void replace(String path, {Object? params}) =>
       router.replace(path, extra: params);
   static void pop() => router.pop();

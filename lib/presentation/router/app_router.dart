@@ -1,5 +1,6 @@
 import 'package:dextra/di/injectable.dart';
 import 'package:dextra/presentation/app/blocs/app/app_bloc.dart';
+import 'package:dextra/presentation/app/blocs/authentication/authentication_bloc.dart';
 import 'package:dextra/presentation/router/router_config/router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class AppRouter {
   AppRouter();
 
   final _appBloc = getIt.get<AppBloc>();
+  final _authenticationBloc = getIt.get<AuthenticationBloc>();
 
   static String get currentLocation {
     final lastMatch = router.routerDelegate.currentConfiguration.last;
@@ -28,27 +30,28 @@ class AppRouter {
 
   GoRouter get appRouter {
     router = GoRouter(
+      errorBuilder: (context, state) => const Center(
+        child: Text('Error'),
+      ),
+      redirect: (context, state) {
+        if (_authenticationBloc.state.isLoggedIn == false) {
+          return DextraRouter.authPage;
+        }
+      },
       initialLocation: _getInitialLocation(),
       navigatorKey: rootNavigatorKey,
       routes: [...DextraRouter.routes],
-      // initialExtra: _authenticationBloc.state.authenticationState?.extra,
+      initialExtra: _authenticationBloc.state.authenticationState?.extra,
     );
-
-    // _authenticationBloc.add(
-    //   UpdateAuthenticationStateEvent(
-    //     authenticationState: null,
-    //     redirectPath: null,
-    //   ),
-    // );
 
     return router;
   }
 
   String? _getInitialLocation() {
-    // final authenticationState = _authenticationBloc.state;
-    // if (authenticationState.redirectPath != null) {
-    //   return authenticationState.redirectPath;
-    // }
+    final authenticationState = _authenticationBloc.state;
+    if (authenticationState.isLoggedIn == true) {
+      return DextraRouter.userPage;
+    }
 
     return _appBloc.state.initialRouterLocation;
   }
