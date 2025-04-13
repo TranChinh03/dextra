@@ -70,4 +70,7 @@ class AppDarkColor implements IAppColor {
 
   @override
   Color get white => Colors.white;
+
+  @override
+  Color get black => Colors.black;
 }

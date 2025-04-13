@@ -49,6 +49,7 @@ abstract class IAppColor {
 
   // Fixed color
   Color get white;
+  Color get black;
 
   static IAppColor watch(BuildContext context) =>
       context.watch<AppThemeBloc>().state.appColor;

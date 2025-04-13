@@ -1,5 +1,7 @@
+import 'package:dextra/di/injectable.dart';
 import 'package:dextra/domain/enum/screen.dart';
 import 'package:dextra/domain/enum/screen_path.dart';
+import 'package:dextra/presentation/app/blocs/authentication/authentication_bloc.dart';
 import 'package:dextra/presentation/assets/assets.dart';
 import 'package:dextra/presentation/modules/commons/widgets/commonImage/common_image.dart';
 import 'package:dextra/presentation/modules/commons/widgets/menu/menu_item.dart';
@@ -19,6 +21,11 @@ class Menu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appColor = IAppColor.watch(context);
+    final _authBloc = getIt.get<AuthenticationBloc>();
+
+    void onSignOut() {
+      _authBloc.add(SignOutEvent());
+    }
 
     return Drawer(
       width: AppSpacing.rem3375.w,
@@ -46,9 +53,9 @@ class Menu extends StatelessWidget {
               title: ScreenEnum.home.value,
               prefixIcon: Assets.svg.homeIcon,
               navigateRoute: ScreenPath.home.value,
-              isActive:
-                  DextraRouter.getCurrentLocation() == ScreenPath.home.value ||
-                      DextraRouter.getCurrentLocation() == ScreenPath.user.value,
+              isActive: DextraRouter.getCurrentLocation() ==
+                      ScreenPath.home.value ||
+                  DextraRouter.getCurrentLocation() == ScreenPath.user.value,
             ),
             MenuItem(
               title: ScreenEnum.statistic.value,
@@ -74,6 +81,7 @@ class Menu extends StatelessWidget {
             MenuItem(
               title: tr('Common.sign_out'),
               prefixIcon: Assets.svg.signOutIcon,
+              onTap: onSignOut,
             ),
           ],
         ),

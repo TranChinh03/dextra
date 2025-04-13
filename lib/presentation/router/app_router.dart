@@ -30,17 +30,18 @@ class AppRouter {
 
   GoRouter get appRouter {
     router = GoRouter(
+      errorBuilder: (context, state) => const Center(
+        child: Text('Error'),
+      ),
+      redirect: (context, state) {
+        if (_authenticationBloc.state.isLoggedIn == false) {
+          return DextraRouter.authPage;
+        }
+      },
       initialLocation: _getInitialLocation(),
       navigatorKey: rootNavigatorKey,
       routes: [...DextraRouter.routes],
       initialExtra: _authenticationBloc.state.authenticationState?.extra,
-    );
-
-    _authenticationBloc.add(
-      UpdateAuthenticationStateEvent(
-        authenticationState: null,
-        redirectPath: null,
-      ),
     );
 
     return router;
@@ -48,8 +49,8 @@ class AppRouter {
 
   String? _getInitialLocation() {
     final authenticationState = _authenticationBloc.state;
-    if (authenticationState.redirectPath != null) {
-      return authenticationState.redirectPath;
+    if (authenticationState.isLoggedIn == true) {
+      return DextraRouter.userPage;
     }
 
     return _appBloc.state.initialRouterLocation;

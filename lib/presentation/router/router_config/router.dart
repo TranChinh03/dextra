@@ -14,6 +14,8 @@ class DextraRouter {
 
   static const authPage = Config._authPage;
 
+  static const userHomePage = "${Config._userPage}/${Config._homeWidget}";
+
   static const homeWidget = Config._homeWidget;
   static const mapCamWidget = Config._mapCamWidget;
   static const statisticWidget = Config._statisticWidget;
@@ -27,7 +29,7 @@ class DextraRouter {
   static void pushNamed(String path, {Object? params}) =>
       router.pushNamed(path, extra: params);
   static void go(String path, {Object? params}) =>
-      router.go(path, extra: params);
+        router.go(path, extra: params);
   static void replace(String path, {Object? params}) =>
       router.replace(path, extra: params);
   static void pop() => router.pop();

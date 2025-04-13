@@ -1,4 +1,5 @@
 {
+  "Common.Dextra": "Dextra",
   "Common.first_name_title": "First Name",
   "Common.middle_name_optional_title": "Middle Name (optional)",
   "Common.last_name_title": "Last Name",
@@ -43,6 +44,7 @@
   "Common.home_sec_1_subheading": "Real-time insights and data-driven solutions for smarter urban traffic management",
   "Common.sign_out": "Sign Out",
   "Common.welcome": "Welcome",
+  "Common.welcome_to": "Welcome to",
   "Common.access_map": "Access Map",
   "Common.access_map_info": "Access a smart, interactive map that visualizes surveillance camera locations and provides real-time traffic insights across the city.",
   "Common.today_stats": "Today’s Key Stats",
@@ -55,5 +57,15 @@
   "Common.end": "End",
 
   "Auth.sub_slogan": "Automatic Traffic Statistics & Analysis",
-  "Auth.slogan": "Automated Traffic Analysis & Statistics for Smarter Urban Mobility"
+  "Auth.slogan": "Automated Traffic Analysis & Statistics for Smarter Urban Mobility",
+  "Auth.user_name": "User Name",
+  "Auth.password": "Password",
+  "Auth.sign_in": "Sign In",
+  "Auth.or_continue_with": "Or continue with",
+  "Auth.not_a_member": "Not A Member?",
+  "Auth.sign_up_now": "Sign Up Now",
+  "Auth.create_account": "Create Account",
+  "Auth.sign_up": "Sign Up",
+  "Auth.or_sign_up_with": "Or sign up with",
+  "Auth.already_have_account": "Already have an account?"
 }

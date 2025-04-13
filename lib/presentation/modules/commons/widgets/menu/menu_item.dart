@@ -13,6 +13,7 @@ class MenuItem extends StatefulWidget {
   final String title;
   final bool isActive;
   final String? navigateRoute;
+  final Function()? onTap;
 
   const MenuItem({
     super.key,
@@ -20,6 +21,7 @@ class MenuItem extends StatefulWidget {
     required this.title,
     this.isActive = false,
     this.navigateRoute,
+    this.onTap,
   });
 
   @override
@@ -35,6 +37,10 @@ class _MenuItemState extends State<MenuItem> {
 
     return GestureDetector(
       onTap: () {
+        if (widget.onTap != null) {
+          widget.onTap!();
+          return;
+        }
         if (widget.navigateRoute != null && !widget.isActive) {
           DextraRouter.go(widget.navigateRoute!);
         }
