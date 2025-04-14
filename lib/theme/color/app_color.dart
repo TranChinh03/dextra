@@ -1,6 +1,7 @@
 import 'package:dextra/presentation/app/blocs/theme/app_theme_bloc.dart';
 import 'package:dextra/theme/color/colors_template.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 part 'app_light_color.dart';
 part 'app_dark_color.dart';
@@ -49,6 +50,10 @@ abstract class IAppColor {
   //badge
   Color get liveBadgeTextColor;
   Color get liveBadgeBgColor;
+
+  // Fixed color
+  Color get white;
+  Color get black;
 
   static IAppColor watch(BuildContext context) =>
       context.watch<AppThemeBloc>().state.appColor;

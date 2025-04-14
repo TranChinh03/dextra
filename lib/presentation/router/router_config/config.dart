@@ -3,6 +3,8 @@ part of 'router.dart';
 class Config {
   static const _prefixPath = '/dextra';
 
+  static const _authPage = '/auth';
+
   static const _userPage = '$_prefixPath/user';
   static const _homeWidget = 'home';
   static const _mapCamWidget = 'map-cam';
@@ -10,6 +12,13 @@ class Config {
   static const _configurationWidget = 'configuration';
 
   static final routes = <RouteBase>[
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: _authPage,
+      builder: (_, state) {
+        return AuthScreen();
+      },
+    ),
     GoRoute(
       parentNavigatorKey: rootNavigatorKey,
       path: _userPage,
