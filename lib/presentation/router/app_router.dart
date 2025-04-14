@@ -2,6 +2,7 @@ import 'package:dextra/di/injectable.dart';
 import 'package:dextra/presentation/app/blocs/app/app_bloc.dart';
 import 'package:dextra/presentation/app/blocs/authentication/authentication_bloc.dart';
 import 'package:dextra/presentation/router/router_config/router.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -34,7 +35,7 @@ class AppRouter {
         child: Text('Error'),
       ),
       redirect: (context, state) {
-        if (_authenticationBloc.state.isLoggedIn == false) {
+        if (FirebaseAuth.instance.currentUser == null) {
           return DextraRouter.authPage;
         }
       },
