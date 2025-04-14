@@ -46,6 +46,10 @@ abstract class IAppColor {
   // app bar
   Color get appBarTextHighlight;
 
+  //badge
+  Color get liveBadgeTextColor;
+  Color get liveBadgeBgColor;
+
   static IAppColor watch(BuildContext context) =>
       context.watch<AppThemeBloc>().state.appColor;
 }
