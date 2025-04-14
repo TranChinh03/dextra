@@ -61,8 +61,6 @@ class AuthenticationBloc
       ),
     );
 
-    await Firebase.initializeApp();
-
     final FirebaseAuth auth = FirebaseAuth.instance;
     GoogleAuthProvider authProvider = GoogleAuthProvider();
     try {
@@ -103,8 +101,6 @@ class AuthenticationBloc
         apiState: ApiState(status: ApiStatus.loading),
       ),
     );
-
-    await Firebase.initializeApp();
 
     final FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -147,6 +143,9 @@ class AuthenticationBloc
         apiState: ApiState(status: ApiStatus.loading),
       ),
     );
+
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    await auth.signOut();
 
     try {
       emit(

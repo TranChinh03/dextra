@@ -31,9 +31,9 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     gh.lazySingleton<_i875.AppBloc>(() => _i875.AppBloc());
+    gh.lazySingleton<_i468.AppThemeBloc>(() => _i468.AppThemeBloc());
     gh.lazySingleton<_i948.AuthenticationBloc>(
         () => _i948.AuthenticationBloc());
-    gh.lazySingleton<_i468.AppThemeBloc>(() => _i468.AppThemeBloc());
     gh.lazySingleton<_i1065.IApiClient>(() => _i447.DioClient());
     return this;
   }
