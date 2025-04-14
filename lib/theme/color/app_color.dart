@@ -47,6 +47,10 @@ abstract class IAppColor {
   // app bar
   Color get appBarTextHighlight;
 
+  //badge
+  Color get liveBadgeTextColor;
+  Color get liveBadgeBgColor;
+
   // Fixed color
   Color get white;
   Color get black;

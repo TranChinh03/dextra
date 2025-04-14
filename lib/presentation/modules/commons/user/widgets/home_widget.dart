@@ -5,6 +5,7 @@ import 'package:dextra/presentation/modules/commons/widgets/button/common_second
 import 'package:dextra/presentation/modules/commons/widgets/card/camera_img_item.dart';
 import 'package:dextra/presentation/modules/commons/widgets/card/common_statistic_card.dart';
 import 'package:dextra/presentation/modules/commons/widgets/commonImage/common_image.dart';
+import 'package:dextra/presentation/modules/commons/widgets/input/search_box.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_heading.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
 import 'package:dextra/theme/border/app_border_radius.dart';
@@ -174,32 +175,7 @@ class _HomeWidgetState extends State<HomeWidget> {
             CommonHeading(
                 heading: "Search for Cameras",
                 subheading: "Enter camera name  to see what’s happening now!"),
-            SearchAnchor(
-              builder: (BuildContext context, SearchController controller) {
-                return SearchBar(
-                  controller: controller,
-                  hintText: "Search...",
-                  trailing: <Widget>[
-                    SvgPicture.asset(
-                      Assets.svg.search,
-                      fit: BoxFit.scaleDown,
-                    ),
-                    SizedBox(
-                      width: AppSpacing.rem350.w,
-                    )
-                  ],
-                );
-              },
-              suggestionsBuilder:
-                  (BuildContext context, SearchController controller) {
-                return List<ListTile>.generate(5, (int index) {
-                  final String item = '';
-                  return ListTile(
-                    title: CommonText(""),
-                  );
-                });
-              },
-            ),
+            SearchBox(),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: AppSpacing.rem600),
               child: Row(
