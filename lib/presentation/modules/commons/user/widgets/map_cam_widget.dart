@@ -8,6 +8,7 @@ import 'package:dextra/presentation/modules/commons/widgets/card/common_statisti
 import 'package:dextra/presentation/modules/commons/widgets/commonImage/common_image.dart';
 import 'package:dextra/presentation/modules/commons/widgets/input/search_box.dart';
 import 'package:dextra/presentation/modules/commons/widgets/input/simpleDropdown.dart';
+import 'package:dextra/presentation/modules/commons/widgets/map/map.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_heading.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
 import 'package:dextra/theme/border/app_border_radius.dart';
@@ -156,7 +157,7 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                 height: AppSpacing.rem8975.h,
                 width: double.infinity,
                 color: colors.primaryBannerBg,
-                child: CommonText("Map"),
+                child: MapSample(),
               ),
               Padding(
                 padding:
