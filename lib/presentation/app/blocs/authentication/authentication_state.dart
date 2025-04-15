@@ -11,7 +11,7 @@ class AuthenticationState extends Equatable {
   const AuthenticationState({
     this.authenticationState,
     this.redirectPath,
-    this.isLoggedIn = true,
+    this.isLoggedIn = false,
     this.apiState,
     this.accessToken,
   });
