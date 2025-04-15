@@ -8,7 +8,6 @@ class AuthenticationState extends Equatable {
   final ApiState? apiState;
   final String? accessToken;
 
-
   const AuthenticationState({
     this.authenticationState,
     this.redirectPath,
@@ -34,11 +33,6 @@ class AuthenticationState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [
-        authenticationState,
-        redirectPath,
-        isLoggedIn,
-        apiState,
-        accessToken
-      ];
+  List<Object?> get props =>
+      [authenticationState, redirectPath, isLoggedIn, apiState, accessToken];
 }

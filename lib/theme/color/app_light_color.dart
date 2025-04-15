@@ -7,7 +7,7 @@ class AppLightColor implements IAppColor {
   Color get backgroundApp => Colors.white;
 
   @override
-  Color get buttonPrimaryBackground => DextraAppColor.primary.brand600;
+  Color get buttonPrimaryBackground => DextraAppColor.primary.brand400;
 
   @override
   Color get buttonSecondaryBackground => Colors.white;
@@ -67,7 +67,7 @@ class AppLightColor implements IAppColor {
 
   @override
   Color get appBarTextHighlight => DextraAppColor.appBar.appBarTextHighlight;
-  
+
   @override
   Color get liveBadgeTextColor => DextraAppColor.orangeDark.orangeDark600;
   @override

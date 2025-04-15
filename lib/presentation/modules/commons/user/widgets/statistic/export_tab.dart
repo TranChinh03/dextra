@@ -157,19 +157,12 @@ class _ExportTabState extends State<ExportTab> {
     }
   }
 
-  String _formatDate(DateTime? date) {
-    return date == null
-        ? 'Select Date'
-        : DateFormat('dd MMM yyyy').format(date);
-  }
-
   String _formatTime(TimeOfDay? time) {
     if (time == null) return 'Select Time';
 
     final now = DateTime.now();
     final dt = DateTime(now.year, now.month, now.day, time.hour, time.minute);
-    return DateFormat('HH:mm')
-        .format(dt); // hoặc 'hh:mm a' nếu bạn thích kiểu 12h
+    return DateFormat('HH:mm').format(dt);
   }
 
   @override
@@ -238,8 +231,6 @@ class _ExportTabState extends State<ExportTab> {
                           ),
                         ],
                       ),
-
-                      // Show pickers if custom
                       if (_selectedOption == 'Custom') ...[
                         Container(
                           padding: EdgeInsets.only(top: AppSpacing.rem250.h),

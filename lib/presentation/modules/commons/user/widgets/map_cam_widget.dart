@@ -1,7 +1,14 @@
 import 'dart:async';
 
+import 'package:dextra/presentation/assets/assets.dart';
+import 'package:dextra/presentation/modules/commons/user/widgets/statistic/charts/pie_chart_sample.dart';
+import 'package:dextra/presentation/modules/commons/user/widgets/statistic/date_time_picker.dart';
+import 'package:dextra/presentation/modules/commons/widgets/card/camera_img_item.dart';
+import 'package:dextra/presentation/modules/commons/widgets/card/common_statistic_card.dart';
+import 'package:dextra/presentation/modules/commons/widgets/commonImage/common_image.dart';
 import 'package:dextra/presentation/modules/commons/widgets/input/search_box.dart';
 import 'package:dextra/presentation/modules/commons/widgets/input/simpleDropdown.dart';
+import 'package:dextra/presentation/modules/commons/widgets/text/common_heading.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
 import 'package:dextra/theme/border/app_border_radius.dart';
 import 'package:dextra/theme/color/app_color.dart';
@@ -73,6 +80,14 @@ class _MapCamWidgetState extends State<MapCamWidget> {
   @override
   Widget build(BuildContext context) {
     final colors = IAppColor.watch(context);
+    List<Widget> imageList = List.generate(
+      9,
+      (_) => CommonImage(
+        imagePath: Assets.png.placeHolder.path,
+        width: AppSpacing.rem600.w,
+      ),
+    );
+
     return SizedBox(
         width: double.infinity,
         child: SingleChildScrollView(
@@ -137,10 +152,61 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                 ],
               ),
               Container(
+                margin: EdgeInsets.only(top: AppSpacing.rem600.h),
                 height: AppSpacing.rem8975.h,
                 width: double.infinity,
                 color: colors.primaryBannerBg,
                 child: CommonText("Map"),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: AppSpacing.rem600),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [CameraImgItem(), CameraImgItem(), CameraImgItem()],
+                ),
+              ),
+              CommonHeading(
+                heading: "Analyze Traffic",
+                subheading:
+                    "Gain deeper insights into traffic flow patterns through visualized results, detection snapshots, and vehicle density analysis across surveillance points",
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SearchBox(),
+                  CommonText(
+                    "Time: ",
+                    style: TextStyle(fontWeight: AppFontWeight.bold),
+                  ),
+                  // DateTimePicker(label: '', onPressed: () {}, isDate: true)
+                ],
+              ),
+              GridView.count(
+                padding: EdgeInsets.symmetric(vertical: AppSpacing.rem600.h),
+                crossAxisCount: 3,
+                crossAxisSpacing: AppSpacing.rem300.w,
+                mainAxisSpacing: AppSpacing.rem300.h,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                children: imageList,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                      height: AppSpacing.rem5000.h,
+                      width: AppSpacing.rem6250.w,
+                      child: PieChartSample2()),
+                  CommonStatisticCard(
+                    label: tr('Common.avg_congestion_label'),
+                    value: tr('Common.default_avg_congestion'),
+                    info: tr('Common.peak_congestion_label') +
+                        tr('Common.default_peak_congestion_value'),
+                    background: colors.cardBackground2,
+                    decoration: colors.cardDecorate2,
+                  ),
+                ],
               )
             ])));
   }
