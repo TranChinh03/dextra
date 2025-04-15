@@ -29,8 +29,7 @@ class DateTimePicker extends StatelessWidget {
 
     final now = DateTime.now();
     final dt = DateTime(now.year, now.month, now.day, time.hour, time.minute);
-    return DateFormat('HH:mm')
-        .format(dt); // hoặc 'hh:mm a' nếu bạn thích kiểu 12h
+    return DateFormat('HH:mm').format(dt);
   }
 
   @override
