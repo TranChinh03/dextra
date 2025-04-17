@@ -83,9 +83,27 @@ class _MapCamWidgetState extends State<MapCamWidget> {
     final colors = IAppColor.watch(context);
     List<Widget> imageList = List.generate(
       9,
-      (_) => CommonImage(
-        imagePath: Assets.png.placeHolder.path,
-        width: AppSpacing.rem600.w,
+      (_) => InkWell(
+        onTap: () => showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('VoChiCong - CauPhuHuu2'),
+            content: CommonImage(
+              imagePath: Assets.png.placeHolder.path,
+              width: AppSpacing.rem9999.w,
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('Close'),
+              ),
+            ],
+          ),
+        ),
+        child: CommonImage(
+          imagePath: Assets.png.placeHolder.path,
+          width: AppSpacing.rem600.w,
+        ),
       ),
     );
 
@@ -145,8 +163,13 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                     width: AppSpacing.rem300.w,
                   ),
                   Expanded(
-                    child: Simpledropdown(
-                      itemsList: _districts,
+                    child: SimpleDropdown(
+                      itemsList: _districts.map((option) {
+                        return DropdownMenuItem<String>(
+                          value: option,
+                          child: CommonText(option),
+                        );
+                      }).toList(),
                       onChanged: (value) => setState(() {}),
                     ),
                   )
