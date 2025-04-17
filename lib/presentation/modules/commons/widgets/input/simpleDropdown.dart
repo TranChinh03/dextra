@@ -5,17 +5,17 @@ import 'package:dextra/theme/spacing/app_spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class Simpledropdown extends StatefulWidget {
-  final List<String> itemsList;
+class SimpleDropdown extends StatefulWidget {
+  final List<DropdownMenuItem<String>> itemsList;
   final ValueChanged<String>? onChanged;
-  const Simpledropdown(
+  const SimpleDropdown(
       {super.key, required this.itemsList, required this.onChanged});
 
   @override
-  State<Simpledropdown> createState() => _SimpledropdownState();
+  State<SimpleDropdown> createState() => _SimpleDropdownState();
 }
 
-class _SimpledropdownState extends State<Simpledropdown> {
+class _SimpleDropdownState extends State<SimpleDropdown> {
   @override
   Widget build(BuildContext context) {
     final colors = IAppColor.watch(context);
@@ -37,13 +37,8 @@ class _SimpledropdownState extends State<Simpledropdown> {
           borderSide: BorderSide.none,
         ),
       ),
-      value: widget.itemsList.first,
-      items: widget.itemsList.map((option) {
-        return DropdownMenuItem<String>(
-          value: option,
-          child: Text(option),
-        );
-      }).toList(),
+      value: widget.itemsList.first.value,
+      items: widget.itemsList,
       onChanged: (value) {
         widget.onChanged!(value!);
       },
