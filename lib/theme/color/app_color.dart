@@ -55,6 +55,9 @@ abstract class IAppColor {
   Color get white;
   Color get black;
 
+  //border divider
+  Color get dividerColor;
+
   static IAppColor watch(BuildContext context) =>
       context.watch<AppThemeBloc>().state.appColor;
 }

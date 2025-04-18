@@ -72,6 +72,8 @@ class AppLightColor implements IAppColor {
   Color get liveBadgeTextColor => DextraAppColor.orangeDark.orangeDark600;
   @override
   Color get liveBadgeBgColor => DextraAppColor.error.error50;
+  @override
+  Color get dividerColor => DextraAppColor.divider.dividerColor;
 
   @override
   Color get white => Colors.white;

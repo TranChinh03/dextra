@@ -12,4 +12,7 @@ class AssetsSvg {
   String get circleIcon => 'assets/svg/circle.svg';
   String get pdfIcon => 'assets/svg/pdf.svg';
   String get notiIcon => 'assets/svg/noti.svg';
+  String get editIcon => 'assets/svg/edit.svg';
+  String get bookmarkOutlineIcon => 'assets/svg/bookmark_outline.svg';
+  String get bookmarkFilledIcon => 'assets/svg/bookmark_filled.svg';
 }
