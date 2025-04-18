@@ -12,11 +12,13 @@ import 'package:dextra/theme/spacing/app_spacing.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
-class CameraImgItem extends StatelessWidget {
+class CameraImgItem extends StatefulWidget {
   final String? name;
   final String? time;
   final String? img;
+  final bool isSaved;
   final VoidCallback? onPressed;
   final int? maxLines;
   final TextOverflow? overflow;
@@ -29,7 +31,21 @@ class CameraImgItem extends StatelessWidget {
     this.onPressed,
     this.maxLines,
     this.overflow,
+    required this.isSaved,
   });
+
+  @override
+  State<CameraImgItem> createState() => _CameraImgItemState();
+}
+
+class _CameraImgItemState extends State<CameraImgItem> {
+  late bool isFavorite;
+
+  @override
+  void initState() {
+    super.initState();
+    isFavorite = widget.isSaved; // <-- local state from parent
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,29 +58,50 @@ class CameraImgItem extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(AppBorderRadius.spacing3xl),
-            child: CommonImage(
-              imagePath: img ?? Assets.png.placeHolder.path,
-              fit: BoxFit.cover,
+            child: Stack(
+              children: [
+                CommonImage(
+                  imagePath: widget.img ?? Assets.png.placeHolder.path,
+                  fit: BoxFit.cover,
+                ),
+                Positioned(
+                  top: AppSpacing.rem300.h,
+                  right: AppSpacing.rem300.h,
+                  child: InkWell(
+                    onTap: () {
+                      setState(() {
+                        isFavorite = !isFavorite;
+                      });
+                    },
+                    child: SvgPicture.asset(
+                      isFavorite
+                          ? Assets.svg.bookmarkFilledIcon
+                          : Assets.svg.bookmarkOutlineIcon,
+                      fit: BoxFit.scaleDown,
+                    ),
+                  ),
+                )
+              ],
             ),
           ),
           SizedBox(
             height: AppSpacing.rem250.h,
           ),
           CommonText(
-            name ?? tr('Common.cam_default_label'),
+            widget.name ?? tr('Common.cam_default_label'),
             style: TextStyle(
               color: colors.textPrimaryColor,
               fontWeight: AppFontWeight.semiBold,
               fontSize: AppFontSize.xxl,
             ),
-            maxLines: maxLines,
-            overFlow: overflow,
+            maxLines: widget.maxLines,
+            overFlow: widget.overflow,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CommonText(
-                time ?? 'Time',
+                widget.time ?? 'Time',
                 style: TextStyle(
                   color: colors.textSecondaryColor,
                   fontWeight: AppFontWeight.regular,
@@ -73,7 +110,7 @@ class CameraImgItem extends StatelessWidget {
               ),
               CommonPrimaryButton(
                 text: tr('Common.view'),
-                onPressed: onPressed,
+                onPressed: widget.onPressed,
               )
             ],
           )

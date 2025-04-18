@@ -187,7 +187,17 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                     const EdgeInsets.symmetric(vertical: AppSpacing.rem600),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [CameraImgItem(), CameraImgItem(), CameraImgItem()],
+                  children: [
+                    CameraImgItem(
+                      isSaved: false,
+                    ),
+                    CameraImgItem(
+                      isSaved: false,
+                    ),
+                    CameraImgItem(
+                      isSaved: false,
+                    )
+                  ],
                 ),
               ),
               CommonHeading(

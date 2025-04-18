@@ -5,6 +5,7 @@ import 'package:dextra/presentation/modules/commons/user/widgets/configtabs/tab_
 import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_secondary_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/menu/menu.dart';
+import 'package:dextra/presentation/modules/commons/widgets/screen-container/screen_container.dart';
 import 'package:dextra/theme/color/app_color.dart';
 import 'package:dextra/theme/spacing/app_spacing.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -30,9 +31,9 @@ class _ConfigurationWidgetState extends State<ConfigurationWidget> {
   Widget build(BuildContext context) {
     final colors = IAppColor.watch(context);
 
-    return SizedBox(
-      width: double.infinity,
-      child: SingleChildScrollView(
+    return Scaffold(
+      backgroundColor: colors.backgroundApp,
+      body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(
           horizontal: AppSpacing.rem600.w,
           vertical: AppSpacing.rem600.h,
