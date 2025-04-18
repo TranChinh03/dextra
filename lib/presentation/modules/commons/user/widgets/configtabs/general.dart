@@ -19,15 +19,6 @@ class GeneralConfiguration extends StatefulWidget {
 }
 
 class _GeneralConfigurationState extends State<GeneralConfiguration> {
-  Future<AppSettings> loadUserSettings() async {
-    await Future.delayed(Duration(milliseconds: 500));
-    return AppSettings(
-      language: 'en',
-      isDarkMode: false,
-      format: "12h, DD/MM/YYYY",
-    );
-  }
-
   late AppSettings _settings;
   bool _isLoading = true;
 
@@ -35,6 +26,15 @@ class _GeneralConfigurationState extends State<GeneralConfiguration> {
   void initState() {
     super.initState();
     _initializeSettings();
+  }
+
+  Future<AppSettings> loadUserSettings() async {
+    await Future.delayed(Duration(milliseconds: 500));
+    return AppSettings(
+      language: 'en',
+      isDarkMode: false,
+      format: "12h, DD/MM/YYYY",
+    );
   }
 
   Future<void> _initializeSettings() async {

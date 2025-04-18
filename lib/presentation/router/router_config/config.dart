@@ -10,6 +10,7 @@ class Config {
   static const _mapCamWidget = 'map-cam';
   static const _statisticWidget = 'statistic';
   static const _configurationWidget = 'configuration';
+  static const _profileWidget = 'profile';
 
   static final routes = <RouteBase>[
     GoRoute(
@@ -56,6 +57,12 @@ class Config {
               path: _configurationWidget,
               builder: (_, state) {
                 return ConfigurationWidget();
+              },
+            ),
+            GoRoute(
+              path: _profileWidget,
+              builder: (_, state) {
+                return ProfileWidget();
               },
             ),
           ],

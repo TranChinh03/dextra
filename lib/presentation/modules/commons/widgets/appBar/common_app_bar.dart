@@ -1,5 +1,7 @@
+import 'package:dextra/domain/enum/screen_path.dart';
 import 'package:dextra/presentation/assets/assets.dart';
 import 'package:dextra/presentation/modules/commons/widgets/commonImage/common_image.dart';
+import 'package:dextra/presentation/router/router_config/router.dart';
 import 'package:dextra/shareds/utils/app_utils.dart';
 import 'package:dextra/theme/color/app_color.dart';
 import 'package:dextra/theme/font/app_font_size.dart';
@@ -61,9 +63,12 @@ class _CommonAppBarState extends State<CommonAppBar> {
                 ),
                 Row(
                   children: [
-                    CommonImage(
-                      imagePath: Assets.png.avatar.path,
-                      width: AppSpacing.rem700.w,
+                    InkWell(
+                      onTap: () => {DextraRouter.go(ScreenPath.profile.value)},
+                      child: CommonImage(
+                        imagePath: Assets.png.avatar.path,
+                        width: AppSpacing.rem700.w,
+                      ),
                     ),
                   ],
                 )
