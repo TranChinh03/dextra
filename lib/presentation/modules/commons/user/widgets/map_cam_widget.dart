@@ -9,6 +9,7 @@ import 'package:dextra/presentation/modules/commons/widgets/commonImage/common_i
 import 'package:dextra/presentation/modules/commons/widgets/input/search_box.dart';
 import 'package:dextra/presentation/modules/commons/widgets/input/simpleDropdown.dart';
 import 'package:dextra/presentation/modules/commons/widgets/map/map.dart';
+import 'package:dextra/presentation/modules/commons/widgets/screen-container/screen_container.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_heading.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
 import 'package:dextra/theme/border/app_border_radius.dart';
@@ -107,141 +108,143 @@ class _MapCamWidgetState extends State<MapCamWidget> {
       ),
     );
 
-    return SizedBox(
-        width: double.infinity,
-        child: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(
-              horizontal: AppSpacing.rem600.w,
-              vertical: AppSpacing.rem600.h,
-            ),
-            child: Column(children: [
-              Row(
-                children: [
-                  Container(
-                    height: AppSpacing.rem200.h,
-                    width: AppSpacing.rem200.h,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: colors.liveBadgeTextColor),
-                  ),
-                  SizedBox(
-                    width: AppSpacing.rem300.w,
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                        vertical: AppSpacing.rem125.h,
-                        horizontal: AppSpacing.rem700.w),
-                    decoration: BoxDecoration(
-                        color: colors.liveBadgeBgColor,
-                        borderRadius:
-                            BorderRadius.circular(AppBorderRadius.spacing3xl)),
-                    child: CommonText(
-                      "Live",
-                      style: TextStyle(
-                          color: colors.liveBadgeTextColor,
-                          fontWeight: AppFontWeight.semiBold),
-                    ),
-                  ),
-                  SizedBox(
-                    width: AppSpacing.rem400.w,
-                  ),
-                  CommonText(
-                    _currentTime,
-                    style: TextStyle(
-                        fontWeight: AppFontWeight.bold,
-                        fontSize: AppFontSize.xxl),
-                  )
-                ],
+    return ScreenContainer(
+      child: SizedBox(
+          width: double.infinity,
+          child: SingleChildScrollView(
+              padding: EdgeInsets.symmetric(
+                horizontal: AppSpacing.rem600.w,
+                vertical: AppSpacing.rem600.h,
               ),
-              SizedBox(
-                height: AppSpacing.rem600.h,
-              ),
-              Row(
-                children: [
-                  SearchBox(),
-                  SizedBox(
-                    width: AppSpacing.rem300.w,
-                  ),
-                  Expanded(
-                    child: SimpleDropdown(
-                      itemsList: _districts.map((option) {
-                        return DropdownMenuItem<String>(
-                          value: option,
-                          child: CommonText(option),
-                        );
-                      }).toList(),
-                      onChanged: (value) => setState(() {}),
-                    ),
-                  )
-                ],
-              ),
-              Container(
-                margin: EdgeInsets.only(top: AppSpacing.rem600.h),
-                height: AppSpacing.rem8975.h,
-                width: double.infinity,
-                color: colors.primaryBannerBg,
-                child: MapSample(),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: AppSpacing.rem600),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Column(children: [
+                Row(
                   children: [
-                    CameraImgItem(
-                      isSaved: false,
+                    Container(
+                      height: AppSpacing.rem200.h,
+                      width: AppSpacing.rem200.h,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: colors.liveBadgeTextColor),
                     ),
-                    CameraImgItem(
-                      isSaved: false,
+                    SizedBox(
+                      width: AppSpacing.rem300.w,
                     ),
-                    CameraImgItem(
-                      isSaved: false,
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                          vertical: AppSpacing.rem125.h,
+                          horizontal: AppSpacing.rem700.w),
+                      decoration: BoxDecoration(
+                          color: colors.liveBadgeBgColor,
+                          borderRadius: BorderRadius.circular(
+                              AppBorderRadius.spacing3xl)),
+                      child: CommonText(
+                        "Live",
+                        style: TextStyle(
+                            color: colors.liveBadgeTextColor,
+                            fontWeight: AppFontWeight.semiBold),
+                      ),
+                    ),
+                    SizedBox(
+                      width: AppSpacing.rem400.w,
+                    ),
+                    CommonText(
+                      _currentTime,
+                      style: TextStyle(
+                          fontWeight: AppFontWeight.bold,
+                          fontSize: AppFontSize.xxl),
                     )
                   ],
                 ),
-              ),
-              CommonHeading(
-                heading: "Analyze Traffic",
-                subheading:
-                    "Gain deeper insights into traffic flow patterns through visualized results, detection snapshots, and vehicle density analysis across surveillance points",
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SearchBox(),
-                  CommonText(
-                    "Time: ",
-                    style: TextStyle(fontWeight: AppFontWeight.bold),
+                SizedBox(
+                  height: AppSpacing.rem600.h,
+                ),
+                Row(
+                  children: [
+                    SearchBox(),
+                    SizedBox(
+                      width: AppSpacing.rem300.w,
+                    ),
+                    Expanded(
+                      child: SimpleDropdown(
+                        itemsList: _districts.map((option) {
+                          return DropdownMenuItem<String>(
+                            value: option,
+                            child: CommonText(option),
+                          );
+                        }).toList(),
+                        onChanged: (value) => setState(() {}),
+                      ),
+                    )
+                  ],
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: AppSpacing.rem600.h),
+                  height: AppSpacing.rem8975.h,
+                  width: double.infinity,
+                  color: colors.primaryBannerBg,
+                  child: MapSample(),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: AppSpacing.rem600),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CameraImgItem(
+                        isSaved: false,
+                      ),
+                      CameraImgItem(
+                        isSaved: false,
+                      ),
+                      CameraImgItem(
+                        isSaved: false,
+                      )
+                    ],
                   ),
-                  // DateTimePicker(label: '', onPressed: () {}, isDate: true)
-                ],
-              ),
-              GridView.count(
-                padding: EdgeInsets.symmetric(vertical: AppSpacing.rem600.h),
-                crossAxisCount: 3,
-                crossAxisSpacing: AppSpacing.rem300.w,
-                mainAxisSpacing: AppSpacing.rem300.h,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                children: imageList,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                      height: AppSpacing.rem5000.h,
-                      width: AppSpacing.rem6250.w,
-                      child: PieChartSample2()),
-                  CommonStatisticCard(
-                    label: tr('Common.avg_congestion_label'),
-                    value: tr('Common.default_avg_congestion'),
-                    info: tr('Common.peak_congestion_label') +
-                        tr('Common.default_peak_congestion_value'),
-                    background: colors.cardBackground2,
-                    decoration: colors.cardDecorate2,
-                  ),
-                ],
-              )
-            ])));
+                ),
+                CommonHeading(
+                  heading: "Analyze Traffic",
+                  subheading:
+                      "Gain deeper insights into traffic flow patterns through visualized results, detection snapshots, and vehicle density analysis across surveillance points",
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SearchBox(),
+                    CommonText(
+                      "Time: ",
+                      style: TextStyle(fontWeight: AppFontWeight.bold),
+                    ),
+                    // DateTimePicker(label: '', onPressed: () {}, isDate: true)
+                  ],
+                ),
+                GridView.count(
+                  padding: EdgeInsets.symmetric(vertical: AppSpacing.rem600.h),
+                  crossAxisCount: 3,
+                  crossAxisSpacing: AppSpacing.rem300.w,
+                  mainAxisSpacing: AppSpacing.rem300.h,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  children: imageList,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                        height: AppSpacing.rem5000.h,
+                        width: AppSpacing.rem6250.w,
+                        child: PieChartSample2()),
+                    CommonStatisticCard(
+                      label: tr('Common.avg_congestion_label'),
+                      value: tr('Common.default_avg_congestion'),
+                      info: tr('Common.peak_congestion_label') +
+                          tr('Common.default_peak_congestion_value'),
+                      background: colors.cardBackground2,
+                      decoration: colors.cardDecorate2,
+                    ),
+                  ],
+                )
+              ]))),
+    );
   }
 }
