@@ -1,7 +1,11 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:dextra/presentation/assets/assets.dart';
+import 'package:dextra/presentation/commons/api_state.dart';
+import 'package:dextra/presentation/modules/commons/widgets/screen-container/screen_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapSample extends StatefulWidget {
@@ -12,15 +16,24 @@ class MapSample extends StatefulWidget {
 }
 
 class MapSampleState extends State<MapSample> {
+  late List<LatLng> cameras;
   bool _isIconLoaded = false;
+  bool _isCamerasLoaded = false;
 
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
   BitmapDescriptor? _customIcon;
   @override
   void initState() {
-    _loadCustomIcon();
     super.initState();
+    _loadCustomIcon();
+
+    loadCameraLocations().then((data) {
+      setState(() {
+        cameras = data;
+        _isCamerasLoaded = true;
+      });
+    });
   }
 
   static const CameraPosition _initCam = CameraPosition(
@@ -28,21 +41,21 @@ class MapSampleState extends State<MapSample> {
     zoom: 11,
   );
 
-  static const CameraPosition _kLake = CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(37.43296265331129, -122.08832357078792),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414);
+  // static const CameraPosition _kLake = CameraPosition(
+  //     bearing: 192.8334901395799,
+  //     target: LatLng(37.43296265331129, -122.08832357078792),
+  //     tilt: 59.440717697143555,
+  //     zoom: 19.151926040649414);
 
-  final List<LatLng> nearbyMarkers = [
-    LatLng(10.815210, 106.755901), // Vincom Thu Duc
-    LatLng(10.800520, 106.744910), // Thủ Đức Market
-    LatLng(10.810689, 106.767721), // HCMUTE
-    LatLng(10.795110, 106.749480), // Chợ Linh Trung
-    LatLng(10.808992, 106.737377), // Khu công nghệ cao
-    LatLng(10.820100, 106.745500), // Coopmart
-    LatLng(10.803200, 106.759100), // Nhà thiếu nhi
-  ];
+  // final List<LatLng> nearbyMarkers = [
+  //   LatLng(10.815210, 106.755901), // Vincom Thu Duc
+  //   LatLng(10.800520, 106.744910), // Thủ Đức Market
+  //   LatLng(10.810689, 106.767721), // HCMUTE
+  //   LatLng(10.795110, 106.749480), // Chợ Linh Trung
+  //   LatLng(10.808992, 106.737377), // Khu công nghệ cao
+  //   LatLng(10.820100, 106.745500), // Coopmart
+  //   LatLng(10.803200, 106.759100), // Nhà thiếu nhi
+  // ];
 
   Future<void> _loadCustomIcon() async {
     _customIcon = await BitmapDescriptor.asset(
@@ -55,8 +68,22 @@ class MapSampleState extends State<MapSample> {
     });
   }
 
+  Future<List<LatLng>> loadCameraLocations() async {
+    final String response =
+        await rootBundle.loadString('assets/json/camera_results.json');
+    final Map<String, dynamic> jsonData = json.decode(response);
+
+    final List<dynamic> cameras = jsonData['data']['cameras'];
+    List<LatLng> locations = cameras.map<LatLng>((camera) {
+      final coords = camera['loc']['coordinates'];
+      return LatLng(coords[1], coords[0]); // [lat, lng]
+    }).toList();
+
+    return locations;
+  }
+
   Set<Marker> _buildMarkers() {
-    return nearbyMarkers.asMap().entries.map((entry) {
+    return cameras.asMap().entries.map((entry) {
       final idx = entry.key;
       final position = entry.value;
 
@@ -71,22 +98,25 @@ class MapSampleState extends State<MapSample> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _isIconLoaded
-          ? GoogleMap(
-              mapType: MapType.hybrid,
-              initialCameraPosition: _initCam,
-              onMapCreated: (GoogleMapController controller) {
-                _controller.complete(controller);
-              },
-              markers: _buildMarkers(),
-            )
-          : const Center(child: CircularProgressIndicator()),
-      // floatingActionButton: FloatingActionButton.extended(
-      //   onPressed: _goToTheLake,
-      //   label: const Text('To the lake!'),
-      //   icon: const Icon(Icons.directions_boat),
-      // ),
+    return ScreenContainer(
+      isShowLoading: _isIconLoaded == false || _isCamerasLoaded == false,
+      child: Scaffold(
+        body: _isIconLoaded && _isCamerasLoaded
+            ? GoogleMap(
+                mapType: MapType.hybrid,
+                initialCameraPosition: _initCam,
+                onMapCreated: (GoogleMapController controller) {
+                  _controller.complete(controller);
+                },
+                markers: _buildMarkers(),
+              )
+            : const Center(child: CircularProgressIndicator()),
+        // floatingActionButton: FloatingActionButton.extended(
+        //   onPressed: _goToTheLake,
+        //   label: const Text('To the lake!'),
+        //   icon: const Icon(Icons.directions_boat),
+        // ),
+      ),
     );
   }
 

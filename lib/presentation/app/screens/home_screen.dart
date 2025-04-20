@@ -111,6 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
               CameraImgItem(
+                isSaved: false,
                 name: "VoChiCong - CauPhuHuu2",
                 time: '09 March 2025\n10:25:30',
                 onPressed: () {

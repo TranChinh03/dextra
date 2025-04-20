@@ -1,14 +1,11 @@
 import 'package:dextra/presentation/modules/commons/user/widgets/configtabs/camera.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/configtabs/general.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/configtabs/storage.dart';
-import 'package:dextra/presentation/modules/commons/user/widgets/configtabs/tab_btn.dart';
-import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
-import 'package:dextra/presentation/modules/commons/widgets/button/common_secondary_button.dart';
-import 'package:dextra/presentation/modules/commons/widgets/menu/menu.dart';
-import 'package:dextra/presentation/modules/commons/widgets/screen-container/screen_container.dart';
+import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
+import 'package:dextra/theme/border/app_border_radius.dart';
 import 'package:dextra/theme/color/app_color.dart';
+import 'package:dextra/theme/font/app_font_weight.dart';
 import 'package:dextra/theme/spacing/app_spacing.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -55,17 +52,30 @@ class _ConfigurationWidgetState extends State<ConfigurationWidget> {
                   children: List.generate(_tabsName.length, (index) {
                 final isSelected = index == _selectedTab;
                 return Container(
-                  padding: EdgeInsets.symmetric(vertical: AppSpacing.rem300.h),
-                  child: TabButton(
-                    isActive: isSelected,
-                    label: _tabsName[index],
-                    onPressed: () {
-                      setState(() {
-                        _selectedTab = index;
-                      });
-                    },
-                  ),
-                );
+                    padding:
+                        EdgeInsets.symmetric(vertical: AppSpacing.rem300.h),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          vertical: AppSpacing.rem175.h,
+                          horizontal: AppSpacing.rem500.w),
+                      decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.circular(AppBorderRadius.spacing4xl),
+                          color: isSelected
+                              ? colors.primaryBannerBg
+                              : Colors.transparent),
+                      child: InkWell(
+                        onTap: () => setState(() {
+                          _selectedTab = index;
+                        }),
+                        child: CommonText(
+                          _tabsName[index],
+                          style: TextStyle(
+                              fontWeight: AppFontWeight.bold,
+                              color: colors.buttonSecondaryColorForeground),
+                        ),
+                      ),
+                    ));
               })),
             ),
             Expanded(

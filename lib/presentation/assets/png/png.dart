@@ -7,6 +7,8 @@ class AssetsPng {
       const CustomAssetImage('assets/png/place_holder.png');
 
   CustomAssetImage get logo => const CustomAssetImage('assets/png/logo.png');
+  CustomAssetImage get footerLogo =>
+      const CustomAssetImage('assets/png/footer_logo.png');
 
   CustomAssetImage get avatar =>
       const CustomAssetImage('assets/png/avatar.png');
