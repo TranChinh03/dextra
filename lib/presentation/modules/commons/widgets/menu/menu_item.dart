@@ -77,7 +77,7 @@ class _MenuItemState extends State<MenuItem> {
                   colorFilter: ColorFilter.mode(
                     widget.isActive
                         ? appColor.menuActiveTextColor // Active icon color
-                        : appColor.backgroundApp, // Default icon color,
+                        : appColor.menuTextColor, // Default icon color,
                     BlendMode.srcIn,
                   ),
                   width: AppSpacing.rem300.w,
@@ -92,7 +92,7 @@ class _MenuItemState extends State<MenuItem> {
                         fontWeight: AppFontWeight.semiBold,
                         color: widget.isActive
                             ? appColor.menuActiveTextColor // Active text color
-                            : appColor.backgroundApp, // Default text color
+                            : appColor.menuTextColor, // Default text color
                       ),
                     ),
                   ),

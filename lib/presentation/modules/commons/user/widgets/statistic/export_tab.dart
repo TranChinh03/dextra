@@ -5,6 +5,7 @@ import 'package:dextra/presentation/modules/commons/user/widgets/statistic/chart
 import 'package:dextra/presentation/modules/commons/user/widgets/statistic/charts/pie_chart_sample1.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/statistic/date_time_picker.dart';
 import 'package:dextra/presentation/modules/commons/widgets/card/common_statistic_card.dart';
+import 'package:dextra/presentation/modules/commons/widgets/screen-container/screen_container.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_heading.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
 import 'package:dextra/theme/color/app_color.dart';
@@ -357,7 +358,7 @@ class _ExportTabState extends State<ExportTab> {
                           "Time range is only available when the selected date range is a single day",
                           style: TextStyle(
                               fontSize: AppFontSize.xxs,
-                              color: colors.textSecondaryColor),
+                              color: colors.textMuted),
                         ),
                         SizedBox(
                           height: AppSpacing.rem300.h,

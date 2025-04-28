@@ -1,3 +1,4 @@
+import 'package:dextra/domain/enum/screen_path.dart';
 import 'package:dextra/presentation/assets/assets.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_arrow_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
@@ -9,6 +10,7 @@ import 'package:dextra/presentation/modules/commons/widgets/input/search_box.dar
 import 'package:dextra/presentation/modules/commons/widgets/screen-container/screen_container.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_heading.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
+import 'package:dextra/presentation/router/router_config/router.dart';
 import 'package:dextra/theme/border/app_border_radius.dart';
 import 'package:dextra/theme/color/app_color.dart';
 import 'package:dextra/theme/font/app_font_size.dart';
@@ -57,7 +59,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                         ),
                         CommonText(
                           tr('Common.home_sec_1_subheading'),
-                          style: TextStyle(fontSize: AppFontSize.xxl),
+                          style: TextStyle(
+                              fontSize: AppFontSize.xxl,
+                              color: colors.textMuted),
                         ),
                         SizedBox(
                           height: AppSpacing.rem1600.h,
@@ -66,13 +70,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                           children: [
                             CommonPrimaryButton(
                               text: tr('Common.explore_now'),
-                              onPressed: () {},
+                              onPressed: () =>
+                                  DextraRouter.go(ScreenPath.statistic.value),
                             ),
                             SizedBox(
                               width: AppSpacing.rem250.w,
                             ),
                             CommonArrowButton(
-                              onPressed: () {},
+                              onPressed: () =>
+                                  DextraRouter.go(ScreenPath.statistic.value),
                             )
                           ],
                         )
@@ -197,7 +203,10 @@ class _HomeWidgetState extends State<HomeWidget> {
                   ],
                 ),
               ),
-              CommonPrimaryButton(text: "All Cameras"),
+              CommonPrimaryButton(
+                text: "All Cameras",
+                onPressed: () => DextraRouter.go(ScreenPath.mapCam.value),
+              ),
               Padding(
                 padding: const EdgeInsets.only(top: AppSpacing.rem600),
                 child: Stack(

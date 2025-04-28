@@ -35,10 +35,11 @@ class CommonHeading extends StatelessWidget {
 
     return Container(
       margin: margin,
-      padding: padding ?? EdgeInsets.symmetric(
-        vertical: AppSpacing.rem600.h,
-        horizontal: AppSpacing.rem600.w,
-      ),
+      padding: padding ??
+          EdgeInsets.symmetric(
+            vertical: AppSpacing.rem600.h,
+            horizontal: AppSpacing.rem600.w,
+          ),
       child: Column(
         children: [
           CommonText(
@@ -47,7 +48,7 @@ class CommonHeading extends StatelessWidget {
                 TextStyle(
                     fontWeight: AppFontWeight.bold,
                     fontSize: AppFontSize.lg,
-                    color: colors.textPrimaryColor),
+                    color: colors.textPrimary),
           ),
           CommonText(
             align: TextAlign.center,
@@ -56,7 +57,7 @@ class CommonHeading extends StatelessWidget {
                 TextStyle(
                     fontWeight: AppFontWeight.regular,
                     fontSize: AppFontSize.xxl,
-                    color: colors.textSecondaryColor),
+                    color: colors.textMuted),
           )
         ],
       ),

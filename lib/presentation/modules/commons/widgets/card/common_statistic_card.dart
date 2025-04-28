@@ -76,7 +76,7 @@ class CommonStatisticCard extends StatelessWidget {
                     label ?? '',
                     style: TextStyle(
                         fontSize: AppFontSize.xxl,
-                        color: textColor ?? colors.textPrimaryColor),
+                        color: textColor ?? colors.textPrimary),
                   ),
                   SizedBox(height: AppSpacing.rem175),
                   CommonText(
@@ -84,7 +84,7 @@ class CommonStatisticCard extends StatelessWidget {
                     style: TextStyle(
                         fontSize: AppFontSize.lg,
                         fontWeight: AppFontWeight.bold,
-                        color: textColor ?? colors.textPrimaryColor),
+                        color: textColor ?? colors.textPrimary),
                   ),
                   SizedBox(height: AppSpacing.rem175),
                   CommonText(
@@ -93,7 +93,7 @@ class CommonStatisticCard extends StatelessWidget {
                     info ?? '',
                     style: TextStyle(
                         fontSize: AppFontSize.xxl,
-                        color: textColor ?? colors.textPrimaryColor),
+                        color: textColor ?? colors.textPrimary),
                   ),
                 ],
               ),
