@@ -25,8 +25,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     final colors = IAppColor.watch(context);
 
     return ScreenContainer(
-      child: Scaffold(
-        body: SingleChildScrollView(
+      child: SizedBox(
+        width: double.infinity,
+        child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(
             horizontal: AppSpacing.rem600.w,
             vertical: AppSpacing.rem600.h,

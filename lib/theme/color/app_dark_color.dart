@@ -30,7 +30,7 @@ class AppDarkColor implements IAppColor {
   @override
   Color get buttonPrimaryBackground => DextraAppColor.primary.brand600;
   @override
-  Color get buttonSecondaryBackground => Colors.white;
+  Color get buttonSecondaryBackground => DextraAppColor.darkmode.dark400;
   @override
   Color get buttonSecondaryColorBackground => DextraAppColor.darkGrey.grey900;
   @override
