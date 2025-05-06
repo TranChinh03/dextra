@@ -50,7 +50,15 @@ class _CameraImgItemState extends State<CameraImgItem> {
   @override
   Widget build(BuildContext context) {
     final colors = IAppColor.watch(context);
-    return SizedBox(
+    return Container(
+      decoration: BoxDecoration(
+        color: colors.cardCameraBackground,
+        borderRadius: BorderRadius.circular(AppBorderRadius.spacing3xl),
+      ),
+      padding: EdgeInsets.symmetric(
+        horizontal: AppSpacing.rem200.w,
+        vertical: AppSpacing.rem200.h,
+      ),
       width: AppSpacing.rem4150.w,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -90,7 +98,7 @@ class _CameraImgItemState extends State<CameraImgItem> {
           CommonText(
             widget.name ?? tr('Common.cam_default_label'),
             style: TextStyle(
-              color: colors.textPrimaryColor,
+              color: colors.textPrimary,
               fontWeight: AppFontWeight.semiBold,
               fontSize: AppFontSize.xxl,
             ),
@@ -103,7 +111,7 @@ class _CameraImgItemState extends State<CameraImgItem> {
               CommonText(
                 widget.time ?? 'Time',
                 style: TextStyle(
-                  color: colors.textSecondaryColor,
+                  color: colors.textMuted,
                   fontWeight: AppFontWeight.regular,
                   fontSize: AppFontSize.md,
                 ),

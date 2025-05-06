@@ -34,7 +34,7 @@ class CommonText extends StatelessWidget {
     final colors = IAppColor.watch(context);
     final defaultStyle = TextStyle(
       fontSize: AppFontSize.md,
-      color: colors.textPrimaryColor,
+      color: colors.textPrimary,
       fontWeight: AppFontWeight.regular,
     );
 

@@ -24,6 +24,7 @@ class _CommonAppBarState extends State<CommonAppBar> {
     final isDesktop = AppUtils.isDesktopScreen(context);
 
     return Container(
+      color: appColor.backgroundApp,
       width: double.infinity,
       padding: EdgeInsets.symmetric(
         horizontal: AppSpacing.rem600.w,
@@ -48,7 +49,7 @@ class _CommonAppBarState extends State<CommonAppBar> {
                     text: tr('Common.welcome'),
                     style: TextStyle(
                       fontSize: AppFontSize.lg,
-                      color: appColor.textPrimaryColor,
+                      color: appColor.textPrimary,
                     ),
                     children: [
                       TextSpan(text: ", "),

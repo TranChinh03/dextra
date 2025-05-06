@@ -19,11 +19,15 @@ abstract class IAppColor {
   Color get buttonPrimaryBackground;
   Color get buttonSecondaryBackground;
 
-  Color get textPrimaryColor;
-  Color get textSecondaryColor;
-
   Color get borderSubtle;
   Color get borderDisabledSubtle;
+
+  Color get menuButtonBackground;
+
+// Text color
+
+  Color get textPrimary;
+  Color get textMuted;
 
   // Shadow color
   Color get shadowXs;
@@ -34,6 +38,8 @@ abstract class IAppColor {
   Color get cardBackground2;
   Color get cardDecorate2;
 
+  Color get cardCameraBackground;
+
   //banner
   Color get primaryBannerBg;
 
@@ -43,6 +49,7 @@ abstract class IAppColor {
   // menu
   Color get menuBackground;
   Color get menuActiveTextColor;
+  Color get menuTextColor;
 
   // app bar
   Color get appBarTextHighlight;

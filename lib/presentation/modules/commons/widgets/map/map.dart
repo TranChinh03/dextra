@@ -9,7 +9,8 @@ import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapSample extends StatefulWidget {
-  const MapSample({super.key});
+  final LatLng? location;
+  const MapSample({super.key, this.location});
 
   @override
   State<MapSample> createState() => MapSampleState();
@@ -104,7 +105,12 @@ class MapSampleState extends State<MapSample> {
         body: _isIconLoaded && _isCamerasLoaded
             ? GoogleMap(
                 mapType: MapType.hybrid,
-                initialCameraPosition: _initCam,
+                initialCameraPosition: widget.location != null
+                    ? CameraPosition(
+                        target: widget.location!,
+                        zoom: 11,
+                      )
+                    : _initCam,
                 onMapCreated: (GoogleMapController controller) {
                   _controller.complete(controller);
                 },

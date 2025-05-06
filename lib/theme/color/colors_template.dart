@@ -38,6 +38,19 @@ class PrimaryColors {
   final Color brand1000 = const Color(0xFF1B3763); // Cobalt Blue
 }
 
+class DarkModeColors {
+  final Color dark25 = const Color(0xFFc4c4c4);
+  final Color dark50 = const Color(0xFF2A2E3B);
+  final Color dark100 = const Color(0xFF3A3F4B);
+  final Color dark200 = const Color(0xFF4A4F5B);
+  final Color dark300 = const Color(0xFF5A5F6B);
+  final Color dark400 = const Color(0xFF26313f);
+  final Color dark500 = const Color(0xFF1f2123);
+  final Color dark600 = const Color(0xFF121212);
+  final Color dark700 = const Color(0xFF9A9FAB);
+  final Color dark800 = const Color(0xFFAAB0BB);
+}
+
 class AccentColors {
   final Color accent25 = const Color(0xFFFFF3D4); // Light Yellow
   final Color accent50 = const Color(0xFFFCF5CC); // Pale Goldenrod
@@ -49,6 +62,7 @@ class AccentColors {
   final Color accent600 = const Color(0xFFEF6C00); // Strong Orange
   final Color accent700 = const Color(0xFFE65100); // Burnt Orange
   final Color accent800 = const Color(0xFFBF360C); // Deep Amber
+  final Color accentDark = const Color(0xFF585649); // Deep Amber
 }
 
 class ModernGreyColors {
@@ -283,6 +297,8 @@ class AppBar {
 
 class DextraAppColor {
   static PrimaryColors primary = PrimaryColors();
+  static DarkModeColors darkmode = DarkModeColors();
+
   static AccentColors accentColors = AccentColors();
   static ModernGreyColors modernGrey = ModernGreyColors();
   static DarkGreyColors darkGrey = DarkGreyColors();
