@@ -224,8 +224,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                         borderRadius:
                             BorderRadius.circular(AppBorderRadius.spacing3xl),
                         child: Container(
-                            color: colors.appBarTextHighlight
-                                .withValues(alpha: 0.5),
+                            color: colors.primary.withValues(alpha: 0.5),
                             child: Column(
                               children: [
                                 CommonHeading(

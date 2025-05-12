@@ -45,8 +45,6 @@ class AppLightColor implements IAppColor {
   Color get textMuted => DextraAppColor.darkGrey.grey600;
   @override
   Color get menuActiveTextColor => DextraAppColor.menu.activeText;
-  @override
-  Color get appBarTextHighlight => DextraAppColor.appBar.appBarTextHighlight;
 
   // Badge Colors
   @override
@@ -89,4 +87,6 @@ class AppLightColor implements IAppColor {
   Color get white => Colors.white;
   @override
   Color get black => Colors.black;
+  @override
+  Color get primary => DextraAppColor.primary.brand600;
 }

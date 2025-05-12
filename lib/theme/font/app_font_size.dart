@@ -11,4 +11,5 @@ class AppFontSize {
   static double get xxxl => 24.sp;
   static double get displayMedium => 36.sp;
   static double get lg => 48.sp;
+  static double get xlg => 72.sp;
 }

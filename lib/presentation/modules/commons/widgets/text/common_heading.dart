@@ -50,15 +50,16 @@ class CommonHeading extends StatelessWidget {
                     fontSize: AppFontSize.lg,
                     color: colors.textPrimary),
           ),
-          CommonText(
-            align: TextAlign.center,
-            subheading ?? '',
-            style: subheadingStyle ??
-                TextStyle(
-                    fontWeight: AppFontWeight.regular,
-                    fontSize: AppFontSize.xxl,
-                    color: colors.textMuted),
-          )
+          if (subheading != null)
+            CommonText(
+              align: TextAlign.center,
+              subheading ?? '',
+              style: subheadingStyle ??
+                  TextStyle(
+                      fontWeight: AppFontWeight.regular,
+                      fontSize: AppFontSize.xxl,
+                      color: colors.textMuted),
+            )
         ],
       ),
     );
