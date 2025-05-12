@@ -6,9 +6,7 @@ class AppConfig {
 
   static const String baseUrl = String.fromEnvironment(
     AppConfigKey.baseUrl,
-    defaultValue: env == AppEnvConfig.dev
-        ? 'devdomain'
-        : '',
+    defaultValue: env == AppEnvConfig.dev ? 'http://localhost:8002' : '',
   );
 
   static String idempotencyKey = const String.fromEnvironment(
