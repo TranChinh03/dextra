@@ -199,7 +199,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                     style: TextStyle(
                                       fontSize: AppFontSize.lg,
                                       fontWeight: AppFontWeight.bold,
-                                      color: appColor.appBarTextHighlight,
+                                      color: appColor.primary,
                                     ),
                                   ),
                                 ]
@@ -287,7 +287,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                   style: TextStyle(
                                     fontSize: AppFontSize.xl,
                                     fontWeight: AppFontWeight.regular,
-                                    color: appColor.appBarTextHighlight,
+                                    color: appColor.primary,
                                   ),
                                 ),
                               ),

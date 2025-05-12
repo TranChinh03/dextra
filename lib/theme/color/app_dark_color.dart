@@ -52,8 +52,6 @@ class AppDarkColor implements IAppColor {
   @override
   Color get menuActiveTextColor => DextraAppColor.menu.activeText;
   @override
-  Color get appBarTextHighlight => DextraAppColor.appBar.appBarTextHighlight;
-  @override
   Color get liveBadgeTextColor => DextraAppColor.orangeDark.orangeDark600;
 
   // Border Colors
@@ -89,4 +87,6 @@ class AppDarkColor implements IAppColor {
   Color get white => Colors.white;
   @override
   Color get black => Colors.black;
+  @override
+  Color get primary => DextraAppColor.primary.brand600;
 }

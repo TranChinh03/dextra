@@ -57,7 +57,7 @@ class _CommonAppBarState extends State<CommonAppBar> {
                           text: "UserName",
                           style: TextStyle(
                             fontSize: AppFontSize.lg,
-                            color: appColor.appBarTextHighlight,
+                            color: appColor.primary,
                           ))
                     ],
                   ),

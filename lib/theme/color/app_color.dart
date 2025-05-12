@@ -10,6 +10,8 @@ abstract class IAppColor {
   Color get backgroundApp;
   Color get backgroundDisable;
 
+  Color get primary;
+
 // Button color
   Color get buttonSecondaryColorBackground;
   Color get buttonSecondaryColorBorder;
@@ -50,9 +52,6 @@ abstract class IAppColor {
   Color get menuBackground;
   Color get menuActiveTextColor;
   Color get menuTextColor;
-
-  // app bar
-  Color get appBarTextHighlight;
 
   //badge
   Color get liveBadgeTextColor;
