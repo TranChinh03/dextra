@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:dextra/domain/entities/camera.dart';
 import 'package:dextra/presentation/assets/assets.dart';
 import 'package:dextra/presentation/commons/api_state.dart';
 import 'package:dextra/presentation/modules/commons/widgets/screen-container/screen_container.dart';
@@ -10,7 +11,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapSample extends StatefulWidget {
   final LatLng? location;
-  const MapSample({super.key, this.location});
+  final List<Camera>? cameraList;
+  const MapSample({super.key, this.location, this.cameraList});
 
   @override
   State<MapSample> createState() => MapSampleState();
@@ -19,7 +21,6 @@ class MapSample extends StatefulWidget {
 class MapSampleState extends State<MapSample> {
   late List<LatLng> cameras;
   bool _isIconLoaded = false;
-  bool _isCamerasLoaded = false;
 
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
@@ -29,34 +30,17 @@ class MapSampleState extends State<MapSample> {
     super.initState();
     _loadCustomIcon();
 
-    loadCameraLocations().then((data) {
-      setState(() {
-        cameras = data;
-        _isCamerasLoaded = true;
-      });
-    });
+    // loadCameraLocations().then((data) {
+    //   setState(() {
+    //     cameras = data;
+    //   });
+    // });
   }
 
   static const CameraPosition _initCam = CameraPosition(
     target: LatLng(10.80498476893258, 106.75270736217499),
     zoom: 11,
   );
-
-  // static const CameraPosition _kLake = CameraPosition(
-  //     bearing: 192.8334901395799,
-  //     target: LatLng(37.43296265331129, -122.08832357078792),
-  //     tilt: 59.440717697143555,
-  //     zoom: 19.151926040649414);
-
-  // final List<LatLng> nearbyMarkers = [
-  //   LatLng(10.815210, 106.755901), // Vincom Thu Duc
-  //   LatLng(10.800520, 106.744910), // Thủ Đức Market
-  //   LatLng(10.810689, 106.767721), // HCMUTE
-  //   LatLng(10.795110, 106.749480), // Chợ Linh Trung
-  //   LatLng(10.808992, 106.737377), // Khu công nghệ cao
-  //   LatLng(10.820100, 106.745500), // Coopmart
-  //   LatLng(10.803200, 106.759100), // Nhà thiếu nhi
-  // ];
 
   Future<void> _loadCustomIcon() async {
     _customIcon = await BitmapDescriptor.asset(
@@ -83,45 +67,74 @@ class MapSampleState extends State<MapSample> {
     return locations;
   }
 
-  Set<Marker> _buildMarkers() {
-    return cameras.asMap().entries.map((entry) {
-      final idx = entry.key;
-      final position = entry.value;
+  Set<Marker> _buildMarkers(List<Camera> cameras) {
+    // return cameras.asMap().entries.map((entry) {
+    //   final idx = entry.key;
+    //   final position = entry.value;
 
+    //   return Marker(
+    //       icon: _customIcon!,
+    //       markerId: MarkerId('marker_$idx'),
+    //       position: position,
+    //       infoWindow: InfoWindow(title: 'Marker ${idx + 1}'),
+    //       onTap: () => _goToCameraPos(position));
+    // }).toSet();
+    return cameras.map((camera) {
+      final position = LatLng(
+        camera.loc!.coordinates[1],
+        camera.loc!.coordinates[0],
+      );
       return Marker(
-          icon: _customIcon!,
-          markerId: MarkerId('marker_$idx'),
-          position: position,
-          infoWindow: InfoWindow(title: 'Marker ${idx + 1}'),
-          onTap: () => _goToCameraPos(position));
+        icon: _customIcon!,
+        markerId: MarkerId(camera.privateId!),
+        position: position,
+        infoWindow: InfoWindow(title: camera.name),
+        onTap: () => _goToCameraPos(position),
+      );
     }).toSet();
   }
 
   @override
   Widget build(BuildContext context) {
     return ScreenContainer(
-      isShowLoading: _isIconLoaded == false || _isCamerasLoaded == false,
+      // isShowLoading: _isIconLoaded == false || _isCamerasLoaded == false,
+      // child: Scaffold(
+      //   body: _isIconLoaded && _isCamerasLoaded
+      //       ? GoogleMap(
+      //           mapType: MapType.hybrid,
+      //           initialCameraPosition: widget.location != null
+      //               ? CameraPosition(
+      //                   target: widget.location!,
+      //                   zoom: 11,
+      //                 )
+      //               : _initCam,
+      //           onMapCreated: (GoogleMapController controller) {
+      //             _controller.complete(controller);
+      //           },
+      //           markers: _buildMarkers(),
+      //         )
+      //       : const Center(child: CircularProgressIndicator()),
+      //   // floatingActionButton: FloatingActionButton.extended(
+      //   //   onPressed: _goToTheLake,
+      //   //   label: const Text('To the lake!'),
+      //   //   icon: const Icon(Icons.directions_boat),
+      //   // ),
+      // ),
+      isShowLoading: _isIconLoaded == false,
       child: Scaffold(
-        body: _isIconLoaded && _isCamerasLoaded
-            ? GoogleMap(
-                mapType: MapType.hybrid,
-                initialCameraPosition: widget.location != null
-                    ? CameraPosition(
-                        target: widget.location!,
-                        zoom: 11,
-                      )
-                    : _initCam,
-                onMapCreated: (GoogleMapController controller) {
-                  _controller.complete(controller);
-                },
-                markers: _buildMarkers(),
-              )
-            : const Center(child: CircularProgressIndicator()),
-        // floatingActionButton: FloatingActionButton.extended(
-        //   onPressed: _goToTheLake,
-        //   label: const Text('To the lake!'),
-        //   icon: const Icon(Icons.directions_boat),
-        // ),
+        body: GoogleMap(
+          mapType: MapType.hybrid,
+          initialCameraPosition: widget.location != null
+              ? CameraPosition(
+                  target: widget.location!,
+                  zoom: 11,
+                )
+              : _initCam,
+          onMapCreated: (GoogleMapController controller) {
+            _controller.complete(controller);
+          },
+          markers: _buildMarkers(widget.cameraList ?? []),
+        ),
       ),
     );
   }
