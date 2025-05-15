@@ -20,6 +20,7 @@ class CommonArrowButton extends StatelessWidget {
   final bool isEnable;
   final int? maxLines;
   final TextOverflow? overflow;
+  final String? direction;
 
   const CommonArrowButton({
     super.key,
@@ -33,6 +34,7 @@ class CommonArrowButton extends StatelessWidget {
     this.isEnable = true,
     this.maxLines,
     this.overflow,
+    this.direction,
   });
 
   @override
@@ -75,10 +77,19 @@ class CommonArrowButton extends StatelessWidget {
                 vertical: AppSpacing.rem125.h,
               ),
           child: Center(
-            child: SvgPicture.asset(
-              Assets.svg.forwardArrow,
-              fit: BoxFit.scaleDown,
-            ),
+            child: direction == "left"
+                ? Transform(
+                    alignment: Alignment.center,
+                    transform: Matrix4.identity()..scale(-1.0, 1.0),
+                    child: SvgPicture.asset(
+                      Assets.svg.forwardArrow,
+                      fit: BoxFit.scaleDown,
+                    ),
+                  )
+                : SvgPicture.asset(
+                    Assets.svg.forwardArrow,
+                    fit: BoxFit.scaleDown,
+                  ),
           ),
         ),
       ),
