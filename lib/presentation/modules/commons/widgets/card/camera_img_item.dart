@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:dextra/presentation/assets/assets.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/commonImage/common_image.dart';
@@ -69,7 +71,7 @@ class _CameraImgItemState extends State<CameraImgItem> {
             child: Stack(
               children: [
                 CommonImage(
-                  imagePath: widget.img ?? Assets.png.placeHolder.path,
+                  imageUrl: widget.img ?? Assets.png.placeHolder.path,
                   fit: BoxFit.cover,
                 ),
                 Positioned(
@@ -108,12 +110,16 @@ class _CameraImgItemState extends State<CameraImgItem> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CommonText(
-                widget.time ?? 'Time',
-                style: TextStyle(
-                  color: colors.textMuted,
-                  fontWeight: AppFontWeight.regular,
-                  fontSize: AppFontSize.md,
+              SizedBox(
+                width: AppSpacing.rem1600.w,
+                child: CommonText(
+                  widget.time ?? 'Time',
+                  style: TextStyle(
+                    color: colors.textMuted,
+                    fontWeight: AppFontWeight.regular,
+                    fontSize: AppFontSize.md,
+                  ),
+                  maxLines: 2,
                 ),
               ),
               CommonPrimaryButton(

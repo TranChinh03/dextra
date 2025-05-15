@@ -1,11 +1,18 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:dextra/di/injectable.dart';
+import 'package:dextra/domain/enum/screen_path.dart';
+import 'package:dextra/domain/interfaces/api_client.dart';
+import 'package:dextra/domain/models/base_api_response.dart';
+import 'package:dextra/infrastructure/base_api/dio_client/api_path.dart';
 import 'package:dextra/presentation/assets/assets.dart';
 import 'package:dextra/presentation/commons/api_state.dart';
 import 'package:dextra/presentation/modules/commons/bloc/camera/camera_bloc.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/statistic/charts/pie_chart_sample.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/statistic/date_time_picker.dart';
+import 'package:dextra/presentation/modules/commons/widgets/button/common_button.dart';
+import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/card/camera_img_item.dart';
 import 'package:dextra/presentation/modules/commons/widgets/card/common_statistic_card.dart';
 import 'package:dextra/presentation/modules/commons/widgets/commonImage/common_image.dart';
@@ -15,6 +22,7 @@ import 'package:dextra/presentation/modules/commons/widgets/map/map.dart';
 import 'package:dextra/presentation/modules/commons/widgets/screen-container/screen_container.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_heading.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
+import 'package:dextra/presentation/router/router_config/router.dart';
 import 'package:dextra/theme/border/app_border_radius.dart';
 import 'package:dextra/theme/color/app_color.dart';
 import 'package:dextra/theme/font/app_font_size.dart';
@@ -218,25 +226,27 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                     height: AppSpacing.rem8975.h,
                     width: double.infinity,
                     color: colors.primaryBannerBg,
-                    child: MapSample(),
+                    child: MapSample(cameraList: _cameraBloc.state.cameras),
                   ),
                   Padding(
                     padding:
                         const EdgeInsets.symmetric(vertical: AppSpacing.rem600),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        CameraImgItem(
-                          isSaved: false,
-                        ),
-                        CameraImgItem(
-                          isSaved: false,
-                        ),
-                        CameraImgItem(
-                          isSaved: false,
-                        )
-                      ],
-                    ),
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children:
+                            _cameraBloc.state.cameras.take(3).map((camera) {
+                          return CameraImgItem(
+                            img: camera.liveviewUrl,
+                            isSaved: false,
+                            name: camera.name,
+                            time: DateFormat('dd MMMM yyyy hh:mm:ss a')
+                                .format(camera.lastModified ?? DateTime.now()),
+                          );
+                        }).toList()),
+                  ),
+                  CommonPrimaryButton(
+                    text: "All Cameras",
+                    onPressed: () => DextraRouter.push(ScreenPath.mapCam.value),
                   ),
                   CommonHeading(
                     heading: "Analyze Traffic",
