@@ -8,6 +8,7 @@ import 'package:dextra/presentation/modules/commons/widgets/screen-container/scr
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:timezone/timezone.dart';
 
 class MapSample extends StatefulWidget {
   final LatLng? location;
@@ -65,6 +66,14 @@ class MapSampleState extends State<MapSample> {
     }).toList();
 
     return locations;
+  }
+
+  void didUpdateWidget(covariant MapSample oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Zoom to new location when it changes
+    if (widget.location != oldWidget.location) {
+      _goToCameraPos(widget.location!);
+    }
   }
 
   Set<Marker> _buildMarkers(List<Camera> cameras) {

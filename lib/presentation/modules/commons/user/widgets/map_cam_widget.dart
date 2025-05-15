@@ -11,9 +11,11 @@ import 'package:dextra/presentation/commons/api_state.dart';
 import 'package:dextra/presentation/modules/commons/bloc/camera/camera_bloc.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/statistic/charts/pie_chart_sample.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/statistic/date_time_picker.dart';
+import 'package:dextra/presentation/modules/commons/widgets/button/common_arrow_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/card/camera_img_item.dart';
+import 'package:dextra/presentation/modules/commons/widgets/card/camera_list_item.dart';
 import 'package:dextra/presentation/modules/commons/widgets/card/common_statistic_card.dart';
 import 'package:dextra/presentation/modules/commons/widgets/commonImage/common_image.dart';
 import 'package:dextra/presentation/modules/commons/widgets/input/search_box.dart';
@@ -33,6 +35,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapCamWidget extends StatefulWidget {
   const MapCamWidget({super.key});
@@ -42,9 +45,15 @@ class MapCamWidget extends StatefulWidget {
 }
 
 class _MapCamWidgetState extends State<MapCamWidget> {
+  final ScrollController _scrollController = ScrollController();
+
   final _cameraBloc = getIt.get<CameraBloc>();
   late Timer _timer;
   String _currentTime = '';
+  int currentPage = 1;
+  int currentSegment = 1;
+  int pagesPerSeg = 5;
+  LatLng? currentPos;
 
   final List<String> _districts = [
     'District 1',
@@ -75,6 +84,7 @@ class _MapCamWidgetState extends State<MapCamWidget> {
   void initState() {
     super.initState();
     _onFetchCamera();
+
     _updateTime();
     _timer = Timer.periodic(const Duration(seconds: 1), (_) => _updateTime());
   }
@@ -94,9 +104,73 @@ class _MapCamWidgetState extends State<MapCamWidget> {
     });
   }
 
+  Widget _createButton() {
+    int totalPages = _cameraBloc.state.cameras.length % 20 == 0
+        ? _cameraBloc.state.cameras.length ~/ 20
+        : (_cameraBloc.state.cameras.length ~/ 20) + 1;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        CommonArrowButton(
+          direction: 'left',
+          isEnable: currentSegment > 1,
+          onPressed: () {
+            setState(() {
+              currentSegment--;
+            });
+          },
+        ),
+        ...List.generate(
+            (totalPages ~/ (currentSegment * pagesPerSeg) > 0
+                ? pagesPerSeg
+                : (totalPages % ((currentSegment - 1) * pagesPerSeg))),
+            (index) {
+          return Padding(
+            padding: EdgeInsets.all(AppSpacing.rem125.w),
+            child: CommonButton(
+              text:
+                  (index + 1 + ((currentSegment - 1) * pagesPerSeg)).toString(),
+              onPressed: () => setState(() {
+                currentPage = index + 1 + ((currentSegment - 1) * pagesPerSeg);
+              }),
+            ),
+          );
+        }),
+        CommonArrowButton(
+          isEnable: totalPages % pagesPerSeg == 0
+              ? currentSegment <= totalPages / pagesPerSeg - 1
+              : currentSegment < totalPages / pagesPerSeg,
+          onPressed: () {
+            setState(() {
+              currentSegment++;
+              print(currentSegment);
+            });
+          },
+        ),
+      ],
+    );
+  }
+  // void _setupScrollListener() {
+  //   _scrollController.addListener(() {
+  //     if (_scrollController.position.pixels >=
+  //             _scrollController.position.maxScrollExtent * 0.8 &&
+  //         !context.read<CameraBloc>().state.hasMore) {
+  //       // Already loading or no more data
+  //       return;
+  //     }
+  //     if (_scrollController.position.pixels >=
+  //         _scrollController.position.maxScrollExtent * 0.8) {
+  //       // Load more when 80% scrolled
+  //       final currentPage = context.read<CameraBloc>().state.currentPage;
+  //       context.read<CameraBloc>().add(FetchMoreCamerasEvent(currentPage + 1));
+  //     }
+  //   });
+  // }
+
   @override
   void dispose() {
     _timer.cancel();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -202,52 +276,69 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                   SizedBox(
                     height: AppSpacing.rem600.h,
                   ),
-                  Row(
-                    children: [
-                      SearchBox(),
-                      SizedBox(
-                        width: AppSpacing.rem300.w,
-                      ),
-                      Expanded(
-                        child: SimpleDropdown(
-                          itemsList: _districts.map((option) {
-                            return DropdownMenuItem<String>(
-                              value: option,
-                              child: CommonText(option),
-                            );
-                          }).toList(),
-                          onChanged: (value) => setState(() {}),
-                        ),
-                      )
-                    ],
-                  ),
                   Container(
-                    margin: EdgeInsets.only(top: AppSpacing.rem600.h),
+                    margin: EdgeInsets.only(bottom: AppSpacing.rem600.h),
                     height: AppSpacing.rem8975.h,
                     width: double.infinity,
                     color: colors.primaryBannerBg,
-                    child: MapSample(cameraList: _cameraBloc.state.cameras),
+                    child: MapSample(
+                      cameraList: _cameraBloc.state.cameras,
+                      location: currentPos,
+                    ),
                   ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: AppSpacing.rem600),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children:
-                            _cameraBloc.state.cameras.take(3).map((camera) {
-                          return CameraImgItem(
-                            img: camera.liveviewUrl,
-                            isSaved: false,
-                            name: camera.name,
-                            time: DateFormat('dd MMMM yyyy hh:mm:ss a')
-                                .format(camera.lastModified ?? DateTime.now()),
-                          );
-                        }).toList()),
-                  ),
-                  CommonPrimaryButton(
-                    text: "All Cameras",
-                    onPressed: () => DextraRouter.push(ScreenPath.mapCam.value),
-                  ),
+                  // Row(
+                  //   children: [
+                  //     SearchBox(),
+                  //     SizedBox(
+                  //       width: AppSpacing.rem300.w,
+                  //     ),
+                  //     Expanded(
+                  //       child: SimpleDropdown(
+                  //         itemsList: _districts.map((option) {
+                  //           return DropdownMenuItem<String>(
+                  //             value: option,
+                  //             child: CommonText(option),
+                  //           );
+                  //         }).toList(),
+                  //         onChanged: (value) => setState(() {}),
+                  //       ),
+                  //     )
+                  //   ],
+                  // ),
+                  _cameraBloc.state.cameras.isEmpty
+                      ? CircularProgressIndicator()
+                      : Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: AppSpacing.rem600),
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              controller: _scrollController,
+                              itemCount: 20,
+                              itemBuilder: (context, index) {
+                                final camera = _cameraBloc.state
+                                    .cameras[index + (currentPage - 1) * 20];
+
+                                return Padding(
+                                  padding: EdgeInsets.all(AppSpacing.rem350.h),
+                                  child: CameraListItem(
+                                    onTap: () => {
+                                      setState(() {
+                                        currentPos = LatLng(
+                                            camera.loc?.coordinates[1] ?? 0,
+                                            camera.loc?.coordinates[0] ?? 0);
+                                      }),
+                                      print(currentPos),
+                                    },
+                                    cammeName: camera.name,
+                                    dist: camera.dist,
+                                    imgUrl: camera.liveviewUrl,
+                                  ),
+                                );
+                              }),
+                        ),
+                  _cameraBloc.state.cameras.isEmpty
+                      ? CircularProgressIndicator()
+                      : _createButton(),
                   CommonHeading(
                     heading: "Analyze Traffic",
                     subheading:
@@ -298,5 +389,15 @@ class _MapCamWidgetState extends State<MapCamWidget> {
         );
       },
     );
+  }
+
+  final Completer<GoogleMapController> _controller =
+      Completer<GoogleMapController>();
+
+  Future<void> _goToCameraPos(pos) async {
+    final GoogleMapController controller = await _controller.future;
+    await controller.animateCamera(CameraUpdate.newCameraPosition(
+      CameraPosition(target: pos, zoom: 15),
+    ));
   }
 }
