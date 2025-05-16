@@ -30,7 +30,8 @@ class CameraListItem extends StatelessWidget {
       // leading: const Icon(Icons.camera_alt),
       leading: CommonImage(
         width: AppSpacing.rem1000.w,
-        imageUrl: imgUrl ?? Assets.png.placeHolder.path,
+        // imageUrl: imgUrl ?? Assets.png.placeHolder.path,
+        imagePath: Assets.png.placeHolder.path,
         fit: BoxFit.cover,
       ),
       title: CommonText(
