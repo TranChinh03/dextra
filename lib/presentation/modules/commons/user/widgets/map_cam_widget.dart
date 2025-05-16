@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:dextra/di/injectable.dart';
+import 'package:dextra/domain/entities/camera.dart';
 import 'package:dextra/domain/enum/screen_path.dart';
 import 'package:dextra/domain/interfaces/api_client.dart';
 import 'package:dextra/domain/models/base_api_response.dart';
@@ -44,40 +45,69 @@ class MapCamWidget extends StatefulWidget {
   State<MapCamWidget> createState() => _MapCamWidgetState();
 }
 
+List<Camera> _searchResult = [];
+
 class _MapCamWidgetState extends State<MapCamWidget> {
   final ScrollController _scrollController = ScrollController();
+  final SearchController _searchController = SearchController();
 
   final _cameraBloc = getIt.get<CameraBloc>();
   late Timer _timer;
   String _currentTime = '';
   int currentPage = 1;
   int currentSegment = 1;
+  String currentDistrict = "All districts";
   int pagesPerSeg = 5;
   LatLng? currentPos;
 
+  // final List<String> _districts = [
+  //   "All districts",
+  //   'District 1',
+  //   'District 3',
+  //   'District 4',
+  //   'District 5',
+  //   'District 6',
+  //   'District 7',
+  //   'District 8',
+  //   'District 10',
+  //   'District 11',
+  //   'District 12',
+  //   'Binh Thanh District',
+  //   'Go Vap District',
+  //   'Phu Nhuan District',
+  //   'Tan Binh District',
+  //   'Tan Phu District',
+  //   'Thu Duc District',
+  //   'Binh Chanh District',
+  //   'Cu Chi District',
+  //   'Hoc Mon District',
+  //   'Nha Be District',
+  //   'Can Gio District',
+  //   'Thu Duc City',
+  // ];
+
   final List<String> _districts = [
-    'District 1',
-    'District 3',
-    'District 4',
-    'District 5',
-    'District 6',
-    'District 7',
-    'District 8',
-    'District 10',
-    'District 11',
-    'District 12',
-    'Binh Thanh District',
-    'Go Vap District',
-    'Phu Nhuan District',
-    'Tan Binh District',
-    'Tan Phu District',
-    'Thu Duc District',
-    'Binh Chanh District',
-    'Cu Chi District',
-    'Hoc Mon District',
-    'Nha Be District',
-    'Can Gio District',
-    'Thu Duc City',
+    "Tất cả",
+    'Quận 1',
+    'Quận 3',
+    'Quận 4',
+    'Quận 5',
+    'Quận 6',
+    'Quận 7',
+    'Quận 8',
+    'Quận 10',
+    'Quận 11',
+    'Quận 12',
+    'Quận Bình Thạnh',
+    'Quận Gò Vấp',
+    'Quận Phú Nhuận',
+    'Quận Tân Bình',
+    'Quận Tân Phú',
+    'Quận Thủ Đức',
+    'Huyện Bình Chánh',
+    'Huyện Củ Chi',
+    'Huyện Hóc Môn',
+    'Huyện Nhà Bè',
   ];
 
   @override
@@ -87,6 +117,32 @@ class _MapCamWidgetState extends State<MapCamWidget> {
 
     _updateTime();
     _timer = Timer.periodic(const Duration(seconds: 1), (_) => _updateTime());
+  }
+
+  _onSearchTextChanged(String text) async {
+    _searchResult.clear();
+    if (text.isEmpty) {
+      setState(() {});
+      return;
+    }
+
+    for (var camera in _cameraBloc.state.cameras) {
+      if (camera.name!.toLowerCase().contains(text.toLowerCase())) {
+        _searchResult.add(camera);
+      }
+    }
+    setState(() {});
+  }
+
+  _onDropDownChanged(String dist) async {
+    _searchResult.clear();
+
+    for (var camera in _cameraBloc.state.cameras) {
+      if (camera.dist!.toLowerCase().contains(dist.toLowerCase())) {
+        _searchResult.add(camera);
+      }
+    }
+    setState(() {});
   }
 
   void _onFetchCamera() {
@@ -286,55 +342,91 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                       location: currentPos,
                     ),
                   ),
-                  // Row(
-                  //   children: [
-                  //     SearchBox(),
-                  //     SizedBox(
-                  //       width: AppSpacing.rem300.w,
-                  //     ),
-                  //     Expanded(
-                  //       child: SimpleDropdown(
-                  //         itemsList: _districts.map((option) {
-                  //           return DropdownMenuItem<String>(
-                  //             value: option,
-                  //             child: CommonText(option),
-                  //           );
-                  //         }).toList(),
-                  //         onChanged: (value) => setState(() {}),
-                  //       ),
-                  //     )
-                  //   ],
-                  // ),
+                  Row(
+                    children: [
+                      SearchBox(
+                        onChanged: _onSearchTextChanged,
+                        controller: _searchController,
+                      ),
+                      SizedBox(
+                        width: AppSpacing.rem300.w,
+                      ),
+                      Expanded(
+                        child: SimpleDropdown(
+                          itemsList: _districts.map((option) {
+                            return DropdownMenuItem<String>(
+                              value: option,
+                              child: CommonText(option),
+                            );
+                          }).toList(),
+                          onChanged: _onDropDownChanged,
+                        ),
+                      )
+                    ],
+                  ),
                   _cameraBloc.state.cameras.isEmpty
                       ? CircularProgressIndicator()
                       : Padding(
                           padding: const EdgeInsets.symmetric(
                               vertical: AppSpacing.rem600),
-                          child: ListView.builder(
-                              shrinkWrap: true,
-                              controller: _scrollController,
-                              itemCount: 20,
-                              itemBuilder: (context, index) {
-                                final camera = _cameraBloc.state
-                                    .cameras[index + (currentPage - 1) * 20];
+                          child: _searchController.text.isNotEmpty ||
+                                  _searchResult.isNotEmpty
+                              ? ListView.builder(
+                                  shrinkWrap: true,
+                                  controller: _scrollController,
+                                  itemCount: _searchResult.length < 20
+                                      ? _searchResult.length
+                                      : 20,
+                                  itemBuilder: (context, index) {
+                                    final camera = _searchResult[
+                                        index + (currentPage - 1) * 20];
 
-                                return Padding(
-                                  padding: EdgeInsets.all(AppSpacing.rem350.h),
-                                  child: CameraListItem(
-                                    onTap: () => {
-                                      setState(() {
-                                        currentPos = LatLng(
-                                            camera.loc?.coordinates[1] ?? 0,
-                                            camera.loc?.coordinates[0] ?? 0);
-                                      }),
-                                      print(currentPos),
-                                    },
-                                    cammeName: camera.name,
-                                    dist: camera.dist,
-                                    imgUrl: camera.liveviewUrl,
-                                  ),
-                                );
-                              }),
+                                    return Padding(
+                                      padding:
+                                          EdgeInsets.all(AppSpacing.rem350.h),
+                                      child: CameraListItem(
+                                        onTap: () => {
+                                          setState(() {
+                                            currentPos = LatLng(
+                                                camera.loc?.coordinates[1] ?? 0,
+                                                camera.loc?.coordinates[0] ??
+                                                    0);
+                                          }),
+                                          print(currentPos),
+                                        },
+                                        cammeName: camera.name,
+                                        dist: camera.dist,
+                                        imgUrl: camera.liveviewUrl,
+                                      ),
+                                    );
+                                  })
+                              : ListView.builder(
+                                  shrinkWrap: true,
+                                  controller: _scrollController,
+                                  itemCount: 20,
+                                  itemBuilder: (context, index) {
+                                    final camera = _cameraBloc.state.cameras[
+                                        index + (currentPage - 1) * 20];
+
+                                    return Padding(
+                                      padding:
+                                          EdgeInsets.all(AppSpacing.rem350.h),
+                                      child: CameraListItem(
+                                        onTap: () => {
+                                          setState(() {
+                                            currentPos = LatLng(
+                                                camera.loc?.coordinates[1] ?? 0,
+                                                camera.loc?.coordinates[0] ??
+                                                    0);
+                                          }),
+                                          print(currentPos),
+                                        },
+                                        cammeName: camera.name,
+                                        dist: camera.dist,
+                                        imgUrl: camera.liveviewUrl,
+                                      ),
+                                    );
+                                  }),
                         ),
                   _cameraBloc.state.cameras.isEmpty
                       ? CircularProgressIndicator()
@@ -347,7 +439,9 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SearchBox(),
+                      SearchBox(
+                        onChanged: (value) => {},
+                      ),
                       CommonText(
                         "Time: ",
                         style: TextStyle(fontWeight: AppFontWeight.bold),

@@ -184,7 +184,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                   heading: "Search for Cameras",
                   subheading:
                       "Enter camera name  to see what’s happening now!"),
-              SearchBox(),
+              SearchBox(
+                onChanged: (value) => {},
+              ),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: AppSpacing.rem600),
