@@ -321,6 +321,7 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                                 return Padding(
                                   padding: EdgeInsets.all(AppSpacing.rem350.h),
                                   child: CameraListItem(
+                                    cameraId: camera.privateId,
                                     onTap: () => {
                                       setState(() {
                                         currentPos = LatLng(
