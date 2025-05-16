@@ -6,7 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SearchBox extends StatefulWidget {
-  const SearchBox({super.key});
+  final ValueChanged<String>? onChanged;
+  final SearchController? controller;
+  const SearchBox({super.key, required this.onChanged, this.controller});
 
   @override
   _SearchBoxState createState() => _SearchBoxState();
@@ -16,8 +18,9 @@ class _SearchBoxState extends State<SearchBox> {
   @override
   Widget build(BuildContext context) {
     return SearchAnchor(
-      builder: (BuildContext context, SearchController controller) {
+      builder: (BuildContext context, controller) {
         return SearchBar(
+          onChanged: widget.onChanged,
           controller: controller,
           hintText: "Search...",
           trailing: <Widget>[
