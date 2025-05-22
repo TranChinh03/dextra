@@ -29,10 +29,12 @@
   "Common.reject": "Reject",
   "Common.percent_sign": "%",
   "Common.view": "View",
+  "Common.overview": "Overview",
   "Common.explore": "Explore",
   "Common.explore_now": "Explore Now",
   "Common.cam_default_label": "Camera 01",
   "Common.vehicles_count_label": "Vehicles Counted Today",
+  "Common.Vehicle": "Vehicles",
   "Common.avg_congestion_label": "Average Congestion Level",
   "Common.default_count_value": "29,876",
   "Common.default_avg_congestion": "55%",
@@ -54,6 +56,19 @@
   "Common.export_report": "Export report",
   "Common.schedule_report": "Schedule report",
 
+  "Common.select_date": "Select Date",
+  "Common.select_time": "Select Time",
+  "Common.date_range": "Date range",
+  "Common.time_range": "Time range",
+  "Common.start_date_after_end_date": "Start date must be before end date.",
+  "Common.end_date_before_start_date": "End date must be after start date.",
+  "Common.invalid_date_range": "Invalid Date Range",
+  "Common.custom": "Custom",
+  "Common.area": "Area",
+  "Common.time_range_info": "Time range is only available when the selected date range is a single day",
+
+
+  "Common.start": "Start",
   "Common.end": "End",
 
   "Auth.sub_slogan": "Automatic Traffic Statistics & Analysis",

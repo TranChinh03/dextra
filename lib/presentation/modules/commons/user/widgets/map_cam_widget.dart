@@ -121,6 +121,10 @@ class _MapCamWidgetState extends State<MapCamWidget> {
 
   _onSearchTextChanged(String text) async {
     _searchResult.clear();
+    setState(() {
+      currentDistrict = "All districts";
+      currentPage = 1;
+    });
     if (text.isEmpty) {
       setState(() {});
       return;
@@ -374,10 +378,12 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                               ? ListView.builder(
                                   shrinkWrap: true,
                                   controller: _scrollController,
-                                  itemCount: _searchResult.length < 20
-                                      ? _searchResult.length
-                                      : 20,
+                                  itemCount: 20,
                                   itemBuilder: (context, index) {
+                                    if (index + (currentPage - 1) * 20 >=
+                                        _searchResult.length) {
+                                      return const SizedBox();
+                                    }
                                     final camera = _searchResult[
                                         index + (currentPage - 1) * 20];
 
@@ -405,6 +411,10 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                                   controller: _scrollController,
                                   itemCount: 20,
                                   itemBuilder: (context, index) {
+                                    if (index + (currentPage - 1) * 20 >=
+                                        _cameraBloc.state.cameras.length) {
+                                      return const SizedBox();
+                                    }
                                     final camera = _cameraBloc.state.cameras[
                                         index + (currentPage - 1) * 20];
 

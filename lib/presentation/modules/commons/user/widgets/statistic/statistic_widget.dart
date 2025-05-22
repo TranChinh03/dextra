@@ -47,7 +47,7 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                     width: AppSpacing.rem600.w,
                   ),
                   CommonSecondaryButton(
-                    text: tr('Common.export_report'),
+                    text: tr('Common.schedule_report'),
                     onPressed: () {
                       setState(() {
                         _selectedTab = 1;
