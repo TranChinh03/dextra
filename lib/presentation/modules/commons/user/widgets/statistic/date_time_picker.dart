@@ -20,12 +20,12 @@ class DateTimePicker extends StatelessWidget {
 
   String _formatDate(DateTime? date) {
     return date == null
-        ? 'Select Date'
+        ? tr('Common.select_date')
         : DateFormat('dd MMM yyyy').format(date);
   }
 
   String _formatTime(TimeOfDay? time) {
-    if (time == null) return 'Select Time';
+    if (time == null) return tr('Common.select_time');
 
     final now = DateTime.now();
     final dt = DateTime(now.year, now.month, now.day, time.hour, time.minute);

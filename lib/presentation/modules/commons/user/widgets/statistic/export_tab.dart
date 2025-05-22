@@ -5,6 +5,7 @@ import 'package:dextra/presentation/modules/commons/user/widgets/statistic/chart
 import 'package:dextra/presentation/modules/commons/user/widgets/statistic/charts/pie_chart_sample1.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/statistic/date_time_picker.dart';
 import 'package:dextra/presentation/modules/commons/widgets/card/common_statistic_card.dart';
+import 'package:dextra/presentation/modules/commons/widgets/map/heatmap.dart';
 import 'package:dextra/presentation/modules/commons/widgets/screen-container/screen_container.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_heading.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
@@ -108,18 +109,18 @@ class _ExportTabState extends State<ExportTab> {
 
     if (isInvalidStart || isInvalidEnd) {
       final errorMessage = isStart
-          ? 'Start date must be before end date.'
-          : 'End date must be after start date.';
+          ? tr('Common.start_date_after_end_date')
+          : tr('Common.end_date_before_start_date');
 
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: const Text('Invalid Date Range'),
-          content: Text(errorMessage),
+          title: CommonText(tr("Common.invalid_date_range")),
+          content: CommonText(errorMessage),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text('OK'),
+              child: CommonText(tr("Common.ok")),
             ),
           ],
         ),
@@ -159,7 +160,7 @@ class _ExportTabState extends State<ExportTab> {
   }
 
   String _formatTime(TimeOfDay? time) {
-    if (time == null) return 'Select Time';
+    if (time == null) return tr('Common.select_time');
 
     final now = DateTime.now();
     final dt = DateTime(now.year, now.month, now.day, time.hour, time.minute);
@@ -189,7 +190,7 @@ class _ExportTabState extends State<ExportTab> {
                       Row(
                         children: [
                           CommonText(
-                            "Date range",
+                            tr('Common.date_range'),
                             style: TextStyle(
                                 fontSize: AppFontSize.xxxl,
                                 fontWeight: AppFontWeight.semiBold),
@@ -232,14 +233,14 @@ class _ExportTabState extends State<ExportTab> {
                           ),
                         ],
                       ),
-                      if (_selectedOption == 'Custom') ...[
+                      if (_selectedOption == tr('Common.custom')) ...[
                         Container(
                           padding: EdgeInsets.only(top: AppSpacing.rem250.h),
                           child: Row(
                             children: [
                               Expanded(
                                   child: DateTimePicker(
-                                label: "Start",
+                                label: tr("Common.start"),
                                 onPressed: () => _pickDate(context, true),
                                 date: _startDate,
                                 isDate: true,
@@ -247,7 +248,7 @@ class _ExportTabState extends State<ExportTab> {
                               const SizedBox(width: 12),
                               Expanded(
                                   child: DateTimePicker(
-                                label: "Ends",
+                                label: tr("Common.end"),
                                 onPressed: () => _pickDate(context, false),
                                 date: _endDate,
                                 isDate: true,
@@ -262,7 +263,7 @@ class _ExportTabState extends State<ExportTab> {
                       Row(
                         children: [
                           CommonText(
-                            "Area",
+                            tr('Common.area'),
                             style: TextStyle(
                                 fontSize: AppFontSize.xxxl,
                                 fontWeight: AppFontWeight.semiBold),
@@ -328,7 +329,7 @@ class _ExportTabState extends State<ExportTab> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             CommonText(
-                              "Time range",
+                              tr('Common.time_range'),
                               style: TextStyle(
                                   fontSize: AppFontSize.xxxl,
                                   fontWeight: AppFontWeight.semiBold),
@@ -340,7 +341,7 @@ class _ExportTabState extends State<ExportTab> {
                               onPressed:
                                   _isTimeEnable ? () => _pickTime(true) : null,
                               child: CommonText(
-                                'Start: ${_formatTime(_startTime)}',
+                                '${tr('Common.start')}: ${_formatTime(_startTime)}',
                                 style: TextStyle(fontSize: AppFontSize.xs),
                               ),
                             ),
@@ -348,14 +349,14 @@ class _ExportTabState extends State<ExportTab> {
                               onPressed:
                                   _isTimeEnable ? () => _pickTime(false) : null,
                               child: CommonText(
-                                'End: ${_formatTime(_endTime)}',
+                                '${tr('Common.end')}: ${_formatTime(_endTime)}',
                                 style: TextStyle(fontSize: AppFontSize.xs),
                               ),
                             )
                           ],
                         ),
                         CommonText(
-                          "Time range is only available when the selected date range is a single day",
+                          tr('Common.time_range_info'),
                           style: TextStyle(
                               fontSize: AppFontSize.xxs,
                               color: colors.textMuted),
@@ -366,7 +367,7 @@ class _ExportTabState extends State<ExportTab> {
                         Row(
                           children: [
                             CommonText(
-                              "Vehicle",
+                              tr('Common.vehicle'),
                               style: TextStyle(
                                   fontSize: AppFontSize.xxxl,
                                   fontWeight: AppFontWeight.semiBold),
@@ -423,6 +424,12 @@ class _ExportTabState extends State<ExportTab> {
                     ))
               ],
             ),
+            Container(
+                margin: EdgeInsets.symmetric(vertical: AppSpacing.rem600.h),
+                height: AppSpacing.rem8975.h,
+                width: double.infinity,
+                color: colors.primaryBannerBg,
+                child: TrafficHeatmap()),
             Center(
               child: SizedBox(
                   height: AppSpacing.rem8975.h,
@@ -448,7 +455,7 @@ class _ExportTabState extends State<ExportTab> {
             ),
             Center(
               child: CommonHeading(
-                heading: "Overview",
+                heading: tr('Common.overview'),
               ),
             ),
             Center(
