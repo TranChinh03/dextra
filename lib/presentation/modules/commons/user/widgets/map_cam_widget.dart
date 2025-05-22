@@ -58,7 +58,8 @@ class _MapCamWidgetState extends State<MapCamWidget> {
   int currentSegment = 1;
   String currentDistrict = "All districts";
   int pagesPerSeg = 5;
-  LatLng? currentPos;
+  LatLng? _currentPos;
+  Camera? _selectedCam;
 
   // final List<String> _districts = [
   //   "All districts",
@@ -343,7 +344,8 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                     color: colors.primaryBannerBg,
                     child: MapSample(
                       cameraList: _cameraBloc.state.cameras,
-                      location: currentPos,
+                      location: _currentPos,
+                      selectedCam: _selectedCam,
                     ),
                   ),
                   Row(
@@ -393,12 +395,12 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                                       child: CameraListItem(
                                         onTap: () => {
                                           setState(() {
-                                            currentPos = LatLng(
+                                            _currentPos = LatLng(
                                                 camera.loc?.coordinates[1] ?? 0,
                                                 camera.loc?.coordinates[0] ??
                                                     0);
+                                            _selectedCam = camera;
                                           }),
-                                          print(currentPos),
                                         },
                                         cammeName: camera.name,
                                         dist: camera.dist,
@@ -425,12 +427,13 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                                         cameraId: camera.privateId,
                                         onTap: () => {
                                           setState(() {
-                                            currentPos = LatLng(
+                                            _currentPos = LatLng(
                                                 camera.loc?.coordinates[1] ?? 0,
                                                 camera.loc?.coordinates[0] ??
                                                     0);
+                                            _selectedCam = camera;
                                           }),
-                                          print(currentPos),
+                                          print(_currentPos),
                                         },
                                         cammeName: camera.name,
                                         dist: camera.dist,

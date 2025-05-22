@@ -16,4 +16,5 @@ class AssetsSvg {
   String get bookmarkOutlineIcon => 'assets/svg/bookmark_outline.svg';
   String get bookmarkFilledIcon => 'assets/svg/bookmark_filled.svg';
   String get mailIcon => 'assets/svg/mail.svg';
+  String get eyeIcon => 'assets/svg/eye_white.svg';
 }

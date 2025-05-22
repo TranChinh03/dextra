@@ -4,16 +4,28 @@ import 'dart:convert';
 import 'package:dextra/domain/entities/camera.dart';
 import 'package:dextra/presentation/assets/assets.dart';
 import 'package:dextra/presentation/commons/api_state.dart';
+import 'package:dextra/presentation/modules/commons/widgets/button/common_button.dart';
+import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
+import 'package:dextra/presentation/modules/commons/widgets/button/view_button.dart';
+import 'package:dextra/presentation/modules/commons/widgets/commonImage/common_image.dart';
 import 'package:dextra/presentation/modules/commons/widgets/screen-container/screen_container.dart';
+import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
+import 'package:dextra/theme/border/app_border_radius.dart';
+import 'package:dextra/theme/color/app_color.dart';
+import 'package:dextra/theme/font/app_font_size.dart';
+import 'package:dextra/theme/spacing/app_spacing.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:timezone/timezone.dart';
 
 class MapSample extends StatefulWidget {
+  final Camera? selectedCam;
   final LatLng? location;
   final List<Camera>? cameraList;
-  const MapSample({super.key, this.location, this.cameraList});
+  const MapSample(
+      {super.key, this.cameraList, this.selectedCam, this.location});
 
   @override
   State<MapSample> createState() => MapSampleState();
@@ -26,6 +38,10 @@ class MapSampleState extends State<MapSample> {
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
   BitmapDescriptor? _customIcon;
+  LatLng? _selectedMarkerPosition;
+  Offset? _infoWindowPosition;
+  Camera? _selectedCam;
+
   @override
   void initState() {
     super.initState();
@@ -72,7 +88,9 @@ class MapSampleState extends State<MapSample> {
     super.didUpdateWidget(oldWidget);
     // Zoom to new location when it changes
     if (widget.location != oldWidget.location) {
-      _goToCameraPos(widget.location!);
+      _goToCameraPos(widget.location);
+      _getInforWindow(widget.location!,
+          widget.selectedCam!); // Update the info window position
     }
   }
 
@@ -97,14 +115,20 @@ class MapSampleState extends State<MapSample> {
         icon: _customIcon!,
         markerId: MarkerId(camera.privateId!),
         position: position,
-        infoWindow: InfoWindow(title: camera.name),
-        onTap: () => _goToCameraPos(position),
+        // infoWindow: InfoWindow(title: camera.name),
+        onTap: () {
+          // Convert marker's LatLng to screen coordinates
+          _getInforWindow(position, camera);
+          _goToCameraPos(position);
+        },
       );
     }).toSet();
   }
 
   @override
   Widget build(BuildContext context) {
+    final colors = IAppColor.watch(context);
+
     return ScreenContainer(
       // isShowLoading: _isIconLoaded == false || _isCamerasLoaded == false,
       // child: Scaffold(
@@ -131,19 +155,78 @@ class MapSampleState extends State<MapSample> {
       // ),
       isShowLoading: _isIconLoaded == false,
       child: Scaffold(
-        body: GoogleMap(
-          mapType: MapType.hybrid,
-          initialCameraPosition: widget.location != null
-              ? CameraPosition(
-                  target: widget.location!,
-                  zoom: 11,
-                )
-              : _initCam,
-          onMapCreated: (GoogleMapController controller) {
-            _controller.complete(controller);
-          },
-          markers: _buildMarkers(widget.cameraList ?? []),
-        ),
+        body: Stack(children: <Widget>[
+          GoogleMap(
+            mapType: MapType.hybrid,
+            initialCameraPosition: widget.location != null
+                ? CameraPosition(
+                    target: widget.location!,
+                    zoom: 11,
+                  )
+                : _initCam,
+            onMapCreated: (GoogleMapController controller) {
+              _controller.complete(controller);
+            },
+            markers: _buildMarkers(widget.cameraList ?? []),
+            onTap: (LatLng position) {
+              setState(() {
+                _selectedMarkerPosition = null;
+                _infoWindowPosition = null;
+              });
+            },
+          ),
+          if (_selectedMarkerPosition != null && _infoWindowPosition != null)
+            Positioned(
+              left: _infoWindowPosition!.dx,
+              top: _infoWindowPosition!.dy,
+              child: Container(
+                padding: EdgeInsets.all(AppSpacing.rem125.w),
+                decoration: BoxDecoration(
+                  color: colors.white,
+                  borderRadius: BorderRadius.circular(AppBorderRadius.l),
+                  boxShadow: [
+                    BoxShadow(
+                      color: colors.black.withValues(alpha: 0.1),
+                      blurRadius: 5,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CommonImage(
+                      width: AppSpacing.rem3375.w,
+                      imageUrl:
+                          "http://localhost:8002/cameras/image/${_selectedCam?.privateId ?? ""}",
+                      fit: BoxFit.cover,
+                    ),
+                    SizedBox(height: AppSpacing.rem100.h),
+                    CommonText(
+                      _selectedCam?.name ?? "Camera Name",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CommonText(
+                          DateFormat('hh:mm:ss a').format(
+                              _selectedCam?.lastModified ?? DateTime.now()),
+                          style: TextStyle(
+                              fontSize: AppFontSize.xxxs,
+                              fontWeight: FontWeight.w300),
+                        ),
+                        SizedBox(
+                          width: AppSpacing.rem250.w,
+                        ),
+                        ViewButton(),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+        ]),
       ),
     );
   }
@@ -156,7 +239,18 @@ class MapSampleState extends State<MapSample> {
   Future<void> _goToCameraPos(pos) async {
     final GoogleMapController controller = await _controller.future;
     await controller.animateCamera(CameraUpdate.newCameraPosition(
-      CameraPosition(target: pos, zoom: 15),
+      CameraPosition(target: pos, zoom: 13),
     ));
+  }
+
+  void _getInforWindow(LatLng position, Camera camera) async {
+    final GoogleMapController controller = await _controller.future;
+    final screenCoordinate = await controller.getScreenCoordinate(position);
+    setState(() {
+      _selectedMarkerPosition = position;
+      _infoWindowPosition = Offset(
+          screenCoordinate.x.toDouble(), screenCoordinate.y.toDouble() - 250);
+      _selectedCam = camera;
+    });
   }
 }
