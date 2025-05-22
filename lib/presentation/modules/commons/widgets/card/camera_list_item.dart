@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:dextra/presentation/assets/assets.dart';
+import 'package:dextra/presentation/modules/commons/widgets/button/view_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/commonImage/common_image.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
 import 'package:dextra/theme/color/app_color.dart';
@@ -13,6 +14,7 @@ import 'package:flutter_svg/svg.dart';
 
 class CameraListItem extends StatefulWidget {
   final VoidCallback onTap;
+  final VoidCallback onPressed;
   final String? cammeName;
   final String? dist;
   final String? imgUrl;
@@ -24,6 +26,7 @@ class CameraListItem extends StatefulWidget {
     required this.imgUrl,
     this.dist,
     this.cameraId,
+    required this.onPressed,
   });
 
   @override
@@ -77,9 +80,8 @@ class _CameraListItemState extends State<CameraListItem> {
           fontSize: AppFontSize.xl,
         ),
       ),
-      trailing: SvgPicture.asset(
-        Assets.svg.forwardArrow,
-        fit: BoxFit.scaleDown,
+      trailing: ViewButton(
+        onPressed: widget.onPressed,
       ),
       onTap: widget.onTap,
     );

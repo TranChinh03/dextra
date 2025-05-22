@@ -405,6 +405,12 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                                         cammeName: camera.name,
                                         dist: camera.dist,
                                         imgUrl: camera.liveviewUrl,
+                                        onPressed: () => {
+                                          setState(() {
+                                            _selectedCam = camera;
+                                          }),
+                                          showDialogCam(),
+                                        },
                                       ),
                                     );
                                   })
@@ -424,6 +430,12 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                                       padding:
                                           EdgeInsets.all(AppSpacing.rem350.h),
                                       child: CameraListItem(
+                                        onPressed: () => {
+                                          setState(() {
+                                            _selectedCam = camera;
+                                          }),
+                                          showDialogCam(),
+                                        },
                                         cameraId: camera.privateId,
                                         onTap: () => {
                                           setState(() {
@@ -507,5 +519,29 @@ class _MapCamWidgetState extends State<MapCamWidget> {
     await controller.animateCamera(CameraUpdate.newCameraPosition(
       CameraPosition(target: pos, zoom: 15),
     ));
+  }
+
+  void showDialogCam() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: CommonText(
+          _selectedCam?.name ?? "",
+          style: TextStyle(fontWeight: AppFontWeight.bold),
+        ),
+        content: CommonImage(
+          width: AppSpacing.rem9999.w,
+          imageUrl:
+              "http://localhost:8002/cameras/image/${_selectedCam?.privateId ?? ""}",
+          fit: BoxFit.contain,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('Close'),
+          ),
+        ],
+      ),
+    );
   }
 }

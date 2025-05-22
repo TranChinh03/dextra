@@ -10,9 +10,11 @@ import 'package:dextra/presentation/modules/commons/widgets/button/view_button.d
 import 'package:dextra/presentation/modules/commons/widgets/commonImage/common_image.dart';
 import 'package:dextra/presentation/modules/commons/widgets/screen-container/screen_container.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
+import 'package:dextra/presentation/router/router_config/router.dart';
 import 'package:dextra/theme/border/app_border_radius.dart';
 import 'package:dextra/theme/color/app_color.dart';
 import 'package:dextra/theme/font/app_font_size.dart';
+import 'package:dextra/theme/font/app_font_weight.dart';
 import 'package:dextra/theme/spacing/app_spacing.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -207,6 +209,7 @@ class MapSampleState extends State<MapSample> {
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Row(
+                      spacing: AppSpacing.rem100.w,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         CommonText(
@@ -216,10 +219,7 @@ class MapSampleState extends State<MapSample> {
                               fontSize: AppFontSize.xxxs,
                               fontWeight: FontWeight.w300),
                         ),
-                        SizedBox(
-                          width: AppSpacing.rem250.w,
-                        ),
-                        ViewButton(),
+                        ViewButton(onPressed: showDialogImage),
                       ],
                     ),
                   ],
@@ -252,5 +252,29 @@ class MapSampleState extends State<MapSample> {
           screenCoordinate.x.toDouble(), screenCoordinate.y.toDouble() - 250);
       _selectedCam = camera;
     });
+  }
+
+  void showDialogImage() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: CommonText(
+          _selectedCam?.name ?? "",
+          style: TextStyle(fontWeight: AppFontWeight.bold),
+        ),
+        content: CommonImage(
+          width: AppSpacing.rem9999.w,
+          imageUrl:
+              "http://localhost:8002/cameras/image/${_selectedCam?.privateId ?? ""}",
+          fit: BoxFit.contain,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('Close'),
+          ),
+        ],
+      ),
+    );
   }
 }
