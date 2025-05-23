@@ -45,8 +45,6 @@ class MapCamWidget extends StatefulWidget {
   State<MapCamWidget> createState() => _MapCamWidgetState();
 }
 
-List<Camera> _searchResult = [];
-
 class _MapCamWidgetState extends State<MapCamWidget> {
   final ScrollController _scrollController = ScrollController();
   final SearchController _searchController = SearchController();
@@ -60,6 +58,7 @@ class _MapCamWidgetState extends State<MapCamWidget> {
   int pagesPerSeg = 5;
   LatLng? _currentPos;
   Camera? _selectedCam;
+  List<Camera> _searchResult = [];
 
   // final List<String> _districts = [
   //   "All districts",
@@ -120,7 +119,7 @@ class _MapCamWidgetState extends State<MapCamWidget> {
     _timer = Timer.periodic(const Duration(seconds: 1), (_) => _updateTime());
   }
 
-  _onSearchTextChanged(String text) async {
+  _onSearchTextChanged(String text) {
     _searchResult.clear();
     setState(() {
       currentDistrict = "All districts";
@@ -137,9 +136,11 @@ class _MapCamWidgetState extends State<MapCamWidget> {
       }
     }
     setState(() {});
+
+    _cameraBloc.add(SearchCamerasEvent(query: text));
   }
 
-  _onDropDownChanged(String dist) async {
+  _onDropDownChanged(String dist) {
     _searchResult.clear();
 
     for (var camera in _cameraBloc.state.cameras) {
