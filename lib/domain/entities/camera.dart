@@ -25,7 +25,9 @@ class Camera {
     this.lastModified,
   });
 
-  factory Camera.fromJson(Map<String, dynamic> json) {
+  factory Camera.fromJson(dynamic jsonData) {
+    Map<String, dynamic>? json = jsonData;
+
     if (json == null) {
       throw ArgumentError('The provided JSON map is null');
     }

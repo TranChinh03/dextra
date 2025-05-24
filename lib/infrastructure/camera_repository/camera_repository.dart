@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dextra/domain/entities/camera.dart';
 import 'package:dextra/domain/interfaces/api_client.dart';
 import 'package:dextra/domain/interfaces/interface_camera_repository.dart';
@@ -20,6 +22,36 @@ class CameraRepository implements ICameraRepository {
       getCameraUrl,
       parser: (json) => Camera.fromJson(json),
     );
+
+    return response;
+  }
+
+  @override
+  Future<BaseApiResponse<List<String>>> getDistricts() async {
+    final response = await _apiClient.get<List<String>, String>(
+      '$getCameraUrl/detection/classes',
+      // parser: (p0) => jsonDecode,
+    );
+    return response;
+  }
+
+  @override
+  Future<BaseApiResponse<List<String>>> getVehicles() async {
+    final response = await _apiClient.get<List<String>, String>(
+      '$getCameraUrl/detection/classes',
+      parser: (json) => json.toString(),
+    );
+    print('response: ${response.data}');
+    return response;
+  }
+
+  @override
+  Future<BaseApiResponse<List<Camera>?>> searchCameras(String name) async {
+    final response = await _apiClient.get<List<Camera>, Camera>(
+      '$getCameraUrl/search/$name',
+      parser: (json) => Camera.fromJson(json),
+    );
+
     return response;
   }
 }

@@ -16,6 +16,12 @@ import '../domain/interfaces/api_client.dart' as _i1065;
 import '../domain/interfaces/interface_camera_repository.dart' as _i574;
 import '../domain/usecases/camera/queries/fetch_cameras/fetch_cameras_handler.dart'
     as _i187;
+import '../domain/usecases/camera/queries/fetch_cameras/fetch_districts_handler.dart'
+    as _i1025;
+import '../domain/usecases/camera/queries/fetch_cameras/fetch_vehicles_handler.dart'
+    as _i961;
+import '../domain/usecases/camera/queries/fetch_cameras/search_cameras_handler.dart'
+    as _i297;
 import '../infrastructure/base_api/dio_client/client.dart' as _i447;
 import '../infrastructure/camera_repository/camera_repository.dart' as _i866;
 import '../presentation/app/blocs/app/app_bloc.dart' as _i875;
@@ -44,8 +50,18 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i866.CameraRepository(gh<_i1065.IApiClient>()));
     gh.factory<_i187.FetchCamerasHandler>(
         () => _i187.FetchCamerasHandler(gh<_i574.ICameraRepository>()));
-    gh.singleton<_i247.CameraBloc>(
-        () => _i247.CameraBloc(gh<_i187.FetchCamerasHandler>()));
+    gh.factory<_i297.SearchCamerasHandler>(
+        () => _i297.SearchCamerasHandler(gh<_i574.ICameraRepository>()));
+    gh.factory<_i1025.FetchDistrictsHandler>(
+        () => _i1025.FetchDistrictsHandler(gh<_i574.ICameraRepository>()));
+    gh.factory<_i961.FetchVehiclesHandler>(
+        () => _i961.FetchVehiclesHandler(gh<_i574.ICameraRepository>()));
+    gh.singleton<_i247.CameraBloc>(() => _i247.CameraBloc(
+          gh<_i187.FetchCamerasHandler>(),
+          gh<_i297.SearchCamerasHandler>(),
+          gh<_i1025.FetchDistrictsHandler>(),
+          gh<_i961.FetchVehiclesHandler>(),
+        ));
     return this;
   }
 }

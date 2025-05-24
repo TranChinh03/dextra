@@ -4,7 +4,7 @@ import 'package:dextra/presentation/modules/commons/user/widgets/configuration_s
 import 'package:dextra/presentation/modules/commons/user/widgets/home_widget.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/map_cam_widget.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/profile_widget.dart';
-import 'package:dextra/presentation/modules/commons/user/widgets/statistic/statistic_widget.dart';
+import 'package:dextra/presentation/modules/commons/user/widgets/statistic_widget.dart';
 import 'package:dextra/presentation/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

@@ -45,8 +45,6 @@ class MapCamWidget extends StatefulWidget {
   State<MapCamWidget> createState() => _MapCamWidgetState();
 }
 
-List<Camera> _searchResult = [];
-
 class _MapCamWidgetState extends State<MapCamWidget> {
   final ScrollController _scrollController = ScrollController();
   final SearchController _searchController = SearchController();
@@ -60,6 +58,7 @@ class _MapCamWidgetState extends State<MapCamWidget> {
   int pagesPerSeg = 5;
   LatLng? _currentPos;
   Camera? _selectedCam;
+  List<Camera> _searchResult = [];
 
   // final List<String> _districts = [
   //   "All districts",
@@ -120,7 +119,7 @@ class _MapCamWidgetState extends State<MapCamWidget> {
     _timer = Timer.periodic(const Duration(seconds: 1), (_) => _updateTime());
   }
 
-  _onSearchTextChanged(String text) async {
+  _onSearchTextChanged(String text) {
     _searchResult.clear();
     setState(() {
       currentDistrict = "All districts";
@@ -137,9 +136,11 @@ class _MapCamWidgetState extends State<MapCamWidget> {
       }
     }
     setState(() {});
+
+    _cameraBloc.add(SearchCamerasEvent(query: text));
   }
 
-  _onDropDownChanged(String dist) async {
+  _onDropDownChanged(String dist) {
     _searchResult.clear();
 
     for (var camera in _cameraBloc.state.cameras) {
@@ -405,6 +406,12 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                                         cammeName: camera.name,
                                         dist: camera.dist,
                                         imgUrl: camera.liveviewUrl,
+                                        onPressed: () => {
+                                          setState(() {
+                                            _selectedCam = camera;
+                                          }),
+                                          showDialogCam(),
+                                        },
                                       ),
                                     );
                                   })
@@ -424,6 +431,12 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                                       padding:
                                           EdgeInsets.all(AppSpacing.rem350.h),
                                       child: CameraListItem(
+                                        onPressed: () => {
+                                          setState(() {
+                                            _selectedCam = camera;
+                                          }),
+                                          showDialogCam(),
+                                        },
                                         cameraId: camera.privateId,
                                         onTap: () => {
                                           setState(() {
@@ -507,5 +520,29 @@ class _MapCamWidgetState extends State<MapCamWidget> {
     await controller.animateCamera(CameraUpdate.newCameraPosition(
       CameraPosition(target: pos, zoom: 15),
     ));
+  }
+
+  void showDialogCam() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: CommonText(
+          _selectedCam?.name ?? "",
+          style: TextStyle(fontWeight: AppFontWeight.bold),
+        ),
+        content: CommonImage(
+          width: AppSpacing.rem9999.w,
+          imageUrl:
+              "http://localhost:8002/cameras/image/${_selectedCam?.privateId ?? ""}",
+          fit: BoxFit.contain,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('Close'),
+          ),
+        ],
+      ),
+    );
   }
 }
