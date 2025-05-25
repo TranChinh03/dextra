@@ -1,14 +1,14 @@
-import 'dart:convert';
-
 import 'package:dextra/domain/entities/camera.dart';
 import 'package:dextra/domain/interfaces/api_client.dart';
 import 'package:dextra/domain/interfaces/interface_camera_repository.dart';
 import 'package:dextra/domain/models/base_api_response.dart';
 import 'package:dextra/domain/models/query.dart';
+import 'package:dextra/domain/usecases/camera/queries/search_cameras/search_camras_query.dart';
 import 'package:dextra/infrastructure/base_api/dio_client/api_path.dart';
 import 'package:injectable/injectable.dart';
 
 const getCameraUrl = ApiPath.fetchCamerasUrl;
+const searchCameraUrl = ApiPath.searchCamerasUrl;
 
 @Injectable(as: ICameraRepository)
 class CameraRepository implements ICameraRepository {
@@ -46,12 +46,21 @@ class CameraRepository implements ICameraRepository {
   }
 
   @override
-  Future<BaseApiResponse<List<Camera>?>> searchCameras(String name) async {
-    final response = await _apiClient.get<List<Camera>, Camera>(
-      '$getCameraUrl/search/$name',
+  Future<BaseApiResponse<List<Camera>?>> searchCameras(Query query) async {
+    final SearchCamerasQuery searchCamrasQuery = query.query;
+
+    final response = await _apiClient.post<List<Camera>, Camera>(
+      searchCameraUrl,
       parser: (json) => Camera.fromJson(json),
+      data: searchCamrasQuery.toJson(),
     );
 
-    return response;
+    // Filter out nulls if any
+    final filteredResponse = BaseApiResponse<List<Camera>>(
+      data: response.data?.whereType<Camera>().toList() ?? [],
+      message: response.message,
+    );
+
+    return filteredResponse;
   }
 }

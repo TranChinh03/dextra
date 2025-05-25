@@ -15,6 +15,7 @@ import 'package:dextra/presentation/modules/commons/user/widgets/statistic/date_
 import 'package:dextra/presentation/modules/commons/widgets/button/common_arrow_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
+import 'package:dextra/presentation/modules/commons/widgets/cameraList/search_camera_list_widget.dart';
 import 'package:dextra/presentation/modules/commons/widgets/card/camera_img_item.dart';
 import 'package:dextra/presentation/modules/commons/widgets/card/camera_list_item.dart';
 import 'package:dextra/presentation/modules/commons/widgets/card/common_statistic_card.dart';
@@ -136,8 +137,6 @@ class _MapCamWidgetState extends State<MapCamWidget> {
       }
     }
     setState(() {});
-
-    _cameraBloc.add(SearchCamerasEvent(query: text));
   }
 
   _onDropDownChanged(String dist) {
@@ -396,10 +395,22 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                                       child: CameraListItem(
                                         onTap: () => {
                                           setState(() {
-                                            _currentPos = LatLng(
-                                                camera.loc?.coordinates[1] ?? 0,
-                                                camera.loc?.coordinates[0] ??
-                                                    0);
+                                            final lat = (camera
+                                                            .loc?.coordinates !=
+                                                        null &&
+                                                    camera.loc!.coordinates!
+                                                            .length >
+                                                        1)
+                                                ? camera.loc!.coordinates![1]
+                                                : 0.0;
+                                            final lng = (camera
+                                                            .loc?.coordinates !=
+                                                        null &&
+                                                    camera.loc!.coordinates!
+                                                        .isNotEmpty)
+                                                ? camera.loc!.coordinates![0]
+                                                : 0.0;
+                                            _currentPos = LatLng(lat, lng);
                                             _selectedCam = camera;
                                           }),
                                         },
@@ -440,10 +451,22 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                                         cameraId: camera.privateId,
                                         onTap: () => {
                                           setState(() {
-                                            _currentPos = LatLng(
-                                                camera.loc?.coordinates[1] ?? 0,
-                                                camera.loc?.coordinates[0] ??
-                                                    0);
+                                            final lat = (camera
+                                                            .loc?.coordinates !=
+                                                        null &&
+                                                    camera.loc!.coordinates!
+                                                            .length >
+                                                        1)
+                                                ? camera.loc!.coordinates![1]
+                                                : 0.0;
+                                            final lng = (camera
+                                                            .loc?.coordinates !=
+                                                        null &&
+                                                    camera.loc!.coordinates!
+                                                        .isNotEmpty)
+                                                ? camera.loc!.coordinates![0]
+                                                : 0.0;
+                                            _currentPos = LatLng(lat, lng);
                                             _selectedCam = camera;
                                           }),
                                           print(_currentPos),
@@ -458,6 +481,7 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                   _cameraBloc.state.cameras.isEmpty
                       ? CircularProgressIndicator()
                       : _createButton(),
+                  SearchCameraListWidget(),
                   CommonHeading(
                     heading: "Analyze Traffic",
                     subheading:

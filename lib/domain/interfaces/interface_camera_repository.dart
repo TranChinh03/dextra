@@ -6,5 +6,5 @@ abstract class ICameraRepository {
   Future<BaseApiResponse<List<Camera>>> getCameras();
   Future<BaseApiResponse<List<String>>> getDistricts();
   Future<BaseApiResponse<List<String>>> getVehicles();
-  Future<BaseApiResponse<List<Camera>?>> searchCameras(String name);
+  Future<BaseApiResponse<List<Camera>?>> searchCameras(Query query);
 }

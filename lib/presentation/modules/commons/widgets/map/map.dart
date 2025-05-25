@@ -109,10 +109,15 @@ class MapSampleState extends State<MapSample> {
     //       onTap: () => _goToCameraPos(position));
     // }).toSet();
     return cameras.map((camera) {
-      final position = LatLng(
-        camera.loc!.coordinates[1],
-        camera.loc!.coordinates[0],
-      );
+      final lat = (camera.loc?.coordinates != null &&
+              camera.loc!.coordinates!.length > 1)
+          ? camera.loc!.coordinates![1]
+          : 0.0;
+      final lng = (camera.loc?.coordinates != null &&
+              camera.loc!.coordinates!.isNotEmpty)
+          ? camera.loc!.coordinates![0]
+          : 0.0;
+      final position = LatLng(lat, lng);
       return Marker(
         icon: _customIcon!,
         markerId: MarkerId(camera.privateId!),
