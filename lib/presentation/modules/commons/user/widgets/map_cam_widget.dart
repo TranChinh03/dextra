@@ -1,32 +1,22 @@
 import 'dart:async';
-import 'dart:typed_data';
 
 import 'package:dextra/di/injectable.dart';
 import 'package:dextra/domain/entities/camera.dart';
-import 'package:dextra/domain/enum/screen_path.dart';
-import 'package:dextra/domain/interfaces/api_client.dart';
-import 'package:dextra/domain/models/base_api_response.dart';
-import 'package:dextra/infrastructure/base_api/dio_client/api_path.dart';
 import 'package:dextra/presentation/assets/assets.dart';
 import 'package:dextra/presentation/commons/api_state.dart';
 import 'package:dextra/presentation/modules/commons/bloc/camera/camera_bloc.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/statistic/charts/pie_chart_sample.dart';
-import 'package:dextra/presentation/modules/commons/user/widgets/statistic/date_time_picker.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_arrow_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_button.dart';
-import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/cameraList/search_camera_list_widget.dart';
-import 'package:dextra/presentation/modules/commons/widgets/card/camera_img_item.dart';
 import 'package:dextra/presentation/modules/commons/widgets/card/camera_list_item.dart';
 import 'package:dextra/presentation/modules/commons/widgets/card/common_statistic_card.dart';
 import 'package:dextra/presentation/modules/commons/widgets/commonImage/common_image.dart';
 import 'package:dextra/presentation/modules/commons/widgets/input/search_box.dart';
-import 'package:dextra/presentation/modules/commons/widgets/input/simpleDropdown.dart';
 import 'package:dextra/presentation/modules/commons/widgets/map/map.dart';
 import 'package:dextra/presentation/modules/commons/widgets/screen-container/screen_container.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_heading.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
-import 'package:dextra/presentation/router/router_config/router.dart';
 import 'package:dextra/theme/border/app_border_radius.dart';
 import 'package:dextra/theme/color/app_color.dart';
 import 'package:dextra/theme/font/app_font_size.dart';
@@ -36,7 +26,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapCamWidget extends StatefulWidget {
@@ -211,22 +200,6 @@ class _MapCamWidgetState extends State<MapCamWidget> {
       ],
     );
   }
-  // void _setupScrollListener() {
-  //   _scrollController.addListener(() {
-  //     if (_scrollController.position.pixels >=
-  //             _scrollController.position.maxScrollExtent * 0.8 &&
-  //         !context.read<CameraBloc>().state.hasMore) {
-  //       // Already loading or no more data
-  //       return;
-  //     }
-  //     if (_scrollController.position.pixels >=
-  //         _scrollController.position.maxScrollExtent * 0.8) {
-  //       // Load more when 80% scrolled
-  //       final currentPage = context.read<CameraBloc>().state.currentPage;
-  //       context.read<CameraBloc>().add(FetchMoreCamerasEvent(currentPage + 1));
-  //     }
-  //   });
-  // }
 
   @override
   void dispose() {
@@ -277,25 +250,6 @@ class _MapCamWidgetState extends State<MapCamWidget> {
               ),
               child: Column(
                 children: [
-                  // ListView.builder(
-                  //   shrinkWrap: true,
-                  //   physics: NeverScrollableScrollPhysics(),
-                  //   itemCount: _cameraBloc.state.cameras.length > 10
-                  //       ? 10
-                  //       : _cameraBloc.state.cameras.length,
-                  //   itemBuilder: (context, index) {
-                  //     final camera = _cameraBloc.state.cameras[index];
-                  //     return ListTile(
-                  //       leading: Icon(Icons.camera_alt),
-                  //       title: Text(camera.name ?? 'Unknown Camera'),
-                  //       subtitle: Text(camera.loc?.coordinates.toString() ??
-                  //           'Unknown Location'),
-                  //       onTap: () {
-                  //         // Handle camera item tap
-                  //       },
-                  //     );
-                  //   },
-                  // ),
                   Row(
                     children: [
                       Container(
@@ -347,28 +301,6 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                       location: _currentPos,
                       selectedCam: _selectedCam,
                     ),
-                  ),
-                  Row(
-                    children: [
-                      SearchBox(
-                        onChanged: _onSearchTextChanged,
-                        controller: _searchController,
-                      ),
-                      SizedBox(
-                        width: AppSpacing.rem300.w,
-                      ),
-                      Expanded(
-                        child: SimpleDropdown(
-                          itemsList: _districts.map((option) {
-                            return DropdownMenuItem<String>(
-                              value: option,
-                              child: CommonText(option),
-                            );
-                          }).toList(),
-                          onChanged: _onDropDownChanged,
-                        ),
-                      )
-                    ],
                   ),
                   _cameraBloc.state.cameras.isEmpty
                       ? CircularProgressIndicator()
