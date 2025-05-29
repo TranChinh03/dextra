@@ -17,6 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:number_pagination/number_pagination.dart';
 
 class SearchCameraListWidget extends StatefulWidget {
   final Function(LatLng, Camera) isCliked;
@@ -47,6 +48,7 @@ class _SearchCameraListWidgetState extends State<SearchCameraListWidget> {
       print('Search text changed: $value');
       setState(() {
         searchText = value;
+        currentPage = 1;
       });
       _searchBloc.add(
         SearchCamerasEvent(
@@ -64,6 +66,7 @@ class _SearchCameraListWidgetState extends State<SearchCameraListWidget> {
       print('Selected district: $value');
       setState(() {
         currentDistrict = value;
+        currentPage = 1;
       });
       _searchBloc.add(
         SearchCamerasEvent(
@@ -101,12 +104,27 @@ class _SearchCameraListWidgetState extends State<SearchCameraListWidget> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _searchBloc.add(
+      SearchCamerasEvent(
+        query: SearchCamerasQuery(
+          cameraName: "",
+          district: "",
+        ),
+      ),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: _searchBloc,
       child: BlocBuilder<SearchBloc, SearchState>(
         builder: (context, state) {
           final searchCameras = state.resultsCam;
+          print("Search cameras: ${searchCameras.length}");
+
           return Column(
             children: [
               Row(
@@ -140,42 +158,63 @@ class _SearchCameraListWidgetState extends State<SearchCameraListWidget> {
                   padding:
                       const EdgeInsets.symmetric(vertical: AppSpacing.rem600),
                   child: ListView.builder(
-                      itemBuilder: (context, index) => Padding(
-                            padding: EdgeInsets.all(AppSpacing.rem350.h),
-                            child: CameraListItem(
-                              onPressed: () => {
-                                setState(() {
-                                  _selectedCam = searchCameras[index];
-                                }),
-                                showDialogCam(),
-                              },
-                              cameraId: searchCameras[index].privateId,
-                              onTap: () {
-                                final lat =
-                                    searchCameras[index].loc!.coordinates![1];
-                                final lng =
-                                    searchCameras[index].loc!.coordinates![0];
-                                widget.isCliked(
-                                  LatLng(lat, lng),
-                                  searchCameras[index],
-                                );
-                                print("from search cam list: $lat, $lng");
-                                widget.scrollToTop?.call();
-                                // _currentPos = LatLng(lat, lng);
-                                // _selectedCam = camera;
-                              },
-                              cammeName: searchCameras[index].name,
-                              dist: searchCameras[index].dist,
-                              imgUrl: searchCameras[index].liveviewUrl,
-                            ),
+                      itemBuilder: (context, index) {
+                        if (index + (currentPage - 1) * 20 >=
+                            searchCameras.length) {
+                          return const SizedBox();
+                        }
+                        final camera =
+                            searchCameras[index + (currentPage - 1) * 20];
+
+                        return Padding(
+                          padding: EdgeInsets.all(AppSpacing.rem350.h),
+                          child: CameraListItem(
+                            onPressed: () => {
+                              setState(() {
+                                _selectedCam = camera;
+                              }),
+                              showDialogCam(),
+                            },
+                            cameraId: camera.privateId,
+                            onTap: () {
+                              final lat = camera.loc!.coordinates![1];
+                              final lng = camera.loc!.coordinates![0];
+                              widget.isCliked(
+                                LatLng(lat, lng),
+                                camera,
+                              );
+                              print("from search cam list: $lat, $lng");
+                              widget.scrollToTop?.call();
+                              // _currentPos = LatLng(lat, lng);
+                              // _selectedCam = camera;
+                            },
+                            cammeName: camera.name,
+                            dist: camera.dist,
+                            imgUrl: camera.liveviewUrl,
                           ),
-                      itemCount: state.resultsCam.length < 3
+                        );
+                      },
+                      itemCount: state.resultsCam.length < 20
                           ? state.resultsCam.length
-                          : 3,
+                          : 20,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics()),
                 ),
-              ]
+              ],
+              if (searchCameras.isEmpty || state.apiStatus == ApiStatus.loading)
+                SizedBox()
+              else
+                NumberPagination(
+                  onPageChanged: (int pageNumber) {
+                    setState(() {
+                      currentPage = pageNumber;
+                    });
+                  },
+                  visiblePagesCount: 5,
+                  totalPages: searchCameras.length ~/ 20 +
+                      (searchCameras.length % 20 == 0 ? 0 : 1),
+                  currentPage: currentPage,
+                ),
             ],
           );
         },

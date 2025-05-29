@@ -274,9 +274,9 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                     isCliked: updateCurrentPos,
                     scrollToTop: _scrollToTop,
                   ),
-                  _cameraBloc.state.cameras.isEmpty
-                      ? CircularProgressIndicator()
-                      : _createButton(),
+                  // _cameraBloc.state.cameras.isEmpty
+                  //     ? CircularProgressIndicator()
+                  //     : _createButton(),
                   CommonHeading(
                     heading: "Analyze Traffic",
                     subheading:
