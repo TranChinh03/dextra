@@ -42,31 +42,57 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                   spacing: AppSpacing.rem600.w,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    CommonPrimaryButton(
-                      text: tr('Common.export_report'),
-                      onPressed: () {
-                        setState(() {
-                          _selectedTab = 0;
-                        });
-                      },
-                    ),
-                   
-                    CommonSecondaryButton(
-                      text: tr('Common.schedule_report'),
-                      onPressed: () {
-                        setState(() {
-                          _selectedTab = 1;
-                        });
-                      },
-                    ),
-                    CommonSecondaryButton(
-                      text:"Detect",
-                      onPressed: () {
-                        setState(() {
-                          _selectedTab = 2;
-                        });
-                      },
-                    )
+                    _selectedTab == 0
+                        ? CommonPrimaryButton(
+                            text: tr('Common.export_report'),
+                            onPressed: () {
+                              setState(() {
+                                _selectedTab = 0;
+                              });
+                            },
+                          )
+                        : CommonSecondaryButton(
+                            text: tr('Common.export_report'),
+                            onPressed: () {
+                              setState(() {
+                                _selectedTab = 0;
+                              });
+                            },
+                          ),
+                    _selectedTab == 1
+                        ? CommonPrimaryButton(
+                            text: tr('Common.schedule_report'),
+                            onPressed: () {
+                              setState(() {
+                                _selectedTab = 1;
+                              });
+                            },
+                          )
+                        : CommonSecondaryButton(
+                            text: tr('Common.schedule_report'),
+                            onPressed: () {
+                              setState(() {
+                                _selectedTab = 1;
+                              });
+                            },
+                          ),
+                    _selectedTab == 2
+                        ? CommonPrimaryButton(
+                            text: "Detect",
+                            onPressed: () {
+                              setState(() {
+                                _selectedTab = 2;
+                              });
+                            },
+                          )
+                        : CommonSecondaryButton(
+                            text: "Detect",
+                            onPressed: () {
+                              setState(() {
+                                _selectedTab = 2;
+                              });
+                            },
+                          )
                   ],
                 ),
                 SizedBox(height: AppSpacing.rem600.h),

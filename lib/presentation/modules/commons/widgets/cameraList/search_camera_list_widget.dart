@@ -8,6 +8,7 @@ import 'package:dextra/presentation/modules/commons/bloc/camera/camera_bloc.dart
 import 'package:dextra/presentation/modules/commons/bloc/search/search_bloc.dart';
 import 'package:dextra/presentation/modules/commons/widgets/card/camera_list_item.dart';
 import 'package:dextra/presentation/modules/commons/widgets/commonImage/common_image.dart';
+import 'package:dextra/presentation/modules/commons/widgets/dialog/image_dialog.dart';
 import 'package:dextra/presentation/modules/commons/widgets/input/search_box.dart';
 import 'package:dextra/presentation/modules/commons/widgets/input/simpleDropdown.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
@@ -77,30 +78,6 @@ class _SearchCameraListWidgetState extends State<SearchCameraListWidget> {
         ),
       );
     }
-  }
-
-  void showDialogCam() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: CommonText(
-          _selectedCam?.name ?? "",
-          style: TextStyle(fontWeight: AppFontWeight.bold),
-        ),
-        content: CommonImage(
-          width: AppSpacing.rem9999.w,
-          imageUrl:
-              "http://localhost:8002/cameras/image/${_selectedCam?.privateId ?? ""}",
-          fit: BoxFit.contain,
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Close'),
-          ),
-        ],
-      ),
-    );
   }
 
   @override
@@ -173,7 +150,11 @@ class _SearchCameraListWidgetState extends State<SearchCameraListWidget> {
                               setState(() {
                                 _selectedCam = camera;
                               }),
-                              showDialogCam(),
+                              showDialog(
+                                  context: context,
+                                  builder: (context) => ImageDialog(
+                                        selectedCam: camera,
+                                      ))
                             },
                             cameraId: camera.privateId,
                             onTap: () {
