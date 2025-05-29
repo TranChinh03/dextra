@@ -36,8 +36,7 @@ class MapCamWidget extends StatefulWidget {
 }
 
 class _MapCamWidgetState extends State<MapCamWidget> {
-  final ScrollController _scrollController = ScrollController();
-  final SearchController _searchController = SearchController();
+  final ScrollController _scrollController2 = ScrollController();
 
   final _cameraBloc = getIt.get<CameraBloc>();
   late Timer _timer;
@@ -49,56 +48,6 @@ class _MapCamWidgetState extends State<MapCamWidget> {
   LatLng? _currentPos;
   Camera? _selectedCam;
   List<Camera> _searchResult = [];
-
-  // final List<String> _districts = [
-  //   "All districts",
-  //   'District 1',
-  //   'District 3',
-  //   'District 4',
-  //   'District 5',
-  //   'District 6',
-  //   'District 7',
-  //   'District 8',
-  //   'District 10',
-  //   'District 11',
-  //   'District 12',
-  //   'Binh Thanh District',
-  //   'Go Vap District',
-  //   'Phu Nhuan District',
-  //   'Tan Binh District',
-  //   'Tan Phu District',
-  //   'Thu Duc District',
-  //   'Binh Chanh District',
-  //   'Cu Chi District',
-  //   'Hoc Mon District',
-  //   'Nha Be District',
-  //   'Can Gio District',
-  //   'Thu Duc City',
-  // ];
-
-  final List<String> _districts = [
-    "Tất cả",
-    'Quận 1',
-    'Quận 3',
-    'Quận 4',
-    'Quận 5',
-    'Quận 6',
-    'Quận 7',
-    'Quận 8',
-    'Quận 10',
-    'Quận 11',
-    'Quận 12',
-    'Quận Bình Thạnh',
-    'Quận Gò Vấp',
-    'Quận Phú Nhuận',
-    'Quận Tân Bình',
-    'Quận Tân Phú',
-    'Quận Thủ Đức',
-    'Huyện Bình Chánh',
-    'Huyện Củ Chi',
-    'Huyện Hóc Môn',
-    'Huyện Nhà Bè',
-  ];
 
   @override
   void initState() {
@@ -112,7 +61,7 @@ class _MapCamWidgetState extends State<MapCamWidget> {
   _onSearchTextChanged(String text) {
     _searchResult.clear();
     setState(() {
-      currentDistrict = "All districts";
+      currentDistrict = "Quận 1";
       currentPage = 1;
     });
     if (text.isEmpty) {
@@ -144,6 +93,7 @@ class _MapCamWidgetState extends State<MapCamWidget> {
       return;
     }
     _cameraBloc.add(FetchCamerasEvent());
+    _cameraBloc.add(FetchDistrictsEvent());
   }
 
   void _updateTime() {
@@ -201,10 +151,27 @@ class _MapCamWidgetState extends State<MapCamWidget> {
     );
   }
 
+  void updateCurrentPos(LatLng newPos, Camera? selectedCam) {
+    print("updateCurrentPos: $newPos");
+    setState(() {
+      _currentPos = newPos;
+      _selectedCam = selectedCam;
+    });
+  }
+
+  void _scrollToTop() {
+    print("Scrolling to top");
+    _scrollController2.animateTo(
+      0.0,
+      duration: Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
+  }
+
   @override
   void dispose() {
     _timer.cancel();
-    _scrollController.dispose();
+    _scrollController2.dispose();
     super.dispose();
   }
 
@@ -244,6 +211,7 @@ class _MapCamWidgetState extends State<MapCamWidget> {
           child: SizedBox(
             width: double.infinity,
             child: SingleChildScrollView(
+              controller: _scrollController2,
               padding: EdgeInsets.symmetric(
                 horizontal: AppSpacing.rem600.w,
                 vertical: AppSpacing.rem600.h,
@@ -302,118 +270,13 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                       selectedCam: _selectedCam,
                     ),
                   ),
-                  _cameraBloc.state.cameras.isEmpty
-                      ? CircularProgressIndicator()
-                      : Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: AppSpacing.rem600),
-                          child: _searchController.text.isNotEmpty ||
-                                  _searchResult.isNotEmpty
-                              ? ListView.builder(
-                                  shrinkWrap: true,
-                                  controller: _scrollController,
-                                  itemCount: 20,
-                                  itemBuilder: (context, index) {
-                                    if (index + (currentPage - 1) * 20 >=
-                                        _searchResult.length) {
-                                      return const SizedBox();
-                                    }
-                                    final camera = _searchResult[
-                                        index + (currentPage - 1) * 20];
-
-                                    return Padding(
-                                      padding:
-                                          EdgeInsets.all(AppSpacing.rem350.h),
-                                      child: CameraListItem(
-                                        onTap: () => {
-                                          setState(() {
-                                            final lat = (camera
-                                                            .loc?.coordinates !=
-                                                        null &&
-                                                    camera.loc!.coordinates!
-                                                            .length >
-                                                        1)
-                                                ? camera.loc!.coordinates![1]
-                                                : 0.0;
-                                            final lng = (camera
-                                                            .loc?.coordinates !=
-                                                        null &&
-                                                    camera.loc!.coordinates!
-                                                        .isNotEmpty)
-                                                ? camera.loc!.coordinates![0]
-                                                : 0.0;
-                                            _currentPos = LatLng(lat, lng);
-                                            _selectedCam = camera;
-                                          }),
-                                        },
-                                        cammeName: camera.name,
-                                        dist: camera.dist,
-                                        imgUrl: camera.liveviewUrl,
-                                        onPressed: () => {
-                                          setState(() {
-                                            _selectedCam = camera;
-                                          }),
-                                          showDialogCam(),
-                                        },
-                                      ),
-                                    );
-                                  })
-                              : ListView.builder(
-                                  shrinkWrap: true,
-                                  controller: _scrollController,
-                                  itemCount: 20,
-                                  itemBuilder: (context, index) {
-                                    if (index + (currentPage - 1) * 20 >=
-                                        _cameraBloc.state.cameras.length) {
-                                      return const SizedBox();
-                                    }
-                                    final camera = _cameraBloc.state.cameras[
-                                        index + (currentPage - 1) * 20];
-
-                                    return Padding(
-                                      padding:
-                                          EdgeInsets.all(AppSpacing.rem350.h),
-                                      child: CameraListItem(
-                                        onPressed: () => {
-                                          setState(() {
-                                            _selectedCam = camera;
-                                          }),
-                                          showDialogCam(),
-                                        },
-                                        cameraId: camera.privateId,
-                                        onTap: () => {
-                                          setState(() {
-                                            final lat = (camera
-                                                            .loc?.coordinates !=
-                                                        null &&
-                                                    camera.loc!.coordinates!
-                                                            .length >
-                                                        1)
-                                                ? camera.loc!.coordinates![1]
-                                                : 0.0;
-                                            final lng = (camera
-                                                            .loc?.coordinates !=
-                                                        null &&
-                                                    camera.loc!.coordinates!
-                                                        .isNotEmpty)
-                                                ? camera.loc!.coordinates![0]
-                                                : 0.0;
-                                            _currentPos = LatLng(lat, lng);
-                                            _selectedCam = camera;
-                                          }),
-                                          print(_currentPos),
-                                        },
-                                        cammeName: camera.name,
-                                        dist: camera.dist,
-                                        imgUrl: camera.liveviewUrl,
-                                      ),
-                                    );
-                                  }),
-                        ),
+                  SearchCameraListWidget(
+                    isCliked: updateCurrentPos,
+                    scrollToTop: _scrollToTop,
+                  ),
                   _cameraBloc.state.cameras.isEmpty
                       ? CircularProgressIndicator()
                       : _createButton(),
-                  SearchCameraListWidget(),
                   CommonHeading(
                     heading: "Analyze Traffic",
                     subheading:
@@ -470,13 +333,6 @@ class _MapCamWidgetState extends State<MapCamWidget> {
 
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
-
-  Future<void> _goToCameraPos(pos) async {
-    final GoogleMapController controller = await _controller.future;
-    await controller.animateCamera(CameraUpdate.newCameraPosition(
-      CameraPosition(target: pos, zoom: 15),
-    ));
-  }
 
   void showDialogCam() {
     showDialog(

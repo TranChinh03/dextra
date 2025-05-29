@@ -21,7 +21,6 @@ class _DetectTabState extends State<DetectTab> {
   Uint8List? _imageBytes;
   final ImagePicker _picker = ImagePicker();
 
-  // Hàm chọn ảnh từ thiết bị
   Future<void> _pickImage() async {
     try {
       final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
@@ -32,7 +31,7 @@ class _DetectTabState extends State<DetectTab> {
         });
       }
     } catch (e) {
-      print('Lỗi khi chọn ảnh: $e');
+      print('Errors: $e');
     }
   }
 

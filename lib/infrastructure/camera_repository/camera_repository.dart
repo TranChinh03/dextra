@@ -9,6 +9,8 @@ import 'package:injectable/injectable.dart';
 
 const getCameraUrl = ApiPath.fetchCamerasUrl;
 const searchCameraUrl = ApiPath.searchCamerasUrl;
+const getVehiclesUrl = ApiPath.fectchVihicles;
+const getDistrictsUrl = ApiPath.fectcDistricts;
 
 @Injectable(as: ICameraRepository)
 class CameraRepository implements ICameraRepository {
@@ -29,8 +31,8 @@ class CameraRepository implements ICameraRepository {
   @override
   Future<BaseApiResponse<List<String>>> getDistricts() async {
     final response = await _apiClient.get<List<String>, String>(
-      '$getCameraUrl/detection/classes',
-      // parser: (p0) => jsonDecode,
+      getDistrictsUrl,
+      parser: (json) => json.toString(),
     );
     return response;
   }
@@ -38,7 +40,7 @@ class CameraRepository implements ICameraRepository {
   @override
   Future<BaseApiResponse<List<String>>> getVehicles() async {
     final response = await _apiClient.get<List<String>, String>(
-      '$getCameraUrl/detection/classes',
+      getVehiclesUrl,
       parser: (json) => json.toString(),
     );
     print('response: ${response.data}');
