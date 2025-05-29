@@ -48,12 +48,6 @@ class MapSampleState extends State<MapSample> {
   void initState() {
     super.initState();
     _loadCustomIcon();
-
-    // loadCameraLocations().then((data) {
-    //   setState(() {
-    //     cameras = data;
-    //   });
-    // });
   }
 
   static const CameraPosition _initCam = CameraPosition(
@@ -72,20 +66,7 @@ class MapSampleState extends State<MapSample> {
     });
   }
 
-  Future<List<LatLng>> loadCameraLocations() async {
-    final String response =
-        await rootBundle.loadString('assets/json/camera_results.json');
-    final Map<String, dynamic> jsonData = json.decode(response);
-
-    final List<dynamic> cameras = jsonData['data']['cameras'];
-    List<LatLng> locations = cameras.map<LatLng>((camera) {
-      final coords = camera['loc']['coordinates'];
-      return LatLng(coords[1], coords[0]); // [lat, lng]
-    }).toList();
-
-    return locations;
-  }
-
+  @override
   void didUpdateWidget(covariant MapSample oldWidget) {
     super.didUpdateWidget(oldWidget);
     // Zoom to new location when it changes
@@ -97,17 +78,6 @@ class MapSampleState extends State<MapSample> {
   }
 
   Set<Marker> _buildMarkers(List<Camera> cameras) {
-    // return cameras.asMap().entries.map((entry) {
-    //   final idx = entry.key;
-    //   final position = entry.value;
-
-    //   return Marker(
-    //       icon: _customIcon!,
-    //       markerId: MarkerId('marker_$idx'),
-    //       position: position,
-    //       infoWindow: InfoWindow(title: 'Marker ${idx + 1}'),
-    //       onTap: () => _goToCameraPos(position));
-    // }).toSet();
     return cameras.map((camera) {
       final lat = (camera.loc?.coordinates != null &&
               camera.loc!.coordinates!.length > 1)
@@ -122,9 +92,7 @@ class MapSampleState extends State<MapSample> {
         icon: _customIcon!,
         markerId: MarkerId(camera.privateId!),
         position: position,
-        // infoWindow: InfoWindow(title: camera.name),
         onTap: () {
-          // Convert marker's LatLng to screen coordinates
           _getInforWindow(position, camera);
           _goToCameraPos(position);
         },
@@ -137,29 +105,6 @@ class MapSampleState extends State<MapSample> {
     final colors = IAppColor.watch(context);
 
     return ScreenContainer(
-      // isShowLoading: _isIconLoaded == false || _isCamerasLoaded == false,
-      // child: Scaffold(
-      //   body: _isIconLoaded && _isCamerasLoaded
-      //       ? GoogleMap(
-      //           mapType: MapType.hybrid,
-      //           initialCameraPosition: widget.location != null
-      //               ? CameraPosition(
-      //                   target: widget.location!,
-      //                   zoom: 11,
-      //                 )
-      //               : _initCam,
-      //           onMapCreated: (GoogleMapController controller) {
-      //             _controller.complete(controller);
-      //           },
-      //           markers: _buildMarkers(),
-      //         )
-      //       : const Center(child: CircularProgressIndicator()),
-      //   // floatingActionButton: FloatingActionButton.extended(
-      //   //   onPressed: _goToTheLake,
-      //   //   label: const Text('To the lake!'),
-      //   //   icon: const Icon(Icons.directions_boat),
-      //   // ),
-      // ),
       isShowLoading: _isIconLoaded == false,
       child: Scaffold(
         body: Stack(children: <Widget>[

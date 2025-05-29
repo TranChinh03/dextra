@@ -1,19 +1,31 @@
 import 'dart:async';
 
 import 'package:dextra/di/injectable.dart';
+import 'package:dextra/domain/entities/camera.dart';
 import 'package:dextra/domain/usecases/camera/queries/search_cameras/search_camras_query.dart';
 import 'package:dextra/presentation/commons/api_state.dart';
+import 'package:dextra/presentation/modules/commons/bloc/camera/camera_bloc.dart';
 import 'package:dextra/presentation/modules/commons/bloc/search/search_bloc.dart';
+import 'package:dextra/presentation/modules/commons/widgets/card/camera_list_item.dart';
+import 'package:dextra/presentation/modules/commons/widgets/commonImage/common_image.dart';
 import 'package:dextra/presentation/modules/commons/widgets/input/search_box.dart';
 import 'package:dextra/presentation/modules/commons/widgets/input/simpleDropdown.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
+import 'package:dextra/theme/font/app_font_weight.dart';
 import 'package:dextra/theme/spacing/app_spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class SearchCameraListWidget extends StatefulWidget {
-  const SearchCameraListWidget({super.key});
+  final Function(LatLng, Camera) isCliked;
+  final VoidCallback? scrollToTop;
+  const SearchCameraListWidget({
+    super.key,
+    required this.isCliked,
+    this.scrollToTop,
+  });
 
   @override
   State<SearchCameraListWidget> createState() => _SearchCameraListWidgetState();
@@ -21,42 +33,26 @@ class SearchCameraListWidget extends StatefulWidget {
 
 class _SearchCameraListWidgetState extends State<SearchCameraListWidget> {
   int currentPage = 1;
-  final _searchBloc = getIt.get<SearchBloc>();
-  Timer? _debounce;
+  String searchText = "";
+  String currentDistrict = "All";
+  Camera? _selectedCam;
 
-  final List<String> _districts = [
-    "Tất cả",
-    'Quận 1',
-    'Quận 3',
-    'Quận 4',
-    'Quận 5',
-    'Quận 6',
-    'Quận 7',
-    'Quận 8',
-    'Quận 10',
-    'Quận 11',
-    'Quận 12',
-    'Quận Bình Thạnh',
-    'Quận Gò Vấp',
-    'Quận Phú Nhuận',
-    'Quận Tân Bình',
-    'Quận Tân Phú',
-    'Quận Thủ Đức',
-    'Huyện Bình Chánh',
-    'Huyện Củ Chi',
-    'Huyện Hóc Môn',
-    'Huyện Nhà Bè',
-  ];
+  final _searchBloc = getIt.get<SearchBloc>();
+  final _cameraBloc = getIt.get<CameraBloc>();
+  Timer? _debounce;
 
   void _onSearchTextChanged(String value) {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
     _debounce = Timer(const Duration(milliseconds: 300), () {
       print('Search text changed: $value');
+      setState(() {
+        searchText = value;
+      });
       _searchBloc.add(
         SearchCamerasEvent(
           query: SearchCamerasQuery(
             cameraName: value,
-            district: "",
+            district: currentDistrict == "All" ? "" : currentDistrict,
           ),
         ),
       );
@@ -64,10 +60,44 @@ class _SearchCameraListWidgetState extends State<SearchCameraListWidget> {
   }
 
   void _onDropDownChanged(String? value) {
-    // Handle dropdown change
     if (value != null) {
       print('Selected district: $value');
+      setState(() {
+        currentDistrict = value;
+      });
+      _searchBloc.add(
+        SearchCamerasEvent(
+          query: SearchCamerasQuery(
+            cameraName: searchText,
+            district: value == "All" ? "" : value,
+          ),
+        ),
+      );
     }
+  }
+
+  void showDialogCam() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: CommonText(
+          _selectedCam?.name ?? "",
+          style: TextStyle(fontWeight: AppFontWeight.bold),
+        ),
+        content: CommonImage(
+          width: AppSpacing.rem9999.w,
+          imageUrl:
+              "http://localhost:8002/cameras/image/${_selectedCam?.privateId ?? ""}",
+          fit: BoxFit.contain,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('Close'),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -89,7 +119,8 @@ class _SearchCameraListWidgetState extends State<SearchCameraListWidget> {
                   ),
                   Expanded(
                     child: SimpleDropdown(
-                      itemsList: _districts.map((option) {
+                      itemsList:
+                          ["All", ..._cameraBloc.state.districts].map((option) {
                         return DropdownMenuItem<String>(
                           value: option,
                           child: CommonText(option),
@@ -109,11 +140,34 @@ class _SearchCameraListWidgetState extends State<SearchCameraListWidget> {
                   padding:
                       const EdgeInsets.symmetric(vertical: AppSpacing.rem600),
                   child: ListView.builder(
-                      itemBuilder: (context, index) => ListTile(
-                            title: Text(
-                                'Camera ${searchCameras[index].name}'), // Placeholder for camera name
-                            subtitle: Text(
-                                'District: ${searchCameras[index].dist}'), // Placeholder for district
+                      itemBuilder: (context, index) => Padding(
+                            padding: EdgeInsets.all(AppSpacing.rem350.h),
+                            child: CameraListItem(
+                              onPressed: () => {
+                                setState(() {
+                                  _selectedCam = searchCameras[index];
+                                }),
+                                showDialogCam(),
+                              },
+                              cameraId: searchCameras[index].privateId,
+                              onTap: () {
+                                final lat =
+                                    searchCameras[index].loc!.coordinates![1];
+                                final lng =
+                                    searchCameras[index].loc!.coordinates![0];
+                                widget.isCliked(
+                                  LatLng(lat, lng),
+                                  searchCameras[index],
+                                );
+                                print("from search cam list: $lat, $lng");
+                                widget.scrollToTop?.call();
+                                // _currentPos = LatLng(lat, lng);
+                                // _selectedCam = camera;
+                              },
+                              cammeName: searchCameras[index].name,
+                              dist: searchCameras[index].dist,
+                              imgUrl: searchCameras[index].liveviewUrl,
+                            ),
                           ),
                       itemCount: state.resultsCam.length < 3
                           ? state.resultsCam.length

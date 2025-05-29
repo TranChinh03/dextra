@@ -1,5 +1,6 @@
 import 'package:dextra/presentation/commons/api_state.dart';
 import 'package:dextra/presentation/modules/commons/bloc/camera/camera_bloc.dart';
+import 'package:dextra/presentation/modules/commons/user/widgets/statistic/detect_tab.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/statistic/export_tab.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/statistic/schedule_tab.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
@@ -22,7 +23,7 @@ class StatisticWidget extends StatefulWidget {
 class _StatisticWidgetState extends State<StatisticWidget> {
   int _selectedTab = 0;
 
-  final List<Widget> _tabs = [ExportTab(), ScheduleTab()];
+  final List<Widget> _tabs = [ExportTab(), ScheduleTab(), DetectTab()];
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CameraBloc, CameraState>(builder: (context, state) {
@@ -38,6 +39,7 @@ class _StatisticWidgetState extends State<StatisticWidget> {
             child: Column(
               children: [
                 Row(
+                  spacing: AppSpacing.rem600.w,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     CommonPrimaryButton(
@@ -48,14 +50,20 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                         });
                       },
                     ),
-                    SizedBox(
-                      width: AppSpacing.rem600.w,
-                    ),
+                   
                     CommonSecondaryButton(
                       text: tr('Common.schedule_report'),
                       onPressed: () {
                         setState(() {
                           _selectedTab = 1;
+                        });
+                      },
+                    ),
+                    CommonSecondaryButton(
+                      text:"Detect",
+                      onPressed: () {
+                        setState(() {
+                          _selectedTab = 2;
                         });
                       },
                     )
