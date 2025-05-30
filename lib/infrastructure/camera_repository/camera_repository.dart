@@ -9,8 +9,8 @@ import 'package:injectable/injectable.dart';
 
 const getCameraUrl = ApiPath.fetchCamerasUrl;
 const searchCameraUrl = ApiPath.searchCamerasUrl;
-const getVehiclesUrl = ApiPath.fectchVihicles;
-const getDistrictsUrl = ApiPath.fectcDistricts;
+const getVehiclesUrl = ApiPath.fetchVihiclesUrl;
+const getDistrictsUrl = ApiPath.fetchDistrictsUrl;
 
 @Injectable(as: ICameraRepository)
 class CameraRepository implements ICameraRepository {
