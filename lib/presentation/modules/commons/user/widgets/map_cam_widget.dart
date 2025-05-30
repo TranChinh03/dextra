@@ -9,9 +9,9 @@ import 'package:dextra/presentation/modules/commons/user/widgets/statistic/chart
 import 'package:dextra/presentation/modules/commons/widgets/button/common_arrow_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/cameraList/search_camera_list_widget.dart';
-import 'package:dextra/presentation/modules/commons/widgets/card/camera_list_item.dart';
 import 'package:dextra/presentation/modules/commons/widgets/card/common_statistic_card.dart';
 import 'package:dextra/presentation/modules/commons/widgets/commonImage/common_image.dart';
+import 'package:dextra/presentation/modules/commons/widgets/dialog/image_dialog.dart';
 import 'package:dextra/presentation/modules/commons/widgets/input/search_box.dart';
 import 'package:dextra/presentation/modules/commons/widgets/map/map.dart';
 import 'package:dextra/presentation/modules/commons/widgets/screen-container/screen_container.dart';
@@ -45,9 +45,8 @@ class _MapCamWidgetState extends State<MapCamWidget> {
   int currentSegment = 1;
   String currentDistrict = "All districts";
   int pagesPerSeg = 5;
-  LatLng? _currentPos;
+  LatLng? _currentPos = LatLng(10.80498476893258, 106.75270736217499);
   Camera? _selectedCam;
-  List<Camera> _searchResult = [];
 
   @override
   void initState() {
@@ -56,36 +55,6 @@ class _MapCamWidgetState extends State<MapCamWidget> {
 
     _updateTime();
     _timer = Timer.periodic(const Duration(seconds: 1), (_) => _updateTime());
-  }
-
-  _onSearchTextChanged(String text) {
-    _searchResult.clear();
-    setState(() {
-      currentDistrict = "Quận 1";
-      currentPage = 1;
-    });
-    if (text.isEmpty) {
-      setState(() {});
-      return;
-    }
-
-    for (var camera in _cameraBloc.state.cameras) {
-      if (camera.name!.toLowerCase().contains(text.toLowerCase())) {
-        _searchResult.add(camera);
-      }
-    }
-    setState(() {});
-  }
-
-  _onDropDownChanged(String dist) {
-    _searchResult.clear();
-
-    for (var camera in _cameraBloc.state.cameras) {
-      if (camera.dist!.toLowerCase().contains(dist.toLowerCase())) {
-        _searchResult.add(camera);
-      }
-    }
-    setState(() {});
   }
 
   void _onFetchCamera() {
@@ -102,53 +71,6 @@ class _MapCamWidgetState extends State<MapCamWidget> {
     setState(() {
       _currentTime = formatted;
     });
-  }
-
-  Widget _createButton() {
-    int totalPages = _cameraBloc.state.cameras.length % 20 == 0
-        ? _cameraBloc.state.cameras.length ~/ 20
-        : (_cameraBloc.state.cameras.length ~/ 20) + 1;
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        CommonArrowButton(
-          direction: 'left',
-          isEnable: currentSegment > 1,
-          onPressed: () {
-            setState(() {
-              currentSegment--;
-            });
-          },
-        ),
-        ...List.generate(
-            (totalPages ~/ (currentSegment * pagesPerSeg) > 0
-                ? pagesPerSeg
-                : (totalPages % ((currentSegment - 1) * pagesPerSeg))),
-            (index) {
-          return Padding(
-            padding: EdgeInsets.all(AppSpacing.rem125.w),
-            child: CommonButton(
-              text:
-                  (index + 1 + ((currentSegment - 1) * pagesPerSeg)).toString(),
-              onPressed: () => setState(() {
-                currentPage = index + 1 + ((currentSegment - 1) * pagesPerSeg);
-              }),
-            ),
-          );
-        }),
-        CommonArrowButton(
-          isEnable: totalPages % pagesPerSeg == 0
-              ? currentSegment <= totalPages / pagesPerSeg - 1
-              : currentSegment < totalPages / pagesPerSeg,
-          onPressed: () {
-            setState(() {
-              currentSegment++;
-              print(currentSegment);
-            });
-          },
-        ),
-      ],
-    );
   }
 
   void updateCurrentPos(LatLng newPos, Camera? selectedCam) {
@@ -181,22 +103,8 @@ class _MapCamWidgetState extends State<MapCamWidget> {
     List<Widget> imageList = List.generate(
       9,
       (_) => InkWell(
-        onTap: () => showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: const Text('VoChiCong - CauPhuHuu2'),
-            content: CommonImage(
-              imagePath: Assets.png.placeHolder.path,
-              width: AppSpacing.rem9999.w,
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: const Text('Close'),
-              ),
-            ],
-          ),
-        ),
+        onTap: () =>
+            showDialog(context: context, builder: (context) => ImageDialog()),
         child: CommonImage(
           imagePath: Assets.png.placeHolder.path,
           width: AppSpacing.rem600.w,
@@ -265,18 +173,20 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                     width: double.infinity,
                     color: colors.primaryBannerBg,
                     child: MapSample(
-                      cameraList: _cameraBloc.state.cameras,
+                      // cameraList: _cameraBloc.state.cameras,
                       location: _currentPos,
-                      selectedCam: _selectedCam,
+                      selectedCam: _selectedCam ??
+                          Camera(
+                            privateId: '',
+                            name: 'Default Camera',
+                            lastModified: DateTime.now(),
+                          ),
                     ),
                   ),
                   SearchCameraListWidget(
                     isCliked: updateCurrentPos,
                     scrollToTop: _scrollToTop,
                   ),
-                  // _cameraBloc.state.cameras.isEmpty
-                  //     ? CircularProgressIndicator()
-                  //     : _createButton(),
                   CommonHeading(
                     heading: "Analyze Traffic",
                     subheading:
@@ -328,33 +238,6 @@ class _MapCamWidgetState extends State<MapCamWidget> {
           ),
         );
       },
-    );
-  }
-
-  final Completer<GoogleMapController> _controller =
-      Completer<GoogleMapController>();
-
-  void showDialogCam() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: CommonText(
-          _selectedCam?.name ?? "",
-          style: TextStyle(fontWeight: AppFontWeight.bold),
-        ),
-        content: CommonImage(
-          width: AppSpacing.rem9999.w,
-          imageUrl:
-              "http://localhost:8002/cameras/image/${_selectedCam?.privateId ?? ""}",
-          fit: BoxFit.contain,
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Close'),
-          ),
-        ],
-      ),
     );
   }
 }

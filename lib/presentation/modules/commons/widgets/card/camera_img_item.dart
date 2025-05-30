@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:dextra/presentation/assets/assets.dart';
@@ -24,6 +25,7 @@ class CameraImgItem extends StatefulWidget {
   final VoidCallback? onPressed;
   final int? maxLines;
   final TextOverflow? overflow;
+  final String? cameraId;
 
   const CameraImgItem({
     super.key,
@@ -34,6 +36,7 @@ class CameraImgItem extends StatefulWidget {
     this.maxLines,
     this.overflow,
     required this.isSaved,
+    this.cameraId,
   });
 
   @override
@@ -43,15 +46,29 @@ class CameraImgItem extends StatefulWidget {
 class _CameraImgItemState extends State<CameraImgItem> {
   late bool isFavorite;
 
+  Timer? _timer;
+
   @override
   void initState() {
     super.initState();
-    isFavorite = widget.isSaved; // <-- local state from parent
+    isFavorite = widget.isSaved;
+    print("CameraListItem initState");
+    _timer = Timer.periodic(const Duration(seconds: 12), (timer) {
+      if (mounted) setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final colors = IAppColor.watch(context);
+    final imgLiveviewUrl =
+        "http://localhost:8002/cameras/image/" + (widget.cameraId ?? "");
     return Container(
       decoration: BoxDecoration(
         color: colors.cardCameraBackground,
@@ -71,7 +88,7 @@ class _CameraImgItemState extends State<CameraImgItem> {
             child: Stack(
               children: [
                 CommonImage(
-                  imageUrl: widget.img ?? Assets.png.placeHolder.path,
+                  imageUrl: imgLiveviewUrl ?? Assets.png.placeHolder.path,
                   fit: BoxFit.cover,
                 ),
                 Positioned(
