@@ -1,8 +1,12 @@
 class ApiPath {
   static const String fetchCamerasUrl = 'http://localhost:8002/cameras';
   static const String searchCamerasUrl = 'http://localhost:8002/cameras/search';
-  static const String fectchVihicles =
+  static const String fetchVihiclesUrl =
       'http://localhost:8002/cameras/detection/classes';
-  static const String fectcDistricts =
+  static const String fetchDistrictsUrl =
       'http://localhost:8002/cameras/district/classes';
+  static const String fetchTimestampUrl = 'http://localhost:8004/timestamp';
+  static const String fetchDateUrl = 'http://localhost:8004/date';
+  static const String detectByDateUrl =
+      'http://localhost:8004/detection_results_by_date?date=';
 }
