@@ -5,4 +5,9 @@ class ApiPath {
       'http://localhost:8002/cameras/detection/classes';
   static const String fectcDistricts =
       'http://localhost:8002/cameras/district/classes';
+
+  static const String detectionStreamlineUrl =
+      'http://localhost:8003/detect/images';
+  static const String detectionDetailsUrl =
+      'http://localhost:8003/detect-vehicles';
 }
