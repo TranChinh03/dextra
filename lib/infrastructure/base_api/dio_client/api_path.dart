@@ -5,6 +5,11 @@ class ApiPath {
       'http://localhost:8002/cameras/detection/classes';
   static const String fetchDistrictsUrl =
       'http://localhost:8002/cameras/district/classes';
+
+  static const String detectionStreamlineUrl =
+      'http://localhost:8003/detect/images';
+  static const String detectionDetailsUrl =
+      'http://localhost:8003/detect-vehicles';
   static const String fetchTimestampUrl = 'http://localhost:8004/timestamp';
   static const String fetchDateUrl = 'http://localhost:8004/date';
   static const String detectByDateUrl =
