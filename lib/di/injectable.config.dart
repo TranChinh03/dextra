@@ -15,6 +15,7 @@ import 'package:injectable/injectable.dart' as _i526;
 import '../domain/interfaces/api_client.dart' as _i1065;
 import '../domain/interfaces/interface_camera_repository.dart' as _i574;
 import '../domain/interfaces/interface_detection_repository.dart' as _i65;
+import '../domain/interfaces/interface_statistic_repository.dart' as _i474;
 import '../domain/usecases/camera/queries/fetch_cameras/fetch_cameras_handler.dart'
     as _i187;
 import '../domain/usecases/camera/queries/fetch_districts/fetch_districts_handler.dart'
@@ -27,10 +28,18 @@ import '../domain/usecases/detection/queries/detect_streamline/detect_streamline
     as _i475;
 import '../domain/usecases/detection/queries/detect_vehicle/detect_vehicle_handler.dart'
     as _i604;
+import '../domain/usecases/statistic/queries/detect_by_date/detect_by_date_handler.dart'
+    as _i803;
+import '../domain/usecases/statistic/queries/fecth_timestamp/fetch_timestamp_handler.dart'
+    as _i58;
+import '../domain/usecases/statistic/queries/fetch_date/fetch_date_handler.dart'
+    as _i699;
 import '../infrastructure/base_api/dio_client/client.dart' as _i447;
 import '../infrastructure/camera_repository/camera_repository.dart' as _i866;
 import '../infrastructure/detection_repository/detection_repository.dart'
     as _i842;
+import '../infrastructure/statistic_repository/statistic_repository.dart'
+    as _i520;
 import '../presentation/app/blocs/app/app_bloc.dart' as _i875;
 import '../presentation/app/blocs/authentication/authentication_bloc.dart'
     as _i948;
@@ -38,7 +47,11 @@ import '../presentation/app/blocs/theme/app_theme_bloc.dart' as _i468;
 import '../presentation/modules/commons/bloc/camera/camera_bloc.dart' as _i247;
 import '../presentation/modules/commons/bloc/detection/detection_bloc.dart'
     as _i792;
+import '../presentation/modules/commons/bloc/datetime/datetime_bloc.dart'
+    as _i530;
 import '../presentation/modules/commons/bloc/search/search_bloc.dart' as _i317;
+import '../presentation/modules/commons/bloc/statistic/statistic_bloc.dart'
+    as _i407;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -58,6 +71,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i1065.IApiClient>(() => _i447.DioClient());
     gh.factory<_i574.ICameraRepository>(
         () => _i866.CameraRepository(gh<_i1065.IApiClient>()));
+    gh.factory<_i474.IStatisticRepository>(
+        () => _i520.StatisticRepository(gh<_i1065.IApiClient>()));
     gh.factory<_i187.FetchCamerasHandler>(
         () => _i187.FetchCamerasHandler(gh<_i574.ICameraRepository>()));
     gh.factory<_i702.FetchDistrictsHandler>(
@@ -68,12 +83,24 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i63.SearchCamerasHandler(gh<_i574.ICameraRepository>()));
     gh.factory<_i65.IDetectionRepository>(
         () => _i842.DetectionRepository(gh<_i1065.IApiClient>()));
+    gh.factory<_i803.DetectByDateHandler>(
+        () => _i803.DetectByDateHandler(gh<_i474.IStatisticRepository>()));
+    gh.factory<_i58.FetchTimestampHandler>(
+        () => _i58.FetchTimestampHandler(gh<_i474.IStatisticRepository>()));
+    gh.factory<_i699.FetchDateHandler>(
+        () => _i699.FetchDateHandler(gh<_i474.IStatisticRepository>()));
+    gh.singleton<_i407.StatisticBloc>(
+        () => _i407.StatisticBloc(gh<_i803.DetectByDateHandler>()));
     gh.factory<_i317.SearchBloc>(
         () => _i317.SearchBloc(gh<_i63.SearchCamerasHandler>()));
     gh.factory<_i475.DetectStreamlineHandler>(
         () => _i475.DetectStreamlineHandler(gh<_i65.IDetectionRepository>()));
     gh.factory<_i604.DetectVehicleHandler>(
         () => _i604.DetectVehicleHandler(gh<_i65.IDetectionRepository>()));
+    gh.singleton<_i530.DateTimeBloc>(() => _i530.DateTimeBloc(
+          gh<_i58.FetchTimestampHandler>(),
+          gh<_i699.FetchDateHandler>(),
+        ));
     gh.singleton<_i247.CameraBloc>(() => _i247.CameraBloc(
           gh<_i187.FetchCamerasHandler>(),
           gh<_i702.FetchDistrictsHandler>(),
