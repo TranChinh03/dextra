@@ -2,16 +2,16 @@ part of 'statistic_bloc.dart';
 
 @immutable
 class StatisticState extends Equatable {
-  final ResultDetail result;
+  final StatisticResult result;
   final ApiStatus apiStatus;
 
   StatisticState({
-    ResultDetail? result,
+    StatisticResult? result,
     this.apiStatus = ApiStatus.idle,
-  }) : result = result ?? ResultDetail();
+  }) : result = result ?? StatisticResult();
 
   StatisticState copyWith({
-    ResultDetail? result,
+    StatisticResult? result,
     ApiStatus? apiStatus,
   }) {
     return StatisticState(

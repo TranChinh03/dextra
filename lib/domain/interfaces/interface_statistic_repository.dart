@@ -7,5 +7,5 @@ import 'package:dextra/domain/models/query.dart';
 abstract class IStatisticRepository {
   Future<BaseApiResponse<List<Timestamp>>> getTimestamp();
   Future<BaseApiResponse<List<Date>>> getDate();
-  Future<BaseApiResponse<ResultDetail>> detectByDate(Query query);
+  Future<BaseApiResponse<StatisticResult>> detectByDate(Query query);
 }

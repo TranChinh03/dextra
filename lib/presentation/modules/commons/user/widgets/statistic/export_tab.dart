@@ -83,7 +83,8 @@ class _ExportTabState extends State<ExportTab> {
   TimeOfDay? _startTime;
   TimeOfDay? _endTime;
 
-  late String _selectedDate;
+  String? _selectedDate = null;
+  String? _selectedTime = null;
 
   bool _isTimeEnable = false;
 
@@ -93,13 +94,6 @@ class _ExportTabState extends State<ExportTab> {
     _onFetchVehicles();
     _onFetchTimestamp();
     _onFetchDate();
-    _statisticBloc.add(DetectByDateEvent(
-      query: DetectByDateQuery(
-        date: DateFormat('yyyy-MM-dd').format(
-          DateTime.now(),
-        ),
-      ),
-    ));
   }
 
   Future<void> _pickDate(BuildContext context, bool isStart) async {
@@ -210,14 +204,18 @@ class _ExportTabState extends State<ExportTab> {
     if (value != null) {
       setState(() {
         _selectedDate = value;
+        _selectedTime = _datetimeBloc.state.timestamps
+            .firstWhere((timestamp) => timestamp.date == value)
+            .time;
       });
-      _statisticBloc.add(
-        DetectByDateEvent(
-          query: DetectByDateQuery(
-            date: value,
-          ),
-        ),
-      );
+      print(value + _selectedTime.toString() ?? '');
+      // _statisticBloc.add(
+      //   DetectByDateEvent(
+      //     query: DetectByDateQuery(
+      //       date: value,
+      //     ),
+      //   ),
+      // );
     }
   }
 
@@ -227,228 +225,407 @@ class _ExportTabState extends State<ExportTab> {
 
     return BlocBuilder<CameraBloc, CameraState>(builder: (context, state) {
       return BlocBuilder<DateTimeBloc, DateTimeState>(
+          bloc: _datetimeBloc,
           builder: (context, dateState) {
-        return _datetimeBloc.state.dates.isEmpty
-            ? SizedBox()
-            : SizedBox(
-                width: double.infinity,
-                child: LayoutBuilder(builder: (context, constraints) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Dropdown
-                      Row(
+            if (_datetimeBloc.state.timestamps.isNotEmpty &&
+                _selectedDate == null) {
+              _statisticBloc.add(DetectByDateEvent(
+                  query: DetectByDateQuery(
+                      date: _datetimeBloc.state.dates.last.date)));
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                setState(() {
+                  _selectedDate = dateState.timestamps.last.date;
+                  _selectedTime = dateState.timestamps.last.time;
+                });
+              });
+            }
+
+            return _selectedDate == null || _selectedTime == null
+                ? SizedBox()
+                : SizedBox(
+                    width: double.infinity,
+                    child: LayoutBuilder(builder: (context, constraints) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: AppSpacing.rem300.w),
-                            width: constraints.maxWidth * 0.5,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
+                          // Dropdown
+                          Row(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: AppSpacing.rem300.w),
+                                width: constraints.maxWidth * 0.5,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    CommonText(
-                                      "Date",
-                                      style: TextStyle(
-                                          fontSize: AppFontSize.xxxl,
-                                          fontWeight: AppFontWeight.semiBold),
-                                    ),
-                                    SizedBox(
-                                      width: AppSpacing.rem200.h,
-                                    ),
-                                    Expanded(
-                                      child: SimpleDropdown(
-                                          initialValue: _datetimeBloc
-                                              .state.dates.last.date,
-                                          itemsList: _datetimeBloc.state.dates
-                                              .map((option) {
-                                            return DropdownMenuItem<String>(
-                                              value: option.date,
-                                              child: Text(option.date),
-                                            );
-                                          }).toList(),
-                                          onChanged: _onDateChanged),
-                                    ),
-                                  ],
-                                ),
-                                if (_selectedOption == tr('Common.custom')) ...[
-                                  Container(
-                                    padding: EdgeInsets.only(
-                                        top: AppSpacing.rem250.h),
-                                    child: Row(
+                                    Row(
                                       children: [
+                                        CommonText(
+                                          "Date",
+                                          style: TextStyle(
+                                              fontSize: AppFontSize.xxxl,
+                                              fontWeight:
+                                                  AppFontWeight.semiBold),
+                                        ),
+                                        SizedBox(
+                                          width: AppSpacing.rem200.h,
+                                        ),
                                         Expanded(
-                                            child: DateTimePicker(
-                                          label: tr("Common.start"),
-                                          onPressed: () =>
-                                              _pickDate(context, true),
-                                          date: _startDate,
-                                          isDate: true,
-                                        )),
-                                        const SizedBox(width: 12),
-                                        Expanded(
-                                            child: DateTimePicker(
-                                          label: tr("Common.end"),
-                                          onPressed: () =>
-                                              _pickDate(context, false),
-                                          date: _endDate,
-                                          isDate: true,
-                                        )),
+                                          child: SimpleDropdown(
+                                              initialValue: _datetimeBloc
+                                                  .state.dates.last.date,
+                                              itemsList: _datetimeBloc
+                                                  .state.dates
+                                                  .map((option) {
+                                                return DropdownMenuItem<String>(
+                                                  value: option.date,
+                                                  child: Text(option.date),
+                                                );
+                                              }).toList(),
+                                              onChanged: _onDateChanged),
+                                        ),
                                       ],
                                     ),
-                                  )
-                                ],
-                                SizedBox(
-                                  height: AppSpacing.rem300.h,
-                                ),
-                                Row(
-                                  children: [
-                                    CommonText(
-                                      tr('Common.area'),
-                                      style: TextStyle(
-                                          fontSize: AppFontSize.xxxl,
-                                          fontWeight: AppFontWeight.semiBold),
-                                    ),
-                                    SizedBox(
-                                      width: AppSpacing.rem200.w,
-                                    ),
-                                    Expanded(
-                                      child: DropdownButtonFormField<String>(
-                                        iconEnabledColor:
-                                            colors.menuActiveTextColor,
-                                        style: TextStyle(
-                                            color: colors.menuActiveTextColor,
-                                            fontWeight: AppFontWeight.regular,
-                                            fontSize: AppFontSize.xxl,
-                                            overflow: TextOverflow.ellipsis),
-                                        decoration: InputDecoration(
-                                          fillColor: colors.primaryBannerBg,
-                                          filled: true,
-                                          contentPadding:
-                                              const EdgeInsets.symmetric(
-                                                  horizontal: AppSpacing.rem500,
-                                                  vertical: AppSpacing.rem250),
-                                          border: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(
-                                                AppSpacing.rem350.w),
-                                            borderSide: BorderSide.none,
-                                          ),
-                                        ),
-                                        value: _selectedCam,
-                                        items: _cams.map((option) {
-                                          return DropdownMenuItem<String>(
-                                            value: option,
-                                            child: Text(option),
-                                          );
-                                        }).toList(),
-                                        onChanged: (value) {
-                                          setState(() {});
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: AppSpacing.rem300.h,
-                                ),
-                                BlocBuilder<StatisticBloc, StatisticState>(
-                                    builder: (context, statisticSate) {
-                                  return CommonStatisticCard(
-                                    label: tr('Common.vehicles_count_label'),
-                                    value:
-                                        _statisticBloc.state.result.numberOfCar,
-                                    info: tr('Common.compare_yesterday_label') +
-                                        tr('Common.default_compare_yesterda_value'),
-                                    textColor: colors.buttonPrimaryBackground,
-                                  );
-                                }),
-                              ],
-                            ),
-                          ),
-                          Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: AppSpacing.rem300.w),
-                              width: constraints.maxWidth * 0.5,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      CommonText(
-                                        "Time",
-                                        style: TextStyle(
-                                            fontSize: AppFontSize.xxxl,
-                                            fontWeight: AppFontWeight.semiBold),
-                                      ),
-                                      SizedBox(
-                                        width: AppSpacing.rem200.w,
-                                      ),
-                                      ElevatedButton(
-                                        onPressed: _isTimeEnable
-                                            ? () => _pickTime(true)
-                                            : null,
-                                        child: CommonText(
-                                          '${tr('Common.start')}: ${_formatTime(_startTime)}',
-                                          style: TextStyle(
-                                              fontSize: AppFontSize.xs),
-                                        ),
-                                      ),
-                                      ElevatedButton(
-                                        onPressed: _isTimeEnable
-                                            ? () => _pickTime(false)
-                                            : null,
-                                        child: CommonText(
-                                          '${tr('Common.end')}: ${_formatTime(_endTime)}',
-                                          style: TextStyle(
-                                              fontSize: AppFontSize.xs),
+                                    if (_selectedOption ==
+                                        tr('Common.custom')) ...[
+                                      Container(
+                                        padding: EdgeInsets.only(
+                                            top: AppSpacing.rem250.h),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                                child: DateTimePicker(
+                                              label: tr("Common.start"),
+                                              onPressed: () =>
+                                                  _pickDate(context, true),
+                                              date: _startDate,
+                                              isDate: true,
+                                            )),
+                                            const SizedBox(width: 12),
+                                            Expanded(
+                                                child: DateTimePicker(
+                                              label: tr("Common.end"),
+                                              onPressed: () =>
+                                                  _pickDate(context, false),
+                                              date: _endDate,
+                                              isDate: true,
+                                            )),
+                                          ],
                                         ),
                                       )
                                     ],
-                                  ),
-                                  CommonText(
-                                    tr('Common.time_range_info'),
-                                    style: TextStyle(
-                                        fontSize: AppFontSize.xxs,
-                                        color: colors.textMuted),
-                                  ),
-                                  SizedBox(
-                                    height: AppSpacing.rem300.h,
-                                  ),
-                                  Row(
-                                    children: [
-                                      CommonText(
-                                        tr('Common.vehicle'),
-                                        style: TextStyle(
-                                            fontSize: AppFontSize.xxxl,
-                                            fontWeight: AppFontWeight.semiBold),
-                                      ),
-                                      SizedBox(
-                                        width: AppSpacing.rem200.w,
-                                      ),
-                                      Expanded(
-                                        child: SimpleDropdown(
-                                          initialValue: _selectedVehicle,
-                                          itemsList: _cameraBloc.state.vehicles
-                                              .map((option) {
-                                            return DropdownMenuItem<String>(
-                                              value: option,
-                                              child: Text(option),
-                                            );
-                                          }).toList(),
-                                          onChanged: (value) {
-                                            setState(() {
-                                              _selectedVehicle = value;
-                                            });
-                                          },
+                                    SizedBox(
+                                      height: AppSpacing.rem300.h,
+                                    ),
+                                    Row(
+                                      children: [
+                                        CommonText(
+                                          tr('Common.area'),
+                                          style: TextStyle(
+                                              fontSize: AppFontSize.xxxl,
+                                              fontWeight:
+                                                  AppFontWeight.semiBold),
                                         ),
+                                        SizedBox(
+                                          width: AppSpacing.rem200.w,
+                                        ),
+                                        Expanded(
+                                          child:
+                                              DropdownButtonFormField<String>(
+                                            iconEnabledColor:
+                                                colors.menuActiveTextColor,
+                                            style: TextStyle(
+                                                color:
+                                                    colors.menuActiveTextColor,
+                                                fontWeight:
+                                                    AppFontWeight.regular,
+                                                fontSize: AppFontSize.xxl,
+                                                overflow:
+                                                    TextOverflow.ellipsis),
+                                            decoration: InputDecoration(
+                                              fillColor: colors.primaryBannerBg,
+                                              filled: true,
+                                              contentPadding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal:
+                                                          AppSpacing.rem500,
+                                                      vertical:
+                                                          AppSpacing.rem250),
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        AppSpacing.rem350.w),
+                                                borderSide: BorderSide.none,
+                                              ),
+                                            ),
+                                            value: _selectedCam,
+                                            items: _cams.map((option) {
+                                              return DropdownMenuItem<String>(
+                                                value: option,
+                                                child: Text(option),
+                                              );
+                                            }).toList(),
+                                            onChanged: (value) {
+                                              setState(() {});
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: AppSpacing.rem300.h,
+                                    ),
+                                    BlocBuilder<StatisticBloc, StatisticState>(
+                                        builder: (context, statisticSate) {
+                                      return CommonStatisticCard(
+                                        label:
+                                            tr('Common.vehicles_count_label'),
+                                        value: _statisticBloc
+                                            .state.result.numberOfCar,
+                                        info: tr(
+                                                'Common.compare_yesterday_label') +
+                                            tr('Common.default_compare_yesterda_value'),
+                                        textColor:
+                                            colors.buttonPrimaryBackground,
+                                      );
+                                    }),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: AppSpacing.rem300.w),
+                                  width: constraints.maxWidth * 0.5,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    spacing: AppSpacing.rem300.h,
+                                    children: [
+                                      // Row(
+                                      //   mainAxisAlignment:
+                                      //       MainAxisAlignment.spaceBetween,
+                                      //   children: [
+                                      //     CommonText(
+                                      //       "Time",
+                                      //       style: TextStyle(
+                                      //           fontSize: AppFontSize.xxxl,
+                                      //           fontWeight: AppFontWeight.semiBold),
+                                      //     ),
+                                      //     SizedBox(
+                                      //       width: AppSpacing.rem200.w,
+                                      //     ),
+                                      //     ElevatedButton(
+                                      //       onPressed: _isTimeEnable
+                                      //           ? () => _pickTime(true)
+                                      //           : null,
+                                      //       child: CommonText(
+                                      //         '${tr('Common.start')}: ${_formatTime(_startTime)}',
+                                      //         style: TextStyle(
+                                      //             fontSize: AppFontSize.xs),
+                                      //       ),
+                                      //     ),
+                                      //     ElevatedButton(
+                                      //       onPressed: _isTimeEnable
+                                      //           ? () => _pickTime(false)
+                                      //           : null,
+                                      //       child: CommonText(
+                                      //         '${tr('Common.end')}: ${_formatTime(_endTime)}',
+                                      //         style: TextStyle(
+                                      //             fontSize: AppFontSize.xs),
+                                      //       ),
+                                      //     )
+                                      //   ],
+                                      // ),
+                                      // CommonText(
+                                      //   tr('Common.time_range_info'),
+                                      //   style: TextStyle(
+                                      //       fontSize: AppFontSize.xxs,
+                                      //       color: colors.textMuted),
+                                      // ),
+                                      // SizedBox(
+                                      //   height: AppSpacing.rem300.h,
+                                      // ),
+                                      Row(
+                                        children: [
+                                          CommonText(
+                                            "Time",
+                                            style: TextStyle(
+                                                fontSize: AppFontSize.xxxl,
+                                                fontWeight:
+                                                    AppFontWeight.semiBold),
+                                          ),
+                                          SizedBox(
+                                            width: AppSpacing.rem200.w,
+                                          ),
+                                          Expanded(
+                                            child: SimpleDropdown(
+                                              initialValue: _selectedTime,
+                                              itemsList: _datetimeBloc
+                                                  .state.timestamps
+                                                  .where((option) =>
+                                                      option.date ==
+                                                      _selectedDate)
+                                                  .map((option) =>
+                                                      DropdownMenuItem<String>(
+                                                        value: option.time,
+                                                        child:
+                                                            Text(option.time),
+                                                      ))
+                                                  .toList(),
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  _selectedTime = value;
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          CommonText(
+                                            tr('Common.vehicle'),
+                                            style: TextStyle(
+                                                fontSize: AppFontSize.xxxl,
+                                                fontWeight:
+                                                    AppFontWeight.semiBold),
+                                          ),
+                                          SizedBox(
+                                            width: AppSpacing.rem200.w,
+                                          ),
+                                          Expanded(
+                                            child: SimpleDropdown(
+                                              initialValue: _cameraBloc
+                                                  .state.vehicles.first,
+                                              itemsList: _cameraBloc
+                                                  .state.vehicles
+                                                  .map((option) {
+                                                return DropdownMenuItem<String>(
+                                                  value: option,
+                                                  child: Text(option),
+                                                );
+                                              }).toList(),
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  _selectedVehicle = value;
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+
+                                      CommonStatisticCard(
+                                        label:
+                                            tr('Common.avg_congestion_label'),
+                                        value:
+                                            tr('Common.default_avg_congestion'),
+                                        info: tr(
+                                                'Common.peak_congestion_label') +
+                                            tr('Common.default_peak_congestion_value'),
+                                        background: colors.cardBackground2,
+                                        decoration: colors.cardDecorate2,
                                       ),
                                     ],
+                                  ))
+                            ],
+                          ),
+                          Container(
+                              margin: EdgeInsets.symmetric(
+                                  vertical: AppSpacing.rem600.h),
+                              height: AppSpacing.rem8975.h,
+                              width: double.infinity,
+                              color: colors.primaryBannerBg,
+                              child: TrafficHeatmap()),
+                          Center(
+                            child: SizedBox(
+                                height: AppSpacing.rem8975.h,
+                                width: AppSpacing.rem9999.w,
+                                child: LineChartSample1()),
+                          ),
+                          SizedBox(
+                            height: AppSpacing.rem600.h,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SizedBox(
+                                  height: AppSpacing.rem5000.h,
+                                  width: AppSpacing.rem6250.w,
+                                  child: PieChartSample2()),
+                              Container(
+                                  color: colors.primaryBannerBg,
+                                  height: AppSpacing.rem6250.h,
+                                  width: AppSpacing.rem6250.w,
+                                  child: BarChartSample1())
+                            ],
+                          ),
+                          Center(
+                            child: CommonHeading(
+                              heading: tr('Common.overview'),
+                            ),
+                          ),
+                          Center(
+                            child: SizedBox(
+                                height: AppSpacing.rem6250.h,
+                                width: AppSpacing.rem9999.w,
+                                child: BarChartSample3()),
+                          ),
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: AppSpacing.rem600.h),
+                            child: SizedBox(
+                              width: AppSpacing.rem3875.w,
+                              child: DropdownButtonFormField<String>(
+                                iconEnabledColor: colors.menuActiveTextColor,
+                                style: TextStyle(
+                                    color: colors.menuActiveTextColor,
+                                    fontWeight: AppFontWeight.regular,
+                                    fontSize: AppFontSize.xxl,
+                                    overflow: TextOverflow.ellipsis),
+                                decoration: InputDecoration(
+                                  fillColor: colors.primaryBannerBg,
+                                  filled: true,
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: AppSpacing.rem500,
+                                      vertical: AppSpacing.rem250),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        AppSpacing.rem350.w),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                ),
+                                value: _selectedDistrict,
+                                items: _districts.map((option) {
+                                  return DropdownMenuItem<String>(
+                                    value: option,
+                                    child: Text(option),
+                                  );
+                                }).toList(),
+                                onChanged: (value) {
+                                  setState(() {});
+                                },
+                              ),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SizedBox(
+                                  height: AppSpacing.rem5000.h,
+                                  width: AppSpacing.rem6250.w,
+                                  child: PieChartSample1()),
+                              Column(
+                                children: [
+                                  CommonStatisticCard(
+                                    label: tr('Common.vehicles_count_label'),
+                                    value: tr('Common.default_count_value'),
+                                    info: tr('Common.compare_yesterday_label') +
+                                        tr('Common.default_compare_yesterda_value'),
+                                    textColor: colors.buttonPrimaryBackground,
                                   ),
                                   SizedBox(
-                                    height: AppSpacing.rem300.h,
+                                    height: AppSpacing.rem600,
                                   ),
                                   CommonStatisticCard(
                                     label: tr('Common.avg_congestion_label'),
@@ -459,123 +636,14 @@ class _ExportTabState extends State<ExportTab> {
                                     decoration: colors.cardDecorate2,
                                   ),
                                 ],
-                              ))
-                        ],
-                      ),
-                      Container(
-                          margin: EdgeInsets.symmetric(
-                              vertical: AppSpacing.rem600.h),
-                          height: AppSpacing.rem8975.h,
-                          width: double.infinity,
-                          color: colors.primaryBannerBg,
-                          child: TrafficHeatmap()),
-                      Center(
-                        child: SizedBox(
-                            height: AppSpacing.rem8975.h,
-                            width: AppSpacing.rem9999.w,
-                            child: LineChartSample1()),
-                      ),
-                      SizedBox(
-                        height: AppSpacing.rem600.h,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(
-                              height: AppSpacing.rem5000.h,
-                              width: AppSpacing.rem6250.w,
-                              child: PieChartSample2()),
-                          Container(
-                              color: colors.primaryBannerBg,
-                              height: AppSpacing.rem6250.h,
-                              width: AppSpacing.rem6250.w,
-                              child: BarChartSample1())
-                        ],
-                      ),
-                      Center(
-                        child: CommonHeading(
-                          heading: tr('Common.overview'),
-                        ),
-                      ),
-                      Center(
-                        child: SizedBox(
-                            height: AppSpacing.rem6250.h,
-                            width: AppSpacing.rem9999.w,
-                            child: BarChartSample3()),
-                      ),
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(vertical: AppSpacing.rem600.h),
-                        child: SizedBox(
-                          width: AppSpacing.rem3875.w,
-                          child: DropdownButtonFormField<String>(
-                            iconEnabledColor: colors.menuActiveTextColor,
-                            style: TextStyle(
-                                color: colors.menuActiveTextColor,
-                                fontWeight: AppFontWeight.regular,
-                                fontSize: AppFontSize.xxl,
-                                overflow: TextOverflow.ellipsis),
-                            decoration: InputDecoration(
-                              fillColor: colors.primaryBannerBg,
-                              filled: true,
-                              contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: AppSpacing.rem500,
-                                  vertical: AppSpacing.rem250),
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(AppSpacing.rem350.w),
-                                borderSide: BorderSide.none,
-                              ),
-                            ),
-                            value: _selectedDistrict,
-                            items: _districts.map((option) {
-                              return DropdownMenuItem<String>(
-                                value: option,
-                                child: Text(option),
-                              );
-                            }).toList(),
-                            onChanged: (value) {
-                              setState(() {});
-                            },
-                          ),
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(
-                              height: AppSpacing.rem5000.h,
-                              width: AppSpacing.rem6250.w,
-                              child: PieChartSample1()),
-                          Column(
-                            children: [
-                              CommonStatisticCard(
-                                label: tr('Common.vehicles_count_label'),
-                                value: tr('Common.default_count_value'),
-                                info: tr('Common.compare_yesterday_label') +
-                                    tr('Common.default_compare_yesterda_value'),
-                                textColor: colors.buttonPrimaryBackground,
-                              ),
-                              SizedBox(
-                                height: AppSpacing.rem600,
-                              ),
-                              CommonStatisticCard(
-                                label: tr('Common.avg_congestion_label'),
-                                value: tr('Common.default_avg_congestion'),
-                                info: tr('Common.peak_congestion_label') +
-                                    tr('Common.default_peak_congestion_value'),
-                                background: colors.cardBackground2,
-                                decoration: colors.cardDecorate2,
-                              ),
+                              )
                             ],
                           )
                         ],
-                      )
-                    ],
+                      );
+                    }),
                   );
-                }),
-              );
-      });
+          });
     });
   }
 }
