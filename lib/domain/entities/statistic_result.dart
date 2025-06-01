@@ -3,7 +3,7 @@ class StatisticResult {
   final String? date;
   final String? timeFrom;
   final String? timeTo;
-  final String? numberOfBycicle;
+  final String? numberOfBicycle;
   final String? numberOfCar;
   final String? numberOfVan;
   final String? numberOfTruck;
@@ -17,7 +17,7 @@ class StatisticResult {
     this.date,
     this.timeFrom,
     this.timeTo,
-    this.numberOfBycicle,
+    this.numberOfBicycle,
     this.numberOfCar,
     this.numberOfVan,
     this.numberOfTruck,
@@ -35,26 +35,26 @@ class StatisticResult {
       timeFrom:
           json.containsKey('timeFrom') ? json['timeFrom'] as String? : null,
       timeTo: json.containsKey('timeTo') ? json['timeTo'] as String? : null,
-      numberOfBycicle: json.containsKey('numberOfBycicle')
-          ? json['numberOfBycicle'] as String?
+      numberOfBicycle: json.containsKey('numberOfBicycle')
+          ? json['numberOfBicycle'].toString()
           : null,
       numberOfCar: json.containsKey('numberOfCar')
-          ? json['numberOfCar'] as String?
+          ? json['numberOfCar'].toString()
           : null,
       numberOfVan: json.containsKey('numberOfVan')
-          ? json['numberOfVan'] as String?
+          ? json['numberOfVan'].toString()
           : null,
       numberOfTruck: json.containsKey('numberOfTruck')
-          ? json['numberOfTruck'] as String?
+          ? json['numberOfTruck'].toString()
           : null,
       numberOfBus: json.containsKey('numberOfBus')
-          ? json['numberOfBus'] as String?
+          ? json['numberOfBus'].toString()
           : null,
       numberOfFireTruck: json.containsKey('numberOfFireTruck')
-          ? json['numberOfFireTruck'] as String?
+          ? json['numberOfFireTruck'].toString()
           : null,
       numberOfContainer: json.containsKey('numberOfContainer')
-          ? json['numberOfContainer'] as String?
+          ? json['numberOfContainer'].toString()
           : null,
       details: json.containsKey('details') && json['details'] != null
           ? (json['details'] as List)
@@ -68,7 +68,7 @@ class StatisticResult {
 class ResultDetail {
   final String? date;
   final String? time;
-  final String? numberOfBycicle;
+  final String? numberOfBicycle;
   final String? numberOfCar;
   final String? numberOfVan;
   final String? numberOfTruck;
@@ -79,7 +79,7 @@ class ResultDetail {
   ResultDetail({
     this.date,
     this.time,
-    this.numberOfBycicle,
+    this.numberOfBicycle,
     this.numberOfCar,
     this.numberOfVan,
     this.numberOfTruck,
@@ -92,8 +92,8 @@ class ResultDetail {
     return ResultDetail(
       date: json.containsKey('date') ? json['date'].toString() : null,
       time: json.containsKey('time') ? json['time'].toString() : null,
-      numberOfBycicle: json.containsKey('numberOfBycicle')
-          ? json['numberOfBycicle'].toString()
+      numberOfBicycle: json.containsKey('numberOfBicycle')
+          ? json['numberOfBicycle'].toString()
           : null,
       numberOfCar: json.containsKey('numberOfCar')
           ? json['numberOfCar'].toString()

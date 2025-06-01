@@ -39,12 +39,12 @@ class StatisticRepository implements IStatisticRepository {
   }
 
   @override
-  Future<BaseApiResponse<ResultDetail>> detectByDate(Query query) async {
+  Future<BaseApiResponse<StatisticResult>> detectByDate(Query query) async {
     final DetectByDateQuery detectByDateQuery = query.query;
 
-    final response = await _apiClient.get<ResultDetail, ResultDetail>(
+    final response = await _apiClient.get<StatisticResult, StatisticResult>(
       detectByDateUrl + (detectByDateQuery.date ?? ''),
-      parser: (json) => ResultDetail.fromJson(json),
+      parser: (json) => StatisticResult.fromJson(json),
     );
     print('response: ${response.data}');
 

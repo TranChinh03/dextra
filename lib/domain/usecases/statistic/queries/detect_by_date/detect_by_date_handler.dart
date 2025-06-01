@@ -11,7 +11,7 @@ class DetectByDateHandler {
     _iStatisticRepository = iStatisticRepository;
   }
 
-  Future<ResultDetail> handle(Query query) async {
+  Future<StatisticResult> handle(Query query) async {
     final response = await _iStatisticRepository.detectByDate(query);
 
     return response.data;
