@@ -5,7 +5,7 @@ import 'package:dextra/domain/entities/camera.dart';
 import 'package:dextra/presentation/assets/assets.dart';
 import 'package:dextra/presentation/commons/api_state.dart';
 import 'package:dextra/presentation/modules/commons/bloc/camera/camera_bloc.dart';
-import 'package:dextra/presentation/modules/commons/user/widgets/statistic/charts/pie_chart_sample.dart';
+import 'package:dextra/presentation/modules/commons/widgets/charts/pie_chart_sample.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_arrow_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/cameraList/search_camera_list_widget.dart';

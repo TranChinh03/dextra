@@ -1,4 +1,4 @@
-import 'package:dextra/presentation/modules/commons/user/widgets/statistic/charts/app_colors.dart';
+import 'package:dextra/presentation/modules/commons/widgets/charts/app_colors.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 

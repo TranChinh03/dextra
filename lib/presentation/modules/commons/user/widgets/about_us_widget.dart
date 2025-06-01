@@ -1,5 +1,5 @@
 import 'package:dextra/presentation/assets/assets.dart';
-import 'package:dextra/presentation/modules/commons/user/widgets/statistic/charts/pie_chart_sample.dart';
+import 'package:dextra/presentation/modules/commons/widgets/charts/pie_chart_sample.dart';
 import 'package:dextra/presentation/modules/commons/widgets/card/camera_img_item.dart';
 import 'package:dextra/presentation/modules/commons/widgets/commonImage/common_image.dart';
 import 'package:dextra/presentation/modules/commons/widgets/screen-container/screen_container.dart';
