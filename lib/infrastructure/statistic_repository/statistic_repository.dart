@@ -5,9 +5,11 @@ import 'package:dextra/domain/interfaces/api_client.dart';
 import 'package:dextra/domain/interfaces/interface_statistic_repository.dart';
 import 'package:dextra/domain/models/base_api_response.dart';
 import 'package:dextra/domain/models/query.dart';
-import 'package:dextra/domain/usecases/statistic/queries/detect_by_custom/detect_by_custom_query.dart';
-import 'package:dextra/domain/usecases/statistic/queries/detect_by_date/detect_by_date_query.dart';
-import 'package:dextra/domain/usecases/statistic/queries/detect_by_district/detect_by_district_query.dart';
+import 'package:dextra/domain/usecases/statistic/queries/statistic_by_camera/statistic_by_camera_handler.dart';
+import 'package:dextra/domain/usecases/statistic/queries/statistic_by_camera/statistic_by_camera_querry.dart';
+import 'package:dextra/domain/usecases/statistic/queries/statistic_by_custom/statistic_by_custom_query.dart';
+import 'package:dextra/domain/usecases/statistic/queries/statistic_by_date/statistic_by_date_query.dart';
+import 'package:dextra/domain/usecases/statistic/queries/statistic_by_district/statistic_by_district_query.dart';
 import 'package:dextra/infrastructure/base_api/dio_client/api_path.dart';
 import 'package:injectable/injectable.dart';
 
@@ -16,6 +18,8 @@ const getDateUrl = ApiPath.fetchDateUrl;
 const detectByDateUrl = ApiPath.detectByDateUrl;
 const detectByCustomUrl = ApiPath.detectByCustomUrl;
 const detectByDistrictUrl = ApiPath.detectByDistrictUrl;
+const detectByCameraUrl = ApiPath.detectByCameraUrl;
+const trackingByDateUrl = ApiPath.trackingByDateUrl;
 
 @Injectable(as: IStatisticRepository)
 class StatisticRepository implements IStatisticRepository {
@@ -75,6 +79,30 @@ class StatisticRepository implements IStatisticRepository {
     final response = await _apiClient.get<StatisticResult, StatisticResult>(
       "$detectByDistrictUrl?district=${detectByDistrictQuery.district ?? ""}&date=${detectByDistrictQuery.date ?? ''}&time_from=${detectByDistrictQuery.timeFrom ?? ''}&time_to=${detectByDistrictQuery.timeTo ?? ''}",
       parser: (json) => StatisticResult.fromJson(json),
+    );
+    print('response: ${response.data}');
+
+    return response;
+  }
+
+  @override
+  Future<BaseApiResponse<StatisticResult>> detectByCamera(Query query) async {
+    final DetectByCameraQuery detectByCameratQuery = query.query;
+
+    final response = await _apiClient.get<StatisticResult, StatisticResult>(
+      "$detectByCameraUrl?camera=${detectByCameratQuery.camera ?? ""}",
+      parser: (json) => StatisticResult.fromJson(json),
+    );
+    print('response: ${response.data}');
+
+    return response;
+  }
+
+  @override
+  Future<BaseApiResponse<List<ResultDetail>>> trackingByDate() async {
+    final response = await _apiClient.get<List<ResultDetail>, ResultDetail>(
+      trackingByDateUrl,
+      parser: (json) => ResultDetail.fromJson(json),
     );
     print('response: ${response.data}');
 

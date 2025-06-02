@@ -28,16 +28,20 @@ import '../domain/usecases/detection/queries/detect_streamline/detect_streamline
     as _i475;
 import '../domain/usecases/detection/queries/detect_vehicle/detect_vehicle_handler.dart'
     as _i604;
-import '../domain/usecases/statistic/queries/detect_by_custom/detect_by_custom_handler.dart'
-    as _i825;
-import '../domain/usecases/statistic/queries/detect_by_date/detect_by_date_handler.dart'
-    as _i803;
-import '../domain/usecases/statistic/queries/detect_by_district/detect_by_district_handler.dart'
-    as _i318;
 import '../domain/usecases/statistic/queries/fecth_timestamp/fetch_timestamp_handler.dart'
     as _i58;
 import '../domain/usecases/statistic/queries/fetch_date/fetch_date_handler.dart'
     as _i699;
+import '../domain/usecases/statistic/queries/statistic_by_camera/statistic_by_camera_handler.dart'
+    as _i884;
+import '../domain/usecases/statistic/queries/statistic_by_custom/statistic_by_custom_handler.dart'
+    as _i459;
+import '../domain/usecases/statistic/queries/statistic_by_date/statistic_by_date_handler.dart'
+    as _i412;
+import '../domain/usecases/statistic/queries/statistic_by_district/statistic_by_district_handler.dart'
+    as _i691;
+import '../domain/usecases/statistic/queries/tracking_by_date/tracking_by_date_handler.dart'
+    as _i255;
 import '../infrastructure/base_api/dio_client/client.dart' as _i447;
 import '../infrastructure/camera_repository/camera_repository.dart' as _i866;
 import '../infrastructure/detection_repository/detection_repository.dart'
@@ -85,25 +89,31 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i655.FetchVehiclesHandler(gh<_i574.ICameraRepository>()));
     gh.factory<_i63.SearchCamerasHandler>(
         () => _i63.SearchCamerasHandler(gh<_i574.ICameraRepository>()));
-    gh.factory<_i825.DetectByCustomHandler>(
-        () => _i825.DetectByCustomHandler(gh<_i474.IStatisticRepository>()));
-    gh.factory<_i803.DetectByDateHandler>(
-        () => _i803.DetectByDateHandler(gh<_i474.IStatisticRepository>()));
-    gh.factory<_i318.DetectByDistrictHandler>(
-        () => _i318.DetectByDistrictHandler(gh<_i474.IStatisticRepository>()));
     gh.factory<_i58.FetchTimestampHandler>(
         () => _i58.FetchTimestampHandler(gh<_i474.IStatisticRepository>()));
     gh.factory<_i699.FetchDateHandler>(
         () => _i699.FetchDateHandler(gh<_i474.IStatisticRepository>()));
+    gh.factory<_i884.DetectByCameraHandler>(
+        () => _i884.DetectByCameraHandler(gh<_i474.IStatisticRepository>()));
+    gh.factory<_i459.DetectByCustomHandler>(
+        () => _i459.DetectByCustomHandler(gh<_i474.IStatisticRepository>()));
+    gh.factory<_i412.DetectByDateHandler>(
+        () => _i412.DetectByDateHandler(gh<_i474.IStatisticRepository>()));
+    gh.factory<_i691.DetectByDistrictHandler>(
+        () => _i691.DetectByDistrictHandler(gh<_i474.IStatisticRepository>()));
+    gh.factory<_i255.TrackingByDateHandler>(
+        () => _i255.TrackingByDateHandler(gh<_i474.IStatisticRepository>()));
     gh.factory<_i65.IDetectionRepository>(
         () => _i842.DetectionRepository(gh<_i1065.IApiClient>()));
-    gh.singleton<_i407.StatisticBloc>(() => _i407.StatisticBloc(
-          gh<_i803.DetectByDateHandler>(),
-          gh<_i825.DetectByCustomHandler>(),
-          gh<_i318.DetectByDistrictHandler>(),
-        ));
     gh.factory<_i317.SearchBloc>(
         () => _i317.SearchBloc(gh<_i63.SearchCamerasHandler>()));
+    gh.singleton<_i407.StatisticBloc>(() => _i407.StatisticBloc(
+          gh<_i412.DetectByDateHandler>(),
+          gh<_i459.DetectByCustomHandler>(),
+          gh<_i691.DetectByDistrictHandler>(),
+          gh<_i691.DetectByDistrictHandler>(),
+          gh<_i255.TrackingByDateHandler>(),
+        ));
     gh.singleton<_i530.DateTimeBloc>(() => _i530.DateTimeBloc(
           gh<_i58.FetchTimestampHandler>(),
           gh<_i699.FetchDateHandler>(),

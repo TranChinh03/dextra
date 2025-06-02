@@ -103,7 +103,7 @@ class StatisticPieChartState extends State<StatisticPieChart> {
 
   List<PieChartSectionData> showingSections() {
     final vehicleData = {
-      'Bicycle': widget.detectResult?.numberOfBicycle ?? "0",
+      'Bicycle': widget.detectResult!.numberOfBicycle ?? "0",
       'Motorcycle': widget.detectResult?.numberOfMotorcycle ?? "0",
       'Car': widget.detectResult?.numberOfCar ?? "0",
       'Van': widget.detectResult?.numberOfVan ?? "0",

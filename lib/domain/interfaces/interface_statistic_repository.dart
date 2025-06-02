@@ -10,4 +10,6 @@ abstract class IStatisticRepository {
   Future<BaseApiResponse<StatisticResult>> detectByDate(Query query);
   Future<BaseApiResponse<StatisticResult>> detectByCustom(Query query);
   Future<BaseApiResponse<StatisticResult>> detectByDistrict(Query query);
+  Future<BaseApiResponse<StatisticResult>> detectByCamera(Query query);
+  Future<BaseApiResponse<List<ResultDetail>>> trackingByDate();
 }

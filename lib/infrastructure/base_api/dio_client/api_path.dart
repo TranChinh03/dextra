@@ -18,4 +18,8 @@ class ApiPath {
       'http://localhost:8004/custom_detection_results';
   static const String detectByDistrictUrl =
       'http://localhost:8004/custom_detection_results_by_district';
+  static const String detectByCameraUrl =
+      'http://localhost:8004/custom_detection_results_by_camera';
+  static const String trackingByDateUrl =
+      'http://localhost:8004/traffic_tracking_by_date';
 }

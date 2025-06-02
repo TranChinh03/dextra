@@ -1,7 +1,8 @@
 import 'package:dextra/di/injectable.dart';
-import 'package:dextra/domain/usecases/statistic/queries/detect_by_custom/detect_by_custom_query.dart';
-import 'package:dextra/domain/usecases/statistic/queries/detect_by_date/detect_by_date_query.dart';
-import 'package:dextra/domain/usecases/statistic/queries/detect_by_district/detect_by_district_query.dart';
+import 'package:dextra/domain/entities/statistic_result.dart';
+import 'package:dextra/domain/usecases/statistic/queries/statistic_by_custom/statistic_by_custom_query.dart';
+import 'package:dextra/domain/usecases/statistic/queries/statistic_by_date/statistic_by_date_query.dart';
+import 'package:dextra/domain/usecases/statistic/queries/statistic_by_district/statistic_by_district_query.dart';
 import 'package:dextra/presentation/commons/api_state.dart';
 import 'package:dextra/presentation/modules/commons/bloc/camera/camera_bloc.dart';
 import 'package:dextra/presentation/modules/commons/bloc/datetime/datetime_bloc.dart';
@@ -267,9 +268,11 @@ class _ExportTabState extends State<ExportTab> {
                   Padding(
                     padding: EdgeInsetsGeometry.symmetric(
                         vertical: AppSpacing.rem600.h),
-                    child: StatisticPieChart(
-                      detectResult: statisticState.resultByDate,
-                    ),
+                    child: statisticState.resultByDate.date == null
+                        ? SizedBox()
+                        : StatisticPieChart(
+                            detectResult: _statisticBloc.state.resultByDate,
+                          ),
                   ),
                 ],
               ),
