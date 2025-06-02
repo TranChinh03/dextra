@@ -48,7 +48,7 @@ class CommonHeading extends StatelessWidget {
                 TextStyle(
                     fontWeight: AppFontWeight.bold,
                     fontSize: AppFontSize.lg,
-                    color: colors.textPrimary),
+                    color: colors.primary),
           ),
           if (subheading != null)
             CommonText(

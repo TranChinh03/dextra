@@ -9,4 +9,5 @@ abstract class IStatisticRepository {
   Future<BaseApiResponse<List<Date>>> getDate();
   Future<BaseApiResponse<StatisticResult>> detectByDate(Query query);
   Future<BaseApiResponse<StatisticResult>> detectByCustom(Query query);
+  Future<BaseApiResponse<StatisticResult>> detectByDistrict(Query query);
 }
