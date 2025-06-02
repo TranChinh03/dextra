@@ -5,7 +5,7 @@ import 'package:dextra/di/injectable.dart';
 import 'package:dextra/domain/entities/image_detect_result.dart';
 import 'package:dextra/presentation/commons/api_state.dart';
 import 'package:dextra/presentation/modules/commons/bloc/detection/detection_bloc.dart';
-import 'package:dextra/presentation/modules/commons/user/widgets/statistic/charts/detection_pie_chart.dart';
+import 'package:dextra/presentation/modules/commons/widgets/charts/detection_pie_chart.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
 import 'package:dextra/theme/font/app_font_size.dart';

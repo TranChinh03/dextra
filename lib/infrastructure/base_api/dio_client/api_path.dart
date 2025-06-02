@@ -14,4 +14,6 @@ class ApiPath {
   static const String fetchDateUrl = 'http://localhost:8004/date';
   static const String detectByDateUrl =
       'http://localhost:8004/detection_results_by_date?date=';
+  static const String detectByCustomUrl =
+      'http://localhost:8004/custom_detection_results';
 }

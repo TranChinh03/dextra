@@ -8,4 +8,5 @@ abstract class IStatisticRepository {
   Future<BaseApiResponse<List<Timestamp>>> getTimestamp();
   Future<BaseApiResponse<List<Date>>> getDate();
   Future<BaseApiResponse<StatisticResult>> detectByDate(Query query);
+  Future<BaseApiResponse<StatisticResult>> detectByCustom(Query query);
 }
