@@ -1,9 +1,13 @@
 import 'package:dextra/di/injectable.dart';
+import 'package:dextra/domain/usecases/statistic/queries/detect_by_custom/detect_by_custom_querry.dart';
 import 'package:dextra/domain/usecases/statistic/queries/detect_by_date/detect_by_date_querry.dart';
+import 'package:dextra/presentation/commons/api_state.dart';
 import 'package:dextra/presentation/modules/commons/bloc/camera/camera_bloc.dart';
 import 'package:dextra/presentation/modules/commons/bloc/datetime/datetime_bloc.dart';
 import 'package:dextra/presentation/modules/commons/bloc/statistic/statistic_bloc.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
+import 'package:dextra/presentation/modules/commons/widgets/charts/line_chart_sample.dart';
+import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_line_chart.dart';
 import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_pie_chart.dart';
 import 'package:dextra/presentation/modules/commons/widgets/input/simpleDropdown.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
@@ -65,24 +69,49 @@ class _ExportTabState extends State<ExportTab> {
     _datetimeBloc.add(FetchDateEvent());
   }
 
+  void _onFetchCustom() {
+    if (_startTime == null || _endTime == null) {
+      _startTime = _datetimeBloc.state.timestamps
+          .firstWhere(
+            (item) => item.date == _datetimeBloc.state.dates.last.date,
+          )
+          .time;
+      _endTime = _datetimeBloc.state.timestamps.last.time;
+    }
+    _statisticBloc.add(
+      DetectByCustomEvent(
+        query: DetectByCustomQuery(
+          date: _selectedDate ?? _datetimeBloc.state.dates.last.date,
+          timeFrom: _startTime,
+          timeTo: _endTime,
+        ),
+      ),
+    );
+  }
+
   void _onDateChanged(String? value) {
     if (value != null) {
-      final filteredTimestamps = _datetimeBloc.state.timestamps
-          .where((timestamp) => timestamp.date == value)
-          .toList();
       setState(() {
         _selectedDate = value;
-        _selectedTime = filteredTimestamps.isNotEmpty
-            ? filteredTimestamps.first.time
-            : null;
+        _startTime = _datetimeBloc.state.timestamps
+            .firstWhere(
+              (item) => item.date == value,
+            )
+            .time;
+        _endTime = _datetimeBloc.state.timestamps
+            .lastWhere(
+              (item) => item.date == value,
+            )
+            .time;
       });
+      _statisticBloc.add(
+          DetectByDateEvent(query: DetectByDateQuery(date: _selectedDate)));
+      _statisticBloc.add(DetectByCustomEvent(
+          query: DetectByCustomQuery(
+              date: _selectedDate, timeFrom: _startTime, timeTo: _endTime)));
     }
   }
 
-  // Duration _parseTime(String timeStr) {
-  //   final parts = timeStr.split(":").map(int.parse).toList();
-  //   return Duration(hours: parts[0], minutes: parts[1], seconds: parts[2]);
-  // }
   DateTime _parseTime(String timeString) {
     return DateFormat("HH:mm:ss").parse(timeString);
   }
@@ -109,13 +138,7 @@ class _ExportTabState extends State<ExportTab> {
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
-      // _statisticBloc.add(DetectByDateEvent(
-      //     query: DetectByDateQuery(
-      //         date: _selectedDate ?? _datetimeBloc.state.dates.last.date,
-      //         startTime: _startTime ??
-      //             _datetimeBloc.state.timestamps.last.time,
-      //         endTime: _endTime ?? _datetimeBloc.state.timestamps.last.time)));
-      print('Valid value: $_startTime to $_endTime on $_selectedDate');
+      _onFetchCustom();
     } else {
       print('Form is not valid');
     }
@@ -129,7 +152,8 @@ class _ExportTabState extends State<ExportTab> {
       builder: (context, state) {
         return BlocBuilder<DateTimeBloc, DateTimeState>(
             builder: (context, dateState) {
-          if (_datetimeBloc.state.dates.isNotEmpty) {
+          if (_datetimeBloc.state.dates.isNotEmpty &&
+              _statisticBloc.state.resultByDate.date == null) {
             _statisticBloc.add(DetectByDateEvent(
                 query: DetectByDateQuery(
                     date: _datetimeBloc.state.dates.last.date)));
@@ -138,7 +162,7 @@ class _ExportTabState extends State<ExportTab> {
               builder: (context, statisticState) {
             if (dateState.dates.isEmpty ||
                 dateState.timestamps.isEmpty ||
-                statisticState.result.totalVehicles == null) {
+                statisticState.resultByDate.date == null) {
               return const CircularProgressIndicator();
             }
 
@@ -187,7 +211,7 @@ class _ExportTabState extends State<ExportTab> {
                             children: [
                               TextSpan(
                                   text: _statisticBloc
-                                      .state.result.totalVehicles
+                                      .state.resultByDate.totalVehicles
                                       .toString(),
                                   style: TextStyle(
                                     fontSize: AppFontSize.xxxl,
@@ -202,7 +226,7 @@ class _ExportTabState extends State<ExportTab> {
                       padding: EdgeInsetsGeometry.symmetric(
                           vertical: AppSpacing.rem600.h),
                       child: StatisticPieChart(
-                        detectResult: statisticState.result,
+                        detectResult: statisticState.resultByDate,
                       ),
                     ),
                   ],
@@ -221,8 +245,14 @@ class _ExportTabState extends State<ExportTab> {
                         ),
                         Expanded(
                           child: SimpleDropdown(
-                              value:
-                                  _startTime ?? dateState.timestamps.last.time,
+                              value: _startTime ??
+                                  dateState.timestamps
+                                      .firstWhere(
+                                        (item) =>
+                                            item.date ==
+                                            dateState.dates.last.date,
+                                      )
+                                      .time,
                               itemsList: _datetimeBloc.state.timestamps
                                   .where((option) =>
                                       option.date ==
@@ -272,6 +302,15 @@ class _ExportTabState extends State<ExportTab> {
                           onPressed: _submitForm,
                         )
                       ],
+                    ),
+                    Padding(
+                      padding: EdgeInsetsGeometry.symmetric(
+                          vertical: AppSpacing.rem600.h),
+                      child: StatisticLineChart(
+                        datas: _statisticBloc.state.resultByCustom.details ??
+                            _statisticBloc.state.resultByDate.details ??
+                            [],
+                      ),
                     ),
                   ],
                 )

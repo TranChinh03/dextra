@@ -9,3 +9,9 @@ class DetectByDateEvent extends StatisticEvent {
 
   DetectByDateEvent({required this.query});
 }
+
+class DetectByCustomEvent extends StatisticEvent {
+  final DetectByCustomQuery query;
+
+  DetectByCustomEvent({required this.query});
+}

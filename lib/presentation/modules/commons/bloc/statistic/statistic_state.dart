@@ -2,27 +2,33 @@ part of 'statistic_bloc.dart';
 
 @immutable
 class StatisticState extends Equatable {
-  final StatisticResult result;
+  final StatisticResult resultByDate;
+  final StatisticResult resultByCustom;
   final ApiStatus apiStatus;
 
   StatisticState({
-    StatisticResult? result,
+    StatisticResult? resultByDate,
+    StatisticResult? resultByCustom,
     this.apiStatus = ApiStatus.idle,
-  }) : result = result ?? StatisticResult();
+  })  : resultByDate = resultByDate ?? StatisticResult(),
+        resultByCustom = resultByCustom ?? StatisticResult();
 
   StatisticState copyWith({
-    StatisticResult? result,
+    StatisticResult? resultByDate,
+    StatisticResult? resultByCustom,
     ApiStatus? apiStatus,
   }) {
     return StatisticState(
-      result: result ?? this.result,
+      resultByDate: resultByDate ?? this.resultByDate,
+      resultByCustom: resultByCustom ?? this.resultByCustom,
       apiStatus: apiStatus ?? this.apiStatus,
     );
   }
 
   @override
   List<Object?> get props => [
-        result,
+        resultByDate,
+        resultByCustom,
         apiStatus,
       ];
 }

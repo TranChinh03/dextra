@@ -90,6 +90,7 @@ class ResultDetail {
   final String? numberOfBus;
   final String? numberOfFireTruck;
   final String? numberOfContainer;
+  final int? totalVehicles;
 
   ResultDetail({
     this.date,
@@ -102,36 +103,44 @@ class ResultDetail {
     this.numberOfBus,
     this.numberOfFireTruck,
     this.numberOfContainer,
+    this.totalVehicles,
   });
 
   factory ResultDetail.fromJson(Map<String, dynamic> json) {
     return ResultDetail(
-      date: json.containsKey('date') ? json['date'].toString() : null,
-      time: json.containsKey('time') ? json['time'].toString() : null,
-      numberOfBicycle: json.containsKey('numberOfBicycle')
-          ? json['numberOfBicycle'].toString()
-          : null,
-      numberOfMotorcycle: json.containsKey('numberOfMotorcycle')
-          ? json['numberOfMotorcycle'].toString()
-          : null,
-      numberOfCar: json.containsKey('numberOfCar')
-          ? json['numberOfCar'].toString()
-          : null,
-      numberOfVan: json.containsKey('numberOfVan')
-          ? json['numberOfVan'].toString()
-          : null,
-      numberOfTruck: json.containsKey('numberOfTruck')
-          ? json['numberOfTruck'].toString()
-          : null,
-      numberOfBus: json.containsKey('numberOfBus')
-          ? json['numberOfBus'].toString()
-          : null,
-      numberOfFireTruck: json.containsKey('numberOfFireTruck')
-          ? json['numberOfFireTruck'].toString()
-          : null,
-      numberOfContainer: json.containsKey('numberOfContainer')
-          ? json['numberOfContainer'].toString()
-          : null,
-    );
+        date: json.containsKey('date') ? json['date'].toString() : null,
+        time: json.containsKey('time') ? json['time'].toString() : null,
+        numberOfBicycle: json.containsKey('numberOfBicycle')
+            ? json['numberOfBicycle'].toString()
+            : null,
+        numberOfMotorcycle: json.containsKey('numberOfMotorcycle')
+            ? json['numberOfMotorcycle'].toString()
+            : null,
+        numberOfCar: json.containsKey('numberOfCar')
+            ? json['numberOfCar'].toString()
+            : null,
+        numberOfVan: json.containsKey('numberOfVan')
+            ? json['numberOfVan'].toString()
+            : null,
+        numberOfTruck: json.containsKey('numberOfTruck')
+            ? json['numberOfTruck'].toString()
+            : null,
+        numberOfBus: json.containsKey('numberOfBus')
+            ? json['numberOfBus'].toString()
+            : null,
+        numberOfFireTruck: json.containsKey('numberOfFireTruck')
+            ? json['numberOfFireTruck'].toString()
+            : null,
+        numberOfContainer: json.containsKey('numberOfContainer')
+            ? json['numberOfContainer'].toString()
+            : null,
+        totalVehicles: json["numberOfBicycle"] ??
+            0 + json["numberOfCar"] ??
+            0 + json["numberOfVan"] ??
+            0 + json["numberOfTruck"] ??
+            0 + json["numberOfBus"] ??
+            0 + json["numberOfFireTruck"] ??
+            0 + json["numberOfContainer"] ??
+            0);
   }
 }
