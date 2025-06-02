@@ -15,3 +15,9 @@ class DetectByCustomEvent extends StatisticEvent {
 
   DetectByCustomEvent({required this.query});
 }
+
+class DetectByDistrictEvent extends StatisticEvent {
+  final DetectByDistrictQuery query;
+
+  DetectByDistrictEvent({required this.query});
+}

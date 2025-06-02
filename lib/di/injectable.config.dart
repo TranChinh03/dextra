@@ -32,6 +32,8 @@ import '../domain/usecases/statistic/queries/detect_by_custom/detect_by_custom_h
     as _i825;
 import '../domain/usecases/statistic/queries/detect_by_date/detect_by_date_handler.dart'
     as _i803;
+import '../domain/usecases/statistic/queries/detect_by_district/detect_by_district_handler.dart'
+    as _i318;
 import '../domain/usecases/statistic/queries/fecth_timestamp/fetch_timestamp_handler.dart'
     as _i58;
 import '../domain/usecases/statistic/queries/fetch_date/fetch_date_handler.dart'
@@ -87,16 +89,19 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i825.DetectByCustomHandler(gh<_i474.IStatisticRepository>()));
     gh.factory<_i803.DetectByDateHandler>(
         () => _i803.DetectByDateHandler(gh<_i474.IStatisticRepository>()));
+    gh.factory<_i318.DetectByDistrictHandler>(
+        () => _i318.DetectByDistrictHandler(gh<_i474.IStatisticRepository>()));
     gh.factory<_i58.FetchTimestampHandler>(
         () => _i58.FetchTimestampHandler(gh<_i474.IStatisticRepository>()));
     gh.factory<_i699.FetchDateHandler>(
         () => _i699.FetchDateHandler(gh<_i474.IStatisticRepository>()));
+    gh.factory<_i65.IDetectionRepository>(
+        () => _i842.DetectionRepository(gh<_i1065.IApiClient>()));
     gh.singleton<_i407.StatisticBloc>(() => _i407.StatisticBloc(
           gh<_i803.DetectByDateHandler>(),
           gh<_i825.DetectByCustomHandler>(),
+          gh<_i318.DetectByDistrictHandler>(),
         ));
-    gh.factory<_i65.IDetectionRepository>(
-        () => _i842.DetectionRepository(gh<_i1065.IApiClient>()));
     gh.factory<_i317.SearchBloc>(
         () => _i317.SearchBloc(gh<_i63.SearchCamerasHandler>()));
     gh.singleton<_i530.DateTimeBloc>(() => _i530.DateTimeBloc(

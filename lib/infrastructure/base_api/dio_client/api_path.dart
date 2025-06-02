@@ -16,4 +16,6 @@ class ApiPath {
       'http://localhost:8004/detection_results_by_date?date=';
   static const String detectByCustomUrl =
       'http://localhost:8004/custom_detection_results';
+  static const String detectByDistrictUrl =
+      'http://localhost:8004/custom_detection_results_by_district';
 }

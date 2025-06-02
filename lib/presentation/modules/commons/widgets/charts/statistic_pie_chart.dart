@@ -1,6 +1,8 @@
 import 'package:dextra/domain/entities/statistic_result.dart';
 import 'package:dextra/presentation/modules/commons/widgets/charts/app_colors.dart';
 import 'package:dextra/presentation/modules/commons/widgets/charts/indicator.dart';
+import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_line_chart.dart';
+import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
 import 'package:dextra/theme/color/app_color.dart';
 import 'package:dextra/theme/font/app_font_size.dart';
 import 'package:dextra/theme/spacing/app_spacing.dart';
@@ -8,9 +10,12 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class StatisticPieChart extends StatefulWidget {
+  final double? radius;
+  final bool? showTitle;
   final StatisticResult? detectResult;
 
-  const StatisticPieChart({super.key, this.detectResult});
+  const StatisticPieChart(
+      {super.key, this.detectResult, this.radius, this.showTitle});
 
   @override
   State<StatefulWidget> createState() => StatisticPieChartState();
@@ -32,8 +37,8 @@ class StatisticPieChartState extends State<StatisticPieChart> {
   Widget build(BuildContext context) {
     final colors = IAppColor.watch(context);
     final vehicleData = {
-      'Motorcycle': widget.detectResult?.numberOfMotorcycle ?? "0",
       'Bicycle': widget.detectResult?.numberOfBicycle ?? "0",
+      'Motorcycle': widget.detectResult?.numberOfMotorcycle ?? "0",
       'Car': widget.detectResult?.numberOfCar ?? "0",
       'Van': widget.detectResult?.numberOfVan ?? "0",
       'Truck': widget.detectResult?.numberOfTruck ?? "0",
@@ -111,10 +116,23 @@ class StatisticPieChartState extends State<StatisticPieChart> {
     return List.generate(vehicleData.length, (i) {
       final isTouched = i == touchedIndex;
       return PieChartSectionData(
+        badgeWidget: isTouched && widget.showTitle!
+            ? CommonText(
+                vehicleData.values.elementAt(i),
+                style: TextStyle(
+                  fontSize: AppFontSize.sm,
+                  color: AppColors.contentColorWhite,
+                  background: Paint()
+                    ..color =
+                        AppColors.contentColorBlack.withValues(alpha: 0.3),
+                ),
+              )
+            : null,
+        showTitle: widget.showTitle ?? true,
         color: colorsChart[i % colorsChart.length],
         value: double.parse(vehicleData.values.elementAt(i)),
         title: vehicleData.values.elementAt(i),
-        radius: 250 + i * 5,
+        radius: widget.radius ?? 250 + i * 5,
         titlePositionPercentageOffset: 0.55,
         borderSide: isTouched
             ? const BorderSide(color: AppColors.contentColorWhite, width: 6)

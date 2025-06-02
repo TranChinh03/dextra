@@ -11,8 +11,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class _LineChart extends StatelessWidget {
   final List<ResultDetail> datas;
+  final double maxY;
+  final double intervalY;
   const _LineChart({
     required this.datas,
+    required this.maxY,
+    required this.intervalY,
   });
 
   @override
@@ -76,7 +80,7 @@ class _LineChart extends StatelessWidget {
         lineBarsData: lineBarsData1,
         minX: 0,
         maxX: datas.length.toDouble(),
-        maxY: 20000,
+        maxY: maxY,
         minY: 0,
       );
 
@@ -124,7 +128,7 @@ class _LineChart extends StatelessWidget {
   SideTitles leftTitles() => SideTitles(
         getTitlesWidget: leftTitleWidgets,
         showTitles: true,
-        interval: 2000,
+        interval: intervalY,
         reservedSize: 100,
       );
 
@@ -204,7 +208,13 @@ class _LineChart extends StatelessWidget {
 
 class StatisticLineChart extends StatefulWidget {
   final List<ResultDetail> datas;
-  const StatisticLineChart({super.key, required this.datas});
+  final double maxY;
+  final double intervalY;
+  const StatisticLineChart(
+      {super.key,
+      required this.datas,
+      required this.maxY,
+      required this.intervalY});
 
   @override
   State<StatefulWidget> createState() => StatisticLineChartState();
@@ -243,6 +253,8 @@ class StatisticLineChartState extends State<StatisticLineChart> {
                 child: Padding(
                   padding: const EdgeInsets.only(right: 16, left: 6),
                   child: _LineChart(
+                      maxY: widget.maxY,
+                      intervalY: widget.intervalY,
                       datas: widget.datas
                           .asMap()
                           .entries
