@@ -272,7 +272,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
                                         ),
                                         Expanded(
                                           child: SimpleDropdown(
-                                              initialValue: _datetimeBloc
+                                              value: _datetimeBloc
                                                   .state.dates.last.date,
                                               itemsList: _datetimeBloc
                                                   .state.dates
@@ -459,7 +459,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
                                           ),
                                           Expanded(
                                             child: SimpleDropdown(
-                                              initialValue: _selectedTime,
+                                              value: _selectedTime,
                                               itemsList: _datetimeBloc
                                                   .state.timestamps
                                                   .where((option) =>
@@ -495,7 +495,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
                                           ),
                                           Expanded(
                                             child: SimpleDropdown(
-                                              initialValue: _cameraBloc
+                                              value: _cameraBloc
                                                   .state.vehicles.first,
                                               itemsList: _cameraBloc
                                                   .state.vehicles

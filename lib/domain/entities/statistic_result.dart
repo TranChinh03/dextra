@@ -4,6 +4,7 @@ class StatisticResult {
   final String? timeFrom;
   final String? timeTo;
   final String? numberOfBicycle;
+  final String? numberOfMotorcycle;
   final String? numberOfCar;
   final String? numberOfVan;
   final String? numberOfTruck;
@@ -19,6 +20,7 @@ class StatisticResult {
     this.timeFrom,
     this.timeTo,
     this.numberOfBicycle,
+    this.numberOfMotorcycle,
     this.numberOfCar,
     this.numberOfVan,
     this.numberOfTruck,
@@ -39,6 +41,9 @@ class StatisticResult {
         timeTo: json.containsKey('timeTo') ? json['timeTo'] as String? : null,
         numberOfBicycle: json.containsKey('numberOfBicycle')
             ? json['numberOfBicycle'].toString()
+            : null,
+        numberOfMotorcycle: json.containsKey('numberOfMotorcycle')
+            ? json['numberOfMotorcycle'].toString()
             : null,
         numberOfCar: json.containsKey('numberOfCar')
             ? json['numberOfCar'].toString()
@@ -78,6 +83,7 @@ class ResultDetail {
   final String? date;
   final String? time;
   final String? numberOfBicycle;
+  final String? numberOfMotorcycle;
   final String? numberOfCar;
   final String? numberOfVan;
   final String? numberOfTruck;
@@ -89,6 +95,7 @@ class ResultDetail {
     this.date,
     this.time,
     this.numberOfBicycle,
+    this.numberOfMotorcycle,
     this.numberOfCar,
     this.numberOfVan,
     this.numberOfTruck,
@@ -103,6 +110,9 @@ class ResultDetail {
       time: json.containsKey('time') ? json['time'].toString() : null,
       numberOfBicycle: json.containsKey('numberOfBicycle')
           ? json['numberOfBicycle'].toString()
+          : null,
+      numberOfMotorcycle: json.containsKey('numberOfMotorcycle')
+          ? json['numberOfMotorcycle'].toString()
           : null,
       numberOfCar: json.containsKey('numberOfCar')
           ? json['numberOfCar'].toString()

@@ -7,13 +7,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SimpleDropdown extends StatefulWidget {
   final List<DropdownMenuItem<String>> itemsList;
-  final String? initialValue;
+  final String? value;
   final ValueChanged<String>? onChanged;
+  final FormFieldValidator<String>? validator;
+
   const SimpleDropdown(
       {super.key,
       required this.itemsList,
       required this.onChanged,
-      this.initialValue});
+      this.value,
+      this.validator});
 
   @override
   State<SimpleDropdown> createState() => _SimpleDropdownState();
@@ -41,11 +44,12 @@ class _SimpleDropdownState extends State<SimpleDropdown> {
           borderSide: BorderSide.none,
         ),
       ),
-      value: widget.initialValue ?? widget.itemsList.first.value,
+      value: widget.value ?? widget.itemsList.first.value,
       items: widget.itemsList,
       onChanged: (value) {
         widget.onChanged!(value!);
       },
+      validator: widget.validator,
     );
   }
 }
