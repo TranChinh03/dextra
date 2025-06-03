@@ -361,12 +361,6 @@ class _ScheduleTabState extends State<ScheduleTab> {
                 ..._byCamList.map(
                   (cam) => CommonText("Schedule statistics for: $cam"),
                 ),
-                Container(
-                    margin: EdgeInsets.symmetric(vertical: AppSpacing.rem600.h),
-                    height: AppSpacing.rem8975.h,
-                    width: double.infinity,
-                    color: colors.primaryBannerBg,
-                    child: TrafficHeatmap()),
               ],
             )
           ]);

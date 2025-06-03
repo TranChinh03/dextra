@@ -17,6 +17,7 @@ import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_lin
 import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_pie_chart.dart';
 import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_pie_chart_2.dart';
 import 'package:dextra/presentation/modules/commons/widgets/input/simpleDropdown.dart';
+import 'package:dextra/presentation/modules/commons/widgets/map/heatmap.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_heading.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
 import 'package:dextra/theme/color/app_color.dart';
@@ -857,6 +858,12 @@ class _ExportTabState extends State<ExportTab> {
               //       ],
               //     ),
               //   ])
+              Container(
+                  margin: EdgeInsets.symmetric(vertical: AppSpacing.rem600.h),
+                  height: AppSpacing.rem8975.h,
+                  width: double.infinity,
+                  color: colors.primaryBannerBg,
+                  child: TrafficHeatmap()),
             ]);
           });
         });
