@@ -105,15 +105,15 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i255.TrackingByDateHandler(gh<_i474.IStatisticRepository>()));
     gh.factory<_i65.IDetectionRepository>(
         () => _i842.DetectionRepository(gh<_i1065.IApiClient>()));
-    gh.factory<_i317.SearchBloc>(
-        () => _i317.SearchBloc(gh<_i63.SearchCamerasHandler>()));
     gh.singleton<_i407.StatisticBloc>(() => _i407.StatisticBloc(
           gh<_i412.DetectByDateHandler>(),
           gh<_i459.DetectByCustomHandler>(),
           gh<_i691.DetectByDistrictHandler>(),
-          gh<_i691.DetectByDistrictHandler>(),
+          gh<_i884.DetectByCameraHandler>(),
           gh<_i255.TrackingByDateHandler>(),
         ));
+    gh.factory<_i317.SearchBloc>(
+        () => _i317.SearchBloc(gh<_i63.SearchCamerasHandler>()));
     gh.singleton<_i530.DateTimeBloc>(() => _i530.DateTimeBloc(
           gh<_i58.FetchTimestampHandler>(),
           gh<_i699.FetchDateHandler>(),

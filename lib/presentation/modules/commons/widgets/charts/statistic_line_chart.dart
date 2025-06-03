@@ -35,30 +35,31 @@ class _LineChart extends StatelessWidget {
         case "numberOfBicycle":
           value = entry.value.numberOfBicycle;
           break;
-        case "numberOfBus":
-          value = entry.value.numberOfBus;
+        case "numberOfMotorcycle":
+          value = entry.value.numberOfMotorcycle;
           break;
         case "numberOfCar":
           value = entry.value.numberOfCar;
           break;
-        case "numberOfContainer":
-          value = entry.value.numberOfContainer;
-          break;
-        case "numberOfFireTruck":
-          value = entry.value.numberOfFireTruck;
-          break;
-        case "numberOfMotorcycle":
-          value = entry.value.numberOfMotorcycle;
+        case "numberOfVan":
+          value = entry.value.numberOfVan;
           break;
         case "numberOfTruck":
           value = entry.value.numberOfTruck;
           break;
-        case "numberOfVan":
-          value = entry.value.numberOfVan;
+        case "numberOfBus":
+          value = entry.value.numberOfBus;
+          break;
+        case "numberOfFireTruck":
+          value = entry.value.numberOfFireTruck;
+          break;
+        case "numberOfContainer":
+          value = entry.value.numberOfContainer;
           break;
         default:
           value = "0";
       }
+
       return FlSpot(x, double.tryParse(value ?? "0") ?? 0);
     }).toList();
   }
