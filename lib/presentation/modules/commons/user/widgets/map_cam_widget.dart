@@ -5,7 +5,6 @@ import 'package:dextra/domain/entities/camera.dart';
 import 'package:dextra/presentation/assets/assets.dart';
 import 'package:dextra/presentation/commons/api_state.dart';
 import 'package:dextra/presentation/modules/commons/bloc/camera/camera_bloc.dart';
-import 'package:dextra/presentation/modules/commons/widgets/charts/pie_chart_sample.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_arrow_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/cameraList/search_camera_list_widget.dart';
@@ -52,16 +51,20 @@ class _MapCamWidgetState extends State<MapCamWidget> {
   void initState() {
     super.initState();
     // _onFetchCamera();
+    // _onFetchDistrict();
 
     _updateTime();
     _timer = Timer.periodic(const Duration(seconds: 1), (_) => _updateTime());
   }
 
   void _onFetchCamera() {
-    if (_cameraBloc.state.cameras.isNotEmpty) {
-      return;
-    }
+    if (_cameraBloc.state.cameras.isNotEmpty) return;
+
     _cameraBloc.add(FetchCamerasEvent());
+  }
+
+  void _onFetchDistrict() {
+    if (_cameraBloc.state.districts.isNotEmpty) return;
     _cameraBloc.add(FetchDistrictsEvent());
   }
 
@@ -218,10 +221,10 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox(
-                          height: AppSpacing.rem5000.h,
-                          width: AppSpacing.rem6250.w,
-                          child: PieChartSample2()),
+                      // SizedBox(
+                      //     height: AppSpacing.rem5000.h,
+                      //     width: AppSpacing.rem6250.w,
+                      //     child: PieChartSample2()),
                       CommonStatisticCard(
                         label: tr('Common.avg_congestion_label'),
                         value: tr('Common.default_avg_congestion'),

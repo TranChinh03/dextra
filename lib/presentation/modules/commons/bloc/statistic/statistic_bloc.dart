@@ -1,5 +1,6 @@
 import 'package:dextra/domain/entities/statistic_result.dart';
 import 'package:dextra/domain/models/query.dart';
+import 'package:dextra/domain/usecases/statistic/queries/statistic_by_camera/statistic_by_camera_handler.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_camera/statistic_by_camera_querry.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_custom/statistic_by_custom_handler.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_custom/statistic_by_custom_query.dart';
@@ -22,7 +23,7 @@ class StatisticBloc extends Bloc<StatisticEvent, StatisticState> {
   final DetectByDateHandler _detectByDateHandler;
   final DetectByCustomHandler _detectByCustomHandler;
   final DetectByDistrictHandler _detectByDistrictHandler;
-  final DetectByDistrictHandler _detectByCameraHandler;
+  final DetectByCameraHandler _detectByCameraHandler;
   final TrackingByDateHandler _trackingByDateHandler;
   StatisticBloc(
       this._detectByDateHandler,

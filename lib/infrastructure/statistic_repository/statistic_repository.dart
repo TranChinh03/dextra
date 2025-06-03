@@ -104,7 +104,6 @@ class StatisticRepository implements IStatisticRepository {
       trackingByDateUrl,
       parser: (json) => ResultDetail.fromJson(json),
     );
-    print('response: ${response.data}');
 
     return response;
   }

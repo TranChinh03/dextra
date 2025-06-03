@@ -5,9 +5,6 @@ import 'package:dextra/presentation/modules/commons/bloc/statistic/statistic_blo
 import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/charts/bar_chart_sample1.dart';
 import 'package:dextra/presentation/modules/commons/widgets/charts/bar_chart_sample3.dart';
-import 'package:dextra/presentation/modules/commons/widgets/charts/line_chart_sample.dart';
-import 'package:dextra/presentation/modules/commons/widgets/charts/pie_chart_sample.dart';
-import 'package:dextra/presentation/modules/commons/widgets/charts/pie_chart_sample1.dart';
 import 'package:dextra/presentation/modules/commons/widgets/input/date_picker.dart';
 import 'package:dextra/presentation/modules/commons/widgets/card/common_statistic_card.dart';
 import 'package:dextra/presentation/modules/commons/widgets/input/simpleDropdown.dart';
@@ -87,8 +84,8 @@ class _ScheduleTabState extends State<ScheduleTab> {
   @override
   void initState() {
     super.initState();
-    _onFetchCamera();
-    _onFetchDistrict();
+    // _onFetchCamera();
+    // _onFetchDistrict();
   }
 
   void _onFetchCamera() {

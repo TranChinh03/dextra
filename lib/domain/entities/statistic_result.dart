@@ -68,14 +68,14 @@ class StatisticResult {
                 .map((e) => ResultDetail.fromJson(e as Map<String, dynamic>))
                 .toList()
             : null,
-        totalVehicles: json["numberOfBicycle"] ??
-            0 + json["numberOfCar"] ??
-            0 + json["numberOfVan"] ??
-            0 + json["numberOfTruck"] ??
-            0 + json["numberOfBus"] ??
-            0 + json["numberOfFireTruck"] ??
-            0 + json["numberOfContainer"] ??
-            0);
+        totalVehicles: json["numberOfBicycle"] +
+            json["numberOfMotorcycle"] +
+            json["numberOfCar"] +
+            json["numberOfVan"] +
+            json["numberOfTruck"] +
+            json["numberOfBus"] +
+            json["numberOfFireTruck"] +
+            json["numberOfContainer"]);
   }
 }
 
@@ -134,13 +134,13 @@ class ResultDetail {
         numberOfContainer: json.containsKey('numberOfContainer')
             ? json['numberOfContainer'].toString()
             : null,
-        totalVehicles: json["numberOfBicycle"] ??
-            0 + json["numberOfCar"] ??
-            0 + json["numberOfVan"] ??
-            0 + json["numberOfTruck"] ??
-            0 + json["numberOfBus"] ??
-            0 + json["numberOfFireTruck"] ??
-            0 + json["numberOfContainer"] ??
-            0);
+        totalVehicles: json["numberOfBicycle"] +
+            json["numberOfMotorcycle"] +
+            json["numberOfCar"] +
+            json["numberOfVan"] +
+            json["numberOfTruck"] +
+            json["numberOfBus"] +
+            json["numberOfFireTruck"] +
+            json["numberOfContainer"]);
   }
 }

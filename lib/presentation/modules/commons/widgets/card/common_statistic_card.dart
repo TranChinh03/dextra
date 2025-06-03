@@ -43,7 +43,7 @@ class CommonStatisticCard extends StatelessWidget {
     final colors = IAppColor.watch(context);
     return Container(
       width: AppSpacing.rem6250.w,
-      height: AppSpacing.rem4150.h,
+      height: AppSpacing.rem5000.h,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppBorderRadius.spacing3xl),
           color: background ?? colors.cardBackground),
