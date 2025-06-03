@@ -13,7 +13,7 @@ class _LineChart extends StatelessWidget {
   final List<ResultDetail> datas;
   final double maxY;
   final double intervalY;
-  const _LineChart({
+  _LineChart({
     required this.datas,
     required this.maxY,
     required this.intervalY,
@@ -113,12 +113,12 @@ class _LineChart extends StatelessWidget {
       fontSize: 14,
     );
     final int index = value.toInt();
-    final String? label = index.toString();
+    final String label = index.toString();
 
     return SideTitleWidget(
       meta: meta,
       child: Text(
-        label ?? "",
+        label,
         style: style,
         textAlign: TextAlign.center,
       ),
@@ -204,6 +204,16 @@ class _LineChart extends StatelessWidget {
           spots: allSpots[index],
         ),
       );
+  final colors = [
+    Colors.blue,
+    Colors.yellow,
+    Colors.purple,
+    Colors.green,
+    Colors.orange,
+    Colors.pink,
+    Colors.red,
+    Colors.cyan,
+  ];
 }
 
 class StatisticLineChart extends StatefulWidget {
@@ -315,15 +325,14 @@ class StatisticLineChartState extends State<StatisticLineChart> {
     "FireTruck",
     "Container"
   ];
+  final colors = [
+    Colors.blue,
+    Colors.yellow,
+    Colors.purple,
+    Colors.green,
+    Colors.orange,
+    Colors.pink,
+    Colors.red,
+    Colors.cyan,
+  ];
 }
-
-final colors = [
-  Colors.blue,
-  Colors.yellow,
-  Colors.purple,
-  Colors.green,
-  Colors.orange,
-  Colors.pink,
-  Colors.red,
-  Colors.cyan,
-];
