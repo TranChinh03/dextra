@@ -11,11 +11,11 @@ import 'package:flutter/material.dart';
 
 class StatisticPieChart extends StatefulWidget {
   final double? radius;
-  final bool? showTitle;
+  final bool showTitle;
   final StatisticResult? detectResult;
 
   const StatisticPieChart(
-      {super.key, this.detectResult, this.radius, this.showTitle});
+      {super.key, this.detectResult, this.radius, required this.showTitle});
 
   @override
   State<StatefulWidget> createState() => StatisticPieChartState();
@@ -103,7 +103,7 @@ class StatisticPieChartState extends State<StatisticPieChart> {
 
   List<PieChartSectionData> showingSections() {
     final vehicleData = {
-      'Bicycle': widget.detectResult?.numberOfBicycle ?? "0",
+      'Bicycle': widget.detectResult!.numberOfBicycle ?? "0",
       'Motorcycle': widget.detectResult?.numberOfMotorcycle ?? "0",
       'Car': widget.detectResult?.numberOfCar ?? "0",
       'Van': widget.detectResult?.numberOfVan ?? "0",
@@ -116,7 +116,7 @@ class StatisticPieChartState extends State<StatisticPieChart> {
     return List.generate(vehicleData.length, (i) {
       final isTouched = i == touchedIndex;
       return PieChartSectionData(
-        badgeWidget: isTouched && widget.showTitle!
+        badgeWidget: isTouched && !widget.showTitle
             ? CommonText(
                 vehicleData.values.elementAt(i),
                 style: TextStyle(
@@ -128,7 +128,7 @@ class StatisticPieChartState extends State<StatisticPieChart> {
                 ),
               )
             : null,
-        showTitle: widget.showTitle ?? true,
+        showTitle: widget.showTitle,
         color: colorsChart[i % colorsChart.length],
         value: double.parse(vehicleData.values.elementAt(i)),
         title: vehicleData.values.elementAt(i),

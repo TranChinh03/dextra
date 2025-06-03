@@ -21,3 +21,11 @@ class DetectByDistrictEvent extends StatisticEvent {
 
   DetectByDistrictEvent({required this.query});
 }
+
+class DetectByCameratEvent extends StatisticEvent {
+  final DetectByCameraQuery query;
+
+  DetectByCameratEvent({required this.query});
+}
+
+class TrackingByDateEvent extends StatisticEvent {}

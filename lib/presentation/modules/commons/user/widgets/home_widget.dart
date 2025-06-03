@@ -48,7 +48,7 @@ class _HomeWidgetState extends State<HomeWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _onFetchCamera();
+    // _onFetchCamera();
   }
 
   @override

@@ -1,14 +1,17 @@
 import 'package:dextra/di/injectable.dart';
-import 'package:dextra/domain/usecases/statistic/queries/detect_by_custom/detect_by_custom_query.dart';
-import 'package:dextra/domain/usecases/statistic/queries/detect_by_date/detect_by_date_query.dart';
-import 'package:dextra/domain/usecases/statistic/queries/detect_by_district/detect_by_district_query.dart';
+import 'package:dextra/domain/entities/statistic_result.dart';
+import 'package:dextra/domain/usecases/statistic/queries/statistic_by_custom/statistic_by_custom_query.dart';
+import 'package:dextra/domain/usecases/statistic/queries/statistic_by_date/statistic_by_date_query.dart';
+import 'package:dextra/domain/usecases/statistic/queries/statistic_by_district/statistic_by_district_query.dart';
 import 'package:dextra/presentation/commons/api_state.dart';
 import 'package:dextra/presentation/modules/commons/bloc/camera/camera_bloc.dart';
 import 'package:dextra/presentation/modules/commons/bloc/datetime/datetime_bloc.dart';
 import 'package:dextra/presentation/modules/commons/bloc/statistic/statistic_bloc.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
+import 'package:dextra/presentation/modules/commons/widgets/card/common_statistic_card.dart';
 import 'package:dextra/presentation/modules/commons/widgets/card/small_statistic_card.dart';
 import 'package:dextra/presentation/modules/commons/widgets/charts/line_chart_sample.dart';
+import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_bar_chart.dart';
 import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_line_chart.dart';
 import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_pie_chart.dart';
 import 'package:dextra/presentation/modules/commons/widgets/input/simpleDropdown.dart';
@@ -37,10 +40,7 @@ class _ExportTabState extends State<ExportTab> {
   final _datetimeBloc = getIt.get<DateTimeBloc>();
   final _statisticBloc = getIt.get<StatisticBloc>();
 
-  String _selectedCam = 'Phan Dang Luu - Dinh Tien Hoang 2';
-  String _selectedVehicle = 'bicycle';
-  DateTime? _startDate;
-  DateTime? _endDate;
+  String? _selectedCam;
   String? _startTime;
   String? _endTime;
 
@@ -49,16 +49,13 @@ class _ExportTabState extends State<ExportTab> {
   String? _endTimeDist;
 
   String? _selectedDate;
-  String? _selectedTime;
-
-  bool _isTimeEnable = false;
 
   @override
   void initState() {
     super.initState();
-    _onFetchDistrict();
-    _onFetchTimestamp();
-    _onFetchDate();
+    // _onFetchDistrict();
+    // _onFetchTimestamp();
+    // _onFetchDate();
   }
 
   void _onFetchVehicles() {
@@ -207,7 +204,8 @@ class _ExportTabState extends State<ExportTab> {
                 dateState.timestamps.isEmpty ||
                 statisticState.resultByDate.date == null ||
                 statisticState.resultByDistrict.date == null ||
-                state.districts.isEmpty) {
+                state.districts.isEmpty ||
+                state.cameras.isEmpty) {
               return const CircularProgressIndicator();
             }
 
@@ -267,9 +265,12 @@ class _ExportTabState extends State<ExportTab> {
                   Padding(
                     padding: EdgeInsetsGeometry.symmetric(
                         vertical: AppSpacing.rem600.h),
-                    child: StatisticPieChart(
-                      detectResult: statisticState.resultByDate,
-                    ),
+                    child: statisticState.resultByDate.date == null
+                        ? SizedBox()
+                        : StatisticPieChart(
+                            detectResult: _statisticBloc.state.resultByDate,
+                            showTitle: true,
+                          ),
                   ),
                 ],
               ),
@@ -357,6 +358,34 @@ class _ExportTabState extends State<ExportTab> {
                             [],
                       ),
                     ),
+                    Row(children: [
+                      SizedBox(
+                        width: AppSpacing.rem5000.w,
+                        child: CommonStatisticCard(
+                          label: tr('Common.vehicles_count_label'),
+                          value: _statisticBloc
+                                      .state.resultByCustom.totalVehicles !=
+                                  null
+                              ? _statisticBloc
+                                  .state.resultByCustom.totalVehicles
+                                  .toString()
+                              : _statisticBloc.state.resultByDate.totalVehicles
+                                  .toString(),
+                          info:
+                              "Motorcyles: ${_statisticBloc.state.resultByCustom.numberOfMotorcycle ?? _statisticBloc.state.resultByDate.numberOfMotorcycle}",
+                          textColor: colors.buttonPrimaryBackground,
+                        ),
+                      ),
+                      Expanded(
+                          child: StatisticPieChart(
+                        radius: 150,
+                        showTitle: false,
+                        detectResult:
+                            _statisticBloc.state.resultByCustom.date == null
+                                ? _statisticBloc.state.resultByDate
+                                : _statisticBloc.state.resultByCustom,
+                      ))
+                    ])
                   ],
                 ),
               ),
@@ -569,6 +598,43 @@ class _ExportTabState extends State<ExportTab> {
                   ),
                 ],
               ),
+              Column(children: [
+                Row(
+                  spacing: AppSpacing.rem600,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CommonText(
+                      "Camera",
+                      style: TextStyle(
+                          fontSize: AppFontSize.xxxl,
+                          fontWeight: AppFontWeight.semiBold),
+                    ),
+                    Expanded(
+                        child: SimpleDropdown(
+                      value: _selectedCam ??
+                          _cameraBloc.state.cameras.first.privateId,
+                      itemsList: _cameraBloc.state.cameras
+                          .map((option) => DropdownMenuItem<String>(
+                                value: option.privateId,
+                                child: Text(option.name ?? ""),
+                              ))
+                          .toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedCam = value;
+                        });
+                        print(_selectedCam);
+                      },
+                      validator: (value) => _validateStart(value, _endTime),
+                    )),
+                  ],
+                ),
+                StatisticBarChart(
+                  data: [],
+                  maxY: 10,
+                  intervalY: 1,
+                )
+              ])
             ]);
           });
         });

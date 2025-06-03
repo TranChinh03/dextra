@@ -21,7 +21,7 @@ class StatisticWidget extends StatefulWidget {
 }
 
 class _StatisticWidgetState extends State<StatisticWidget> {
-  int _selectedTab = 0;
+  int _selectedTab = 1;
 
   final List<Widget> _tabs = [ExportTab(), ScheduleTab(), DetectTab()];
   @override

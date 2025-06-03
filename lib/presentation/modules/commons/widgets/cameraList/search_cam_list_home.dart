@@ -55,14 +55,14 @@ class _SearchCamListHomeState extends State<SearchCamListHome> {
   @override
   void initState() {
     super.initState();
-    _searchBloc.add(
-      SearchCamerasEvent(
-        query: SearchCamerasQuery(
-          cameraName: "",
-          district: "",
-        ),
-      ),
-    );
+    // _searchBloc.add(
+    //   SearchCamerasEvent(
+    //     query: SearchCamerasQuery(
+    //       cameraName: "",
+    //       district: "",
+    //     ),
+    //   ),
+    // );
   }
 
   @override
