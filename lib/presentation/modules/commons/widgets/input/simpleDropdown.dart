@@ -44,7 +44,7 @@ class _SimpleDropdownState extends State<SimpleDropdown> {
           borderSide: BorderSide.none,
         ),
       ),
-      value: widget.value ?? widget.itemsList.first.value,
+      value: widget.value,
       items: widget.itemsList,
       onChanged: (value) {
         widget.onChanged!(value!);

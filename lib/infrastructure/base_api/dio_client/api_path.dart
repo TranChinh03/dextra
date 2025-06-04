@@ -22,4 +22,5 @@ class ApiPath {
       'http://localhost:8004/custom_detection_results_by_camera';
   static const String trackingByDateUrl =
       'http://localhost:8004/traffic_tracking_by_date';
+  static const String fetchHeatmapUrl = 'http://localhost:8004/heatmap';
 }

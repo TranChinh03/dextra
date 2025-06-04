@@ -34,6 +34,8 @@ import '../domain/usecases/statistic/queries/fecth_timestamp/fetch_timestamp_han
     as _i58;
 import '../domain/usecases/statistic/queries/fetch_date/fetch_date_handler.dart'
     as _i699;
+import '../domain/usecases/statistic/queries/fetch_heatmap/fetch_heatmap_handler.dart'
+    as _i409;
 import '../domain/usecases/statistic/queries/statistic_by_camera/statistic_by_camera_handler.dart'
     as _i884;
 import '../domain/usecases/statistic/queries/statistic_by_custom/statistic_by_custom_handler.dart'
@@ -91,6 +93,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i58.FetchTimestampHandler(gh<_i474.IStatisticRepository>()));
     gh.factory<_i699.FetchDateHandler>(
         () => _i699.FetchDateHandler(gh<_i474.IStatisticRepository>()));
+    gh.factory<_i409.FetchHeatmapHandler>(
+        () => _i409.FetchHeatmapHandler(gh<_i474.IStatisticRepository>()));
     gh.factory<_i884.DetectByCameraHandler>(
         () => _i884.DetectByCameraHandler(gh<_i474.IStatisticRepository>()));
     gh.factory<_i459.DetectByCustomHandler>(
@@ -109,6 +113,7 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i691.DetectByDistrictHandler>(),
           gh<_i884.DetectByCameraHandler>(),
           gh<_i255.TrackingByDateHandler>(),
+          gh<_i409.FetchHeatmapHandler>(),
         ));
     gh.factory<_i317.SearchBloc>(
         () => _i317.SearchBloc(gh<_i63.SearchCamerasHandler>()));
