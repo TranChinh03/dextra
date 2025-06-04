@@ -9,6 +9,8 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:dextra/presentation/app/blocs/app/app_bloc.dart';
+import 'package:dextra/presentation/app/blocs/authentication/authentication_bloc.dart';
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
@@ -48,9 +50,6 @@ import '../infrastructure/detection_repository/detection_repository.dart'
     as _i842;
 import '../infrastructure/statistic_repository/statistic_repository.dart'
     as _i520;
-import '../presentation/app/blocs/app/app_bloc.dart' as _i875;
-import '../presentation/app/blocs/authentication/authentication_bloc.dart'
-    as _i948;
 import '../presentation/app/blocs/theme/app_theme_bloc.dart' as _i468;
 import '../presentation/modules/commons/bloc/camera/camera_bloc.dart' as _i247;
 import '../presentation/modules/commons/bloc/datetime/datetime_bloc.dart'
@@ -72,9 +71,8 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
-    gh.lazySingleton<_i875.AppBloc>(() => _i875.AppBloc());
-    gh.lazySingleton<_i948.AuthenticationBloc>(
-        () => _i948.AuthenticationBloc());
+    gh.lazySingleton<AppBloc>(() => AppBloc());
+    gh.lazySingleton<AuthenticationBloc>(() => AuthenticationBloc());
     gh.lazySingleton<_i468.AppThemeBloc>(() => _i468.AppThemeBloc());
     gh.lazySingleton<_i1065.IApiClient>(() => _i447.DioClient());
     gh.factory<_i574.ICameraRepository>(

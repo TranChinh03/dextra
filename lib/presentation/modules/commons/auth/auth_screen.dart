@@ -74,7 +74,12 @@ class _AuthScreenState extends State<AuthScreen> {
         );
       } else {
         // Handle sign-up logic here
-        print('Sign up with userName: $userName and password: $password');
+        _authBloc.add(
+          SignUpWithUsernamePasswordEvent(
+            username: userName,
+            password: password,
+          ),
+        );
       }
     }
 

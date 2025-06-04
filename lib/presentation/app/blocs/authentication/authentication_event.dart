@@ -32,4 +32,14 @@ class SignInWithUsernamePasswordEvent extends AuthenticationEvent {
   });
 }
 
+class SignUpWithUsernamePasswordEvent extends AuthenticationEvent {
+  final String username;
+  final String password;
+
+  SignUpWithUsernamePasswordEvent({
+    required this.username,
+    required this.password,
+  });
+}
+
 class SignOutEvent extends AuthenticationEvent {}

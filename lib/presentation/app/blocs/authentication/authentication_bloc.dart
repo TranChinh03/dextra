@@ -2,13 +2,12 @@ import 'dart:async';
 
 import 'package:dextra/domain/models/base_api_response.dart';
 import 'package:dextra/presentation/commons/api_state.dart';
+import 'package:dextra/service/firebase_db_service.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 
 part 'authentication_event.dart';
@@ -23,6 +22,9 @@ class AuthenticationBloc
     on<SignInWithGoogleEvent>(_onSignInWithGoogle);
     on<SignInWithUsernamePasswordEvent>(_onSignInWithUsernamePassword);
     on<SignOutEvent>(_onSignOut);
+    on<SignUpWithUsernamePasswordEvent>(
+      _onSignUpWithUsernamePassword,
+    );
 
     // Emit the initial state to reset the existing state
     add(AuthenticationInitialized());
@@ -68,6 +70,12 @@ class AuthenticationBloc
           await auth.signInWithPopup(authProvider);
       if (userCredential.user != null &&
           userCredential.credential?.accessToken != null) {
+        await FirebaseDbService()
+            .create(path: "users/${userCredential.user!.uid}", data: {
+          "email": userCredential.user!.email ?? "",
+          "displayName": userCredential.user!.displayName ?? "",
+          "createdAt": DateTime.now().toIso8601String(),
+        });
         emit(
           state.copyWith(
             apiState: ApiState(status: ApiStatus.hasData),
@@ -164,6 +172,54 @@ class AuthenticationBloc
               message: e.toString(),
             ),
           ),
+        ),
+      );
+    }
+  }
+
+  FutureOr<void> _onSignUpWithUsernamePassword(
+    SignUpWithUsernamePasswordEvent event,
+    Emitter<AuthenticationState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        apiState: ApiState(status: ApiStatus.loading),
+      ),
+    );
+
+    final FirebaseAuth auth = FirebaseAuth.instance;
+
+    try {
+      UserCredential userCredential = await auth.createUserWithEmailAndPassword(
+        email: event.username,
+        password: event.password,
+      );
+      if (userCredential.user != null) {
+        await FirebaseDbService()
+            .create(path: "users/${userCredential.user!.uid}", data: {
+          "email": event.username,
+          "displayName": userCredential.user!.displayName ?? "",
+          "createdAt": DateTime.now().toIso8601String(),
+        });
+        emit(
+          state.copyWith(
+            apiState: ApiState(status: ApiStatus.hasData),
+            isLoggedIn: true,
+            accessToken: userCredential.credential?.accessToken,
+          ),
+        );
+      }
+    } catch (e) {
+      emit(
+        state.copyWith(
+          apiState: ApiState(
+            status: ApiStatus.error,
+            errorResponse: BaseApiResponse(
+              message: e.toString(),
+            ),
+          ),
+          isLoggedIn: false,
+          accessToken: "",
         ),
       );
     }
