@@ -9691,3 +9691,14 @@ final List<Date> sampleDates = [
   {"date": "2025-05-29"},
   {"date": "2025-05-28"}
 ].map((e) => Date.fromJson(e)).toList();
+
+final List<String> sampleVehicles = [
+  "Bicycle",
+  "Motorcycle",
+  "Car",
+  "Van",
+  "Truck",
+  "Bus",
+  "Fire truck",
+  "Container"
+];

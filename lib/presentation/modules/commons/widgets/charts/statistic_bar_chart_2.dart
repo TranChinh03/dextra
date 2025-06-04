@@ -28,7 +28,6 @@ class StatisticBarChart2 extends StatelessWidget {
     "Bicycle",
     "Motorcycle",
     "Car",
-    "Car",
     "Van",
     "Truck",
     "Bus",

@@ -319,7 +319,6 @@ class StatisticLineChartState extends State<StatisticLineChart> {
     "Bicycle",
     "Motorcycle",
     "Car",
-    "Car",
     "Van",
     "Truck",
     "Bus",
