@@ -11,15 +11,12 @@ class FirebaseDbService {
     await ref.set(data);
   }
 
-  Future<Map<String, dynamic>?> read({
+  Future<DataSnapshot?> read({
     required String path,
   }) async {
     final DatabaseReference ref = _database.ref().child(path);
-    final snapshot = await ref.get();
-    if (snapshot.exists) {
-      return snapshot.value as Map<String, dynamic>;
-    }
-    return null;
+    final DataSnapshot snapshot = await ref.get();
+    return snapshot.exists ? snapshot : null;
   }
 
   Future<void> update({
