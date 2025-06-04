@@ -41,7 +41,8 @@ class CameraRepository implements ICameraRepository {
   Future<BaseApiResponse<List<String>>> getVehicles() async {
     final response = await _apiClient.get<List<String>, String>(
       getVehiclesUrl,
-      parser: (json) => json.toString(),
+      parser: (json) =>
+          json.toString()[0].toUpperCase() + json.toString().substring(1),
     );
     print('response: ${response.data}');
     return response;

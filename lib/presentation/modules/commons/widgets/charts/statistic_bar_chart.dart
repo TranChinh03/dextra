@@ -41,7 +41,6 @@ class StatisticBarChartState extends State<StatisticBarChart> {
     "Bicycle",
     "Motorcycle",
     "Car",
-    "Car",
     "Van",
     "Truck",
     "Bus",

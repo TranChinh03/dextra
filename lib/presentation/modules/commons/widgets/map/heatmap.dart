@@ -6,8 +6,13 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class TrafficHeatmap extends StatefulWidget {
   final StatisticResult data;
+  final String vehicle;
 
-  const TrafficHeatmap({super.key, required this.data});
+  const TrafficHeatmap({
+    super.key,
+    required this.data,
+    required this.vehicle,
+  });
   @override
   _TrafficHeatmapState createState() => _TrafficHeatmapState();
 }
@@ -74,28 +79,67 @@ class _TrafficHeatmapState extends State<TrafficHeatmap> {
     super.initState();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    int min = widget.data.details!.first.totalVehicles ?? 0;
-    int max = widget.data.details!.first.totalVehicles ?? 0;
-    for (var camera in widget.data.details!) {
-      if (camera.totalVehicles! < min) min = camera.totalVehicles!;
-      if (camera.totalVehicles! > max) max = camera.totalVehicles!;
+  List<WeightedLatLng> _createPoints(String vehicle) {
+    num Function(dynamic camera) getValue;
+    switch (vehicle) {
+      case "All":
+        getValue = (camera) => camera.totalVehicles ?? 0;
+        break;
+      case "Bicycle":
+        getValue = (camera) => int.tryParse(camera.numberOfBicycle ?? "0") ?? 0;
+        break;
+      case "Motorcycle":
+        getValue =
+            (camera) => int.tryParse(camera.numberOfMotorcycle ?? "0") ?? 0;
+        break;
+      case "Car":
+        getValue = (camera) => int.tryParse(camera.numberOfCar ?? "0") ?? 0;
+        break;
+      case "Van":
+        getValue = (camera) => int.tryParse(camera.numberOfVan ?? "0") ?? 0;
+        break;
+      case "Truck":
+        getValue = (camera) => int.tryParse(camera.numberOfTruck ?? "0") ?? 0;
+        break;
+      case "Bus":
+        getValue = (camera) => int.tryParse(camera.numberOfBus ?? "0") ?? 0;
+        break;
+      case "Fire truck":
+        getValue =
+            (camera) => int.tryParse(camera.numberOfFireTruck ?? "0") ?? 0;
+        break;
+      case "Container":
+        getValue =
+            (camera) => int.tryParse(camera.numberOfContainer ?? "0") ?? 0;
+        break;
+      default:
+        throw Error();
     }
 
-    final List<WeightedLatLng> cameraPoints = widget.data.details!
+    final values = widget.data.details!.map(getValue).toList();
+    final min = values.reduce((a, b) => a < b ? a : b);
+    final max = values.reduce((a, b) => a > b ? a : b);
+
+    final denominator = (max - min) == 0 ? 1 : (max - min);
+
+    return widget.data.details!
         .map(
           (camera) => WeightedLatLng(
-              LatLng(camera.loc!.coordinates![1], camera.loc!.coordinates![0]),
-              weight: (((camera.totalVehicles ?? 1) - min) / (max - min))),
+            LatLng(camera.loc!.coordinates![1], camera.loc!.coordinates![0]),
+            weight: ((getValue(camera) - min) / denominator),
+          ),
         )
         .toList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     // for (var camera in widget.data.details!) {
     //   print((((camera.totalVehicles ?? 1) - min) / (max - min)));
     // }
     _heatmaps.add(Heatmap(
       heatmapId: HeatmapId('traffic_heatmap'),
-      data: cameraPoints,
+      data: _createPoints(widget.vehicle),
       radius: HeatmapRadius.fromPixels(20),
       gradient: const HeatmapGradient(
         <HeatmapGradientColor>[

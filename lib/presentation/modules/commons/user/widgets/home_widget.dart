@@ -87,7 +87,6 @@ class _HomeWidgetState extends State<HomeWidget> {
 
         double rateMotor = int.parse(lastDay.numberOfMotorcycle ?? "0") /
             (lastDay.totalVehicles ?? 1);
-        print(rateMotor);
         return ScreenContainer(
           // isShowLoading:
           //     // state.apiStatus == ApiStatus.loading ||
