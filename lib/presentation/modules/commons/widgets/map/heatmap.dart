@@ -1,9 +1,13 @@
 import 'dart:async';
 
+import 'package:dextra/domain/entities/statistic_result.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class TrafficHeatmap extends StatefulWidget {
+  final StatisticResult data;
+
+  const TrafficHeatmap({super.key, required this.data});
   @override
   _TrafficHeatmapState createState() => _TrafficHeatmapState();
 }
@@ -68,39 +72,41 @@ class _TrafficHeatmapState extends State<TrafficHeatmap> {
   @override
   void initState() {
     super.initState();
-    _heatmaps.add(Heatmap(
-      heatmapId: HeatmapId('traffic_heatmap'),
-      data: trafficPoints,
-      radius: HeatmapRadius.fromPixels(20),
-      gradient: const HeatmapGradient(
-        <HeatmapGradientColor>[
-          HeatmapGradientColor(
-            Color.fromARGB(255, 0, 255, 255),
-            0.2,
-          ),
-          HeatmapGradientColor(
-            Color.fromARGB(255, 8, 216, 60),
-            0.4,
-          ),
-          HeatmapGradientColor(
-            Color.fromARGB(255, 3, 191, 0),
-            0.6,
-          ),
-          HeatmapGradientColor(
-            Color.fromARGB(255, 247, 255, 7),
-            0.8,
-          ),
-          HeatmapGradientColor(
-            Color.fromARGB(255, 255, 0, 0),
-            1,
-          ),
-        ],
-      ),
-    ));
   }
 
   @override
   Widget build(BuildContext context) {
+    int min = widget.data.details!.first.totalVehicles ?? 0;
+    int max = widget.data.details!.first.totalVehicles ?? 0;
+    for (var camera in widget.data.details!) {
+      if (camera.totalVehicles! < min) min = camera.totalVehicles!;
+      if (camera.totalVehicles! > max) max = camera.totalVehicles!;
+    }
+
+    final List<WeightedLatLng> cameraPoints = widget.data.details!
+        .map(
+          (camera) => WeightedLatLng(
+              LatLng(camera.loc!.coordinates![1], camera.loc!.coordinates![0]),
+              weight: (((camera.totalVehicles ?? 1) - min) / (max - min))),
+        )
+        .toList();
+    // for (var camera in widget.data.details!) {
+    //   print((((camera.totalVehicles ?? 1) - min) / (max - min)));
+    // }
+    _heatmaps.add(Heatmap(
+      heatmapId: HeatmapId('traffic_heatmap'),
+      data: cameraPoints,
+      radius: HeatmapRadius.fromPixels(20),
+      gradient: const HeatmapGradient(
+        <HeatmapGradientColor>[
+          HeatmapGradientColor(Color(0xFF00FF00), 0.2),
+          HeatmapGradientColor(Color(0xFFADFF2F), 0.4),
+          HeatmapGradientColor(Color(0xFFFFFF00), 0.6),
+          HeatmapGradientColor(Color(0xFFFFA500), 0.8),
+          HeatmapGradientColor(Color(0xFFFF0000), 1.0),
+        ],
+      ),
+    ));
     return GoogleMap(
       initialCameraPosition: CameraPosition(
         target: LatLng(10.7769, 106.7009),

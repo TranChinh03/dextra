@@ -1,3 +1,5 @@
+import 'package:dextra/domain/entities/camera.dart';
+
 class StatisticResult {
   final String? district;
   final String? date;
@@ -82,6 +84,8 @@ class StatisticResult {
 class ResultDetail {
   final String? date;
   final String? time;
+  final String? camera;
+  final Location? loc;
   final String? numberOfBicycle;
   final String? numberOfMotorcycle;
   final String? numberOfCar;
@@ -95,6 +99,8 @@ class ResultDetail {
   ResultDetail({
     this.date,
     this.time,
+    this.camera,
+    this.loc,
     this.numberOfBicycle,
     this.numberOfMotorcycle,
     this.numberOfCar,
@@ -110,6 +116,8 @@ class ResultDetail {
     return ResultDetail(
         date: json.containsKey('date') ? json['date'].toString() : null,
         time: json.containsKey('time') ? json['time'].toString() : null,
+        camera: json.containsKey('camera') ? json['camera'].toString() : null,
+        loc: json.containsKey('loc') ? Location.fromJson(json['loc']) : null,
         numberOfBicycle: json.containsKey('numberOfBicycle')
             ? json['numberOfBicycle'].toString()
             : null,

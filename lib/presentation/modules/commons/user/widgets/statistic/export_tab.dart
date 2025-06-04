@@ -1,5 +1,8 @@
 import 'package:dextra/di/injectable.dart';
+import 'package:dextra/domain/entities/camera.dart';
+import 'package:dextra/domain/entities/date.dart';
 import 'package:dextra/domain/entities/statistic_result.dart';
+import 'package:dextra/domain/usecases/statistic/queries/fetch_heatmap/fetch_heatmap_query.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_camera/statistic_by_camera_querry.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_custom/statistic_by_custom_query.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_date/statistic_by_date_query.dart';
@@ -40,6 +43,7 @@ class ExportTab extends StatefulWidget {
 class _ExportTabState extends State<ExportTab> {
   final _formKey = GlobalKey<FormState>();
   final _formKeyDist = GlobalKey<FormState>();
+  final _formKeyHeatmap = GlobalKey<FormState>();
   final _cameraBloc = getIt.get<CameraBloc>();
   final _datetimeBloc = getIt.get<DateTimeBloc>();
   final _statisticBloc = getIt.get<StatisticBloc>();
@@ -54,14 +58,19 @@ class _ExportTabState extends State<ExportTab> {
 
   String? _selectedDate;
 
+  String? _selectedDayHeatmap;
+  String? _startTimeHeatmap;
+  String? _endTimeHeatmap;
+
   @override
   void initState() {
     super.initState();
     // _onFetchDistrict();
-    // _onFetchTimestamp();
-    // _onFetchDate();
+    _onFetchTimestamp();
+    _onFetchDate();
     // _onFetchCamera();
     // _onTrackingByDate();
+    // _onFetchHeatmap();
   }
 
   void _onTrackingByDate() {
@@ -132,6 +141,14 @@ class _ExportTabState extends State<ExportTab> {
     );
   }
 
+  void _onFetchHeatmap() {
+    if (_statisticBloc.state.resultHeatmap.date != null) {
+      return;
+    }
+    _statisticBloc
+        .add(FetchHeatmapEvent(query: FetchHeatmapQuery(date: "2025-06-02")));
+  }
+
   void _onFetchByCam(String? value) {
     setState(() {
       _selectedCam = value;
@@ -163,6 +180,18 @@ class _ExportTabState extends State<ExportTab> {
           query: DetectByCustomQuery(
               date: _selectedDate, timeFrom: _startTime, timeTo: _endTime)));
     }
+  }
+
+  void _onDateHmChange(String? value) {
+    setState(() {
+      _selectedDayHeatmap = value;
+      _startTimeHeatmap = null;
+      _endTimeHeatmap = null;
+    });
+    _statisticBloc.add(FetchHeatmapEvent(
+        query: FetchHeatmapQuery(
+      date: _selectedDayHeatmap,
+    )));
   }
 
   DateTime _parseTime(String timeString) {
@@ -204,6 +233,30 @@ class _ExportTabState extends State<ExportTab> {
     }
   }
 
+  void _submitFormHeatmap() {
+    if (_startTimeHeatmap == null || _endTimeHeatmap == null) {
+      _statisticBloc.add(FetchHeatmapEvent(
+        query: FetchHeatmapQuery(
+          date: _selectedDayHeatmap ?? sampleDates.last.date,
+          timeFrom: _startTimeHeatmap,
+          timeTo: _endTimeHeatmap,
+        ),
+      ));
+      return;
+    }
+    if (_formKeyHeatmap.currentState!.validate()) {
+      _statisticBloc.add(FetchHeatmapEvent(
+        query: FetchHeatmapQuery(
+          date: _selectedDayHeatmap ?? sampleDates.last.date,
+          timeFrom: _startTimeHeatmap,
+          timeTo: _endTimeHeatmap,
+        ),
+      ));
+    } else {
+      debugPrint('Form is not valid');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final colors = IAppColor.watch(context);
@@ -212,14 +265,15 @@ class _ExportTabState extends State<ExportTab> {
       builder: (context, cameraState) {
         return BlocBuilder<DateTimeBloc, DateTimeState>(
             builder: (context, dateState) {
-          // final hasDateData =
-          //     dateState.dates.isNotEmpty && dateState.timestamps.isNotEmpty;
-          // final hasCameraData = cameraState.districts.isNotEmpty &&
-          //     cameraState.cameras.isNotEmpty;
-          // final hasStatisticData =
-          //     _statisticBloc.state.resultByDate.date != null &&
-          //         _statisticBloc.state.resultByDistrict.date != null &&
-          //         _statisticBloc.state.resultByCamera.date != null &&statisticState.resultByCamera.details == null;
+          final hasDateData =
+              dateState.dates.isNotEmpty && dateState.timestamps.isNotEmpty;
+          final hasCameraData = cameraState.districts.isNotEmpty &&
+              cameraState.cameras.isNotEmpty;
+          final hasStatisticData =
+              _statisticBloc.state.resultByDate.date != null &&
+                  _statisticBloc.state.resultByDistrict.date != null &&
+                  _statisticBloc.state.resultByCamera.date != null &&
+                  _statisticBloc.state.resultByCamera.details == null;
 
           // if (hasDateData && hasCameraData && !hasStatisticData) {
           //   _statisticBloc.add(
@@ -233,7 +287,11 @@ class _ExportTabState extends State<ExportTab> {
           //           camera: _cameraBloc.state.cameras.last.privateId)));
 
           // }
-
+          if (hasDateData && _statisticBloc.state.resultHeatmap.date == null) {
+            _statisticBloc.add(FetchHeatmapEvent(
+                query: FetchHeatmapQuery(
+                    date: _datetimeBloc.state.dates.first.date)));
+          }
           return BlocBuilder<StatisticBloc, StatisticState>(
               builder: (context, statisticState) {
             // if (!hasDateData ||
@@ -242,6 +300,13 @@ class _ExportTabState extends State<ExportTab> {
             //     statisticState.resultByDistrict.date == null) {
             //   return const Center(child: CircularProgressIndicator());
             // }
+            String latestDate = sampleDates.last.date;
+            String lastestStartTime = sampleTimestamp
+                .firstWhere(
+                  (item) => item.date == sampleDates.last.date,
+                )
+                .time;
+            String lastestEndTime = sampleTimestamp.last.time;
 
             return Column(spacing: AppSpacing.rem1000.h, children: [
               // StatisticBarChart2(
@@ -689,12 +754,101 @@ class _ExportTabState extends State<ExportTab> {
               //       ],
               //     ),
               //   ])
-              Container(
-                  margin: EdgeInsets.symmetric(vertical: AppSpacing.rem600.h),
-                  height: AppSpacing.rem8975.h,
-                  width: double.infinity,
-                  color: colors.primaryBannerBg,
-                  child: TrafficHeatmap()),
+              CommonHeading(
+                heading: "Vehicle Heatmap Overview",
+                subheading:
+                    "Visualize traffic concentration across monitored areas",
+                headingStyle: TextStyle(
+                    fontSize: AppFontSize.xlg,
+                    fontWeight: AppFontWeight.bold,
+                    color: colors.primary),
+              ),
+              Form(
+                key: _formKeyHeatmap,
+                child: Row(spacing: AppSpacing.rem300.w, children: [
+                  CommonText(
+                    "Date",
+                    style: TextStyle(
+                        fontSize: AppFontSize.xxxl,
+                        fontWeight: AppFontWeight.semiBold),
+                  ),
+                  SizedBox(
+                    width: AppSpacing.rem4150.w,
+                    child: SimpleDropdown(
+                        value: _selectedDayHeatmap ?? latestDate,
+                        itemsList: sampleDates.map((option) {
+                          return DropdownMenuItem<String>(
+                            value: option.date,
+                            child: Text(option.date),
+                          );
+                        }).toList(),
+                        onChanged: _onDateHmChange),
+                  ),
+                  Expanded(
+                      child: SimpleDropdown(
+                    value: _startTimeHeatmap,
+                    itemsList: sampleTimestamp
+                        .where((option) =>
+                            option.date == (_selectedDayHeatmap ?? latestDate))
+                        .map((option) => DropdownMenuItem<String>(
+                              value: option.time,
+                              child: Text(option.time),
+                            ))
+                        .toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        _startTimeHeatmap = value;
+                      });
+                    },
+                    validator: (value) =>
+                        _validateStart(value, _endTimeHeatmap),
+                  )),
+                  CommonText(
+                    "to",
+                    style: TextStyle(
+                        fontSize: AppFontSize.xxl,
+                        fontWeight: AppFontWeight.semiBold),
+                  ),
+                  Expanded(
+                    child: SimpleDropdown(
+                      validator: (value) =>
+                          _validateEnd(_startTimeHeatmap, value),
+                      value: _endTimeHeatmap,
+                      itemsList: sampleTimestamp
+                          .where((option) =>
+                              option.date ==
+                              (_selectedDayHeatmap ?? latestDate))
+                          .map((option) => DropdownMenuItem<String>(
+                                value: option.time,
+                                child: Text(option.time),
+                              ))
+                          .toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          _endTimeHeatmap = value;
+                        });
+                      },
+                    ),
+                  ),
+                  CommonPrimaryButton(
+                    text: "OK",
+                    onPressed: _submitFormHeatmap,
+                  )
+                ]),
+              ),
+              CommonText(
+                  "Vehicle Heatmap on ${_selectedDayHeatmap ?? latestDate},  ${_startTimeHeatmap ?? "00:00:00"} to ${_endTimeHeatmap ?? "24:00:00"}"),
+              _statisticBloc.state.resultHeatmap.date != null
+                  ? Container(
+                      margin:
+                          EdgeInsets.symmetric(vertical: AppSpacing.rem600.h),
+                      height: AppSpacing.rem8975.h,
+                      width: double.infinity,
+                      color: colors.primaryBannerBg,
+                      child: TrafficHeatmap(
+                        data: _statisticBloc.state.resultHeatmap,
+                      ))
+                  : CircularProgressIndicator(),
             ]);
           });
         });
