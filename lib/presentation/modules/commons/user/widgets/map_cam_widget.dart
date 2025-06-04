@@ -5,10 +5,12 @@ import 'package:dextra/domain/entities/camera.dart';
 import 'package:dextra/presentation/assets/assets.dart';
 import 'package:dextra/presentation/commons/api_state.dart';
 import 'package:dextra/presentation/modules/commons/bloc/camera/camera_bloc.dart';
+import 'package:dextra/presentation/modules/commons/user/widgets/sample_data.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_arrow_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/cameraList/search_camera_list_widget.dart';
 import 'package:dextra/presentation/modules/commons/widgets/card/common_statistic_card.dart';
+import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_pie_chart_2.dart';
 import 'package:dextra/presentation/modules/commons/widgets/commonImage/common_image.dart';
 import 'package:dextra/presentation/modules/commons/widgets/dialog/image_dialog.dart';
 import 'package:dextra/presentation/modules/commons/widgets/input/search_box.dart';
@@ -221,10 +223,6 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // SizedBox(
-                      //     height: AppSpacing.rem5000.h,
-                      //     width: AppSpacing.rem6250.w,
-                      //     child: PieChartSample2()),
                       CommonStatisticCard(
                         label: tr('Common.avg_congestion_label'),
                         value: tr('Common.default_avg_congestion'),

@@ -100,7 +100,6 @@ class _SearchCameraListWidgetState extends State<SearchCameraListWidget> {
       child: BlocBuilder<SearchBloc, SearchState>(
         builder: (context, state) {
           final searchCameras = state.resultsCam;
-          print("Search cameras: ${searchCameras.length}");
 
           return Column(
             children: [
