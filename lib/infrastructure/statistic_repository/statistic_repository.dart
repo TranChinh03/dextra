@@ -5,6 +5,7 @@ import 'package:dextra/domain/interfaces/api_client.dart';
 import 'package:dextra/domain/interfaces/interface_statistic_repository.dart';
 import 'package:dextra/domain/models/base_api_response.dart';
 import 'package:dextra/domain/models/query.dart';
+import 'package:dextra/domain/usecases/statistic/commands/send_email_by_date.dart/send_email_by_date_query.dart';
 import 'package:dextra/domain/usecases/statistic/queries/fetch_heatmap/fetch_heatmap_query.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_camera/statistic_by_camera_querry.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_custom/statistic_by_custom_query.dart';
@@ -21,6 +22,7 @@ const detectByDistrictUrl = ApiPath.detectByDistrictUrl;
 const detectByCameraUrl = ApiPath.detectByCameraUrl;
 const trackingByDateUrl = ApiPath.trackingByDateUrl;
 const fetchHeatmapUrl = ApiPath.fetchHeatmapUrl;
+const sendEmailByDateUrl = ApiPath.sendEmailByDateUrl;
 
 @Injectable(as: IStatisticRepository)
 class StatisticRepository implements IStatisticRepository {
@@ -115,6 +117,18 @@ class StatisticRepository implements IStatisticRepository {
     final response = await _apiClient.get<StatisticResult, StatisticResult>(
       "$fetchHeatmapUrl?date=${fetchHeatmapQuery.date}&time_from=${fetchHeatmapQuery.timeFrom ?? ""}&time_to=${fetchHeatmapQuery.timeTo ?? ""}",
       parser: (json) => StatisticResult.fromJson(json),
+    );
+
+    return response;
+  }
+
+  @override
+  Future<BaseApiResponse<String?>> sendEmailByDate(Query query) async {
+    final SendEmailByDateQuery sendEmailByDateQuery = query.query;
+
+    final response = await _apiClient.post<String, String>(
+      sendEmailByDateUrl,
+      data: sendEmailByDateQuery.toJson(),
     );
 
     return response;

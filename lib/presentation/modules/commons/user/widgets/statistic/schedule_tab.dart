@@ -1,5 +1,8 @@
 import 'package:dextra/di/injectable.dart';
+import 'package:dextra/domain/usecases/statistic/commands/send_email_by_date.dart/send_email_by_date_query.dart';
+import 'package:dextra/presentation/commons/api_state.dart';
 import 'package:dextra/presentation/modules/commons/bloc/camera/camera_bloc.dart';
+import 'package:dextra/presentation/modules/commons/bloc/statistic/statistic_bloc.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/input/date_picker.dart';
 import 'package:dextra/presentation/modules/commons/widgets/input/simple_dropdown.dart';
@@ -11,6 +14,7 @@ import 'package:dextra/theme/font/app_font_size.dart';
 import 'package:dextra/theme/font/app_font_weight.dart';
 import 'package:dextra/theme/spacing/app_spacing.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,6 +28,7 @@ class ScheduleTab extends StatefulWidget {
 
 class _ScheduleTabState extends State<ScheduleTab> {
   final _cameraBloc = getIt.get<CameraBloc>();
+  final _statisticBloc = getIt.get<StatisticBloc>();
 
   // final List<String> _cams = [
   //   'Phan Dang Luu - Dinh Tien Hoang 2',
@@ -93,6 +98,16 @@ class _ScheduleTabState extends State<ScheduleTab> {
   //   _cameraBloc.add(FetchDistrictsEvent());
   // }
 
+  void _onSendEmailByDate(String dateFrom, String dateTo) {
+    final email = FirebaseAuth.instance.currentUser?.email;
+    _statisticBloc.add(SendEmailByDateEvent(
+        query: SendEmailByDateQuery(
+      email: email, // You can set a default email or leave it null
+      dateFrom: dateFrom,
+      dateTo: dateTo,
+    )));
+  }
+
   String _formatTime(TimeOfDay? time) {
     if (time == null) return tr('Common.select_time');
 
@@ -116,6 +131,9 @@ class _ScheduleTabState extends State<ScheduleTab> {
 
   void _scheduleByDateRange() {
     if (_startDate != null && _endDate != null) {
+      final dateFrom = DateFormat('yyyy-MM-dd').format(_startDate!);
+      final dateTo = DateFormat('yyyy-MM-dd').format(_endDate!);
+      _onSendEmailByDate(dateFrom, dateTo);
       setState(() {
         _byDateRangeList.add(
             "${DateFormat('yyyy-MM-dd').format(_startDate!)} to ${DateFormat('yyyy-MM-dd').format(_endDate!)}");
@@ -147,218 +165,247 @@ class _ScheduleTabState extends State<ScheduleTab> {
     });
   }
 
+  void _onSendEmailStatusChangeState(StatisticState state) {
+    if (state.sendEmailStatus == ApiStatus.hasData) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Email sent successfully!"),
+          backgroundColor: Colors.green,
+        ),
+      );
+    } else if (state.sendEmailStatus == ApiStatus.error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Failed to send email."),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final colors = IAppColor.watch(context);
 
-    return BlocBuilder<CameraBloc, CameraState>(builder: (context, state) {
-      if (state.cameras.isEmpty || state.districts.isEmpty) {
-        return CircularProgressIndicator();
-      }
-      return SizedBox(
-        width: double.infinity,
-        child: LayoutBuilder(builder: (context, constraints) {
-          return Column(spacing: AppSpacing.rem1000.h, children: [
-            CommonHeading(
-              heading: "Schedule export",
-              headingStyle: TextStyle(
-                  fontSize: AppFontSize.xlg,
-                  fontWeight: AppFontWeight.bold,
-                  color: colors.primary),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: AppSpacing.rem300.h,
-              children: [
-                CommonText(
-                  "BY DATE",
-                  style: TextStyle(
-                      fontSize: AppFontSize.xxxl,
-                      fontWeight: AppFontWeight.bold,
-                      color: colors.primary),
-                ),
-                Row(spacing: AppSpacing.rem600.w, children: [
-                  CommonText(
-                    "Date: ",
-                    style: TextStyle(
-                        fontSize: AppFontSize.xxxl,
-                        fontWeight: AppFontWeight.semiBold),
+    return BlocListener<StatisticBloc, StatisticState>(
+      listenWhen: (previous, current) =>
+          previous.sendEmailStatus != current.sendEmailStatus,
+      listener: (context, state) {
+        _onSendEmailStatusChangeState(state);
+      },
+      child: BlocBuilder<StatisticBloc, StatisticState>(
+          bloc: _statisticBloc,
+          builder: (context, state) {
+            if (state.sendEmailStatus == ApiStatus.loading) {
+              return CircularProgressIndicator();
+            }
+            return SizedBox(
+              width: double.infinity,
+              child: LayoutBuilder(builder: (context, constraints) {
+                return Column(spacing: AppSpacing.rem1000.h, children: [
+                  CommonHeading(
+                    heading: "Schedule export",
+                    headingStyle: TextStyle(
+                        fontSize: AppFontSize.xlg,
+                        fontWeight: AppFontWeight.bold,
+                        color: colors.primary),
                   ),
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     spacing: AppSpacing.rem300.h,
                     children: [
-                      SizedBox(
-                        width: AppSpacing.rem5000.w,
-                        child: PickDateButton(
+                      CommonText(
+                        "BY DATE",
+                        style: TextStyle(
+                            fontSize: AppFontSize.xxxl,
+                            fontWeight: AppFontWeight.bold,
+                            color: colors.primary),
+                      ),
+                      Row(spacing: AppSpacing.rem600.w, children: [
+                        CommonText(
+                          "Date: ",
+                          style: TextStyle(
+                              fontSize: AppFontSize.xxxl,
+                              fontWeight: AppFontWeight.semiBold),
+                        ),
+                        Column(
+                          spacing: AppSpacing.rem300.h,
+                          children: [
+                            SizedBox(
+                              width: AppSpacing.rem5000.w,
+                              child: PickDateButton(
+                                onDateSelected: (date) {
+                                  setState(() {
+                                    _selectedDate = date;
+                                  });
+                                },
+                              ),
+                            ),
+                            Row(
+                              spacing: AppSpacing.rem600.w,
+                              children: [
+                                CommonText(
+                                  "From",
+                                ),
+                                SizedBox(
+                                  width: AppSpacing.rem3375.w,
+                                  child: PickTimeButton(
+                                    onTimeSelected: (time) {
+                                      setState(() {
+                                        _startTime = time;
+                                      });
+                                    },
+                                  ),
+                                ),
+                                CommonText(
+                                  "To",
+                                ),
+                                SizedBox(
+                                  width: AppSpacing.rem3375.w,
+                                  child: PickTimeButton(
+                                    onTimeSelected: (time) {
+                                      setState(() {
+                                        _endTime = time;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        CommonPrimaryButton(
+                            text: "Schedule", onPressed: _scheduleByDate)
+                      ]),
+                      ..._byDateList.map(
+                        (date) => CommonText("Schedule statistics for: $date"),
+                      ),
+                      Divider(
+                        color: colors.dividerColor,
+                      ),
+                      Row(spacing: AppSpacing.rem600.w, children: [
+                        CommonText(
+                          "Date range: ",
+                          style: TextStyle(
+                              fontSize: AppFontSize.xxxl,
+                              fontWeight: AppFontWeight.semiBold),
+                        ),
+                        Expanded(child: PickDateButton(
                           onDateSelected: (date) {
                             setState(() {
-                              _selectedDate = date;
+                              _startDate = date;
                             });
                           },
-                        ),
-                      ),
-                      Row(
-                        spacing: AppSpacing.rem600.w,
-                        children: [
-                          CommonText(
-                            "From",
-                          ),
-                          SizedBox(
-                            width: AppSpacing.rem3375.w,
-                            child: PickTimeButton(
-                              onTimeSelected: (time) {
-                                setState(() {
-                                  _startTime = time;
-                                });
-                              },
-                            ),
-                          ),
-                          CommonText(
-                            "To",
-                          ),
-                          SizedBox(
-                            width: AppSpacing.rem3375.w,
-                            child: PickTimeButton(
-                              onTimeSelected: (time) {
-                                setState(() {
-                                  _endTime = time;
-                                });
-                              },
-                            ),
-                          ),
-                        ],
+                        )),
+                        Expanded(child: PickDateButton(
+                          onDateSelected: (date) {
+                            setState(() {
+                              _endDate = date;
+                            });
+                          },
+                        )),
+                        CommonPrimaryButton(
+                            text: "Schedule", onPressed: _scheduleByDateRange)
+                      ]),
+                      ..._byDateRangeList.map(
+                        (date) => CommonText("Schedule statistics on: $date"),
                       ),
                     ],
                   ),
-                  CommonPrimaryButton(
-                      text: "Schedule", onPressed: _scheduleByDate)
-                ]),
-                ..._byDateList.map(
-                  (date) => CommonText("Schedule statistics for: $date"),
-                ),
-                Divider(
-                  color: colors.dividerColor,
-                ),
-                Row(spacing: AppSpacing.rem600.w, children: [
-                  CommonText(
-                    "Date range: ",
-                    style: TextStyle(
-                        fontSize: AppFontSize.xxxl,
-                        fontWeight: AppFontWeight.semiBold),
-                  ),
-                  Expanded(child: PickDateButton(
-                    onDateSelected: (date) {
-                      setState(() {
-                        _startDate = date;
-                      });
-                    },
-                  )),
-                  Expanded(child: PickDateButton(
-                    onDateSelected: (date) {
-                      setState(() {
-                        _endDate = date;
-                      });
-                    },
-                  )),
-                  CommonPrimaryButton(
-                      text: "Schedule", onPressed: _scheduleByDateRange)
-                ]),
-                ..._byDateRangeList.map(
-                  (date) => CommonText("Schedule statistics on: $date"),
-                ),
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: AppSpacing.rem300.w,
-              children: [
-                CommonText(
-                  "BY REGION & CAMERA",
-                  style: TextStyle(
-                      fontSize: AppFontSize.xxxl,
-                      fontWeight: AppFontWeight.bold,
-                      color: colors.primary),
-                ),
-                Row(spacing: AppSpacing.rem300.w, children: [
-                  CommonText(
-                    "Region: ",
-                    style: TextStyle(
-                        fontSize: AppFontSize.xxxl,
-                        fontWeight: AppFontWeight.semiBold),
-                  ),
-                  Expanded(
-                      child: SimpleDropdown(
-                          itemsList: _cameraBloc.state.districts.map((option) {
-                            return DropdownMenuItem<String>(
-                              value: option,
-                              child: Text(option),
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedDistrict = value;
-                            });
-                          })),
-                  SizedBox(
-                    width: AppSpacing.rem2350.w,
-                    child: PickTimeButton(
-                      onTimeSelected: (time) {
-                        setState(() {
-                          _startTimeDist = time;
-                        });
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    width: AppSpacing.rem2350.w,
-                    child: PickTimeButton(
-                      onTimeSelected: (time) {
-                        setState(() {
-                          _endTimeDist = time;
-                        });
-                      },
-                    ),
-                  ),
-                  CommonPrimaryButton(
-                      text: "Schedule", onPressed: _scheduleByDist)
-                ]),
-                ..._byDistList.map(
-                  (dist) => CommonText("Schedule statistics for: $dist"),
-                ),
-                Divider(
-                  color: colors.dividerColor,
-                ),
-                Row(spacing: AppSpacing.rem300.w, children: [
-                  CommonText(
-                    "Camera: ",
-                    style: TextStyle(
-                        fontSize: AppFontSize.xxxl,
-                        fontWeight: AppFontWeight.semiBold),
-                  ),
-                  Expanded(
-                      child: SimpleDropdown(
-                          itemsList: _cameraBloc.state.cameras.map((option) {
-                            return DropdownMenuItem<String>(
-                              value: option.privateId,
-                              child: Text(option.name ?? ""),
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedCam = value;
-                            });
-                          })),
-                  CommonPrimaryButton(
-                      text: "Schedule", onPressed: _scheduleByCam)
-                ]),
-                ..._byCamList.map(
-                  (cam) => CommonText("Schedule statistics for: $cam"),
-                ),
-              ],
-            )
-          ]);
-        }),
-      );
-    });
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: AppSpacing.rem300.w,
+                    children: [
+                      CommonText(
+                        "BY REGION & CAMERA",
+                        style: TextStyle(
+                            fontSize: AppFontSize.xxxl,
+                            fontWeight: AppFontWeight.bold,
+                            color: colors.primary),
+                      ),
+                      Row(spacing: AppSpacing.rem300.w, children: [
+                        CommonText(
+                          "Region: ",
+                          style: TextStyle(
+                              fontSize: AppFontSize.xxxl,
+                              fontWeight: AppFontWeight.semiBold),
+                        ),
+                        Expanded(
+                            child: SimpleDropdown(
+                                itemsList:
+                                    _cameraBloc.state.districts.map((option) {
+                                  return DropdownMenuItem<String>(
+                                    value: option,
+                                    child: Text(option),
+                                  );
+                                }).toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    _selectedDistrict = value;
+                                  });
+                                })),
+                        SizedBox(
+                          width: AppSpacing.rem2350.w,
+                          child: PickTimeButton(
+                            onTimeSelected: (time) {
+                              setState(() {
+                                _startTimeDist = time;
+                              });
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          width: AppSpacing.rem2350.w,
+                          child: PickTimeButton(
+                            onTimeSelected: (time) {
+                              setState(() {
+                                _endTimeDist = time;
+                              });
+                            },
+                          ),
+                        ),
+                        CommonPrimaryButton(
+                            text: "Schedule", onPressed: _scheduleByDist)
+                      ]),
+                      ..._byDistList.map(
+                        (dist) => CommonText("Schedule statistics for: $dist"),
+                      ),
+                      Divider(
+                        color: colors.dividerColor,
+                      ),
+                      Row(spacing: AppSpacing.rem300.w, children: [
+                        CommonText(
+                          "Camera: ",
+                          style: TextStyle(
+                              fontSize: AppFontSize.xxxl,
+                              fontWeight: AppFontWeight.semiBold),
+                        ),
+                        Expanded(
+                            child: SimpleDropdown(
+                                itemsList:
+                                    _cameraBloc.state.cameras.map((option) {
+                                  return DropdownMenuItem<String>(
+                                    value: option.privateId,
+                                    child: Text(option.name ?? ""),
+                                  );
+                                }).toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    _selectedCam = value;
+                                  });
+                                })),
+                        CommonPrimaryButton(
+                            text: "Schedule", onPressed: _scheduleByCam)
+                      ]),
+                      ..._byCamList.map(
+                        (cam) => CommonText("Schedule statistics for: $cam"),
+                      ),
+                    ],
+                  )
+                ]);
+              }),
+            );
+          }),
+    );
   }
 }

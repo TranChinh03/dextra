@@ -35,3 +35,9 @@ class FetchHeatmapEvent extends StatisticEvent {
 }
 
 class TrackingByDateEvent extends StatisticEvent {}
+
+class SendEmailByDateEvent extends StatisticEvent {
+  final SendEmailByDateQuery query;
+
+  SendEmailByDateEvent({required this.query});
+}

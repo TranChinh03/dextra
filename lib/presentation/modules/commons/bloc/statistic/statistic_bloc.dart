@@ -1,5 +1,7 @@
 import 'package:dextra/domain/entities/statistic_result.dart';
 import 'package:dextra/domain/models/query.dart';
+import 'package:dextra/domain/usecases/statistic/commands/send_email_by_date.dart/send_email_by_date_handler.dart';
+import 'package:dextra/domain/usecases/statistic/commands/send_email_by_date.dart/send_email_by_date_query.dart';
 import 'package:dextra/domain/usecases/statistic/queries/fetch_heatmap/fetch_heatmap_handler.dart';
 import 'package:dextra/domain/usecases/statistic/queries/fetch_heatmap/fetch_heatmap_query.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_camera/statistic_by_camera_handler.dart';
@@ -28,13 +30,15 @@ class StatisticBloc extends Bloc<StatisticEvent, StatisticState> {
   final DetectByCameraHandler _detectByCameraHandler;
   final TrackingByDateHandler _trackingByDateHandler;
   final FetchHeatmapHandler _fetchHeatmapHandler;
+  final SendEmailByDateHandler _sendEmailByDateHandler;
   StatisticBloc(
       this._detectByDateHandler,
       this._detectByCustomHandler,
       this._detectByDistrictHandler,
       this._detectByCameraHandler,
       this._trackingByDateHandler,
-      this._fetchHeatmapHandler)
+      this._fetchHeatmapHandler,
+      this._sendEmailByDateHandler)
       : super(StatisticState()) {
     on<DetectByDateEvent>(_onDetectByDate);
     on<DetectByCustomEvent>(_onDetectByCustom);
@@ -42,6 +46,7 @@ class StatisticBloc extends Bloc<StatisticEvent, StatisticState> {
     on<DetectByCameratEvent>(_onDetectByCamera);
     on<TrackingByDateEvent>(_onTrackingByDate);
     on<FetchHeatmapEvent>(_onFetchHeatmap);
+    on<SendEmailByDateEvent>(_onSendEmailByDate);
   }
 
   Future<void> _onDetectByDate(
@@ -135,6 +140,30 @@ class StatisticBloc extends Bloc<StatisticEvent, StatisticState> {
       state.copyWith(
         apiStatus: ApiStatus.hasData,
         resultHeatmap: response,
+      ),
+    );
+  }
+
+  Future<void> _onSendEmailByDate(
+    SendEmailByDateEvent event,
+    Emitter<StatisticState> emit,
+  ) async {
+    emit(state.copyWith(sendEmailStatus: ApiStatus.loading));
+
+    final response =
+        await _sendEmailByDateHandler.handle(Query(query: event.query));
+
+    if (response) {
+      emit(
+        state.copyWith(
+          sendEmailStatus: ApiStatus.hasData,
+        ),
+      );
+      return;
+    }
+    emit(
+      state.copyWith(
+        sendEmailStatus: ApiStatus.error,
       ),
     );
   }

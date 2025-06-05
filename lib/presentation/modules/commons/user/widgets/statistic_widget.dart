@@ -22,7 +22,7 @@ class StatisticWidget extends StatefulWidget {
 class _StatisticWidgetState extends State<StatisticWidget> {
   int _selectedTab = 0;
 
-  final List<Widget> _tabs = [ExportTab(), ScheduleTab(), DetectTab()];
+  final List<Widget> _tabs = [ScheduleTab(), DetectTab()];
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CameraBloc, CameraState>(builder: (context, state) {

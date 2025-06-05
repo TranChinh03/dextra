@@ -23,4 +23,6 @@ class ApiPath {
   static const String trackingByDateUrl =
       'http://localhost:8004/traffic_tracking_by_date';
   static const String fetchHeatmapUrl = 'http://localhost:8004/heatmap';
+  static const String sendEmailByDateUrl =
+      'http://localhost:8004/send_email_by_date';
 }
