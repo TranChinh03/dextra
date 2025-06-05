@@ -13,8 +13,9 @@ class TrafficHeatmap extends StatefulWidget {
     required this.data,
     required this.vehicle,
   });
+
   @override
-  _TrafficHeatmapState createState() => _TrafficHeatmapState();
+  State<TrafficHeatmap> createState() => _TrafficHeatmapState();
 }
 
 final List<WeightedLatLng> trafficPoints = [

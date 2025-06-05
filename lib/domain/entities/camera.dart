@@ -27,7 +27,6 @@ class Camera {
 
   factory Camera.fromJson(dynamic jsonData) {
     Map<String, dynamic> json = jsonData;
-    final chinh = json;
     return Camera(
       privateId: json.containsKey('_id') ? json['_id'] : null,
       id: json.containsKey('id') ? json['id'] : null,

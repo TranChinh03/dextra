@@ -1,15 +1,7 @@
-import 'dart:math';
-
 import 'package:dextra/domain/entities/statistic_result.dart';
-import 'package:dextra/presentation/modules/commons/widgets/charts/app_colors.dart';
-import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
-import 'package:dextra/theme/border/app_border_radius.dart';
 import 'package:dextra/theme/color/app_color.dart';
-import 'package:dextra/theme/font/app_font_size.dart';
-import 'package:dextra/theme/spacing/app_spacing.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class StatisticBarChart3 extends StatefulWidget {
   final ResultDetail data;
@@ -67,34 +59,34 @@ class StatisticBarChartState extends State<StatisticBarChart3> {
 
     showingBarGroups = rawBarGroups;
 
-    final vehicleData = [
-      widget.data.numberOfBicycle,
-      widget.data.numberOfMotorcycle,
-      widget.data.numberOfCar,
-      widget.data.numberOfVan,
-      widget.data.numberOfTruck,
-      widget.data.numberOfBus,
-      widget.data.numberOfFireTruck,
-      widget.data.numberOfContainer,
-    ].map((e) => double.tryParse(e ?? "0") ?? 0).toList();
+    // final vehicleData = [
+    //   widget.data.numberOfBicycle,
+    //   widget.data.numberOfMotorcycle,
+    //   widget.data.numberOfCar,
+    //   widget.data.numberOfVan,
+    //   widget.data.numberOfTruck,
+    //   widget.data.numberOfBus,
+    //   widget.data.numberOfFireTruck,
+    //   widget.data.numberOfContainer,
+    // ].map((e) => double.tryParse(e ?? "0") ?? 0).toList();
   }
 
-  Widget _buildLegend({required Color color, required String text}) {
-    return Row(
-      spacing: AppSpacing.rem125.w,
-      children: [
-        Container(
-          width: AppSpacing.rem300.w,
-          height: AppSpacing.rem150.h,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(AppBorderRadius.spacing2xl),
-            color: color,
-          ),
-        ),
-        CommonText(text, style: TextStyle(fontSize: AppFontSize.sm)),
-      ],
-    );
-  }
+  // Widget _buildLegend({required Color color, required String text}) {
+  //   return Row(
+  //     spacing: AppSpacing.rem125.w,
+  //     children: [
+  //       Container(
+  //         width: AppSpacing.rem300.w,
+  //         height: AppSpacing.rem150.h,
+  //         decoration: BoxDecoration(
+  //           borderRadius: BorderRadius.circular(AppBorderRadius.spacing2xl),
+  //           color: color,
+  //         ),
+  //       ),
+  //       CommonText(text, style: TextStyle(fontSize: AppFontSize.sm)),
+  //     ],
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -287,16 +279,16 @@ class StatisticBarChartState extends State<StatisticBarChart3> {
   }
 
   BarChartGroupData makeGroupData(int x) {
-    const keys = [
-      "numberOfBicycle",
-      "numberOfMotorcycle",
-      "numberOfCar",
-      "numberOfVan",
-      "numberOfTruck",
-      "numberOfBus",
-      "numberOfFireTruck",
-      "numberOfContainer"
-    ];
+    // const keys = [
+    //   "numberOfBicycle",
+    //   "numberOfMotorcycle",
+    //   "numberOfCar",
+    //   "numberOfVan",
+    //   "numberOfTruck",
+    //   "numberOfBus",
+    //   "numberOfFireTruck",
+    //   "numberOfContainer"
+    // ];
     final vehicleData = [
       widget.data.numberOfBicycle,
       widget.data.numberOfMotorcycle,

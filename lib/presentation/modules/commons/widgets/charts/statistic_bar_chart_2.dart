@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class StatisticBarChart2 extends StatelessWidget {
   final List<ResultDetail> data;
-  double maxY;
+  final double maxY;
 
   StatisticBarChart2({super.key, required this.data, required this.maxY});
 

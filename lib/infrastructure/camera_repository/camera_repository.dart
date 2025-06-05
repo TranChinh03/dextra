@@ -44,7 +44,7 @@ class CameraRepository implements ICameraRepository {
       parser: (json) =>
           json.toString()[0].toUpperCase() + json.toString().substring(1),
     );
-    print('response: ${response.data}');
+    // print('response: ${response.data}');
     return response;
   }
 

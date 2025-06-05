@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:dextra/di/injectable.dart';
@@ -7,7 +6,6 @@ import 'package:dextra/presentation/commons/api_state.dart';
 import 'package:dextra/presentation/modules/commons/bloc/detection/detection_bloc.dart';
 import 'package:dextra/presentation/modules/commons/widgets/charts/detection_pie_chart.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
-import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
 import 'package:dextra/theme/font/app_font_size.dart';
 import 'package:dextra/theme/font/app_font_weight.dart';
 import 'package:dextra/theme/spacing/app_spacing.dart';
@@ -28,10 +26,10 @@ class _DetectTabState extends State<DetectTab> {
   XFile? _pickedImage;
   final ImagePicker _picker = ImagePicker();
 
-  final TextStyle _normalText = TextStyle(
-    fontSize: AppFontSize.xl,
-    fontWeight: AppFontWeight.semiBold,
-  );
+  // final TextStyle _normalText = TextStyle(
+  //   fontSize: AppFontSize.xl,
+  //   fontWeight: AppFontWeight.semiBold,
+  // );
 
   Future<void> _pickImage() async {
     try {
@@ -42,7 +40,7 @@ class _DetectTabState extends State<DetectTab> {
         });
       }
     } catch (e) {
-      print('Errors: $e');
+      // print('Errors: $e');
     }
   }
 
@@ -76,7 +74,7 @@ class _DetectTabState extends State<DetectTab> {
           if (state.detectionStatus == ApiStatus.loading) {
             return Center(child: CircularProgressIndicator());
           }
-          final totalVehicles = sum(state.detectResult);
+          // final totalVehicles = sum(state.detectResult);
           return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               spacing: AppSpacing.rem600.h,

@@ -1,8 +1,7 @@
 import 'package:dextra/di/injectable.dart';
 import 'package:dextra/domain/entities/general_setting.dart';
 import 'package:dextra/presentation/app/blocs/theme/app_theme_bloc.dart';
-import 'package:dextra/presentation/modules/commons/user/widgets/configtabs/camera.dart';
-import 'package:dextra/presentation/modules/commons/widgets/input/simpleDropdown.dart';
+import 'package:dextra/presentation/modules/commons/widgets/input/simple_dropdown.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
 import 'package:dextra/theme/color/app_color.dart';
 import 'package:dextra/theme/font/app_font_size.dart';

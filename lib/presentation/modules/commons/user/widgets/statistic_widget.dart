@@ -6,7 +6,6 @@ import 'package:dextra/presentation/modules/commons/user/widgets/statistic/sched
 import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_secondary_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/screen-container/screen_container.dart';
-import 'package:dextra/presentation/modules/commons/widgets/text/common_heading.dart';
 import 'package:dextra/theme/spacing/app_spacing.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';

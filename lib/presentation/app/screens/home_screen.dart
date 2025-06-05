@@ -28,7 +28,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final _appThemeBloc = getIt.get<AppThemeBloc>();
+    final appThemeBloc = getIt.get<AppThemeBloc>();
     final appColor = IAppColor.watch(context);
     return Scaffold(
       appBar: AppBar(
@@ -77,8 +77,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               CommonPrimaryButton(
                 onPressed: () {
-                  final currentTheme = _appThemeBloc.state.themeMode;
-                  _appThemeBloc.add(
+                  final currentTheme = appThemeBloc.state.themeMode;
+                  appThemeBloc.add(
                     ChangeAppTheme(
                         themeMode: currentTheme == ThemeMode.dark
                             ? ThemeMode.light
@@ -89,8 +89,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               CommonSecondaryButton(
                 onPressed: () {
-                  final currentTheme = _appThemeBloc.state.themeMode;
-                  _appThemeBloc.add(
+                  final currentTheme = appThemeBloc.state.themeMode;
+                  appThemeBloc.add(
                     ChangeAppTheme(
                         themeMode: currentTheme == ThemeMode.dark
                             ? ThemeMode.light
@@ -101,8 +101,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               CommonArrowButton(
                 onPressed: () {
-                  final currentTheme = _appThemeBloc.state.themeMode;
-                  _appThemeBloc.add(
+                  final currentTheme = appThemeBloc.state.themeMode;
+                  appThemeBloc.add(
                     ChangeAppTheme(
                         themeMode: currentTheme == ThemeMode.dark
                             ? ThemeMode.light
@@ -115,8 +115,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 name: "VoChiCong - CauPhuHuu2",
                 time: '09 March 2025\n10:25:30',
                 onPressed: () {
-                  final currentTheme = _appThemeBloc.state.themeMode;
-                  _appThemeBloc.add(
+                  final currentTheme = appThemeBloc.state.themeMode;
+                  appThemeBloc.add(
                     ChangeAppTheme(
                         themeMode: currentTheme == ThemeMode.dark
                             ? ThemeMode.light

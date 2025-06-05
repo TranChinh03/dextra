@@ -4,8 +4,6 @@ import 'package:dextra/presentation/locale/localization.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/foundation.dart' show defaultTargetPlatform, kIsWeb;
 
 // // Change to false to use live database instance.
 // const USE_DATABASE_EMULATOR = true;

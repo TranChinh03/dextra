@@ -11,7 +11,7 @@ class SearchBox extends StatefulWidget {
   const SearchBox({super.key, required this.onChanged, this.controller});
 
   @override
-  _SearchBoxState createState() => _SearchBoxState();
+  State<SearchBox> createState() => _SearchBoxState();
 }
 
 class _SearchBoxState extends State<SearchBox> {
@@ -36,7 +36,7 @@ class _SearchBoxState extends State<SearchBox> {
       },
       suggestionsBuilder: (BuildContext context, SearchController controller) {
         return List<ListTile>.generate(5, (int index) {
-          final String item = '';
+          // final String item = '';
           return ListTile(
             title: CommonText(""),
           );

@@ -1,15 +1,9 @@
 import 'package:dextra/di/injectable.dart';
 import 'package:dextra/presentation/modules/commons/bloc/camera/camera_bloc.dart';
-import 'package:dextra/presentation/modules/commons/bloc/datetime/datetime_bloc.dart';
-import 'package:dextra/presentation/modules/commons/bloc/statistic/statistic_bloc.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
-import 'package:dextra/presentation/modules/commons/widgets/charts/bar_chart_sample1.dart';
-import 'package:dextra/presentation/modules/commons/widgets/charts/bar_chart_sample3.dart';
 import 'package:dextra/presentation/modules/commons/widgets/input/date_picker.dart';
-import 'package:dextra/presentation/modules/commons/widgets/card/common_statistic_card.dart';
-import 'package:dextra/presentation/modules/commons/widgets/input/simpleDropdown.dart';
+import 'package:dextra/presentation/modules/commons/widgets/input/simple_dropdown.dart';
 import 'package:dextra/presentation/modules/commons/widgets/input/time_picker.dart';
-import 'package:dextra/presentation/modules/commons/widgets/map/heatmap.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_heading.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
 import 'package:dextra/theme/color/app_color.dart';
@@ -20,7 +14,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
 
 class ScheduleTab extends StatefulWidget {
   const ScheduleTab({super.key});
@@ -32,37 +25,37 @@ class ScheduleTab extends StatefulWidget {
 class _ScheduleTabState extends State<ScheduleTab> {
   final _cameraBloc = getIt.get<CameraBloc>();
 
-  final List<String> _cams = [
-    'Phan Dang Luu - Dinh Tien Hoang 2',
-    'Vo Nguyen Giap - Thao Dien',
-    'Ly Tu Trong - Chu Manh Trinh',
-    'Dang Thuc Vinh - Trinh Thi Mieng',
-  ];
+  // final List<String> _cams = [
+  //   'Phan Dang Luu - Dinh Tien Hoang 2',
+  //   'Vo Nguyen Giap - Thao Dien',
+  //   'Ly Tu Trong - Chu Manh Trinh',
+  //   'Dang Thuc Vinh - Trinh Thi Mieng',
+  // ];
 
-  final List<String> _districts = [
-    'District 1',
-    'District 3',
-    'District 4',
-    'District 5',
-    'District 6',
-    'District 7',
-    'District 8',
-    'District 10',
-    'District 11',
-    'District 12',
-    'Binh Thanh District',
-    'Go Vap District',
-    'Phu Nhuan District',
-    'Tan Binh District',
-    'Tan Phu District',
-    'Thu Duc District',
-    'Binh Chanh District',
-    'Cu Chi District',
-    'Hoc Mon District',
-    'Nha Be District',
-    'Can Gio District',
-    'Thu Duc City',
-  ];
+  // final List<String> _districts = [
+  //   'District 1',
+  //   'District 3',
+  //   'District 4',
+  //   'District 5',
+  //   'District 6',
+  //   'District 7',
+  //   'District 8',
+  //   'District 10',
+  //   'District 11',
+  //   'District 12',
+  //   'Binh Thanh District',
+  //   'Go Vap District',
+  //   'Phu Nhuan District',
+  //   'Tan Binh District',
+  //   'Tan Phu District',
+  //   'Thu Duc District',
+  //   'Binh Chanh District',
+  //   'Cu Chi District',
+  //   'Hoc Mon District',
+  //   'Nha Be District',
+  //   'Can Gio District',
+  //   'Thu Duc City',
+  // ];
 
   String? _selectedCam;
   String? _selectedDistrict;
@@ -76,10 +69,10 @@ class _ScheduleTabState extends State<ScheduleTab> {
 
   DateTime? _selectedDate;
 
-  List<String> _byDateList = [];
-  List<String> _byDistList = [];
-  List<String> _byDateRangeList = [];
-  List<String> _byCamList = [];
+  final List<String> _byDateList = [];
+  final List<String> _byDistList = [];
+  final List<String> _byDateRangeList = [];
+  final List<String> _byCamList = [];
 
   @override
   void initState() {
@@ -88,17 +81,17 @@ class _ScheduleTabState extends State<ScheduleTab> {
     // _onFetchDistrict();
   }
 
-  void _onFetchCamera() {
-    if (_cameraBloc.state.cameras.isNotEmpty) {
-      return;
-    }
-    _cameraBloc.add(FetchCamerasEvent());
-  }
+  // void _onFetchCamera() {
+  //   if (_cameraBloc.state.cameras.isNotEmpty) {
+  //     return;
+  //   }
+  //   _cameraBloc.add(FetchCamerasEvent());
+  // }
 
-  void _onFetchDistrict() {
-    if (_cameraBloc.state.districts.isNotEmpty) return;
-    _cameraBloc.add(FetchDistrictsEvent());
-  }
+  // void _onFetchDistrict() {
+  //   if (_cameraBloc.state.districts.isNotEmpty) return;
+  //   _cameraBloc.add(FetchDistrictsEvent());
+  // }
 
   String _formatTime(TimeOfDay? time) {
     if (time == null) return tr('Common.select_time');

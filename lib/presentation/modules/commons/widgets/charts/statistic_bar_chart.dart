@@ -1,7 +1,4 @@
-import 'dart:math';
-
 import 'package:dextra/domain/entities/statistic_result.dart';
-import 'package:dextra/presentation/modules/commons/widgets/charts/app_colors.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
 import 'package:dextra/theme/border/app_border_radius.dart';
 import 'package:dextra/theme/color/app_color.dart';

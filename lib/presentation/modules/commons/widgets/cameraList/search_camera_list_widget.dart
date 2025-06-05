@@ -7,12 +7,10 @@ import 'package:dextra/presentation/commons/api_state.dart';
 import 'package:dextra/presentation/modules/commons/bloc/camera/camera_bloc.dart';
 import 'package:dextra/presentation/modules/commons/bloc/search/search_bloc.dart';
 import 'package:dextra/presentation/modules/commons/widgets/card/camera_list_item.dart';
-import 'package:dextra/presentation/modules/commons/widgets/commonImage/common_image.dart';
 import 'package:dextra/presentation/modules/commons/widgets/dialog/image_dialog.dart';
 import 'package:dextra/presentation/modules/commons/widgets/input/search_box.dart';
-import 'package:dextra/presentation/modules/commons/widgets/input/simpleDropdown.dart';
+import 'package:dextra/presentation/modules/commons/widgets/input/simple_dropdown.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
-import 'package:dextra/theme/font/app_font_weight.dart';
 import 'package:dextra/theme/spacing/app_spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,7 +35,6 @@ class _SearchCameraListWidgetState extends State<SearchCameraListWidget> {
   int currentPage = 1;
   String searchText = "";
   String currentDistrict = "All";
-  Camera? _selectedCam;
 
   final _searchBloc = getIt.get<SearchBloc>();
   final _cameraBloc = getIt.get<CameraBloc>();
@@ -46,7 +43,6 @@ class _SearchCameraListWidgetState extends State<SearchCameraListWidget> {
   void _onSearchTextChanged(String value) {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
     _debounce = Timer(const Duration(milliseconds: 300), () {
-      print('Search text changed: $value');
       setState(() {
         searchText = value;
         currentPage = 1;
@@ -64,7 +60,6 @@ class _SearchCameraListWidgetState extends State<SearchCameraListWidget> {
 
   void _onDropDownChanged(String? value) {
     if (value != null) {
-      print('Selected district: $value');
       setState(() {
         currentDistrict = value;
         currentPage = 1;
@@ -146,9 +141,6 @@ class _SearchCameraListWidgetState extends State<SearchCameraListWidget> {
                           padding: EdgeInsets.all(AppSpacing.rem350.h),
                           child: CameraListItem(
                             onPressed: () => {
-                              setState(() {
-                                _selectedCam = camera;
-                              }),
                               showDialog(
                                   context: context,
                                   builder: (context) => ImageDialog(
@@ -163,7 +155,6 @@ class _SearchCameraListWidgetState extends State<SearchCameraListWidget> {
                                 LatLng(lat, lng),
                                 camera,
                               );
-                              print("from search cam list: $lat, $lng");
                               widget.scrollToTop?.call();
                               // _currentPos = LatLng(lat, lng);
                               // _selectedCam = camera;

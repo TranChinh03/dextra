@@ -1,7 +1,6 @@
 import 'package:dextra/domain/entities/camera_settings.dart';
 import 'package:dextra/domain/entities/models.dart';
-import 'package:dextra/presentation/modules/commons/user/widgets/configtabs/general.dart';
-import 'package:dextra/presentation/modules/commons/widgets/input/simpleDropdown.dart';
+import 'package:dextra/presentation/modules/commons/widgets/input/simple_dropdown.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
 import 'package:dextra/theme/color/app_color.dart';
 import 'package:dextra/theme/font/app_font_size.dart';
@@ -76,7 +75,7 @@ class _CameraConfigurationState extends State<CameraConfiguration> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = IAppColor.watch(context);
+    IAppColor.watch(context);
 
     if (_isLoading) return Center(child: CircularProgressIndicator());
     return Padding(
