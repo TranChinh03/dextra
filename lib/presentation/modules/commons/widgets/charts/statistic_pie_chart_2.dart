@@ -2,7 +2,6 @@ import 'package:dextra/domain/entities/statistic_result.dart';
 import 'package:dextra/presentation/modules/commons/widgets/charts/app_colors.dart';
 import 'package:dextra/presentation/modules/commons/widgets/charts/indicator.dart';
 import 'package:dextra/theme/color/app_color.dart';
-import 'package:dextra/theme/spacing/app_spacing.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 

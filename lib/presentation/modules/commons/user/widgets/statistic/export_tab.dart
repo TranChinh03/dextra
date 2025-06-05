@@ -1,7 +1,4 @@
 import 'package:dextra/di/injectable.dart';
-import 'package:dextra/domain/entities/camera.dart';
-import 'package:dextra/domain/entities/date.dart';
-import 'package:dextra/domain/entities/statistic_result.dart';
 import 'package:dextra/domain/usecases/statistic/queries/fetch_heatmap/fetch_heatmap_query.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_camera/statistic_by_camera_querry.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_custom/statistic_by_custom_query.dart';
@@ -11,16 +8,14 @@ import 'package:dextra/presentation/commons/api_state.dart';
 import 'package:dextra/presentation/modules/commons/bloc/camera/camera_bloc.dart';
 import 'package:dextra/presentation/modules/commons/bloc/datetime/datetime_bloc.dart';
 import 'package:dextra/presentation/modules/commons/bloc/statistic/statistic_bloc.dart';
-import 'package:dextra/presentation/modules/commons/user/widgets/sample_data.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/card/common_statistic_card.dart';
 import 'package:dextra/presentation/modules/commons/widgets/card/small_statistic_card.dart';
 import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_bar_chart.dart';
-import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_bar_chart_2.dart';
 import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_line_chart.dart';
 import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_pie_chart.dart';
 import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_pie_chart_2.dart';
-import 'package:dextra/presentation/modules/commons/widgets/input/simpleDropdown.dart';
+import 'package:dextra/presentation/modules/commons/widgets/input/simple_dropdown.dart';
 import 'package:dextra/presentation/modules/commons/widgets/map/heatmap.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_heading.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
@@ -205,16 +200,16 @@ class _ExportTabState extends State<ExportTab> {
     if (_formKey.currentState!.validate()) {
       _onFetchCustom();
     } else {
-      print('Form is not valid');
+      // print('Form is not valid');
     }
   }
 
   void _submitFormDist(String district, date, timeFrom, timeTo) {
-    print(timeTo);
+    // print(timeTo);
     if (_formKeyDist.currentState!.validate()) {
       _onFetchByDist(district, date, timeFrom, timeTo);
     } else {
-      print('Form is not valid');
+      // print('Form is not valid');
     }
   }
 
@@ -375,8 +370,8 @@ class _ExportTabState extends State<ExportTab> {
                         ],
                       ),
                       Padding(
-                        padding: EdgeInsetsGeometry.symmetric(
-                            vertical: AppSpacing.rem600.h),
+                        padding:
+                            EdgeInsets.symmetric(vertical: AppSpacing.rem600.h),
                         child: StatisticPieChart(
                           detectResult: _statisticBloc.state.resultByDate,
                           showTitle: true,
@@ -452,7 +447,7 @@ class _ExportTabState extends State<ExportTab> {
                           ],
                         ),
                         Padding(
-                          padding: EdgeInsetsGeometry.symmetric(
+                          padding: EdgeInsets.symmetric(
                               vertical: AppSpacing.rem600.h),
                           child: StatisticLineChart(
                             maxY: 20000,
@@ -683,8 +678,8 @@ class _ExportTabState extends State<ExportTab> {
                         ],
                       ),
                       Padding(
-                        padding: EdgeInsetsGeometry.symmetric(
-                            vertical: AppSpacing.rem600.h),
+                        padding:
+                            EdgeInsets.symmetric(vertical: AppSpacing.rem600.h),
                         child: StatisticLineChart(
                           maxY: 3000,
                           intervalY: 300,

@@ -106,7 +106,7 @@ class MapSampleState extends State<MapSample> {
           onMapCreated: (GoogleMapController controller) {
             _controller.complete(controller);
           },
-          markers: _buildMarkers(_cameraBloc.state.cameras ?? []),
+          markers: _buildMarkers(_cameraBloc.state.cameras),
           onTap: (LatLng position) {
             setState(() {
               _selectedMarkerPosition = null;

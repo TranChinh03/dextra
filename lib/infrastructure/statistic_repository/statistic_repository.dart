@@ -6,7 +6,6 @@ import 'package:dextra/domain/interfaces/interface_statistic_repository.dart';
 import 'package:dextra/domain/models/base_api_response.dart';
 import 'package:dextra/domain/models/query.dart';
 import 'package:dextra/domain/usecases/statistic/queries/fetch_heatmap/fetch_heatmap_query.dart';
-import 'package:dextra/domain/usecases/statistic/queries/statistic_by_camera/statistic_by_camera_handler.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_camera/statistic_by_camera_querry.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_custom/statistic_by_custom_query.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_date/statistic_by_date_query.dart';
@@ -56,7 +55,7 @@ class StatisticRepository implements IStatisticRepository {
       detectByDateUrl + (detectByDateQuery.date ?? ''),
       parser: (json) => StatisticResult.fromJson(json),
     );
-    print('response: ${response.data}');
+    // print('response: ${response.data}');
 
     return response;
   }
@@ -69,7 +68,7 @@ class StatisticRepository implements IStatisticRepository {
       "$detectByCustomUrl?date=${detectByCustomQuery.date ?? ''}&time_from=${detectByCustomQuery.timeFrom ?? ''}&time_to=${detectByCustomQuery.timeTo ?? ''}",
       parser: (json) => StatisticResult.fromJson(json),
     );
-    print('response: ${response.data}');
+    // print('response: ${response.data}');
 
     return response;
   }
@@ -82,7 +81,7 @@ class StatisticRepository implements IStatisticRepository {
       "$detectByDistrictUrl?district=${detectByDistrictQuery.district ?? ""}&date=${detectByDistrictQuery.date ?? ''}&time_from=${detectByDistrictQuery.timeFrom ?? ''}&time_to=${detectByDistrictQuery.timeTo ?? ''}",
       parser: (json) => StatisticResult.fromJson(json),
     );
-    print('response: ${response.data}');
+    // print('response: ${response.data}');
 
     return response;
   }
@@ -95,7 +94,7 @@ class StatisticRepository implements IStatisticRepository {
       "$detectByCameraUrl?camera=${detectByCameratQuery.camera ?? ""}",
       parser: (json) => StatisticResult.fromJson(json),
     );
-    print('response: ${response.data}');
+    // print('response: ${response.data}');
 
     return response;
   }

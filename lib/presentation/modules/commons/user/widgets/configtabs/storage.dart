@@ -1,8 +1,5 @@
-import 'package:dextra/domain/entities/camera_settings.dart';
-import 'package:dextra/domain/entities/models.dart';
 import 'package:dextra/domain/entities/storage_setting.dart';
-import 'package:dextra/presentation/modules/commons/user/widgets/configtabs/general.dart';
-import 'package:dextra/presentation/modules/commons/widgets/input/simpleDropdown.dart';
+import 'package:dextra/presentation/modules/commons/widgets/input/simple_dropdown.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
 import 'package:dextra/theme/color/app_color.dart';
 import 'package:dextra/theme/font/app_font_size.dart';
@@ -19,12 +16,6 @@ class StorageConfiguration extends StatefulWidget {
 }
 
 class _StorageConfigurationState extends State<StorageConfiguration> {
-  final List<Models> _models = [
-    Models(value: 'v7', name: "Yolo v7"),
-    Models(value: 'v8', name: "Yolo v8"),
-    Models(value: 'v9', name: "Yolo v9"),
-    Models(value: 'v10', name: "Yolo v10"),
-  ];
   Future<StorageSetting> loadUserSettings() async {
     await Future.delayed(Duration(milliseconds: 500));
     return StorageSetting(

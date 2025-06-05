@@ -47,7 +47,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
         });
       }
     } catch (e) {
-      print('Errors: $e');
+      // print('Errors: $e');
     }
   }
 

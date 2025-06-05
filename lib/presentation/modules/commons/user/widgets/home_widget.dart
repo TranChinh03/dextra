@@ -1,9 +1,7 @@
 import 'package:dextra/di/injectable.dart';
 import 'package:dextra/domain/entities/statistic_result.dart';
 import 'package:dextra/domain/enum/screen_path.dart';
-import 'package:dextra/domain/usecases/statistic/queries/statistic_by_date/statistic_by_date_query.dart';
 import 'package:dextra/presentation/assets/assets.dart';
-import 'package:dextra/presentation/commons/api_state.dart';
 import 'package:dextra/presentation/modules/commons/bloc/camera/camera_bloc.dart';
 import 'package:dextra/presentation/modules/commons/bloc/statistic/statistic_bloc.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/sample_data.dart';
@@ -11,15 +9,9 @@ import 'package:dextra/presentation/modules/commons/widgets/button/common_arrow_
 import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_secondary_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/cameraList/search_cam_list_home.dart';
-import 'package:dextra/presentation/modules/commons/widgets/card/camera_img_item.dart';
 import 'package:dextra/presentation/modules/commons/widgets/card/common_statistic_card.dart';
-import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_bar_chart.dart';
-import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_bar_chart_2.dart';
 import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_bar_chart_3.dart';
-import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_pie_chart_2.dart';
 import 'package:dextra/presentation/modules/commons/widgets/commonImage/common_image.dart';
-import 'package:dextra/presentation/modules/commons/widgets/dialog/image_dialog.dart';
-import 'package:dextra/presentation/modules/commons/widgets/input/search_box.dart';
 import 'package:dextra/presentation/modules/commons/widgets/screen-container/screen_container.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_heading.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
@@ -43,26 +35,25 @@ class HomeWidget extends StatefulWidget {
 }
 
 class _HomeWidgetState extends State<HomeWidget> {
-  final _cameraBloc = getIt.get<CameraBloc>();
+  // final _cameraBloc = getIt.get<CameraBloc>();
   final _statisticBloc = getIt.get<StatisticBloc>();
 
-  void _onFetchCamera() {
-    if (_cameraBloc.state.cameras.isNotEmpty) {
-      return;
-    }
-    _cameraBloc.add(FetchCamerasEvent());
-  }
+  // void _onFetchCamera() {
+  //   if (_cameraBloc.state.cameras.isNotEmpty) {
+  //     return;
+  //   }
+  //   _cameraBloc.add(FetchCamerasEvent());
+  // }
 
-  void _onFetchByDate() {
-    if (_statisticBloc.state.trackingByDate.isNotEmpty) {
-      return;
-    }
-    _statisticBloc.add(TrackingByDateEvent());
-  }
+  // void _onFetchByDate() {
+  //   if (_statisticBloc.state.trackingByDate.isNotEmpty) {
+  //     return;
+  //   }
+  //   _statisticBloc.add(TrackingByDateEvent());
+  // }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     // _onFetchCamera();
     // _onFetchByDate();

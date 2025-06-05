@@ -21,10 +21,10 @@ class Menu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appColor = IAppColor.watch(context);
-    final _authBloc = getIt.get<AuthenticationBloc>();
+    final authBloc = getIt.get<AuthenticationBloc>();
 
     void onSignOut() {
-      _authBloc.add(SignOutEvent());
+      authBloc.add(SignOutEvent());
     }
 
     return Drawer(

@@ -2,7 +2,6 @@ import 'package:dextra/domain/entities/camera.dart';
 import 'package:dextra/domain/usecases/camera/queries/fetch_cameras/fetch_cameras_handler.dart';
 import 'package:dextra/domain/usecases/camera/queries/fetch_districts/fetch_districts_handler.dart';
 import 'package:dextra/domain/usecases/camera/queries/fetch_vehicles/fetch_vehicles_handler.dart';
-import 'package:dextra/domain/usecases/camera/queries/search_cameras/search_cameras_handler.dart';
 import 'package:dextra/presentation/commons/api_state.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';

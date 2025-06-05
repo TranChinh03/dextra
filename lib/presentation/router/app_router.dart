@@ -38,6 +38,7 @@ class AppRouter {
         if (FirebaseAuth.instance.currentUser == null) {
           return DextraRouter.authPage;
         }
+        return null;
       },
       initialLocation: _getInitialLocation(),
       navigatorKey: rootNavigatorKey,

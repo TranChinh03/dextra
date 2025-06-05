@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:dextra/domain/entities/image_detect_result.dart';
@@ -30,7 +29,7 @@ class DetectionRepository implements IDetectionRepository {
     final mimeSplit = mimeType?.split('/');
 
     if (mimeSplit == null || mimeSplit.length != 2) {
-      print("❌ Invalid MIME type.");
+      // print("❌ Invalid MIME type.");
       return null;
     }
 
@@ -65,7 +64,7 @@ class DetectionRepository implements IDetectionRepository {
     final mimeSplit = mimeType?.split('/');
 
     if (mimeSplit == null || mimeSplit.length != 2) {
-      print("❌ Invalid MIME type.");
+      // print("❌ Invalid MIME type.");
       return null;
     }
 

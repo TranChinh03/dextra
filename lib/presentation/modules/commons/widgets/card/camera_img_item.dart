@@ -1,14 +1,11 @@
 import 'dart:async';
-import 'dart:typed_data';
 
 import 'package:dextra/presentation/assets/assets.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/commonImage/common_image.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
 import 'package:dextra/theme/border/app_border_radius.dart';
-import 'package:dextra/theme/border/app_border_wh.dart';
 import 'package:dextra/theme/color/app_color.dart';
-import 'package:dextra/theme/color/colors_template.dart';
 import 'package:dextra/theme/font/app_font_size.dart';
 import 'package:dextra/theme/font/app_font_weight.dart';
 import 'package:dextra/theme/spacing/app_spacing.dart';
@@ -52,7 +49,7 @@ class _CameraImgItemState extends State<CameraImgItem> {
   void initState() {
     super.initState();
     isFavorite = widget.isSaved;
-    print("CameraListItem initState");
+    // print("CameraListItem initState");
     _timer = Timer.periodic(const Duration(seconds: 12), (timer) {
       if (mounted) setState(() {});
     });
@@ -68,7 +65,7 @@ class _CameraImgItemState extends State<CameraImgItem> {
   Widget build(BuildContext context) {
     final colors = IAppColor.watch(context);
     final imgLiveviewUrl =
-        "http://localhost:8002/cameras/image/" + (widget.cameraId ?? "");
+        "http://localhost:8002/cameras/image/${widget.cameraId ?? ""}";
     return Container(
       decoration: BoxDecoration(
         color: colors.cardCameraBackground,
@@ -88,7 +85,7 @@ class _CameraImgItemState extends State<CameraImgItem> {
             child: Stack(
               children: [
                 CommonImage(
-                  imageUrl: imgLiveviewUrl ?? Assets.png.placeHolder.path,
+                  imageUrl: imgLiveviewUrl,
                   fit: BoxFit.cover,
                 ),
                 Positioned(
