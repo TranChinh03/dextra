@@ -1,7 +1,6 @@
 import 'package:dextra/presentation/commons/api_state.dart';
 import 'package:dextra/presentation/modules/commons/bloc/camera/camera_bloc.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/statistic/detect_tab.dart';
-import 'package:dextra/presentation/modules/commons/user/widgets/statistic/export_tab.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/statistic/schedule_tab.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_secondary_button.dart';
@@ -22,7 +21,7 @@ class StatisticWidget extends StatefulWidget {
 class _StatisticWidgetState extends State<StatisticWidget> {
   int _selectedTab = 0;
 
-  final List<Widget> _tabs = [ExportTab(), ScheduleTab(), DetectTab()];
+  final List<Widget> _tabs = [ScheduleTab(), DetectTab()];
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CameraBloc, CameraState>(builder: (context, state) {

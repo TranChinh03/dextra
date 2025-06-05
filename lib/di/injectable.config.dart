@@ -9,8 +9,6 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:dextra/presentation/app/blocs/app/app_bloc.dart';
-import 'package:dextra/presentation/app/blocs/authentication/authentication_bloc.dart';
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
@@ -30,6 +28,8 @@ import '../domain/usecases/detection/queries/detect_streamline/detect_streamline
     as _i475;
 import '../domain/usecases/detection/queries/detect_vehicle/detect_vehicle_handler.dart'
     as _i604;
+import '../domain/usecases/statistic/commands/send_email_by_date.dart/send_email_by_date_handler.dart'
+    as _i80;
 import '../domain/usecases/statistic/queries/fecth_timestamp/fetch_timestamp_handler.dart'
     as _i58;
 import '../domain/usecases/statistic/queries/fetch_date/fetch_date_handler.dart'
@@ -52,6 +52,9 @@ import '../infrastructure/detection_repository/detection_repository.dart'
     as _i842;
 import '../infrastructure/statistic_repository/statistic_repository.dart'
     as _i520;
+import '../presentation/app/blocs/app/app_bloc.dart' as _i875;
+import '../presentation/app/blocs/authentication/authentication_bloc.dart'
+    as _i948;
 import '../presentation/app/blocs/theme/app_theme_bloc.dart' as _i468;
 import '../presentation/modules/commons/bloc/camera/camera_bloc.dart' as _i247;
 import '../presentation/modules/commons/bloc/datetime/datetime_bloc.dart'
@@ -73,8 +76,9 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
-    gh.lazySingleton<AppBloc>(() => AppBloc());
-    gh.lazySingleton<AuthenticationBloc>(() => AuthenticationBloc());
+    gh.lazySingleton<_i875.AppBloc>(() => _i875.AppBloc());
+    gh.lazySingleton<_i948.AuthenticationBloc>(
+        () => _i948.AuthenticationBloc());
     gh.lazySingleton<_i468.AppThemeBloc>(() => _i468.AppThemeBloc());
     gh.lazySingleton<_i1065.IApiClient>(() => _i447.DioClient());
     gh.factory<_i574.ICameraRepository>(
@@ -89,6 +93,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i655.FetchVehiclesHandler(gh<_i574.ICameraRepository>()));
     gh.factory<_i63.SearchCamerasHandler>(
         () => _i63.SearchCamerasHandler(gh<_i574.ICameraRepository>()));
+    gh.factory<_i80.SendEmailByDateHandler>(
+        () => _i80.SendEmailByDateHandler(gh<_i474.IStatisticRepository>()));
     gh.factory<_i58.FetchTimestampHandler>(
         () => _i58.FetchTimestampHandler(gh<_i474.IStatisticRepository>()));
     gh.factory<_i699.FetchDateHandler>(
@@ -107,14 +113,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i255.TrackingByDateHandler(gh<_i474.IStatisticRepository>()));
     gh.factory<_i65.IDetectionRepository>(
         () => _i842.DetectionRepository(gh<_i1065.IApiClient>()));
-    gh.singleton<_i407.StatisticBloc>(() => _i407.StatisticBloc(
-          gh<_i412.DetectByDateHandler>(),
-          gh<_i459.DetectByCustomHandler>(),
-          gh<_i691.DetectByDistrictHandler>(),
-          gh<_i884.DetectByCameraHandler>(),
-          gh<_i255.TrackingByDateHandler>(),
-          gh<_i409.FetchHeatmapHandler>(),
-        ));
     gh.factory<_i317.SearchBloc>(
         () => _i317.SearchBloc(gh<_i63.SearchCamerasHandler>()));
     gh.singleton<_i530.DateTimeBloc>(() => _i530.DateTimeBloc(
@@ -129,6 +127,15 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i187.FetchCamerasHandler>(),
           gh<_i702.FetchDistrictsHandler>(),
           gh<_i655.FetchVehiclesHandler>(),
+        ));
+    gh.singleton<_i407.StatisticBloc>(() => _i407.StatisticBloc(
+          gh<_i412.DetectByDateHandler>(),
+          gh<_i459.DetectByCustomHandler>(),
+          gh<_i691.DetectByDistrictHandler>(),
+          gh<_i884.DetectByCameraHandler>(),
+          gh<_i255.TrackingByDateHandler>(),
+          gh<_i409.FetchHeatmapHandler>(),
+          gh<_i80.SendEmailByDateHandler>(),
         ));
     gh.factory<_i792.DetectionBloc>(() => _i792.DetectionBloc(
           gh<_i604.DetectVehicleHandler>(),

@@ -13,4 +13,5 @@ abstract class IStatisticRepository {
   Future<BaseApiResponse<StatisticResult>> detectByCamera(Query query);
   Future<BaseApiResponse<List<ResultDetail>>> trackingByDate();
   Future<BaseApiResponse<StatisticResult>> fetchHeatmap(Query query);
+  Future<BaseApiResponse<String?>> sendEmailByDate(Query query);
 }

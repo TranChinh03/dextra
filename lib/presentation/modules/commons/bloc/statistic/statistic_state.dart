@@ -9,6 +9,7 @@ class StatisticState extends Equatable {
   final StatisticResult resultHeatmap;
   final List<ResultDetail> trackingByDate;
   final ApiStatus apiStatus;
+  final ApiStatus sendEmailStatus;
 
   StatisticState({
     StatisticResult? resultByDate,
@@ -18,6 +19,7 @@ class StatisticState extends Equatable {
     StatisticResult? resultHeatmap,
     this.trackingByDate = const [],
     this.apiStatus = ApiStatus.idle,
+    this.sendEmailStatus = ApiStatus.idle,
   })  : resultByDate = resultByDate ?? StatisticResult(),
         resultByCustom = resultByCustom ?? StatisticResult(),
         resultByDistrict = resultByDistrict ?? StatisticResult(),
@@ -32,6 +34,7 @@ class StatisticState extends Equatable {
     StatisticResult? resultHeatmap,
     List<ResultDetail>? trackingByDate,
     ApiStatus? apiStatus,
+    ApiStatus? sendEmailStatus,
   }) {
     return StatisticState(
       resultByDate: resultByDate ?? this.resultByDate,
@@ -41,6 +44,7 @@ class StatisticState extends Equatable {
       resultHeatmap: resultHeatmap ?? this.resultHeatmap,
       trackingByDate: trackingByDate ?? this.trackingByDate,
       apiStatus: apiStatus ?? this.apiStatus,
+      sendEmailStatus: sendEmailStatus ?? this.sendEmailStatus,
     );
   }
 
@@ -53,5 +57,6 @@ class StatisticState extends Equatable {
         resultHeatmap,
         trackingByDate,
         apiStatus,
+        sendEmailStatus
       ];
 }

@@ -20,9 +20,9 @@ class _PickDateButtonState extends State<PickDateButton> {
       initialDate: _selectedDate ?? now,
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
-      selectableDayPredicate: (DateTime day) {
-        return day.isAfter(now.subtract(Duration(days: 1)));
-      },
+      // selectableDayPredicate: (DateTime day) {
+      //   return day.isAfter(now.subtract(Duration(days: 1)));
+      // },
     );
 
     if (picked != null && picked != _selectedDate) {
