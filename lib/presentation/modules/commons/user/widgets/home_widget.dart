@@ -35,28 +35,28 @@ class HomeWidget extends StatefulWidget {
 }
 
 class _HomeWidgetState extends State<HomeWidget> {
-  // final _cameraBloc = getIt.get<CameraBloc>();
+  final _cameraBloc = getIt.get<CameraBloc>();
   final _statisticBloc = getIt.get<StatisticBloc>();
 
-  // void _onFetchCamera() {
-  //   if (_cameraBloc.state.cameras.isNotEmpty) {
-  //     return;
-  //   }
-  //   _cameraBloc.add(FetchCamerasEvent());
-  // }
+  void _onFetchCamera() {
+    if (_cameraBloc.state.cameras.isNotEmpty) {
+      return;
+    }
+    _cameraBloc.add(FetchCamerasEvent());
+  }
 
-  // void _onFetchByDate() {
-  //   if (_statisticBloc.state.trackingByDate.isNotEmpty) {
-  //     return;
-  //   }
-  //   _statisticBloc.add(TrackingByDateEvent());
-  // }
+  void _onFetchByDate() {
+    if (_statisticBloc.state.trackingByDate.isNotEmpty) {
+      return;
+    }
+    _statisticBloc.add(TrackingByDateEvent());
+  }
 
   @override
   void initState() {
     super.initState();
-    // _onFetchCamera();
-    // _onFetchByDate();
+    _onFetchCamera();
+    _onFetchByDate();
   }
 
   @override

@@ -82,21 +82,21 @@ class _ScheduleTabState extends State<ScheduleTab> {
   @override
   void initState() {
     super.initState();
-    // _onFetchCamera();
-    // _onFetchDistrict();
+    _onFetchCamera();
+    _onFetchDistrict();
   }
 
-  // void _onFetchCamera() {
-  //   if (_cameraBloc.state.cameras.isNotEmpty) {
-  //     return;
-  //   }
-  //   _cameraBloc.add(FetchCamerasEvent());
-  // }
+  void _onFetchCamera() {
+    if (_cameraBloc.state.cameras.isNotEmpty) {
+      return;
+    }
+    _cameraBloc.add(FetchCamerasEvent());
+  }
 
-  // void _onFetchDistrict() {
-  //   if (_cameraBloc.state.districts.isNotEmpty) return;
-  //   _cameraBloc.add(FetchDistrictsEvent());
-  // }
+  void _onFetchDistrict() {
+    if (_cameraBloc.state.districts.isNotEmpty) return;
+    _cameraBloc.add(FetchDistrictsEvent());
+  }
 
   void _onSendEmailByDate(String dateFrom, String dateTo) {
     final email = FirebaseAuth.instance.currentUser?.email;
