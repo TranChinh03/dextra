@@ -231,9 +231,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                     ],
                   ),
                   CommonHeading(
-                      heading: "Search for Cameras",
-                      subheading:
-                          "Enter camera name  to see what’s happening now!"),
+                      heading: tr('Common.search_for_cam'),
+                      subheading: tr('Common.search_home_hint')),
                   SearchCamListHome(),
                   Padding(
                     padding: const EdgeInsets.only(top: AppSpacing.rem600),
@@ -288,17 +287,18 @@ class _HomeWidgetState extends State<HomeWidget> {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             CommonStatisticCard(
-                              label: "Vehicle counted on ${lastDay.date}",
+                              label:
+                                  "${tr('Common.vehicle_count_on')} ${lastDay.date}",
                               value: lastDay.totalVehicles.toString(),
                               info:
-                                  "Compared to the day before: ${rate.toStringAsFixed(2)}%",
+                                  "${tr('Common.compare_day_before')} ${rate.toStringAsFixed(2)}%",
                               textColor: colors.buttonPrimaryBackground,
                             ),
                             CommonStatisticCard(
-                              label: "Most numerous vehicles: Motorcycle",
+                              label: tr('Common.most_is_motorcycle'),
                               value: lastDay.numberOfMotorcycle,
                               info:
-                                  "Compared to total value ${rateMotor.toStringAsFixed(2)}%",
+                                  "${tr('Common.compare_total')} ${rateMotor.toStringAsFixed(2)}%",
                               background: colors.cardBackground2,
                               decoration: colors.cardDecorate2,
                             ),
