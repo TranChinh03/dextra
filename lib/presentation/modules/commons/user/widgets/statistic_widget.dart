@@ -1,6 +1,8 @@
 import 'package:dextra/presentation/commons/api_state.dart';
 import 'package:dextra/presentation/modules/commons/bloc/camera/camera_bloc.dart';
+import 'package:dextra/presentation/modules/commons/bloc/statistic/statistic_bloc.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/statistic/detect_tab.dart';
+import 'package:dextra/presentation/modules/commons/user/widgets/statistic/export_tab.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/statistic/schedule_tab.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_secondary_button.dart';
@@ -21,10 +23,11 @@ class StatisticWidget extends StatefulWidget {
 class _StatisticWidgetState extends State<StatisticWidget> {
   int _selectedTab = 0;
 
-  final List<Widget> _tabs = [ScheduleTab(), DetectTab()];
+  final List<Widget> _tabs = [ExportTab(), ScheduleTab(), DetectTab()];
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CameraBloc, CameraState>(builder: (context, state) {
+    return BlocBuilder<StatisticBloc, StatisticState>(
+        builder: (context, state) {
       return ScreenContainer(
         isShowLoading: state.apiStatus == ApiStatus.loading,
         child: SizedBox(
@@ -76,7 +79,7 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                           ),
                     _selectedTab == 2
                         ? CommonPrimaryButton(
-                            text: "Detect",
+                            text: tr('Common.detect'),
                             onPressed: () {
                               setState(() {
                                 _selectedTab = 2;
@@ -84,7 +87,7 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                             },
                           )
                         : CommonSecondaryButton(
-                            text: "Detect",
+                            text: tr('Common.detect'),
                             onPressed: () {
                               setState(() {
                                 _selectedTab = 2;

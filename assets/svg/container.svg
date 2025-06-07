@@ -1,0 +1,35 @@
+<svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Light blue circular background -->
+  <circle cx="36" cy="36" r="36" fill="#DBEAFE" />
+
+  <!-- Container box -->
+  <rect x="12" y="30" width="26" height="12" rx="1.5" fill="#3B82F6" />
+
+  <!-- Vertical lines on container -->
+  <g stroke="#60A5FA" stroke-width="1">
+    <line x1="15" y1="31" x2="15" y2="41"/>
+    <line x1="18" y1="31" x2="18" y2="41"/>
+    <line x1="21" y1="31" x2="21" y2="41"/>
+    <line x1="24" y1="31" x2="24" y2="41"/>
+    <line x1="27" y1="31" x2="27" y2="41"/>
+    <line x1="30" y1="31" x2="30" y2="41"/>
+    <line x1="33" y1="31" x2="33" y2="41"/>
+  </g>
+
+  <!-- Truck head -->
+  <path d="M38 30 H46 C48 30 50 32 50 34 V40 H38 V30 Z" fill="#1D4ED8" />
+
+  <!-- Front window -->
+  <rect x="40" y="32" width="5" height="4" rx="0.5" fill="#60A5FA" />
+
+  <!-- Exhaust pipe -->
+  <rect x="49" y="27" width="2" height="5" rx="1" fill="#1D4ED8" />
+
+  <!-- Wheels -->
+  <circle cx="18" cy="45" r="3" fill="#1D4ED8" />
+  <circle cx="30" cy="45" r="3" fill="#1D4ED8" />
+  <circle cx="44" cy="45" r="3" fill="#1D4ED8" />
+
+  <!-- Bumper -->
+  <rect x="32" y="43" width="8" height="2" rx="1" fill="#60A5FA" />
+</svg>

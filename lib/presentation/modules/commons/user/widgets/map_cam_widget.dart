@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dextra/di/injectable.dart';
 import 'package:dextra/domain/entities/camera.dart';
 import 'package:dextra/presentation/assets/assets.dart';
 import 'package:dextra/presentation/commons/api_state.dart';
@@ -34,7 +35,7 @@ class MapCamWidget extends StatefulWidget {
 class _MapCamWidgetState extends State<MapCamWidget> {
   final ScrollController _scrollController2 = ScrollController();
 
-  // final _cameraBloc = getIt.get<CameraBloc>();
+  final _cameraBloc = getIt.get<CameraBloc>();
   late Timer _timer;
   String _currentTime = '';
   int currentPage = 1;
@@ -47,23 +48,23 @@ class _MapCamWidgetState extends State<MapCamWidget> {
   @override
   void initState() {
     super.initState();
-    // _onFetchCamera();
-    // _onFetchDistrict();
+    _onFetchCamera();
+    _onFetchDistrict();
 
     _updateTime();
     _timer = Timer.periodic(const Duration(seconds: 1), (_) => _updateTime());
   }
 
-  // void _onFetchCamera() {
-  //   if (_cameraBloc.state.cameras.isNotEmpty) return;
+  void _onFetchCamera() {
+    if (_cameraBloc.state.cameras.isNotEmpty) return;
 
-  //   _cameraBloc.add(FetchCamerasEvent());
-  // }
+    _cameraBloc.add(FetchCamerasEvent());
+  }
 
-  // void _onFetchDistrict() {
-  //   if (_cameraBloc.state.districts.isNotEmpty) return;
-  //   _cameraBloc.add(FetchDistrictsEvent());
-  // }
+  void _onFetchDistrict() {
+    if (_cameraBloc.state.districts.isNotEmpty) return;
+    _cameraBloc.add(FetchDistrictsEvent());
+  }
 
   void _updateTime() {
     final now = DateTime.now();

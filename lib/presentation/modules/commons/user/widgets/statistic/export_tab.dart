@@ -181,7 +181,7 @@ class _ExportTabState extends State<ExportTab> {
     final startTime = _parseTime(value!);
     final endTime = _parseTime(end ?? _datetimeBloc.state.timestamps.last.time);
     if (endTime.isBefore(startTime)) {
-      return 'Invalid time range';
+      return tr('Common.invalid_time_range');
     }
     return null;
   }
@@ -191,7 +191,7 @@ class _ExportTabState extends State<ExportTab> {
     final startTime =
         _parseTime(start ?? _datetimeBloc.state.timestamps.last.time);
     if (endTime.isBefore(startTime)) {
-      return 'Invalid time range';
+      return tr('Common.invalid_time_range');
     }
     return null;
   }
@@ -301,572 +301,556 @@ class _ExportTabState extends State<ExportTab> {
             //     .time;
             // String lastestEndTime = sampleTimestamp.last.time;
 
-            return Stack(
-              children: [
-                Column(spacing: AppSpacing.rem1000.h, children: [
-                  CommonHeading(
-                    heading: "Overview",
-                    subheading: "Statistics in Ho Chi Minh City",
-                    headingStyle: TextStyle(
-                        fontSize: AppFontSize.xlg,
-                        fontWeight: AppFontWeight.bold,
-                        color: colors.primary),
-                  ),
-                  StatisticBarChart(
-                      data: _statisticBloc.state.trackingByDate,
-                      maxY: 500000,
-                      intervalY: 50000),
-                  CommonHeading(
-                    heading: "Statistic",
-                    subheading: "Statistics by date",
-                    headingStyle: TextStyle(
-                        fontSize: AppFontSize.xlg,
-                        fontWeight: AppFontWeight.bold,
-                        color: colors.primary),
-                  ),
-                  Column(
+            return Column(spacing: AppSpacing.rem1000.h, children: [
+              CommonHeading(
+                heading: tr('Common.overview'),
+                subheading: tr('Common.statistic_hcm'),
+                headingStyle: TextStyle(
+                    fontSize: AppFontSize.xlg,
+                    fontWeight: AppFontWeight.bold,
+                    color: colors.primary),
+              ),
+              StatisticBarChart(
+                  data: _statisticBloc.state.trackingByDate,
+                  maxY: 500000,
+                  intervalY: 50000),
+              CommonHeading(
+                heading: tr('Common.statistic'),
+                subheading: tr('Common.statistic_by_date'),
+                headingStyle: TextStyle(
+                    fontSize: AppFontSize.xlg,
+                    fontWeight: AppFontWeight.bold,
+                    color: colors.primary),
+              ),
+              Column(
+                children: [
+                  Row(
+                    spacing: AppSpacing.rem600.w,
                     children: [
-                      Row(
-                        spacing: AppSpacing.rem600.w,
-                        children: [
-                          CommonText(
-                            "Date",
-                            style: TextStyle(
-                                fontSize: AppFontSize.xxxl,
-                                fontWeight: AppFontWeight.semiBold),
-                          ),
-                          SizedBox(
-                            width: AppSpacing.rem4150.w,
-                            child: SimpleDropdown(
-                                value: _selectedDate ?? latestDate,
-                                itemsList:
-                                    _datetimeBloc.state.dates.map((option) {
-                                  return DropdownMenuItem<String>(
-                                    value: option.date,
-                                    child: Text(option.date),
-                                  );
-                                }).toList(),
-                                onChanged: _onDateChanged),
-                          ),
-                          RichText(
-                            text: TextSpan(
-                              text: "Total Vehicles: ",
-                              style: TextStyle(
-                                fontSize: AppFontSize.xxxl,
-                                fontWeight: AppFontWeight.semiBold,
-                              ),
-                              children: [
-                                TextSpan(
-                                    text: _statisticBloc
-                                        .state.resultByDate.totalVehicles
-                                        .toString(),
-                                    style: TextStyle(
-                                      fontSize: AppFontSize.xxxl,
-                                      color: colors.primary,
-                                    ))
-                              ],
-                            ),
-                          ),
-                        ],
+                      CommonText(
+                        tr('Common.date'),
+                        style: TextStyle(
+                            fontSize: AppFontSize.xxxl,
+                            fontWeight: AppFontWeight.semiBold),
                       ),
-                      Padding(
-                        padding:
-                            EdgeInsets.symmetric(vertical: AppSpacing.rem600.h),
-                        child: StatisticPieChart(
-                          detectResult: _statisticBloc.state.resultByDate,
-                          showTitle: true,
+                      SizedBox(
+                        width: AppSpacing.rem4150.w,
+                        child: SimpleDropdown(
+                            value: _selectedDate ?? latestDate,
+                            itemsList: _datetimeBloc.state.dates.map((option) {
+                              return DropdownMenuItem<String>(
+                                value: option.date,
+                                child: Text(option.date),
+                              );
+                            }).toList(),
+                            onChanged: _onDateChanged),
+                      ),
+                      RichText(
+                        text: TextSpan(
+                          text: "${tr('Common.total_vehicle')}: ",
+                          style: TextStyle(
+                            fontSize: AppFontSize.xxxl,
+                            fontWeight: AppFontWeight.semiBold,
+                          ),
+                          children: [
+                            TextSpan(
+                                text: _statisticBloc
+                                    .state.resultByDate.totalVehicles
+                                    .toString(),
+                                style: TextStyle(
+                                  fontSize: AppFontSize.xxxl,
+                                  color: colors.primary,
+                                ))
+                          ],
                         ),
                       ),
                     ],
                   ),
-                  Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        Row(
-                          spacing: AppSpacing.rem600,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            CommonText(
-                              "Time range",
-                              style: TextStyle(
-                                  fontSize: AppFontSize.xxxl,
-                                  fontWeight: AppFontWeight.semiBold),
-                            ),
-                            Expanded(
-                                child: SimpleDropdown(
-                              value: _startTime ?? latestTime,
-                              itemsList: _datetimeBloc.state.timestamps
-                                  .where((option) =>
-                                      option.date ==
-                                      (_selectedDate ?? latestDate))
-                                  .map((option) => DropdownMenuItem<String>(
-                                        value: option.time,
-                                        child: Text(option.time),
-                                      ))
-                                  .toList(),
-                              onChanged: (value) {
-                                setState(() {
-                                  _startTime = value;
-                                });
-                              },
-                              validator: (value) =>
-                                  _validateStart(value, _endTime),
-                            )),
-                            CommonText(
-                              "to",
-                              style: TextStyle(
-                                  fontSize: AppFontSize.xxl,
-                                  fontWeight: AppFontWeight.semiBold),
-                            ),
-                            Expanded(
-                              child: SimpleDropdown(
-                                validator: (value) =>
-                                    _validateEnd(_startTime, value),
-                                value: _endTime ?? latestTime,
-                                itemsList: _datetimeBloc.state.timestamps
-                                    .where((option) =>
-                                        option.date ==
-                                        (_selectedDate ?? latestDate))
-                                    .map((option) => DropdownMenuItem<String>(
-                                          value: option.time,
-                                          child: Text(option.time),
-                                        ))
-                                    .toList(),
-                                onChanged: (value) {
-                                  setState(() {
-                                    _endTime = value;
-                                  });
-                                },
-                              ),
-                            ),
-                            CommonPrimaryButton(
-                              text: "OK",
-                              onPressed: _submitForm,
-                            )
-                          ],
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: AppSpacing.rem600.h),
-                          child: StatisticLineChart(
-                            maxY: 20000,
-                            intervalY: 2000,
-                            datas:
-                                _statisticBloc.state.resultByCustom.details ??
-                                    _statisticBloc.state.resultByDate.details ??
-                                    [],
-                          ),
-                        ),
-                        Row(children: [
-                          SizedBox(
-                            width: AppSpacing.rem5000.w,
-                            child: CommonStatisticCard(
-                              label: tr('Common.vehicles_count_label'),
-                              value: _statisticBloc
-                                          .state.resultByCustom.totalVehicles !=
-                                      null
-                                  ? _statisticBloc
-                                      .state.resultByCustom.totalVehicles
-                                      .toString()
-                                  : _statisticBloc
-                                      .state.resultByDate.totalVehicles
-                                      .toString(),
-                              info:
-                                  "Motorcyles: ${_statisticBloc.state.resultByCustom.numberOfMotorcycle ?? _statisticBloc.state.resultByDate.numberOfMotorcycle}",
-                              textColor: colors.buttonPrimaryBackground,
-                            ),
-                          ),
-                          Expanded(
-                              child: StatisticPieChart(
-                            radius: 150,
-                            showTitle: false,
-                            detectResult:
-                                _statisticBloc.state.resultByCustom.date == null
-                                    ? _statisticBloc.state.resultByDate
-                                    : _statisticBloc.state.resultByCustom,
-                          ))
-                        ])
-                      ],
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(vertical: AppSpacing.rem600.h),
+                    child: StatisticPieChart(
+                      detectResult: _statisticBloc.state.resultByDate,
+                      showTitle: true,
                     ),
                   ),
-                  Divider(
-                    color: colors.dividerColor,
-                  ),
-                  CommonHeading(
-                    padding: EdgeInsets.symmetric(
-                      vertical: AppSpacing.rem100.h,
-                      horizontal: AppSpacing.rem100.w,
-                    ),
-                    heading: "Statistis",
-                    subheading: "Statistics by region",
-                    headingStyle: TextStyle(
-                        fontSize: AppFontSize.xlg,
-                        fontWeight: AppFontWeight.bold,
-                        color: colors.primary),
-                  ),
-                  Column(
-                    spacing: AppSpacing.rem600.h,
-                    children: [
-                      Row(
-                        spacing: AppSpacing.rem600.w,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CommonText(
-                            "Region",
-                            style: TextStyle(
-                                fontSize: AppFontSize.xxxl,
-                                fontWeight: AppFontWeight.semiBold),
-                          ),
-                          SizedBox(
-                            width: AppSpacing.rem4150.w,
-                            child: SimpleDropdown(
-                              value: _selectedDistrict ?? firstDistrict,
-                              itemsList:
-                                  _cameraBloc.state.districts.map((option) {
-                                return DropdownMenuItem<String>(
-                                  value: option,
-                                  child: Text(option),
-                                );
-                              }).toList(),
-                              onChanged: (value) {
-                                setState(() {
-                                  _selectedDistrict = value;
-                                });
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                      Form(
-                        key: _formKeyDist,
-                        child: Row(
-                          spacing: AppSpacing.rem600.w,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            CommonText(
-                              "Time: ${_selectedDate ?? latestDate}",
-                              style: TextStyle(
-                                  fontSize: AppFontSize.xxxl,
-                                  fontWeight: AppFontWeight.semiBold),
-                            ),
-                            CommonText(
-                              "Time range",
-                              style: TextStyle(
-                                  fontSize: AppFontSize.xxxl,
-                                  fontWeight: AppFontWeight.semiBold),
-                            ),
-                            Expanded(
-                                child: SimpleDropdown(
-                              value: _startTimeDist ?? latestTime,
-                              itemsList: _datetimeBloc.state.timestamps
-                                  .where((option) =>
-                                      option.date ==
-                                      (_selectedDate ?? latestDate))
-                                  .map((option) => DropdownMenuItem<String>(
-                                        value: option.time,
-                                        child: Text(option.time),
-                                      ))
-                                  .toList(),
-                              onChanged: (value) {
-                                setState(() {
-                                  _startTimeDist = value;
-                                });
-                              },
-                              validator: (value) =>
-                                  _validateStart(value, _endTimeDist),
-                            )),
-                            CommonText(
-                              "to",
-                              style: TextStyle(
-                                  fontSize: AppFontSize.xxl,
-                                  fontWeight: AppFontWeight.semiBold),
-                            ),
-                            Expanded(
-                              child: SimpleDropdown(
-                                validator: (value) =>
-                                    _validateEnd(_startTimeDist, value),
-                                value: _endTimeDist ?? latestTime,
-                                itemsList: _datetimeBloc.state.timestamps
-                                    .where((option) =>
-                                        option.date ==
-                                        (_selectedDate ?? latestDate))
-                                    .map((option) => DropdownMenuItem<String>(
-                                          value: option.time,
-                                          child: Text(option.time),
-                                        ))
-                                    .toList(),
-                                onChanged: (value) {
-                                  setState(() {
-                                    _endTimeDist = value;
-                                  });
-                                },
-                              ),
-                            ),
-                            CommonPrimaryButton(
-                              text: "OK",
-                              onPressed: () => _submitFormDist(
-                                  _selectedDistrict ?? firstDistrict,
-                                  _selectedDate ?? latestDate,
-                                  _startTimeDist ?? latestTime,
-                                  _endTimeDist ?? latestTime),
-                            )
-                          ],
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: SmallStatisticCard(
-                              title: "Bicycles",
-                              value: statisticState
-                                  .resultByDistrict.numberOfBicycle,
-                            ),
-                          ),
-                          Expanded(
-                            child: SmallStatisticCard(
-                              title: "Motorcycles",
-                              value: statisticState
-                                  .resultByDistrict.numberOfMotorcycle,
-                            ),
-                          ),
-                          Expanded(
-                            child: SmallStatisticCard(
-                              title: "Cars",
-                              value: statisticState.resultByDistrict.numberOfCar
-                                  .toString(),
-                            ),
-                          ),
-                          Expanded(
-                            child: SmallStatisticCard(
-                              title: "Vans",
-                              value: statisticState.resultByDistrict.numberOfVan
-                                  .toString(),
-                            ),
-                          ),
-                          Expanded(
-                            child: SmallStatisticCard(
-                              title: "Trucks",
-                              value: statisticState
-                                  .resultByDistrict.numberOfTruck
-                                  .toString(),
-                            ),
-                          ),
-                          Expanded(
-                            child: SmallStatisticCard(
-                              title: "Buses",
-                              value: statisticState.resultByDistrict.numberOfBus
-                                  .toString(),
-                            ),
-                          ),
-                          Expanded(
-                            child: SmallStatisticCard(
-                              title: "Fire Trucks",
-                              value: statisticState
-                                  .resultByDistrict.numberOfFireTruck
-                                  .toString(),
-                            ),
-                          ),
-                          Expanded(
-                            child: SmallStatisticCard(
-                              title: "Containers",
-                              value: statisticState
-                                  .resultByDistrict.numberOfContainer
-                                  .toString(),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsets.symmetric(vertical: AppSpacing.rem600.h),
-                        child: StatisticLineChart(
-                          maxY: 3000,
-                          intervalY: 300,
-                          datas:
-                              _statisticBloc.state.resultByDistrict.details ??
-                                  [],
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(children: [
+                ],
+              ),
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
                     Row(
                       spacing: AppSpacing.rem600,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         CommonText(
-                          "Camera",
+                          tr('Common.time_range'),
                           style: TextStyle(
                               fontSize: AppFontSize.xxxl,
                               fontWeight: AppFontWeight.semiBold),
                         ),
                         Expanded(
                             child: SimpleDropdown(
-                                value: _selectedCam ?? firstCam,
-                                itemsList: _cameraBloc.state.cameras
-                                    .map((option) => DropdownMenuItem<String>(
-                                          value: option.privateId,
-                                          child: Text(option.name ?? ""),
-                                        ))
-                                    .toList(),
-                                onChanged: (value) => {
-                                      setState(() {
-                                        _selectedCam = value;
-                                      }),
-                                      _onFetchByCam()
-                                    })),
-                      ],
-                    ),
-                    StatisticBarChart(
-                      data: _statisticBloc.state.resultByCamera.details,
-                      maxY: 1000,
-                      intervalY: 50,
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                            child: StatisticPieChart2(
-                          data: _statisticBloc.state.resultByCamera,
+                          value: _startTime ?? latestTime,
+                          itemsList: _datetimeBloc.state.timestamps
+                              .where((option) =>
+                                  option.date == (_selectedDate ?? latestDate))
+                              .map((option) => DropdownMenuItem<String>(
+                                    value: option.time,
+                                    child: Text(option.time),
+                                  ))
+                              .toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              _startTime = value;
+                            });
+                          },
+                          validator: (value) => _validateStart(value, _endTime),
                         )),
-                        CommonStatisticCard(
-                          label: _selectedCam != null
-                              ? _cameraBloc.state.cameras
-                                  .firstWhere(
-                                      (item) => item.privateId == _selectedCam)
-                                  .name
-                              : _cameraBloc.state.cameras.first.name,
-                          value: _statisticBloc
-                              .state.resultByCamera.totalVehicles
-                              .toString(),
-                          info:
-                              "Max: ${_statisticBloc.state.resultByCamera.numberOfMotorcycle} motorcycles",
-                          textColor: colors.buttonPrimaryBackground,
+                        CommonText(
+                          tr('Common.to'),
+                          style: TextStyle(
+                              fontSize: AppFontSize.xxl,
+                              fontWeight: AppFontWeight.semiBold),
+                        ),
+                        Expanded(
+                          child: SimpleDropdown(
+                            validator: (value) =>
+                                _validateEnd(_startTime, value),
+                            value: _endTime ?? latestTime,
+                            itemsList: _datetimeBloc.state.timestamps
+                                .where((option) =>
+                                    option.date ==
+                                    (_selectedDate ?? latestDate))
+                                .map((option) => DropdownMenuItem<String>(
+                                      value: option.time,
+                                      child: Text(option.time),
+                                    ))
+                                .toList(),
+                            onChanged: (value) {
+                              setState(() {
+                                _endTime = value;
+                              });
+                            },
+                          ),
+                        ),
+                        CommonPrimaryButton(
+                          text: tr('Common.ok'),
+                          onPressed: _submitForm,
                         )
                       ],
                     ),
-                    CommonHeading(
-                      heading: "Vehicle Heatmap Overview",
-                      subheading:
-                          "Visualize traffic concentration across monitored areas",
-                      headingStyle: TextStyle(
-                          fontSize: AppFontSize.xlg,
-                          fontWeight: AppFontWeight.bold,
-                          color: colors.primary),
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: AppSpacing.rem600.h),
+                      child: StatisticLineChart(
+                        maxY: 20000,
+                        intervalY: 2000,
+                        datas: _statisticBloc.state.resultByCustom.details ??
+                            _statisticBloc.state.resultByDate.details ??
+                            [],
+                      ),
                     ),
-                    Column(
-                      spacing: AppSpacing.rem300.h,
+                    Row(children: [
+                      SizedBox(
+                        width: AppSpacing.rem5000.w,
+                        child: CommonStatisticCard(
+                          label: tr('Common.vehicles_count_label'),
+                          value: _statisticBloc
+                                      .state.resultByCustom.totalVehicles !=
+                                  null
+                              ? _statisticBloc
+                                  .state.resultByCustom.totalVehicles
+                                  .toString()
+                              : _statisticBloc.state.resultByDate.totalVehicles
+                                  .toString(),
+                          info:
+                              "${tr('Common.motorcycles')}: ${_statisticBloc.state.resultByCustom.numberOfMotorcycle ?? _statisticBloc.state.resultByDate.numberOfMotorcycle}",
+                          textColor: colors.buttonPrimaryBackground,
+                        ),
+                      ),
+                      Expanded(
+                          child: StatisticPieChart(
+                        radius: 150,
+                        showTitle: false,
+                        detectResult:
+                            _statisticBloc.state.resultByCustom.date == null
+                                ? _statisticBloc.state.resultByDate
+                                : _statisticBloc.state.resultByCustom,
+                      ))
+                    ])
+                  ],
+                ),
+              ),
+              Divider(
+                color: colors.dividerColor,
+              ),
+              CommonHeading(
+                padding: EdgeInsets.symmetric(
+                  vertical: AppSpacing.rem100.h,
+                  horizontal: AppSpacing.rem100.w,
+                ),
+                heading: tr('Common.statistic'),
+                subheading: tr('Common.statistic_by_region'),
+                headingStyle: TextStyle(
+                    fontSize: AppFontSize.xlg,
+                    fontWeight: AppFontWeight.bold,
+                    color: colors.primary),
+              ),
+              Column(
+                spacing: AppSpacing.rem600.h,
+                children: [
+                  Row(
+                    spacing: AppSpacing.rem600.w,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CommonText(
+                        tr('Common.region'),
+                        style: TextStyle(
+                            fontSize: AppFontSize.xxxl,
+                            fontWeight: AppFontWeight.semiBold),
+                      ),
+                      SizedBox(
+                        width: AppSpacing.rem4150.w,
+                        child: SimpleDropdown(
+                          value: _selectedDistrict ?? firstDistrict,
+                          itemsList: _cameraBloc.state.districts.map((option) {
+                            return DropdownMenuItem<String>(
+                              value: option,
+                              child: Text(option),
+                            );
+                          }).toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedDistrict = value;
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  Form(
+                    key: _formKeyDist,
+                    child: Row(
+                      spacing: AppSpacing.rem600.w,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(spacing: AppSpacing.rem300.w, children: [
+                        CommonText(
+                          "${tr('Common.time')}: ${_selectedDate ?? latestDate}",
+                          style: TextStyle(
+                              fontSize: AppFontSize.xxxl,
+                              fontWeight: AppFontWeight.semiBold),
+                        ),
+                        CommonText(
+                          tr('Common.time_range'),
+                          style: TextStyle(
+                              fontSize: AppFontSize.xxxl,
+                              fontWeight: AppFontWeight.semiBold),
+                        ),
+                        Expanded(
+                            child: SimpleDropdown(
+                          value: _startTimeDist ?? latestTime,
+                          itemsList: _datetimeBloc.state.timestamps
+                              .where((option) =>
+                                  option.date == (_selectedDate ?? latestDate))
+                              .map((option) => DropdownMenuItem<String>(
+                                    value: option.time,
+                                    child: Text(option.time),
+                                  ))
+                              .toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              _startTimeDist = value;
+                            });
+                          },
+                          validator: (value) =>
+                              _validateStart(value, _endTimeDist),
+                        )),
+                        CommonText(
+                          tr('Common.to'),
+                          style: TextStyle(
+                              fontSize: AppFontSize.xxl,
+                              fontWeight: AppFontWeight.semiBold),
+                        ),
+                        Expanded(
+                          child: SimpleDropdown(
+                            validator: (value) =>
+                                _validateEnd(_startTimeDist, value),
+                            value: _endTimeDist ?? latestTime,
+                            itemsList: _datetimeBloc.state.timestamps
+                                .where((option) =>
+                                    option.date ==
+                                    (_selectedDate ?? latestDate))
+                                .map((option) => DropdownMenuItem<String>(
+                                      value: option.time,
+                                      child: Text(option.time),
+                                    ))
+                                .toList(),
+                            onChanged: (value) {
+                              setState(() {
+                                _endTimeDist = value;
+                              });
+                            },
+                          ),
+                        ),
+                        CommonPrimaryButton(
+                          text: tr('Common.ok'),
+                          onPressed: () => _submitFormDist(
+                              _selectedDistrict ?? firstDistrict,
+                              _selectedDate ?? latestDate,
+                              _startTimeDist ?? latestTime,
+                              _endTimeDist ?? latestTime),
+                        )
+                      ],
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: SmallStatisticCard(
+                          title: tr('Common.bicycles'),
+                          value:
+                              statisticState.resultByDistrict.numberOfBicycle,
+                        ),
+                      ),
+                      Expanded(
+                        child: SmallStatisticCard(
+                          title: tr('Common.motorcycles'),
+                          value: statisticState
+                              .resultByDistrict.numberOfMotorcycle,
+                        ),
+                      ),
+                      Expanded(
+                        child: SmallStatisticCard(
+                          title: tr('Common.cars'),
+                          value: statisticState.resultByDistrict.numberOfCar
+                              .toString(),
+                        ),
+                      ),
+                      Expanded(
+                        child: SmallStatisticCard(
+                          title: tr('Common.vans'),
+                          value: statisticState.resultByDistrict.numberOfVan
+                              .toString(),
+                        ),
+                      ),
+                      Expanded(
+                        child: SmallStatisticCard(
+                          title: tr('Common.trucks'),
+                          value: statisticState.resultByDistrict.numberOfTruck
+                              .toString(),
+                        ),
+                      ),
+                      Expanded(
+                        child: SmallStatisticCard(
+                          title: tr('Common.buses'),
+                          value: statisticState.resultByDistrict.numberOfBus
+                              .toString(),
+                        ),
+                      ),
+                      Expanded(
+                        child: SmallStatisticCard(
+                          title: tr('Common.fire_trucks'),
+                          value: statisticState
+                              .resultByDistrict.numberOfFireTruck
+                              .toString(),
+                        ),
+                      ),
+                      Expanded(
+                        child: SmallStatisticCard(
+                          title: tr('Common.containers'),
+                          value: statisticState
+                              .resultByDistrict.numberOfContainer
+                              .toString(),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(vertical: AppSpacing.rem600.h),
+                    child: StatisticLineChart(
+                      maxY: 3000,
+                      intervalY: 300,
+                      datas:
+                          _statisticBloc.state.resultByDistrict.details ?? [],
+                    ),
+                  ),
+                ],
+              ),
+              Column(children: [
+                Row(
+                  spacing: AppSpacing.rem600,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CommonText(
+                      tr('Common.camera'),
+                      style: TextStyle(
+                          fontSize: AppFontSize.xxxl,
+                          fontWeight: AppFontWeight.semiBold),
+                    ),
+                    Expanded(
+                        child: SimpleDropdown(
+                            value: _selectedCam ?? firstCam,
+                            itemsList: _cameraBloc.state.cameras
+                                .map((option) => DropdownMenuItem<String>(
+                                      value: option.privateId,
+                                      child: Text(option.name ?? ""),
+                                    ))
+                                .toList(),
+                            onChanged: (value) => {
+                                  setState(() {
+                                    _selectedCam = value;
+                                  }),
+                                  _onFetchByCam()
+                                })),
+                  ],
+                ),
+                StatisticBarChart(
+                  data: _statisticBloc.state.resultByCamera.details,
+                  maxY: 1000,
+                  intervalY: 50,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                        child: StatisticPieChart2(
+                      data: _statisticBloc.state.resultByCamera,
+                    )),
+                    CommonStatisticCard(
+                      label: _selectedCam != null
+                          ? _cameraBloc.state.cameras
+                              .firstWhere(
+                                  (item) => item.privateId == _selectedCam)
+                              .name
+                          : _cameraBloc.state.cameras.first.name,
+                      value: _statisticBloc.state.resultByCamera.totalVehicles
+                          .toString(),
+                      info:
+                          "${tr('Common.max')}: ${_statisticBloc.state.resultByCamera.numberOfMotorcycle} motorcycles",
+                      textColor: colors.buttonPrimaryBackground,
+                    )
+                  ],
+                ),
+                CommonHeading(
+                  heading: tr('Common.heatmap_overview'),
+                  subheading: tr('Common.visualize'),
+                  headingStyle: TextStyle(
+                      fontSize: AppFontSize.xlg,
+                      fontWeight: AppFontWeight.bold,
+                      color: colors.primary),
+                ),
+                Column(
+                  spacing: AppSpacing.rem300.h,
+                  children: [
+                    Row(spacing: AppSpacing.rem300.w, children: [
+                      CommonText(
+                        tr('Common.date'),
+                        style: TextStyle(
+                            fontSize: AppFontSize.xxxl,
+                            fontWeight: AppFontWeight.semiBold),
+                      ),
+                      SizedBox(
+                        width: AppSpacing.rem4150.w,
+                        child: SimpleDropdown(
+                            value: _selectedDayHeatmap ?? latestDate,
+                            itemsList: _datetimeBloc.state.dates.map((option) {
+                              return DropdownMenuItem<String>(
+                                value: option.date,
+                                child: Text(option.date),
+                              );
+                            }).toList(),
+                            onChanged: _onDateHmChange),
+                      ),
+                      SizedBox(
+                        width: AppSpacing.rem4150.w,
+                        child: SimpleDropdown(
+                            value: _selectedVehicle ?? tr('Common.all'),
+                            itemsList: [
+                              DropdownMenuItem<String>(
+                                value: tr('Common.all'),
+                                child: Text(tr('Common.all')),
+                              ),
+                              ..._cameraBloc.state.vehicles.map((option) {
+                                return DropdownMenuItem<String>(
+                                  value: option,
+                                  child: Text(option),
+                                );
+                              })
+                            ],
+                            onChanged: (value) => setState(() {
+                                  _selectedVehicle = value;
+                                })),
+                      ),
+                    ]),
+                    Form(
+                      key: _formKeyHeatmap,
+                      child: Row(
+                        spacing: AppSpacing.rem600.w,
+                        children: [
                           CommonText(
-                            "Date",
+                            tr('Common.from'),
                             style: TextStyle(
-                                fontSize: AppFontSize.xxxl,
+                                fontSize: AppFontSize.xxl,
                                 fontWeight: AppFontWeight.semiBold),
                           ),
-                          SizedBox(
-                            width: AppSpacing.rem4150.w,
+                          Expanded(
+                              child: SimpleDropdown(
+                            value: _startTimeHeatmap,
+                            itemsList: _datetimeBloc.state.timestamps
+                                .where((option) =>
+                                    option.date ==
+                                    (_selectedDayHeatmap ?? latestDate))
+                                .map((option) => DropdownMenuItem<String>(
+                                      value: option.time,
+                                      child: Text(option.time),
+                                    ))
+                                .toList(),
+                            onChanged: (value) {
+                              setState(() {
+                                _startTimeHeatmap = value;
+                              });
+                            },
+                            validator: (value) =>
+                                _validateStart(value, _endTimeHeatmap),
+                          )),
+                          CommonText(
+                            tr('Common.to'),
+                            style: TextStyle(
+                                fontSize: AppFontSize.xxl,
+                                fontWeight: AppFontWeight.semiBold),
+                          ),
+                          Expanded(
                             child: SimpleDropdown(
-                                value: _selectedDayHeatmap ?? latestDate,
-                                itemsList:
-                                    _datetimeBloc.state.dates.map((option) {
-                                  return DropdownMenuItem<String>(
-                                    value: option.date,
-                                    child: Text(option.date),
-                                  );
-                                }).toList(),
-                                onChanged: _onDateHmChange),
+                              validator: (value) =>
+                                  _validateEnd(_startTimeHeatmap, value),
+                              value: _endTimeHeatmap,
+                              itemsList: _datetimeBloc.state.timestamps
+                                  .where((option) =>
+                                      option.date ==
+                                      (_selectedDayHeatmap ?? latestDate))
+                                  .map((option) => DropdownMenuItem<String>(
+                                        value: option.time,
+                                        child: Text(option.time),
+                                      ))
+                                  .toList(),
+                              onChanged: (value) {
+                                setState(() {
+                                  _endTimeHeatmap = value;
+                                });
+                              },
+                            ),
                           ),
-                          SizedBox(
-                            width: AppSpacing.rem4150.w,
-                            child: SimpleDropdown(
-                                value: _selectedVehicle ?? "All",
-                                itemsList: [
-                                  DropdownMenuItem<String>(
-                                    value: "All",
-                                    child: Text("All"),
-                                  ),
-                                  ..._cameraBloc.state.vehicles.map((option) {
-                                    return DropdownMenuItem<String>(
-                                      value: option,
-                                      child: Text(option),
-                                    );
-                                  })
-                                ],
-                                onChanged: (value) => setState(() {
-                                      _selectedVehicle = value;
-                                    })),
-                          ),
-                        ]),
-                        Form(
-                          key: _formKeyHeatmap,
-                          child: Row(
-                            spacing: AppSpacing.rem600.w,
-                            children: [
-                              CommonText(
-                                "From",
-                                style: TextStyle(
-                                    fontSize: AppFontSize.xxl,
-                                    fontWeight: AppFontWeight.semiBold),
-                              ),
-                              Expanded(
-                                  child: SimpleDropdown(
-                                value: _startTimeHeatmap,
-                                itemsList: _datetimeBloc.state.timestamps
-                                    .where((option) =>
-                                        option.date ==
-                                        (_selectedDayHeatmap ?? latestDate))
-                                    .map((option) => DropdownMenuItem<String>(
-                                          value: option.time,
-                                          child: Text(option.time),
-                                        ))
-                                    .toList(),
-                                onChanged: (value) {
-                                  setState(() {
-                                    _startTimeHeatmap = value;
-                                  });
-                                },
-                                validator: (value) =>
-                                    _validateStart(value, _endTimeHeatmap),
-                              )),
-                              CommonText(
-                                "to",
-                                style: TextStyle(
-                                    fontSize: AppFontSize.xxl,
-                                    fontWeight: AppFontWeight.semiBold),
-                              ),
-                              Expanded(
-                                child: SimpleDropdown(
-                                  validator: (value) =>
-                                      _validateEnd(_startTimeHeatmap, value),
-                                  value: _endTimeHeatmap,
-                                  itemsList: _datetimeBloc.state.timestamps
-                                      .where((option) =>
-                                          option.date ==
-                                          (_selectedDayHeatmap ?? latestDate))
-                                      .map((option) => DropdownMenuItem<String>(
-                                            value: option.time,
-                                            child: Text(option.time),
-                                          ))
-                                      .toList(),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _endTimeHeatmap = value;
-                                    });
-                                  },
-                                ),
-                              ),
-                              CommonPrimaryButton(
-                                text: "OK",
-                                onPressed: _submitFormHeatmap,
-                              )
-                            ],
-                          ),
-                        )
-                      ],
+                          CommonPrimaryButton(
+                            text: tr('Common.ok'),
+                            onPressed: _submitFormHeatmap,
+                          )
+                        ],
+                      ),
                     ),
                     CommonText(
-                        "Vehicle Heatmap on ${_selectedDayHeatmap ?? latestDate},  ${_startTimeHeatmap ?? "00:00:00"} to ${_endTimeHeatmap ?? "24:00:00"}"),
+                        "${tr('Common.heatmap_on')} ${_selectedDayHeatmap ?? latestDate},  ${_startTimeHeatmap ?? "00:00:00"} to ${_endTimeHeatmap ?? "24:00:00"}"),
                     Container(
                         margin:
                             EdgeInsets.symmetric(vertical: AppSpacing.rem600.h),
@@ -875,16 +859,12 @@ class _ExportTabState extends State<ExportTab> {
                         color: colors.primaryBannerBg,
                         child: TrafficHeatmap(
                           data: _statisticBloc.state.resultHeatmap,
-                          vehicle: _selectedVehicle ?? "All",
+                          vehicle: _selectedVehicle ?? tr('Common.all'),
                         ))
-                  ])
-                ]),
-                dateState.apiStatus == ApiStatus.loading ||
-                        statisticState.apiStatus == ApiStatus.loading
-                    ? Center(child: CircularProgressIndicator())
-                    : SizedBox()
-              ],
-            );
+                  ],
+                ),
+              ])
+            ]);
           });
         });
       },
