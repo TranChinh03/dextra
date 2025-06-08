@@ -113,6 +113,22 @@
   "Common.no_img": "No image selected.",
   "Common.err_loading": "Error loading image",
   "Common.no_img_date": "No image data",
+  "Common.all_district": "All districts",
+  "Common.default_cam": "Default Camera",
+  "Common.analyze_traffic": "Analyze Traffic",
+  "Common.analyze_traffic_info": "Gain deeper insights into traffic flow patterns through visualized results, detection snapshots, and vehicle density analysis across surveillance points",
+  "Common.general": "General",
+  "Common.storage": "Storage",
+  "Common.img_retrieval_interval": "Image Retrieval Interval",
+  "Common.every_12s": "Every 12 seconds",
+  "Common.every_24s": "Every 24 seconds",
+  "Common.every_48s": "Every 48 seconds",
+   "Common.every_1m": "Every 1 minute",
+   "Common.model": "Model",
+   "Common.threshold": "Threshold",
+   "Common.my_profile": "My profile",
+   "Common.change_img": "Change image",
+   "Common.saved_cam": "Saved Cameras",
 
 
 
@@ -130,5 +146,11 @@
   "Auth.create_account": "Create Account",
   "Auth.sign_up": "Sign Up",
   "Auth.or_sign_up_with": "Or sign up with",
+  "Auth.position": "Position",
+  "Auth.location": "Location",
+  "Auth.personal_info": "Personal Information",
+  "Auth.email": "Email",
+  "Auth.email_placeholder": "email@gmail.com",
+  "Auth.phone": "Phone",
   "Auth.already_have_account": "Already have an account?"
 }
