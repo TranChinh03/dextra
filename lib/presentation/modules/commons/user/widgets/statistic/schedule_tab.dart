@@ -124,7 +124,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
       });
     } else {
       setState(() {
-        _byDateList.add("Select valid date time!");
+        _byDateList.add(tr('Common.select_valid_date_time'));
       });
     }
   }
@@ -140,7 +140,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
       });
     } else {
       setState(() {
-        _byDateRangeList.add("Select valid date range!");
+        _byDateRangeList.add(tr('Common.select_valid_date_range'));
       });
     }
   }
@@ -153,7 +153,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
       });
     } else {
       setState(() {
-        _byDistList.add("Select valid value!");
+        _byDistList.add(tr('Common.select_valid_value'));
       });
     }
   }
@@ -169,14 +169,14 @@ class _ScheduleTabState extends State<ScheduleTab> {
     if (state.sendEmailStatus == ApiStatus.hasData) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text("Email sent successfully!"),
+          content: Text(tr('Common.email_successfully')),
           backgroundColor: Colors.green,
         ),
       );
     } else if (state.sendEmailStatus == ApiStatus.error) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text("Failed to send email."),
+          content: Text(tr('Common.email_fail')),
           backgroundColor: Colors.red,
         ),
       );
@@ -204,7 +204,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
               child: LayoutBuilder(builder: (context, constraints) {
                 return Column(spacing: AppSpacing.rem1000.h, children: [
                   CommonHeading(
-                    heading: "Schedule export",
+                    heading: tr('Common.schedule_export'),
                     headingStyle: TextStyle(
                         fontSize: AppFontSize.xlg,
                         fontWeight: AppFontWeight.bold,
@@ -215,7 +215,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
                     spacing: AppSpacing.rem300.h,
                     children: [
                       CommonText(
-                        "BY DATE",
+                        tr('Common.by_date'),
                         style: TextStyle(
                             fontSize: AppFontSize.xxxl,
                             fontWeight: AppFontWeight.bold,
@@ -223,7 +223,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
                       ),
                       Row(spacing: AppSpacing.rem600.w, children: [
                         CommonText(
-                          "Date: ",
+                          "${tr('Common.date')}: ",
                           style: TextStyle(
                               fontSize: AppFontSize.xxxl,
                               fontWeight: AppFontWeight.semiBold),
@@ -245,7 +245,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
                               spacing: AppSpacing.rem600.w,
                               children: [
                                 CommonText(
-                                  "From",
+                                  tr('Common.from'),
                                 ),
                                 SizedBox(
                                   width: AppSpacing.rem3375.w,
@@ -258,7 +258,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
                                   ),
                                 ),
                                 CommonText(
-                                  "To",
+                                  tr('Common.to'),
                                 ),
                                 SizedBox(
                                   width: AppSpacing.rem3375.w,
@@ -275,17 +275,19 @@ class _ScheduleTabState extends State<ScheduleTab> {
                           ],
                         ),
                         CommonPrimaryButton(
-                            text: "Schedule", onPressed: _scheduleByDate)
+                            text: tr('Common.schedule'),
+                            onPressed: _scheduleByDate)
                       ]),
                       ..._byDateList.map(
-                        (date) => CommonText("Schedule statistics for: $date"),
+                        (date) =>
+                            CommonText("${tr('Common.schedule_for')}: $date"),
                       ),
                       Divider(
                         color: colors.dividerColor,
                       ),
                       Row(spacing: AppSpacing.rem600.w, children: [
                         CommonText(
-                          "Date range: ",
+                          "${tr('Common.date_range')}: ",
                           style: TextStyle(
                               fontSize: AppFontSize.xxxl,
                               fontWeight: AppFontWeight.semiBold),
@@ -305,10 +307,12 @@ class _ScheduleTabState extends State<ScheduleTab> {
                           },
                         )),
                         CommonPrimaryButton(
-                            text: "Schedule", onPressed: _scheduleByDateRange)
+                            text: tr('Common.schedule'),
+                            onPressed: _scheduleByDateRange)
                       ]),
                       ..._byDateRangeList.map(
-                        (date) => CommonText("Schedule statistics on: $date"),
+                        (date) =>
+                            CommonText("${tr('Common.schedule_on')}: $date"),
                       ),
                     ],
                   ),
@@ -317,7 +321,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
                     spacing: AppSpacing.rem300.w,
                     children: [
                       CommonText(
-                        "BY REGION & CAMERA",
+                        tr('Common.by_region_cam'),
                         style: TextStyle(
                             fontSize: AppFontSize.xxxl,
                             fontWeight: AppFontWeight.bold,
@@ -325,7 +329,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
                       ),
                       Row(spacing: AppSpacing.rem300.w, children: [
                         CommonText(
-                          "Region: ",
+                          "${tr('Common.region')}: ",
                           style: TextStyle(
                               fontSize: AppFontSize.xxxl,
                               fontWeight: AppFontWeight.semiBold),
@@ -365,17 +369,19 @@ class _ScheduleTabState extends State<ScheduleTab> {
                           ),
                         ),
                         CommonPrimaryButton(
-                            text: "Schedule", onPressed: _scheduleByDist)
+                            text: tr('Common.schedule'),
+                            onPressed: _scheduleByDist)
                       ]),
                       ..._byDistList.map(
-                        (dist) => CommonText("Schedule statistics for: $dist"),
+                        (dist) =>
+                            CommonText("${tr('Common.schedule_for')}: $dist"),
                       ),
                       Divider(
                         color: colors.dividerColor,
                       ),
                       Row(spacing: AppSpacing.rem300.w, children: [
                         CommonText(
-                          "Camera: ",
+                          "${tr('Common.camera')}: ",
                           style: TextStyle(
                               fontSize: AppFontSize.xxxl,
                               fontWeight: AppFontWeight.semiBold),
@@ -395,10 +401,12 @@ class _ScheduleTabState extends State<ScheduleTab> {
                                   });
                                 })),
                         CommonPrimaryButton(
-                            text: "Schedule", onPressed: _scheduleByCam)
+                            text: tr('Common.schedule'),
+                            onPressed: _scheduleByCam)
                       ]),
                       ..._byCamList.map(
-                        (cam) => CommonText("Schedule statistics for: $cam"),
+                        (cam) =>
+                            CommonText("${tr('Common.schedule_for')}: $cam"),
                       ),
                     ],
                   )

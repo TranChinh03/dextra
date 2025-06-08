@@ -40,7 +40,7 @@ class _MapCamWidgetState extends State<MapCamWidget> {
   String _currentTime = '';
   int currentPage = 1;
   int currentSegment = 1;
-  String currentDistrict = "All districts";
+  String currentDistrict = tr('Common.all_district');
   int pagesPerSeg = 5;
   LatLng? _currentPos = LatLng(10.80498476893258, 106.75270736217499);
   Camera? _selectedCam;
@@ -179,7 +179,7 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                       selectedCam: _selectedCam ??
                           Camera(
                             privateId: '',
-                            name: 'Default Camera',
+                            name: tr('Common.default_cam'),
                             lastModified: DateTime.now(),
                           ),
                     ),
@@ -189,9 +189,8 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                     scrollToTop: _scrollToTop,
                   ),
                   CommonHeading(
-                    heading: "Analyze Traffic",
-                    subheading:
-                        "Gain deeper insights into traffic flow patterns through visualized results, detection snapshots, and vehicle density analysis across surveillance points",
+                    heading: tr('Common.analyze_traffic'),
+                    subheading: tr('Common.analyze_traffic_info'),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -200,7 +199,7 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                         onChanged: (value) => {},
                       ),
                       CommonText(
-                        "Time: ",
+                        "${tr('Common.time')}: ",
                         style: TextStyle(fontWeight: AppFontWeight.bold),
                       ),
                       // DateTimePicker(label: '', onPressed: () {}, isDate: true)

@@ -9,6 +9,7 @@ import 'package:dextra/presentation/modules/commons/widgets/button/common_primar
 import 'package:dextra/theme/font/app_font_size.dart';
 import 'package:dextra/theme/font/app_font_weight.dart';
 import 'package:dextra/theme/spacing/app_spacing.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -80,7 +81,7 @@ class _DetectTabState extends State<DetectTab> {
               spacing: AppSpacing.rem600.h,
               children: [
                 Text(
-                  "Upload an image",
+                  tr('Common.upload_img'),
                   style: TextStyle(
                       fontSize: AppFontSize.lg, fontWeight: AppFontWeight.bold),
                 ),
@@ -88,19 +89,19 @@ class _DetectTabState extends State<DetectTab> {
                   spacing: AppSpacing.rem600.w,
                   children: [
                     CommonPrimaryButton(
-                      text: "Select Image from Device",
+                      text: tr('Common.select_img'),
                       onPressed: _pickImage,
                     ),
                     _pickedImage == null
                         ? SizedBox()
                         : CommonPrimaryButton(
-                            text: "Detect",
+                            text: tr('Common.detect'),
                             onPressed: _onDetectButtonPressed,
                           ),
                   ],
                 ),
                 _pickedImage == null
-                    ? Text('No image selected.')
+                    ? Text(tr('Common.no_img'))
                     : FutureBuilder<Uint8List>(
                         future: _pickedImage!.readAsBytes(),
                         builder: (context, snapshot) {
@@ -108,7 +109,7 @@ class _DetectTabState extends State<DetectTab> {
                               ConnectionState.waiting) {
                             return Center(child: CircularProgressIndicator());
                           } else if (snapshot.hasError) {
-                            return Text('Error loading image');
+                            return Text(tr('Common.err_loading'));
                           } else if (snapshot.hasData) {
                             return Center(
                               child: Image.memory(
@@ -118,7 +119,7 @@ class _DetectTabState extends State<DetectTab> {
                               ),
                             );
                           } else {
-                            return Text('No image data');
+                            return Text(tr('Common.no_img_date'));
                           }
                         },
                       ),

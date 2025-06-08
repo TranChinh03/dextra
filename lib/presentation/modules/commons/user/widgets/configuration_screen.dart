@@ -6,6 +6,7 @@ import 'package:dextra/theme/border/app_border_radius.dart';
 import 'package:dextra/theme/color/app_color.dart';
 import 'package:dextra/theme/font/app_font_weight.dart';
 import 'package:dextra/theme/spacing/app_spacing.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -18,7 +19,11 @@ class ConfigurationWidget extends StatefulWidget {
 
 class _ConfigurationWidgetState extends State<ConfigurationWidget> {
   int _selectedTab = 0;
-  final List<String> _tabsName = ['General', 'Camera', 'Storage'];
+  final List<String> _tabsName = [
+    tr('Common.general'),
+    tr('Common.camera'),
+    tr('Common.storage')
+  ];
   final List<Widget> _tabs = [
     GeneralConfiguration(),
     CameraConfiguration(),

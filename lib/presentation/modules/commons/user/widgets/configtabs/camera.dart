@@ -6,6 +6,7 @@ import 'package:dextra/theme/color/app_color.dart';
 import 'package:dextra/theme/font/app_font_size.dart';
 import 'package:dextra/theme/font/app_font_weight.dart';
 import 'package:dextra/theme/spacing/app_spacing.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -88,7 +89,7 @@ class _CameraConfigurationState extends State<CameraConfiguration> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CommonText(
-                "Image Retrieval Interval",
+                tr('Common.img_retrieval_interval'),
                 style: TextStyle(
                     fontWeight: AppFontWeight.bold, fontSize: AppFontSize.xxxl),
               ),
@@ -96,14 +97,15 @@ class _CameraConfigurationState extends State<CameraConfiguration> {
                 width: AppSpacing.rem4150.w,
                 child: SimpleDropdown(itemsList: [
                   DropdownMenuItem(
-                      value: '12', child: Text('Every 12 seconds')),
+                      value: '12', child: Text(tr('Common.every_12s'))),
                   DropdownMenuItem(
-                      value: '24', child: Text('Every 24 seconds')),
+                      value: '24', child: Text(tr('Common.every_24s'))),
                   DropdownMenuItem(
-                      value: '30', child: Text('Every 30 seconds')),
+                      value: '30', child: Text(tr('Common.every_36s'))),
                   DropdownMenuItem(
-                      value: '48', child: Text('Every 48 seconds')),
-                  DropdownMenuItem(value: '1', child: Text('Every 1 minute')),
+                      value: '48', child: Text(tr('Common.every_48s'))),
+                  DropdownMenuItem(
+                      value: '1', child: Text(tr('Common.every_1m'))),
                 ], onChanged: _updateInterval),
               )
             ],
@@ -112,7 +114,7 @@ class _CameraConfigurationState extends State<CameraConfiguration> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CommonText(
-                "Model",
+                tr('Common.model'),
                 style: TextStyle(
                     fontWeight: AppFontWeight.bold, fontSize: AppFontSize.xxxl),
               ),
@@ -133,7 +135,7 @@ class _CameraConfigurationState extends State<CameraConfiguration> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CommonText(
-                "Threshold",
+                tr('Common.threshold'),
                 style: TextStyle(
                     fontWeight: AppFontWeight.bold, fontSize: AppFontSize.xxxl),
               ),

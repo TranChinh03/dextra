@@ -12,6 +12,7 @@ import 'package:dextra/theme/color/app_color.dart';
 import 'package:dextra/theme/font/app_font_size.dart';
 import 'package:dextra/theme/font/app_font_weight.dart';
 import 'package:dextra/theme/spacing/app_spacing.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -73,7 +74,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                   spacing: AppSpacing.rem200.h,
                   children: [
                     CommonText(
-                      "My profile",
+                      tr('Common.profile'),
                       style: TextStyle(
                           fontWeight: AppFontWeight.bold,
                           fontSize: AppFontSize.xxxl),
@@ -100,7 +101,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                         return Center(
                                             child: CircularProgressIndicator());
                                       } else if (snapshot.hasError) {
-                                        return Text('Error loading image');
+                                        return Text(tr('Common.err_loading'));
                                       } else if (snapshot.hasData) {
                                         return Center(
                                           child: Image.memory(
@@ -110,7 +111,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                           ),
                                         );
                                       } else {
-                                        return Text('No image data');
+                                        return Text(tr('Common.no_img_date'));
                                       }
                                     },
                                   )
@@ -120,7 +121,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                   ),
                             _isEditingProfile
                                 ? CommonButton(
-                                    text: "Change img",
+                                    text: tr('Common.change_img'),
                                     onPressed: _pickImage,
                                   )
                                 : SizedBox()
@@ -134,20 +135,20 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                       padding: EdgeInsets.only(
                                           bottom: AppSpacing.rem300.h),
                                       child: CommonTextInput(
-                                          hintText: "User name",
+                                          hintText: tr('Auth.user_name'),
                                           value: _userName,
                                           onChanged: (value) => setState(() {
                                                 _userName = value;
                                               })),
                                     )
                                   : CommonText(
-                                      "User name",
+                                      tr('Auth.user_name'),
                                       style: TextStyle(
                                           fontWeight: AppFontWeight.bold,
                                           fontSize: AppFontSize.xl),
                                     ),
-                              CommonText("Position"),
-                              CommonText("Location")
+                              CommonText(tr('Auth.position')),
+                              CommonText(tr('Auth.location'))
                             ],
                           ),
                           Expanded(
@@ -181,7 +182,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                   spacing: AppSpacing.rem200.h,
                   children: [
                     CommonText(
-                      "Personal Information",
+                      tr('Auth.personal_info'),
                       style: TextStyle(
                           fontWeight: AppFontWeight.bold,
                           fontSize: AppFontSize.xxxl),
@@ -202,7 +203,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               CommonText(
-                                "First name",
+                                tr('Common.first_name_title'),
                                 style: TextStyle(
                                     fontWeight: AppFontWeight.bold,
                                     fontSize: AppFontSize.xl),
@@ -211,18 +212,19 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                   ? SizedBox(
                                       width: AppSpacing.rem3375.w,
                                       child: CommonTextInput(
-                                          hintText: "First name",
+                                          hintText:
+                                              tr('Common.first_name_title'),
                                           value: _firstName,
                                           onChanged: (value) => setState(() {
                                                 _firstName = value;
                                               })),
                                     )
-                                  : CommonText("First name"),
+                                  : CommonText(tr('Common.first_name_title')),
                               SizedBox(
                                 height: AppSpacing.rem450.h,
                               ),
                               CommonText(
-                                "Last name",
+                                tr('Common.last_name_title'),
                                 style: TextStyle(
                                     fontWeight: AppFontWeight.bold,
                                     fontSize: AppFontSize.xl),
@@ -231,20 +233,21 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                   ? SizedBox(
                                       width: AppSpacing.rem3375.w,
                                       child: CommonTextInput(
-                                          hintText: "Last name",
+                                          hintText:
+                                              tr('Common.last_name_title'),
                                           value: _lastName,
                                           onChanged: (value) => setState(() {
                                                 _lastName = value;
                                               })),
                                     )
-                                  : CommonText("Last name"),
+                                  : CommonText(tr('Common.last_name_title')),
                             ],
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               CommonText(
-                                "Email",
+                                tr('Common.email'),
                                 style: TextStyle(
                                     fontWeight: AppFontWeight.bold,
                                     fontSize: AppFontSize.xl),
@@ -253,18 +256,18 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                   ? SizedBox(
                                       width: AppSpacing.rem3375.w,
                                       child: CommonTextInput(
-                                          hintText: "Email name",
+                                          hintText: tr('Common.email'),
                                           value: _email,
                                           onChanged: (value) => setState(() {
                                                 _email = value;
                                               })),
                                     )
-                                  : CommonText("email@gmail.com"),
+                                  : CommonText(tr('Auth.email_placeholder')),
                               SizedBox(
                                 height: AppSpacing.rem450.h,
                               ),
                               CommonText(
-                                "Phone",
+                                tr('Auth.phone'),
                                 style: TextStyle(
                                     fontWeight: AppFontWeight.bold,
                                     fontSize: AppFontSize.xl),
@@ -273,13 +276,13 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                   ? SizedBox(
                                       width: AppSpacing.rem3375.w,
                                       child: CommonTextInput(
-                                          hintText: "Phone",
+                                          hintText: tr('Auth.phone'),
                                           value: _phone,
                                           onChanged: (value) => setState(() {
                                                 _phone = value;
                                               })),
                                     )
-                                  : CommonText("0123456789"),
+                                  : CommonText(tr('Auth.phone')),
                             ],
                           ),
                           Expanded(
@@ -309,7 +312,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
               Column(
                 children: [
                   CommonText(
-                    "Saved Cameras",
+                    tr('Common.saved_cam'),
                     style: TextStyle(
                         fontWeight: AppFontWeight.bold,
                         fontSize: AppFontSize.xxxl),

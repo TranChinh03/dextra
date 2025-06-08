@@ -17,4 +17,12 @@ class AssetsSvg {
   String get bookmarkFilledIcon => 'assets/svg/bookmark_filled.svg';
   String get mailIcon => 'assets/svg/mail.svg';
   String get eyeIcon => 'assets/svg/eye_white.svg';
+  String get bicycleIcon => 'assets/svg/bicycle.svg';
+  String get motorcycleIcon => 'assets/svg/motorcycle.svg';
+  String get carIcon => 'assets/svg/car.svg';
+  String get busIcon => 'assets/svg/bus.svg';
+  String get vanIcon => 'assets/svg/van.svg';
+  String get truckIcon => 'assets/svg/truck.svg';
+  String get firetruckIcon => 'assets/svg/firetruck.svg';
+  String get containerIcon => 'assets/svg/container.svg';
 }

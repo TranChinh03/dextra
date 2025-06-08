@@ -79,7 +79,7 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                           ),
                     _selectedTab == 2
                         ? CommonPrimaryButton(
-                            text: "Detect",
+                            text: tr('Common.detect'),
                             onPressed: () {
                               setState(() {
                                 _selectedTab = 2;
@@ -87,7 +87,7 @@ class _StatisticWidgetState extends State<StatisticWidget> {
                             },
                           )
                         : CommonSecondaryButton(
-                            text: "Detect",
+                            text: tr('Common.detect'),
                             onPressed: () {
                               setState(() {
                                 _selectedTab = 2;

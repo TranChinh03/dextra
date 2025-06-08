@@ -1,4 +1,5 @@
 import 'package:dextra/domain/entities/image_detect_result.dart';
+import 'package:dextra/presentation/assets/assets.dart';
 import 'package:dextra/theme/font/app_font_size.dart';
 import 'package:dextra/theme/spacing/app_spacing.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -63,14 +64,14 @@ class DetectionPieChartState extends State<DetectionPieChart> {
     };
 
     final iconMap = {
-      'Motorcycle': 'assets/icons/motorcycle.svg',
-      'Bicycle': 'assets/icons/bicycle.svg',
-      'Car': 'assets/icons/car.svg',
-      'Van': 'assets/icons/van.svg',
-      'Truck': 'assets/icons/truck.svg',
-      'Bus': 'assets/icons/bus.svg',
-      'Fire Truck': 'assets/icons/fire_truck.svg',
-      'Container': 'assets/icons/container.svg',
+      'Motorcycle': Assets.svg.motorcycleIcon,
+      'Bicycle': Assets.svg.bicycleIcon,
+      'Car': Assets.svg.carIcon,
+      'Van': Assets.svg.vanIcon,
+      'Truck': Assets.svg.truckIcon,
+      'Bus': Assets.svg.busIcon,
+      'Fire Truck': Assets.svg.firetruckIcon,
+      'Container': Assets.svg.containerIcon,
     };
 
     final colors = [

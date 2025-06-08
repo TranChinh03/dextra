@@ -181,7 +181,7 @@ class _ExportTabState extends State<ExportTab> {
     final startTime = _parseTime(value!);
     final endTime = _parseTime(end ?? _datetimeBloc.state.timestamps.last.time);
     if (endTime.isBefore(startTime)) {
-      return 'Invalid time range';
+      return tr('Common.invalid_time_range');
     }
     return null;
   }
@@ -191,7 +191,7 @@ class _ExportTabState extends State<ExportTab> {
     final startTime =
         _parseTime(start ?? _datetimeBloc.state.timestamps.last.time);
     if (endTime.isBefore(startTime)) {
-      return 'Invalid time range';
+      return tr('Common.invalid_time_range');
     }
     return null;
   }
@@ -303,8 +303,8 @@ class _ExportTabState extends State<ExportTab> {
 
             return Column(spacing: AppSpacing.rem1000.h, children: [
               CommonHeading(
-                heading: "Overview",
-                subheading: "Statistics in Ho Chi Minh City",
+                heading: tr('Common.overview'),
+                subheading: tr('Common.statistic_hcm'),
                 headingStyle: TextStyle(
                     fontSize: AppFontSize.xlg,
                     fontWeight: AppFontWeight.bold,
@@ -315,8 +315,8 @@ class _ExportTabState extends State<ExportTab> {
                   maxY: 500000,
                   intervalY: 50000),
               CommonHeading(
-                heading: "Statistic",
-                subheading: "Statistics by date",
+                heading: tr('Common.statistic'),
+                subheading: tr('Common.statistic_by_date'),
                 headingStyle: TextStyle(
                     fontSize: AppFontSize.xlg,
                     fontWeight: AppFontWeight.bold,
@@ -328,7 +328,7 @@ class _ExportTabState extends State<ExportTab> {
                     spacing: AppSpacing.rem600.w,
                     children: [
                       CommonText(
-                        "Date",
+                        tr('Common.date'),
                         style: TextStyle(
                             fontSize: AppFontSize.xxxl,
                             fontWeight: AppFontWeight.semiBold),
@@ -347,7 +347,7 @@ class _ExportTabState extends State<ExportTab> {
                       ),
                       RichText(
                         text: TextSpan(
-                          text: "Total Vehicles: ",
+                          text: "${tr('Common.total_vehicle')}: ",
                           style: TextStyle(
                             fontSize: AppFontSize.xxxl,
                             fontWeight: AppFontWeight.semiBold,
@@ -385,7 +385,7 @@ class _ExportTabState extends State<ExportTab> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         CommonText(
-                          "Time range",
+                          tr('Common.time_range'),
                           style: TextStyle(
                               fontSize: AppFontSize.xxxl,
                               fontWeight: AppFontWeight.semiBold),
@@ -409,7 +409,7 @@ class _ExportTabState extends State<ExportTab> {
                           validator: (value) => _validateStart(value, _endTime),
                         )),
                         CommonText(
-                          "to",
+                          tr('Common.to'),
                           style: TextStyle(
                               fontSize: AppFontSize.xxl,
                               fontWeight: AppFontWeight.semiBold),
@@ -436,7 +436,7 @@ class _ExportTabState extends State<ExportTab> {
                           ),
                         ),
                         CommonPrimaryButton(
-                          text: "OK",
+                          text: tr('Common.ok'),
                           onPressed: _submitForm,
                         )
                       ],
@@ -466,7 +466,7 @@ class _ExportTabState extends State<ExportTab> {
                               : _statisticBloc.state.resultByDate.totalVehicles
                                   .toString(),
                           info:
-                              "Motorcyles: ${_statisticBloc.state.resultByCustom.numberOfMotorcycle ?? _statisticBloc.state.resultByDate.numberOfMotorcycle}",
+                              "${tr('Common.motorcycles')}: ${_statisticBloc.state.resultByCustom.numberOfMotorcycle ?? _statisticBloc.state.resultByDate.numberOfMotorcycle}",
                           textColor: colors.buttonPrimaryBackground,
                         ),
                       ),
@@ -491,8 +491,8 @@ class _ExportTabState extends State<ExportTab> {
                   vertical: AppSpacing.rem100.h,
                   horizontal: AppSpacing.rem100.w,
                 ),
-                heading: "Statistis",
-                subheading: "Statistics by region",
+                heading: tr('Common.statistic'),
+                subheading: tr('Common.statistic_by_region'),
                 headingStyle: TextStyle(
                     fontSize: AppFontSize.xlg,
                     fontWeight: AppFontWeight.bold,
@@ -506,7 +506,7 @@ class _ExportTabState extends State<ExportTab> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CommonText(
-                        "Region",
+                        tr('Common.region'),
                         style: TextStyle(
                             fontSize: AppFontSize.xxxl,
                             fontWeight: AppFontWeight.semiBold),
@@ -537,13 +537,13 @@ class _ExportTabState extends State<ExportTab> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         CommonText(
-                          "Time: ${_selectedDate ?? latestDate}",
+                          "${tr('Common.time')}: ${_selectedDate ?? latestDate}",
                           style: TextStyle(
                               fontSize: AppFontSize.xxxl,
                               fontWeight: AppFontWeight.semiBold),
                         ),
                         CommonText(
-                          "Time range",
+                          tr('Common.time_range'),
                           style: TextStyle(
                               fontSize: AppFontSize.xxxl,
                               fontWeight: AppFontWeight.semiBold),
@@ -568,7 +568,7 @@ class _ExportTabState extends State<ExportTab> {
                               _validateStart(value, _endTimeDist),
                         )),
                         CommonText(
-                          "to",
+                          tr('Common.to'),
                           style: TextStyle(
                               fontSize: AppFontSize.xxl,
                               fontWeight: AppFontWeight.semiBold),
@@ -595,7 +595,7 @@ class _ExportTabState extends State<ExportTab> {
                           ),
                         ),
                         CommonPrimaryButton(
-                          text: "OK",
+                          text: tr('Common.ok'),
                           onPressed: () => _submitFormDist(
                               _selectedDistrict ?? firstDistrict,
                               _selectedDate ?? latestDate,
@@ -609,49 +609,49 @@ class _ExportTabState extends State<ExportTab> {
                     children: [
                       Expanded(
                         child: SmallStatisticCard(
-                          title: "Bicycles",
+                          title: tr('Common.bicycles'),
                           value:
                               statisticState.resultByDistrict.numberOfBicycle,
                         ),
                       ),
                       Expanded(
                         child: SmallStatisticCard(
-                          title: "Motorcycles",
+                          title: tr('Common.motorcycles'),
                           value: statisticState
                               .resultByDistrict.numberOfMotorcycle,
                         ),
                       ),
                       Expanded(
                         child: SmallStatisticCard(
-                          title: "Cars",
+                          title: tr('Common.cars'),
                           value: statisticState.resultByDistrict.numberOfCar
                               .toString(),
                         ),
                       ),
                       Expanded(
                         child: SmallStatisticCard(
-                          title: "Vans",
+                          title: tr('Common.vans'),
                           value: statisticState.resultByDistrict.numberOfVan
                               .toString(),
                         ),
                       ),
                       Expanded(
                         child: SmallStatisticCard(
-                          title: "Trucks",
+                          title: tr('Common.trucks'),
                           value: statisticState.resultByDistrict.numberOfTruck
                               .toString(),
                         ),
                       ),
                       Expanded(
                         child: SmallStatisticCard(
-                          title: "Buses",
+                          title: tr('Common.buses'),
                           value: statisticState.resultByDistrict.numberOfBus
                               .toString(),
                         ),
                       ),
                       Expanded(
                         child: SmallStatisticCard(
-                          title: "Fire Trucks",
+                          title: tr('Common.fire_trucks'),
                           value: statisticState
                               .resultByDistrict.numberOfFireTruck
                               .toString(),
@@ -659,7 +659,7 @@ class _ExportTabState extends State<ExportTab> {
                       ),
                       Expanded(
                         child: SmallStatisticCard(
-                          title: "Containers",
+                          title: tr('Common.containers'),
                           value: statisticState
                               .resultByDistrict.numberOfContainer
                               .toString(),
@@ -685,7 +685,7 @@ class _ExportTabState extends State<ExportTab> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CommonText(
-                      "Camera",
+                      tr('Common.camera'),
                       style: TextStyle(
                           fontSize: AppFontSize.xxxl,
                           fontWeight: AppFontWeight.semiBold),
@@ -728,15 +728,14 @@ class _ExportTabState extends State<ExportTab> {
                       value: _statisticBloc.state.resultByCamera.totalVehicles
                           .toString(),
                       info:
-                          "Max: ${_statisticBloc.state.resultByCamera.numberOfMotorcycle} motorcycles",
+                          "${tr('Common.max')}: ${_statisticBloc.state.resultByCamera.numberOfMotorcycle} motorcycles",
                       textColor: colors.buttonPrimaryBackground,
                     )
                   ],
                 ),
                 CommonHeading(
-                  heading: "Vehicle Heatmap Overview",
-                  subheading:
-                      "Visualize traffic concentration across monitored areas",
+                  heading: tr('Common.heatmap_overview'),
+                  subheading: tr('Common.visualize'),
                   headingStyle: TextStyle(
                       fontSize: AppFontSize.xlg,
                       fontWeight: AppFontWeight.bold,
@@ -747,7 +746,7 @@ class _ExportTabState extends State<ExportTab> {
                   children: [
                     Row(spacing: AppSpacing.rem300.w, children: [
                       CommonText(
-                        "Date",
+                        tr('Common.date'),
                         style: TextStyle(
                             fontSize: AppFontSize.xxxl,
                             fontWeight: AppFontWeight.semiBold),
@@ -767,11 +766,11 @@ class _ExportTabState extends State<ExportTab> {
                       SizedBox(
                         width: AppSpacing.rem4150.w,
                         child: SimpleDropdown(
-                            value: _selectedVehicle ?? "All",
+                            value: _selectedVehicle ?? tr('Common.all'),
                             itemsList: [
                               DropdownMenuItem<String>(
-                                value: "All",
-                                child: Text("All"),
+                                value: tr('Common.all'),
+                                child: Text(tr('Common.all')),
                               ),
                               ..._cameraBloc.state.vehicles.map((option) {
                                 return DropdownMenuItem<String>(
@@ -791,7 +790,7 @@ class _ExportTabState extends State<ExportTab> {
                         spacing: AppSpacing.rem600.w,
                         children: [
                           CommonText(
-                            "From",
+                            tr('Common.from'),
                             style: TextStyle(
                                 fontSize: AppFontSize.xxl,
                                 fontWeight: AppFontWeight.semiBold),
@@ -817,7 +816,7 @@ class _ExportTabState extends State<ExportTab> {
                                 _validateStart(value, _endTimeHeatmap),
                           )),
                           CommonText(
-                            "to",
+                            tr('Common.to'),
                             style: TextStyle(
                                 fontSize: AppFontSize.xxl,
                                 fontWeight: AppFontWeight.semiBold),
@@ -844,25 +843,26 @@ class _ExportTabState extends State<ExportTab> {
                             ),
                           ),
                           CommonPrimaryButton(
-                            text: "OK",
+                            text: tr('Common.ok'),
                             onPressed: _submitFormHeatmap,
                           )
                         ],
                       ),
-                    )
+                    ),
+                    CommonText(
+                        "${tr('Common.heatmap_on')} ${_selectedDayHeatmap ?? latestDate},  ${_startTimeHeatmap ?? "00:00:00"} to ${_endTimeHeatmap ?? "24:00:00"}"),
+                    Container(
+                        margin:
+                            EdgeInsets.symmetric(vertical: AppSpacing.rem600.h),
+                        height: AppSpacing.rem8975.h,
+                        width: double.infinity,
+                        color: colors.primaryBannerBg,
+                        child: TrafficHeatmap(
+                          data: _statisticBloc.state.resultHeatmap,
+                          vehicle: _selectedVehicle ?? tr('Common.all'),
+                        ))
                   ],
                 ),
-                CommonText(
-                    "Vehicle Heatmap on ${_selectedDayHeatmap ?? latestDate},  ${_startTimeHeatmap ?? "00:00:00"} to ${_endTimeHeatmap ?? "24:00:00"}"),
-                Container(
-                    margin: EdgeInsets.symmetric(vertical: AppSpacing.rem600.h),
-                    height: AppSpacing.rem8975.h,
-                    width: double.infinity,
-                    color: colors.primaryBannerBg,
-                    child: TrafficHeatmap(
-                      data: _statisticBloc.state.resultHeatmap,
-                      vehicle: _selectedVehicle ?? "All",
-                    ))
               ])
             ]);
           });
