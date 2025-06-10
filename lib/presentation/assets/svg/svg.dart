@@ -25,4 +25,5 @@ class AssetsSvg {
   String get truckIcon => 'assets/svg/truck.svg';
   String get firetruckIcon => 'assets/svg/firetruck.svg';
   String get containerIcon => 'assets/svg/container.svg';
+  String get cameraV2Icon => 'assets/svg/camera_v2.svg';
 }
