@@ -1,6 +1,6 @@
-import 'dart:typed_data';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dextra/di/injectable.dart';
+import 'package:dextra/main.dart';
 import 'package:dextra/presentation/assets/assets.dart';
 import 'package:dextra/presentation/modules/commons/bloc/camera/camera_bloc.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_camera_button.dart';
@@ -26,6 +26,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ProfileWidget extends StatefulWidget {
   const ProfileWidget({super.key});
@@ -39,12 +40,11 @@ class _ProfileWidgetState extends State<ProfileWidget> {
 
   bool _isEditingDetail = false;
   bool _isEditingProfile = false;
-  final _formKey = GlobalKey<FormState>();
   final _formKeyProfile = GlobalKey<FormState>();
-  final ImagePicker _picker = ImagePicker();
 
   bool _isProfileLoading = false;
   bool _isDetailLoading = false;
+  bool _isAvatarLoading = false;
   String? _displayName;
   String? _position;
   String? _location;
@@ -54,6 +54,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
   String? _email;
   String? _phone;
   XFile? _avatar;
+  String? _avatarUrl;
+
+  final firestore = FirebaseFirestore.instance;
+  get data => null;
 
   final _displayNameController = TextEditingController();
   final _positionController = TextEditingController();
@@ -68,17 +72,54 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     _onGetUserProfile();
   }
 
-  Future<void> _pickImage() async {
-    try {
-      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        setState(() {
-          _avatar = image;
-        });
-      }
-    } catch (e) {
-      // print('Errors: $e');
+  Future<XFile?> _pickImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      setState(() {
+        _avatar = image;
+      });
     }
+    return image;
+  }
+
+  Future<String?> _onUploadAvatar(String userId) async {
+    String? resultUrl = _avatarUrl;
+    if (_avatar == null) return resultUrl;
+    setState(() => _isAvatarLoading = true);
+    try {
+      final bytes = await _avatar?.readAsBytes();
+      // final fileExt = _avatar?.path.split('.').last;
+      final fileExt = 'jpg';
+      final fileName = '$userId.$fileExt';
+      final filePath = fileName;
+      await supabase.storage.from('avatars').uploadBinary(
+            filePath,
+            bytes!,
+            fileOptions: FileOptions(
+              contentType: _avatar?.mimeType,
+              upsert: true,
+            ),
+          );
+      final imageUrlResponse = await supabase.storage
+          .from('avatars')
+          .createSignedUrl(filePath, 60 * 60 * 24 * 365 * 10);
+      resultUrl = imageUrlResponse;
+    } on StorageException catch (error) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(error.message)),
+        );
+      }
+    } catch (error) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Unexpected error occurred')),
+        );
+      }
+    }
+    setState(() => _isAvatarLoading = false);
+    return resultUrl;
   }
 
   _onGetUserProfile() async {
@@ -103,6 +144,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
         _phone =
             _phoneControlller.text = profileData['phone'] ?? tr('Auth.phone');
         _email = profileData['email'] ?? tr('Auth.email');
+        _avatarUrl = profileData['avatarUrl'];
+        _avatar = XFile(profileData['avatarUrl']);
       });
     }
   }
@@ -111,17 +154,20 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     setState(() => _isProfileLoading = true);
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
+      final avtUrl = await _onUploadAvatar(user.uid);
       await FirebaseDbService().update(path: 'users/${user.uid}', data: {
         "displayName": _displayNameController.text.trim(),
         "position": _positionController.text.trim(),
-        "location": _locationController.text.trim()
+        "location": _locationController.text.trim(),
+        "avatarUrl": avtUrl
       });
+
+      setState(() {
+        _isEditingProfile = false;
+        _isProfileLoading = false;
+      });
+      _onGetUserProfile();
     }
-    setState(() {
-      _isEditingProfile = false;
-      _isProfileLoading = false;
-    });
-    _onGetUserProfile();
   }
 
   _onUpdateDetail() async {
@@ -146,6 +192,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
       _displayNameController.text = _displayName ?? tr('Auth.user_name');
       _positionController.text = _position ?? tr('Auth.position');
       _locationController.text = _location ?? tr('Auth.location');
+      _avatar = XFile(_avatarUrl ?? "");
       _isEditingProfile = false;
     });
 
@@ -223,40 +270,30 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                               children: [
                                 Stack(children: [
                                   _avatar != null
-                                      ? FutureBuilder<Uint8List>(
-                                          future: _avatar!.readAsBytes(),
-                                          builder: (context, snapshot) {
-                                            if (snapshot.connectionState ==
-                                                ConnectionState.waiting) {
-                                              return Center(
-                                                  child:
-                                                      CircularProgressIndicator());
-                                            } else if (snapshot.hasError) {
-                                              return Text(
-                                                  tr('Common.err_loading'));
-                                            } else if (snapshot.hasData) {
-                                              return Center(
-                                                child: Image.memory(
-                                                  snapshot.data!,
-                                                  width: AppSpacing.rem9999.w,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              );
-                                            } else {
-                                              return Text(
-                                                  tr('Common.no_img_date'));
-                                            }
-                                          },
-                                        )
-                                      : CommonImage(
-                                          imagePath: Assets.png.avatar.path,
-                                          width: AppSpacing.rem1925.w,
+                                      ? ClipOval(
+                                          child: SizedBox(
+                                              width: AppSpacing.rem1925.w,
+                                              height: AppSpacing.rem1925.w,
+                                              child: CommonImage(
+                                                imageUrl: _avatar?.path,
+                                              )))
+                                      : ClipOval(
+                                          child: SizedBox(
+                                            width: AppSpacing.rem1925.w,
+                                            height: AppSpacing.rem1925.w,
+                                            child: CommonImage(
+                                              imagePath:
+                                                  Assets.png.placeHolder.path,
+                                            ),
+                                          ),
                                         ),
                                   _isEditingProfile
-                                      ? CommonCameraButton()
+                                      ? CommonCameraButton(
+                                          onPressed: _pickImage,
+                                        )
                                       : SizedBox()
                                 ]),
-                                _isEditingProfile
+                                _isEditingProfile || _isAvatarLoading
                                     ? Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
