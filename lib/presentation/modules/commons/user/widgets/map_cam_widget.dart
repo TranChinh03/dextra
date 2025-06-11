@@ -188,46 +188,46 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                     isCliked: updateCurrentPos,
                     scrollToTop: _scrollToTop,
                   ),
-                  CommonHeading(
-                    heading: tr('Common.analyze_traffic'),
-                    subheading: tr('Common.analyze_traffic_info'),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SearchBox(
-                        onChanged: (value) => {},
-                      ),
-                      CommonText(
-                        "${tr('Common.time')}: ",
-                        style: TextStyle(fontWeight: AppFontWeight.bold),
-                      ),
-                      // DateTimePicker(label: '', onPressed: () {}, isDate: true)
-                    ],
-                  ),
-                  GridView.count(
-                    padding:
-                        EdgeInsets.symmetric(vertical: AppSpacing.rem600.h),
-                    crossAxisCount: 3,
-                    crossAxisSpacing: AppSpacing.rem300.w,
-                    mainAxisSpacing: AppSpacing.rem300.h,
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    children: imageList,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CommonStatisticCard(
-                        label: tr('Common.avg_congestion_label'),
-                        value: tr('Common.default_avg_congestion'),
-                        info: tr('Common.peak_congestion_label') +
-                            tr('Common.default_peak_congestion_value'),
-                        background: colors.cardBackground2,
-                        decoration: colors.cardDecorate2,
-                      ),
-                    ],
-                  ),
+                  // CommonHeading(
+                  //   heading: tr('Common.analyze_traffic'),
+                  //   subheading: tr('Common.analyze_traffic_info'),
+                  // ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     SearchBox(
+                  //       onChanged: (value) => {},
+                  //     ),
+                  //     CommonText(
+                  //       "${tr('Common.time')}: ",
+                  //       style: TextStyle(fontWeight: AppFontWeight.bold),
+                  //     ),
+                  //     // DateTimePicker(label: '', onPressed: () {}, isDate: true)
+                  //   ],
+                  // ),
+                  // GridView.count(
+                  //   padding:
+                  //       EdgeInsets.symmetric(vertical: AppSpacing.rem600.h),
+                  //   crossAxisCount: 3,
+                  //   crossAxisSpacing: AppSpacing.rem300.w,
+                  //   mainAxisSpacing: AppSpacing.rem300.h,
+                  //   shrinkWrap: true,
+                  //   physics: NeverScrollableScrollPhysics(),
+                  //   children: imageList,
+                  // ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     CommonStatisticCard(
+                  //       label: tr('Common.avg_congestion_label'),
+                  //       value: tr('Common.default_avg_congestion'),
+                  //       info: tr('Common.peak_congestion_label') +
+                  //           tr('Common.default_peak_congestion_value'),
+                  //       background: colors.cardBackground2,
+                  //       decoration: colors.cardDecorate2,
+                  //     ),
+                  //   ],
+                  // ),
                 ],
               ),
             ),

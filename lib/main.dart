@@ -4,6 +4,7 @@ import 'package:dextra/presentation/locale/localization.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 // // Change to false to use live database instance.
 // const USE_DATABASE_EMULATOR = true;
@@ -33,6 +34,11 @@ void main() async {
         measurementId: "G-4NC360W3KC"),
   );
 
+  await Supabase.initialize(
+    url: 'https://xciyqbvsbxdywrqpgssx.supabase.co',
+    anonKey:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhjaXlxYnZzYnhkeXdycXBnc3N4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2Mjg1MDUsImV4cCI6MjA2NTIwNDUwNX0.mopYyujelOqFAIFqLjwzs1X5af-NmKZqmGUE3f2quYQ',
+  );
   // if (USE_DATABASE_EMULATOR) {
   //   FirebaseDatabase.instance.useDatabaseEmulator(emulatorHost, emulatorPort);
   // }
@@ -41,7 +47,6 @@ void main() async {
     EasyLocalization.ensureInitialized(),
     configureDependencies(),
   ]);
-
   // runApp(const App());
   runApp(
     EasyLocalization(
@@ -53,3 +58,5 @@ void main() async {
     ),
   );
 }
+
+final supabase = Supabase.instance.client;

@@ -5,15 +5,17 @@ import 'package:flutter/material.dart';
 class CommonTextInput extends StatefulWidget {
   final String hintText;
   final bool isPassword;
-  final String value;
+  final TextEditingController? controller;
+  final String? value;
   final ValueChanged<String> onChanged;
 
   const CommonTextInput({
     super.key,
     required this.hintText,
     this.isPassword = false,
-    required this.value,
+    this.value,
     required this.onChanged,
+    this.controller,
   });
 
   @override
@@ -28,7 +30,8 @@ class _CommonTextInputState extends State<CommonTextInput> {
   void initState() {
     super.initState();
     _isObscured = widget.isPassword;
-    _controller = TextEditingController(text: widget.value);
+    _controller =
+        widget.controller ?? TextEditingController(text: widget.value);
 
     // Listen to controller changes and call the onChanged callback
     _controller.addListener(() {
@@ -44,7 +47,7 @@ class _CommonTextInputState extends State<CommonTextInput> {
 
     // Update the controller's text if the widget's value changes
     if (widget.value != _controller.text) {
-      _controller.text = widget.value;
+      _controller.text = widget.value ?? "";
       _controller.selection = TextSelection.fromPosition(
         TextPosition(offset: _controller.text.length),
       );
@@ -53,7 +56,7 @@ class _CommonTextInputState extends State<CommonTextInput> {
 
   @override
   void dispose() {
-    _controller.dispose();
+    if (widget.controller == null) _controller.dispose();
     super.dispose();
   }
 
