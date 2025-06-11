@@ -33,4 +33,8 @@ class FirebaseDbService {
     final DatabaseReference ref = _database.ref().child(path);
     await ref.remove();
   }
+
+  DatabaseReference getReference({required String path}) {
+    return _database.ref(path);
+  }
 }

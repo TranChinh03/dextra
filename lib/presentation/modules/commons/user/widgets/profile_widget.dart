@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dextra/di/injectable.dart';
 import 'package:dextra/main.dart';
@@ -38,6 +40,8 @@ class ProfileWidget extends StatefulWidget {
 class _ProfileWidgetState extends State<ProfileWidget> {
   final _cameraBloc = getIt.get<CameraBloc>();
 
+  StreamSubscription<DatabaseEvent>? _userSubscription;
+
   bool _isEditingDetail = false;
   bool _isEditingProfile = false;
   final _formKeyProfile = GlobalKey<FormState>();
@@ -55,6 +59,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
   String? _phone;
   XFile? _avatar;
   String? _avatarUrl;
+  List? _savedCams;
 
   final firestore = FirebaseFirestore.instance;
   get data => null;
@@ -68,8 +73,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
 
   @override
   void initState() {
-    super.initState();
     _onGetUserProfile();
+    _onGetSavedCam();
+    super.initState();
   }
 
   Future<XFile?> _pickImage() async {
@@ -84,34 +90,31 @@ class _ProfileWidgetState extends State<ProfileWidget> {
   }
 
   Future<String?> _onUploadAvatar(String userId) async {
-    String? resultUrl = _avatarUrl;
-    if (_avatar == null) return resultUrl;
+    if (_avatar == null) return _avatarUrl;
     setState(() => _isAvatarLoading = true);
     try {
-      final bytes = await _avatar?.readAsBytes();
-      // final fileExt = _avatar?.path.split('.').last;
-      final fileExt = 'jpg';
-      final fileName = '$userId.$fileExt';
-      final filePath = fileName;
+      final bytes = await _avatar!.readAsBytes();
+      final fileName = '$userId.jpg';
       await supabase.storage.from('avatars').uploadBinary(
-            filePath,
-            bytes!,
+            fileName,
+            bytes,
             fileOptions: FileOptions(
-              contentType: _avatar?.mimeType,
+              contentType: _avatar!.mimeType,
               upsert: true,
             ),
           );
-      final imageUrlResponse = await supabase.storage
+      final imageUrl = await supabase.storage
           .from('avatars')
-          .createSignedUrl(filePath, 60 * 60 * 24 * 365 * 10);
-      resultUrl = imageUrlResponse;
+          .createSignedUrl(fileName, 60 * 60 * 24 * 365 * 10);
+      setState(() => _isAvatarLoading = false);
+      return imageUrl;
     } on StorageException catch (error) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(error.message)),
         );
       }
-    } catch (error) {
+    } catch (_) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Unexpected error occurred')),
@@ -119,7 +122,26 @@ class _ProfileWidgetState extends State<ProfileWidget> {
       }
     }
     setState(() => _isAvatarLoading = false);
-    return resultUrl;
+    return _avatarUrl;
+  }
+
+  void _onGetSavedCam() {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      // Listen to real-time changes in the database
+      _userSubscription = FirebaseDbService()
+          .getReference(path: 'users/${user.uid}')
+          .onValue
+          .listen((event) {
+        final dataSnapshot = event.snapshot;
+        final profileData = dataSnapshot.value as Map;
+        if (mounted) {
+          setState(() {
+            _savedCams = profileData['savedCameras'] ?? [];
+          });
+        }
+      });
+    }
   }
 
   _onGetUserProfile() async {
@@ -144,29 +166,36 @@ class _ProfileWidgetState extends State<ProfileWidget> {
         _phone =
             _phoneControlller.text = profileData['phone'] ?? tr('Auth.phone');
         _email = profileData['email'] ?? tr('Auth.email');
-        _avatarUrl = profileData['avatarUrl'];
-        _avatar = XFile(profileData['avatarUrl']);
+        _avatarUrl = profileData['avatarUrl'] ?? "";
+        _avatar = XFile(profileData['avatarUrl'] ?? "");
       });
     }
   }
 
-  _onUpdateProfile() async {
+  Future<void> _onUpdateProfile() async {
+    final data = {
+      "displayName": _displayNameController.text.trim(),
+      "position": _positionController.text.trim(),
+      "location": _locationController.text.trim(),
+    };
     setState(() => _isProfileLoading = true);
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       final avtUrl = await _onUploadAvatar(user.uid);
-      await FirebaseDbService().update(path: 'users/${user.uid}', data: {
-        "displayName": _displayNameController.text.trim(),
-        "position": _positionController.text.trim(),
-        "location": _locationController.text.trim(),
-        "avatarUrl": avtUrl
-      });
-
+      await FirebaseDbService().update(
+        path: 'users/${user.uid}',
+        data: {
+          ...data,
+          "avatarUrl": avtUrl,
+        },
+      );
+      // _onGetUserProfile();
       setState(() {
         _isEditingProfile = false;
         _isProfileLoading = false;
       });
-      _onGetUserProfile();
+    } else {
+      setState(() => _isProfileLoading = false);
     }
   }
 
@@ -180,11 +209,11 @@ class _ProfileWidgetState extends State<ProfileWidget> {
         "phone": _phoneControlller.text.trim()
       });
     }
+    // _onGetUserProfile();
     setState(() {
       _isEditingDetail = false;
       _isDetailLoading = false;
     });
-    _onGetUserProfile();
   }
 
   void _cancelEditProfile() {
@@ -223,6 +252,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     _firstNameController.dispose();
     _lastNameController.dispose();
     _phoneControlller.dispose();
+    _userSubscription?.cancel();
     super.dispose();
   }
 
@@ -234,6 +264,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
         value: _cameraBloc,
         child: BlocBuilder<CameraBloc, CameraState>(builder: (context, state) {
           return ScreenContainer(
+            isShowLoading:
+                _isAvatarLoading || _isDetailLoading || _isProfileLoading,
             child: SizedBox(
               width: double.infinity,
               child: SingleChildScrollView(
@@ -598,25 +630,31 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                         Padding(
                           padding: const EdgeInsets.symmetric(
                               vertical: AppSpacing.rem600),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: _cameraBloc.state.cameras
-                                .take(3)
-                                .map((camera) => CameraImgItem(
-                                      name: camera.name,
-                                      cameraId: camera.privateId,
-                                      time: camera.lastModified != null
-                                          ? DateFormat('dd MMMM yyyy')
-                                              .format(camera.lastModified!)
-                                          : '',
-                                      isSaved: true,
-                                      onPressed: () => showDialog(
-                                          context: context,
-                                          builder: (context) => ImageDialog(
-                                                selectedCam: camera,
-                                              )),
-                                    ))
-                                .toList(),
+                          child: Wrap(
+                            spacing: AppSpacing.rem100.w,
+                            runSpacing:
+                                AppSpacing.rem100.h, // space between lines
+                            children: _savedCams != null
+                                ? _cameraBloc.state.cameras
+                                    .where((cam) =>
+                                        _savedCams?.contains(cam.privateId) ==
+                                        true)
+                                    .map((camera) => CameraImgItem(
+                                          name: camera.name,
+                                          cameraId: camera.privateId,
+                                          time: camera.lastModified != null
+                                              ? DateFormat('dd MMMM yyyy')
+                                                  .format(camera.lastModified!)
+                                              : '',
+                                          isSaved: true,
+                                          onPressed: () => showDialog(
+                                              context: context,
+                                              builder: (context) => ImageDialog(
+                                                    selectedCam: camera,
+                                                  )),
+                                        ))
+                                    .toList()
+                                : [],
                           ),
                         ),
                       ],

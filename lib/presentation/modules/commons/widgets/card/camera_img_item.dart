@@ -4,12 +4,15 @@ import 'package:dextra/presentation/assets/assets.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/commonImage/common_image.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
+import 'package:dextra/service/firebase_db_service.dart';
 import 'package:dextra/theme/border/app_border_radius.dart';
 import 'package:dextra/theme/color/app_color.dart';
 import 'package:dextra/theme/font/app_font_size.dart';
 import 'package:dextra/theme/font/app_font_weight.dart';
 import 'package:dextra/theme/spacing/app_spacing.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -55,6 +58,38 @@ class _CameraImgItemState extends State<CameraImgItem> {
     });
   }
 
+  _addCamera() async {
+    final user = FirebaseAuth.instance.currentUser;
+    var cameraIds = [];
+    if (user != null) {
+      DataSnapshot? userDataSnapshot = await FirebaseDbService()
+          .read(path: 'users/${user.uid}/savedCameras');
+      userDataSnapshot != null
+          ? cameraIds = userDataSnapshot.value as List
+          : null;
+      if (!cameraIds.contains(widget.cameraId)) {
+        await FirebaseDbService().update(path: 'users/${user.uid}', data: {
+          "savedCameras": [...cameraIds, widget.cameraId]
+        });
+      }
+    }
+  }
+
+  _removeCam() async {
+    final user = FirebaseAuth.instance.currentUser;
+    var cameraIds = [];
+    if (user != null) {
+      DataSnapshot? userDataSnapshot = await FirebaseDbService()
+          .read(path: 'users/${user.uid}/savedCameras');
+      userDataSnapshot != null
+          ? cameraIds = userDataSnapshot.value as List
+          : null;
+      cameraIds.remove(widget.cameraId);
+      await FirebaseDbService()
+          .update(path: 'users/${user.uid}', data: {"savedCameras": cameraIds});
+    }
+  }
+
   @override
   void dispose() {
     _timer?.cancel();
@@ -96,6 +131,7 @@ class _CameraImgItemState extends State<CameraImgItem> {
                       setState(() {
                         isFavorite = !isFavorite;
                       });
+                      isFavorite ? _addCamera() : _removeCam();
                     },
                     child: SvgPicture.asset(
                       isFavorite

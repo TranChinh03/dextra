@@ -22,23 +22,34 @@ class CommonAppBar extends StatefulWidget {
 
 class _CommonAppBarState extends State<CommonAppBar> {
   String? username;
+  String? avatarUrl;
   @override
   void initState() {
-    _onGetDisplayName();
+    _listenToDisplayName();
     super.initState();
-    // Optionally, you can add any initialization logic here
   }
 
-  _onGetDisplayName() async {
+  void _listenToDisplayName() {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      DataSnapshot? userDataSnapshot =
-          await FirebaseDbService().read(path: 'users/${user.uid}/displayName');
+      // Listen to real-time changes in the database
+      FirebaseDbService()
+          .getReference(path: 'users/${user.uid}')
+          .onValue
+          .listen((event) {
+        final dataSnapshot = event.snapshot;
+        final profileData = dataSnapshot.value as Map;
+        setState(() {
+          username = profileData['displayName'] as String? ?? 'Guest';
+          avatarUrl = profileData['avatarUrl'];
+        });
+      });
+    } else {
       setState(() {
-        username = userDataSnapshot?.value as String?;
+        username = 'Guest';
+        avatarUrl = "";
       });
     }
-    return 'Guest';
   }
 
   @override
@@ -89,10 +100,23 @@ class _CommonAppBarState extends State<CommonAppBar> {
                   children: [
                     InkWell(
                       onTap: () => {DextraRouter.go(ScreenPath.profile.value)},
-                      child: CommonImage(
-                        imagePath: Assets.png.avatar.path,
-                        width: AppSpacing.rem700.w,
-                      ),
+                      child: avatarUrl != "" && avatarUrl != null
+                          ? ClipOval(
+                              child: SizedBox(
+                                  width: AppSpacing.rem800.w,
+                                  height: AppSpacing.rem800.w,
+                                  child: CommonImage(
+                                    imageUrl: avatarUrl,
+                                  )))
+                          : ClipOval(
+                              child: SizedBox(
+                                width: AppSpacing.rem800.w,
+                                height: AppSpacing.rem800.w,
+                                child: CommonImage(
+                                  imagePath: Assets.png.placeHolder.path,
+                                ),
+                              ),
+                            ),
                     ),
                   ],
                 )
