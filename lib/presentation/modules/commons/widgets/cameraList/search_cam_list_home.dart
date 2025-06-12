@@ -10,8 +10,11 @@ import 'package:dextra/presentation/modules/commons/widgets/card/camera_img_item
 import 'package:dextra/presentation/modules/commons/widgets/dialog/image_dialog.dart';
 import 'package:dextra/presentation/modules/commons/widgets/input/search_box.dart';
 import 'package:dextra/presentation/router/router_config/router.dart';
+import 'package:dextra/service/firebase_db_service.dart';
 import 'package:dextra/theme/spacing/app_spacing.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,12 +30,34 @@ class SearchCamListHome extends StatefulWidget {
 }
 
 class _SearchCamListHomeState extends State<SearchCamListHome> {
+  StreamSubscription<DatabaseEvent>? _userSubscription;
+  List? _savedCams;
+
   int currentPage = 1;
   String searchText = "";
   String currentDistrict = "All";
 
   final _searchBloc = getIt.get<SearchBloc>();
   Timer? _debounce;
+
+  void _onGetSavedCam() {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      // Listen to real-time changes in the database
+      _userSubscription = FirebaseDbService()
+          .getReference(path: 'users/${user.uid}')
+          .onValue
+          .listen((event) {
+        final dataSnapshot = event.snapshot;
+        final profileData = dataSnapshot.value as Map;
+        if (mounted) {
+          setState(() {
+            _savedCams = profileData['savedCameras'] ?? [];
+          });
+        }
+      });
+    }
+  }
 
   void _onSearchTextChanged(String value) {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
@@ -54,6 +79,8 @@ class _SearchCamListHomeState extends State<SearchCamListHome> {
 
   @override
   void initState() {
+    _onGetSavedCam();
+
     super.initState();
     // _searchBloc.add(
     //   SearchCamerasEvent(
@@ -63,6 +90,12 @@ class _SearchCamListHomeState extends State<SearchCamListHome> {
     //     ),
     //   ),
     // );
+  }
+
+  @override
+  void dispose() {
+    _userSubscription?.cancel();
+    super.dispose();
   }
 
   @override
@@ -83,7 +116,8 @@ class _SearchCamListHomeState extends State<SearchCamListHome> {
                   ),
                 ],
               ),
-              if (state.apiStatus == ApiStatus.loading) ...[
+              if (state.apiStatus == ApiStatus.loading ||
+                  _savedCams == null) ...[
                 Center(
                   child: CircularProgressIndicator(),
                 )
@@ -102,7 +136,7 @@ class _SearchCamListHomeState extends State<SearchCamListHome> {
                                   ? DateFormat('dd MMMM yyyy')
                                       .format(camera.lastModified!)
                                   : '',
-                              isSaved: false,
+                              isSaved: _savedCams!.contains(camera.privateId),
                               onPressed: () => showDialog(
                                   context: context,
                                   builder: (context) => ImageDialog(
