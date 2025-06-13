@@ -28,12 +28,6 @@ class DetectByCameratEvent extends StatisticEvent {
   DetectByCameratEvent({required this.query});
 }
 
-class FetchHeatmapEvent extends StatisticEvent {
-  final FetchHeatmapQuery query;
-
-  FetchHeatmapEvent({required this.query});
-}
-
 class TrackingByDateEvent extends StatisticEvent {}
 
 class SendEmailByDateEvent extends StatisticEvent {

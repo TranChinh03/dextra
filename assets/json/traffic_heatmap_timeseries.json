@@ -1,0 +1,6290 @@
+[
+  {
+    "timestamp": "2025-06-02 00:00:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 27,
+        "numberOfMotorcycle": 13,
+        "numberOfCar": 49,
+        "numberOfVan": 28,
+        "numberOfTruck": 16,
+        "numberOfBus": 30,
+        "numberOfFireTruck": 34,
+        "numberOfContainer": 36
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 37,
+        "numberOfMotorcycle": 28,
+        "numberOfCar": 47,
+        "numberOfVan": 39,
+        "numberOfTruck": 48,
+        "numberOfBus": 15,
+        "numberOfFireTruck": 34,
+        "numberOfContainer": 48
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 45,
+        "numberOfMotorcycle": 34,
+        "numberOfCar": 24,
+        "numberOfVan": 30,
+        "numberOfTruck": 41,
+        "numberOfBus": 26,
+        "numberOfFireTruck": 37,
+        "numberOfContainer": 33
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 27,
+        "numberOfMotorcycle": 29,
+        "numberOfCar": 20,
+        "numberOfVan": 34,
+        "numberOfTruck": 47,
+        "numberOfBus": 18,
+        "numberOfFireTruck": 11,
+        "numberOfContainer": 17
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 30,
+        "numberOfMotorcycle": 33,
+        "numberOfCar": 11,
+        "numberOfVan": 30,
+        "numberOfTruck": 12,
+        "numberOfBus": 32,
+        "numberOfFireTruck": 19,
+        "numberOfContainer": 14
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 25,
+        "numberOfMotorcycle": 27,
+        "numberOfCar": 23,
+        "numberOfVan": 16,
+        "numberOfTruck": 25,
+        "numberOfBus": 46,
+        "numberOfFireTruck": 20,
+        "numberOfContainer": 33
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 31,
+        "numberOfMotorcycle": 17,
+        "numberOfCar": 41,
+        "numberOfVan": 36,
+        "numberOfTruck": 10,
+        "numberOfBus": 48,
+        "numberOfFireTruck": 28,
+        "numberOfContainer": 31
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 00:30:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 19,
+        "numberOfMotorcycle": 49,
+        "numberOfCar": 43,
+        "numberOfVan": 29,
+        "numberOfTruck": 48,
+        "numberOfBus": 39,
+        "numberOfFireTruck": 14,
+        "numberOfContainer": 42
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 10,
+        "numberOfMotorcycle": 40,
+        "numberOfCar": 20,
+        "numberOfVan": 38,
+        "numberOfTruck": 28,
+        "numberOfBus": 13,
+        "numberOfFireTruck": 46,
+        "numberOfContainer": 15
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 38,
+        "numberOfMotorcycle": 25,
+        "numberOfCar": 36,
+        "numberOfVan": 33,
+        "numberOfTruck": 37,
+        "numberOfBus": 13,
+        "numberOfFireTruck": 36,
+        "numberOfContainer": 16
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 34,
+        "numberOfMotorcycle": 21,
+        "numberOfCar": 43,
+        "numberOfVan": 41,
+        "numberOfTruck": 26,
+        "numberOfBus": 37,
+        "numberOfFireTruck": 33,
+        "numberOfContainer": 46
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 45,
+        "numberOfMotorcycle": 23,
+        "numberOfCar": 29,
+        "numberOfVan": 31,
+        "numberOfTruck": 35,
+        "numberOfBus": 35,
+        "numberOfFireTruck": 29,
+        "numberOfContainer": 40
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 20,
+        "numberOfMotorcycle": 37,
+        "numberOfCar": 36,
+        "numberOfVan": 11,
+        "numberOfTruck": 42,
+        "numberOfBus": 34,
+        "numberOfFireTruck": 18,
+        "numberOfContainer": 15
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 50,
+        "numberOfMotorcycle": 46,
+        "numberOfCar": 13,
+        "numberOfVan": 26,
+        "numberOfTruck": 50,
+        "numberOfBus": 48,
+        "numberOfFireTruck": 46,
+        "numberOfContainer": 31
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 01:00:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 25,
+        "numberOfMotorcycle": 35,
+        "numberOfCar": 20,
+        "numberOfVan": 28,
+        "numberOfTruck": 50,
+        "numberOfBus": 50,
+        "numberOfFireTruck": 24,
+        "numberOfContainer": 41
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 10,
+        "numberOfMotorcycle": 40,
+        "numberOfCar": 43,
+        "numberOfVan": 21,
+        "numberOfTruck": 30,
+        "numberOfBus": 14,
+        "numberOfFireTruck": 22,
+        "numberOfContainer": 13
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 26,
+        "numberOfMotorcycle": 12,
+        "numberOfCar": 31,
+        "numberOfVan": 35,
+        "numberOfTruck": 22,
+        "numberOfBus": 50,
+        "numberOfFireTruck": 50,
+        "numberOfContainer": 29
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 18,
+        "numberOfMotorcycle": 13,
+        "numberOfCar": 26,
+        "numberOfVan": 24,
+        "numberOfTruck": 44,
+        "numberOfBus": 11,
+        "numberOfFireTruck": 40,
+        "numberOfContainer": 21
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 24,
+        "numberOfMotorcycle": 28,
+        "numberOfCar": 34,
+        "numberOfVan": 36,
+        "numberOfTruck": 44,
+        "numberOfBus": 48,
+        "numberOfFireTruck": 39,
+        "numberOfContainer": 27
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 28,
+        "numberOfMotorcycle": 33,
+        "numberOfCar": 36,
+        "numberOfVan": 36,
+        "numberOfTruck": 43,
+        "numberOfBus": 49,
+        "numberOfFireTruck": 27,
+        "numberOfContainer": 26
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 31,
+        "numberOfMotorcycle": 47,
+        "numberOfCar": 23,
+        "numberOfVan": 31,
+        "numberOfTruck": 21,
+        "numberOfBus": 44,
+        "numberOfFireTruck": 11,
+        "numberOfContainer": 27
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 01:30:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 42,
+        "numberOfMotorcycle": 11,
+        "numberOfCar": 17,
+        "numberOfVan": 22,
+        "numberOfTruck": 31,
+        "numberOfBus": 15,
+        "numberOfFireTruck": 33,
+        "numberOfContainer": 26
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 13,
+        "numberOfMotorcycle": 16,
+        "numberOfCar": 44,
+        "numberOfVan": 13,
+        "numberOfTruck": 49,
+        "numberOfBus": 22,
+        "numberOfFireTruck": 15,
+        "numberOfContainer": 24
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 43,
+        "numberOfMotorcycle": 14,
+        "numberOfCar": 43,
+        "numberOfVan": 30,
+        "numberOfTruck": 47,
+        "numberOfBus": 26,
+        "numberOfFireTruck": 45,
+        "numberOfContainer": 20
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 36,
+        "numberOfMotorcycle": 31,
+        "numberOfCar": 43,
+        "numberOfVan": 31,
+        "numberOfTruck": 23,
+        "numberOfBus": 29,
+        "numberOfFireTruck": 50,
+        "numberOfContainer": 27
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 41,
+        "numberOfMotorcycle": 43,
+        "numberOfCar": 27,
+        "numberOfVan": 18,
+        "numberOfTruck": 50,
+        "numberOfBus": 35,
+        "numberOfFireTruck": 11,
+        "numberOfContainer": 39
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 50,
+        "numberOfMotorcycle": 46,
+        "numberOfCar": 25,
+        "numberOfVan": 26,
+        "numberOfTruck": 29,
+        "numberOfBus": 49,
+        "numberOfFireTruck": 49,
+        "numberOfContainer": 20
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 31,
+        "numberOfMotorcycle": 21,
+        "numberOfCar": 20,
+        "numberOfVan": 25,
+        "numberOfTruck": 44,
+        "numberOfBus": 17,
+        "numberOfFireTruck": 44,
+        "numberOfContainer": 22
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 02:00:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 16,
+        "numberOfMotorcycle": 16,
+        "numberOfCar": 48,
+        "numberOfVan": 34,
+        "numberOfTruck": 40,
+        "numberOfBus": 37,
+        "numberOfFireTruck": 14,
+        "numberOfContainer": 27
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 39,
+        "numberOfMotorcycle": 36,
+        "numberOfCar": 30,
+        "numberOfVan": 25,
+        "numberOfTruck": 33,
+        "numberOfBus": 21,
+        "numberOfFireTruck": 30,
+        "numberOfContainer": 17
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 26,
+        "numberOfMotorcycle": 49,
+        "numberOfCar": 15,
+        "numberOfVan": 47,
+        "numberOfTruck": 20,
+        "numberOfBus": 19,
+        "numberOfFireTruck": 33,
+        "numberOfContainer": 33
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 42,
+        "numberOfMotorcycle": 33,
+        "numberOfCar": 11,
+        "numberOfVan": 36,
+        "numberOfTruck": 27,
+        "numberOfBus": 42,
+        "numberOfFireTruck": 49,
+        "numberOfContainer": 29
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 33,
+        "numberOfMotorcycle": 47,
+        "numberOfCar": 36,
+        "numberOfVan": 15,
+        "numberOfTruck": 22,
+        "numberOfBus": 27,
+        "numberOfFireTruck": 18,
+        "numberOfContainer": 12
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 39,
+        "numberOfMotorcycle": 22,
+        "numberOfCar": 31,
+        "numberOfVan": 47,
+        "numberOfTruck": 49,
+        "numberOfBus": 13,
+        "numberOfFireTruck": 48,
+        "numberOfContainer": 42
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 30,
+        "numberOfMotorcycle": 47,
+        "numberOfCar": 45,
+        "numberOfVan": 35,
+        "numberOfTruck": 16,
+        "numberOfBus": 49,
+        "numberOfFireTruck": 15,
+        "numberOfContainer": 23
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 02:30:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 49,
+        "numberOfMotorcycle": 48,
+        "numberOfCar": 16,
+        "numberOfVan": 36,
+        "numberOfTruck": 18,
+        "numberOfBus": 24,
+        "numberOfFireTruck": 10,
+        "numberOfContainer": 33
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 34,
+        "numberOfMotorcycle": 49,
+        "numberOfCar": 36,
+        "numberOfVan": 48,
+        "numberOfTruck": 26,
+        "numberOfBus": 24,
+        "numberOfFireTruck": 50,
+        "numberOfContainer": 31
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 40,
+        "numberOfMotorcycle": 46,
+        "numberOfCar": 42,
+        "numberOfVan": 22,
+        "numberOfTruck": 12,
+        "numberOfBus": 50,
+        "numberOfFireTruck": 30,
+        "numberOfContainer": 11
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 41,
+        "numberOfMotorcycle": 12,
+        "numberOfCar": 48,
+        "numberOfVan": 24,
+        "numberOfTruck": 43,
+        "numberOfBus": 28,
+        "numberOfFireTruck": 38,
+        "numberOfContainer": 35
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 23,
+        "numberOfMotorcycle": 36,
+        "numberOfCar": 21,
+        "numberOfVan": 50,
+        "numberOfTruck": 45,
+        "numberOfBus": 48,
+        "numberOfFireTruck": 28,
+        "numberOfContainer": 36
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 42,
+        "numberOfMotorcycle": 20,
+        "numberOfCar": 49,
+        "numberOfVan": 46,
+        "numberOfTruck": 12,
+        "numberOfBus": 46,
+        "numberOfFireTruck": 18,
+        "numberOfContainer": 14
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 22,
+        "numberOfMotorcycle": 25,
+        "numberOfCar": 23,
+        "numberOfVan": 26,
+        "numberOfTruck": 25,
+        "numberOfBus": 34,
+        "numberOfFireTruck": 34,
+        "numberOfContainer": 25
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 03:00:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 33,
+        "numberOfMotorcycle": 45,
+        "numberOfCar": 38,
+        "numberOfVan": 44,
+        "numberOfTruck": 45,
+        "numberOfBus": 32,
+        "numberOfFireTruck": 31,
+        "numberOfContainer": 17
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 38,
+        "numberOfMotorcycle": 19,
+        "numberOfCar": 21,
+        "numberOfVan": 10,
+        "numberOfTruck": 44,
+        "numberOfBus": 20,
+        "numberOfFireTruck": 26,
+        "numberOfContainer": 42
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 44,
+        "numberOfMotorcycle": 21,
+        "numberOfCar": 29,
+        "numberOfVan": 27,
+        "numberOfTruck": 13,
+        "numberOfBus": 13,
+        "numberOfFireTruck": 17,
+        "numberOfContainer": 20
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 33,
+        "numberOfMotorcycle": 29,
+        "numberOfCar": 11,
+        "numberOfVan": 26,
+        "numberOfTruck": 34,
+        "numberOfBus": 10,
+        "numberOfFireTruck": 27,
+        "numberOfContainer": 15
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 37,
+        "numberOfMotorcycle": 42,
+        "numberOfCar": 24,
+        "numberOfVan": 27,
+        "numberOfTruck": 40,
+        "numberOfBus": 25,
+        "numberOfFireTruck": 23,
+        "numberOfContainer": 19
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 22,
+        "numberOfMotorcycle": 41,
+        "numberOfCar": 18,
+        "numberOfVan": 28,
+        "numberOfTruck": 22,
+        "numberOfBus": 34,
+        "numberOfFireTruck": 38,
+        "numberOfContainer": 17
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 33,
+        "numberOfMotorcycle": 35,
+        "numberOfCar": 31,
+        "numberOfVan": 22,
+        "numberOfTruck": 15,
+        "numberOfBus": 23,
+        "numberOfFireTruck": 18,
+        "numberOfContainer": 25
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 03:30:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 50,
+        "numberOfMotorcycle": 17,
+        "numberOfCar": 21,
+        "numberOfVan": 38,
+        "numberOfTruck": 40,
+        "numberOfBus": 38,
+        "numberOfFireTruck": 10,
+        "numberOfContainer": 15
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 21,
+        "numberOfMotorcycle": 48,
+        "numberOfCar": 35,
+        "numberOfVan": 24,
+        "numberOfTruck": 50,
+        "numberOfBus": 27,
+        "numberOfFireTruck": 23,
+        "numberOfContainer": 43
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 44,
+        "numberOfMotorcycle": 12,
+        "numberOfCar": 24,
+        "numberOfVan": 21,
+        "numberOfTruck": 26,
+        "numberOfBus": 29,
+        "numberOfFireTruck": 47,
+        "numberOfContainer": 47
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 10,
+        "numberOfMotorcycle": 21,
+        "numberOfCar": 29,
+        "numberOfVan": 21,
+        "numberOfTruck": 23,
+        "numberOfBus": 23,
+        "numberOfFireTruck": 16,
+        "numberOfContainer": 26
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 32,
+        "numberOfMotorcycle": 26,
+        "numberOfCar": 10,
+        "numberOfVan": 26,
+        "numberOfTruck": 12,
+        "numberOfBus": 26,
+        "numberOfFireTruck": 37,
+        "numberOfContainer": 13
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 38,
+        "numberOfMotorcycle": 15,
+        "numberOfCar": 38,
+        "numberOfVan": 46,
+        "numberOfTruck": 27,
+        "numberOfBus": 29,
+        "numberOfFireTruck": 49,
+        "numberOfContainer": 32
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 28,
+        "numberOfMotorcycle": 22,
+        "numberOfCar": 11,
+        "numberOfVan": 38,
+        "numberOfTruck": 26,
+        "numberOfBus": 16,
+        "numberOfFireTruck": 13,
+        "numberOfContainer": 50
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 04:00:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 49,
+        "numberOfMotorcycle": 47,
+        "numberOfCar": 15,
+        "numberOfVan": 41,
+        "numberOfTruck": 43,
+        "numberOfBus": 46,
+        "numberOfFireTruck": 19,
+        "numberOfContainer": 24
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 32,
+        "numberOfMotorcycle": 32,
+        "numberOfCar": 14,
+        "numberOfVan": 39,
+        "numberOfTruck": 42,
+        "numberOfBus": 11,
+        "numberOfFireTruck": 50,
+        "numberOfContainer": 38
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 30,
+        "numberOfMotorcycle": 13,
+        "numberOfCar": 30,
+        "numberOfVan": 50,
+        "numberOfTruck": 42,
+        "numberOfBus": 22,
+        "numberOfFireTruck": 26,
+        "numberOfContainer": 27
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 22,
+        "numberOfMotorcycle": 35,
+        "numberOfCar": 36,
+        "numberOfVan": 11,
+        "numberOfTruck": 11,
+        "numberOfBus": 15,
+        "numberOfFireTruck": 16,
+        "numberOfContainer": 12
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 31,
+        "numberOfMotorcycle": 25,
+        "numberOfCar": 10,
+        "numberOfVan": 11,
+        "numberOfTruck": 46,
+        "numberOfBus": 49,
+        "numberOfFireTruck": 14,
+        "numberOfContainer": 33
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 12,
+        "numberOfMotorcycle": 26,
+        "numberOfCar": 26,
+        "numberOfVan": 34,
+        "numberOfTruck": 21,
+        "numberOfBus": 38,
+        "numberOfFireTruck": 41,
+        "numberOfContainer": 41
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 10,
+        "numberOfMotorcycle": 12,
+        "numberOfCar": 34,
+        "numberOfVan": 17,
+        "numberOfTruck": 36,
+        "numberOfBus": 35,
+        "numberOfFireTruck": 43,
+        "numberOfContainer": 16
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 04:30:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 25,
+        "numberOfMotorcycle": 22,
+        "numberOfCar": 48,
+        "numberOfVan": 23,
+        "numberOfTruck": 45,
+        "numberOfBus": 16,
+        "numberOfFireTruck": 38,
+        "numberOfContainer": 11
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 43,
+        "numberOfMotorcycle": 33,
+        "numberOfCar": 30,
+        "numberOfVan": 32,
+        "numberOfTruck": 12,
+        "numberOfBus": 25,
+        "numberOfFireTruck": 42,
+        "numberOfContainer": 34
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 23,
+        "numberOfMotorcycle": 15,
+        "numberOfCar": 39,
+        "numberOfVan": 33,
+        "numberOfTruck": 49,
+        "numberOfBus": 39,
+        "numberOfFireTruck": 34,
+        "numberOfContainer": 13
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 28,
+        "numberOfMotorcycle": 13,
+        "numberOfCar": 34,
+        "numberOfVan": 30,
+        "numberOfTruck": 38,
+        "numberOfBus": 45,
+        "numberOfFireTruck": 33,
+        "numberOfContainer": 26
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 20,
+        "numberOfMotorcycle": 31,
+        "numberOfCar": 19,
+        "numberOfVan": 43,
+        "numberOfTruck": 26,
+        "numberOfBus": 18,
+        "numberOfFireTruck": 41,
+        "numberOfContainer": 24
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 25,
+        "numberOfMotorcycle": 33,
+        "numberOfCar": 48,
+        "numberOfVan": 38,
+        "numberOfTruck": 40,
+        "numberOfBus": 30,
+        "numberOfFireTruck": 43,
+        "numberOfContainer": 28
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 14,
+        "numberOfMotorcycle": 50,
+        "numberOfCar": 27,
+        "numberOfVan": 31,
+        "numberOfTruck": 24,
+        "numberOfBus": 43,
+        "numberOfFireTruck": 34,
+        "numberOfContainer": 11
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 05:00:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 21,
+        "numberOfMotorcycle": 35,
+        "numberOfCar": 12,
+        "numberOfVan": 33,
+        "numberOfTruck": 13,
+        "numberOfBus": 19,
+        "numberOfFireTruck": 49,
+        "numberOfContainer": 42
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 38,
+        "numberOfMotorcycle": 30,
+        "numberOfCar": 14,
+        "numberOfVan": 21,
+        "numberOfTruck": 19,
+        "numberOfBus": 42,
+        "numberOfFireTruck": 46,
+        "numberOfContainer": 32
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 49,
+        "numberOfMotorcycle": 22,
+        "numberOfCar": 15,
+        "numberOfVan": 13,
+        "numberOfTruck": 10,
+        "numberOfBus": 12,
+        "numberOfFireTruck": 44,
+        "numberOfContainer": 48
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 11,
+        "numberOfMotorcycle": 26,
+        "numberOfCar": 31,
+        "numberOfVan": 48,
+        "numberOfTruck": 23,
+        "numberOfBus": 31,
+        "numberOfFireTruck": 25,
+        "numberOfContainer": 30
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 44,
+        "numberOfMotorcycle": 41,
+        "numberOfCar": 17,
+        "numberOfVan": 39,
+        "numberOfTruck": 40,
+        "numberOfBus": 35,
+        "numberOfFireTruck": 49,
+        "numberOfContainer": 14
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 46,
+        "numberOfMotorcycle": 39,
+        "numberOfCar": 24,
+        "numberOfVan": 20,
+        "numberOfTruck": 34,
+        "numberOfBus": 16,
+        "numberOfFireTruck": 10,
+        "numberOfContainer": 32
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 17,
+        "numberOfMotorcycle": 42,
+        "numberOfCar": 46,
+        "numberOfVan": 48,
+        "numberOfTruck": 37,
+        "numberOfBus": 46,
+        "numberOfFireTruck": 37,
+        "numberOfContainer": 30
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 05:30:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 12,
+        "numberOfMotorcycle": 38,
+        "numberOfCar": 17,
+        "numberOfVan": 38,
+        "numberOfTruck": 16,
+        "numberOfBus": 12,
+        "numberOfFireTruck": 49,
+        "numberOfContainer": 36
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 11,
+        "numberOfMotorcycle": 25,
+        "numberOfCar": 11,
+        "numberOfVan": 18,
+        "numberOfTruck": 40,
+        "numberOfBus": 35,
+        "numberOfFireTruck": 36,
+        "numberOfContainer": 28
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 29,
+        "numberOfMotorcycle": 34,
+        "numberOfCar": 28,
+        "numberOfVan": 18,
+        "numberOfTruck": 18,
+        "numberOfBus": 28,
+        "numberOfFireTruck": 31,
+        "numberOfContainer": 43
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 46,
+        "numberOfMotorcycle": 43,
+        "numberOfCar": 31,
+        "numberOfVan": 34,
+        "numberOfTruck": 38,
+        "numberOfBus": 33,
+        "numberOfFireTruck": 12,
+        "numberOfContainer": 32
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 26,
+        "numberOfMotorcycle": 10,
+        "numberOfCar": 31,
+        "numberOfVan": 50,
+        "numberOfTruck": 45,
+        "numberOfBus": 32,
+        "numberOfFireTruck": 35,
+        "numberOfContainer": 40
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 35,
+        "numberOfMotorcycle": 18,
+        "numberOfCar": 21,
+        "numberOfVan": 27,
+        "numberOfTruck": 22,
+        "numberOfBus": 31,
+        "numberOfFireTruck": 49,
+        "numberOfContainer": 13
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 33,
+        "numberOfMotorcycle": 10,
+        "numberOfCar": 17,
+        "numberOfVan": 12,
+        "numberOfTruck": 22,
+        "numberOfBus": 40,
+        "numberOfFireTruck": 49,
+        "numberOfContainer": 32
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 06:00:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 47,
+        "numberOfMotorcycle": 31,
+        "numberOfCar": 29,
+        "numberOfVan": 44,
+        "numberOfTruck": 49,
+        "numberOfBus": 14,
+        "numberOfFireTruck": 40,
+        "numberOfContainer": 10
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 47,
+        "numberOfMotorcycle": 12,
+        "numberOfCar": 45,
+        "numberOfVan": 30,
+        "numberOfTruck": 28,
+        "numberOfBus": 29,
+        "numberOfFireTruck": 27,
+        "numberOfContainer": 13
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 24,
+        "numberOfMotorcycle": 40,
+        "numberOfCar": 28,
+        "numberOfVan": 47,
+        "numberOfTruck": 36,
+        "numberOfBus": 44,
+        "numberOfFireTruck": 29,
+        "numberOfContainer": 20
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 24,
+        "numberOfMotorcycle": 14,
+        "numberOfCar": 44,
+        "numberOfVan": 48,
+        "numberOfTruck": 49,
+        "numberOfBus": 43,
+        "numberOfFireTruck": 44,
+        "numberOfContainer": 32
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 41,
+        "numberOfMotorcycle": 46,
+        "numberOfCar": 30,
+        "numberOfVan": 20,
+        "numberOfTruck": 48,
+        "numberOfBus": 50,
+        "numberOfFireTruck": 14,
+        "numberOfContainer": 22
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 28,
+        "numberOfMotorcycle": 50,
+        "numberOfCar": 10,
+        "numberOfVan": 45,
+        "numberOfTruck": 31,
+        "numberOfBus": 47,
+        "numberOfFireTruck": 50,
+        "numberOfContainer": 33
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 24,
+        "numberOfMotorcycle": 48,
+        "numberOfCar": 32,
+        "numberOfVan": 35,
+        "numberOfTruck": 44,
+        "numberOfBus": 12,
+        "numberOfFireTruck": 37,
+        "numberOfContainer": 42
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 06:30:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 27,
+        "numberOfMotorcycle": 47,
+        "numberOfCar": 39,
+        "numberOfVan": 23,
+        "numberOfTruck": 49,
+        "numberOfBus": 39,
+        "numberOfFireTruck": 19,
+        "numberOfContainer": 49
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 11,
+        "numberOfMotorcycle": 15,
+        "numberOfCar": 34,
+        "numberOfVan": 13,
+        "numberOfTruck": 50,
+        "numberOfBus": 26,
+        "numberOfFireTruck": 40,
+        "numberOfContainer": 32
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 44,
+        "numberOfMotorcycle": 12,
+        "numberOfCar": 36,
+        "numberOfVan": 40,
+        "numberOfTruck": 37,
+        "numberOfBus": 48,
+        "numberOfFireTruck": 19,
+        "numberOfContainer": 46
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 47,
+        "numberOfMotorcycle": 23,
+        "numberOfCar": 41,
+        "numberOfVan": 48,
+        "numberOfTruck": 25,
+        "numberOfBus": 40,
+        "numberOfFireTruck": 24,
+        "numberOfContainer": 30
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 32,
+        "numberOfMotorcycle": 50,
+        "numberOfCar": 49,
+        "numberOfVan": 36,
+        "numberOfTruck": 13,
+        "numberOfBus": 31,
+        "numberOfFireTruck": 28,
+        "numberOfContainer": 35
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 17,
+        "numberOfMotorcycle": 43,
+        "numberOfCar": 33,
+        "numberOfVan": 14,
+        "numberOfTruck": 35,
+        "numberOfBus": 18,
+        "numberOfFireTruck": 25,
+        "numberOfContainer": 26
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 39,
+        "numberOfMotorcycle": 14,
+        "numberOfCar": 19,
+        "numberOfVan": 22,
+        "numberOfTruck": 16,
+        "numberOfBus": 16,
+        "numberOfFireTruck": 48,
+        "numberOfContainer": 35
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 07:00:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 22,
+        "numberOfMotorcycle": 50,
+        "numberOfCar": 25,
+        "numberOfVan": 27,
+        "numberOfTruck": 20,
+        "numberOfBus": 50,
+        "numberOfFireTruck": 30,
+        "numberOfContainer": 13
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 14,
+        "numberOfMotorcycle": 47,
+        "numberOfCar": 26,
+        "numberOfVan": 11,
+        "numberOfTruck": 15,
+        "numberOfBus": 16,
+        "numberOfFireTruck": 37,
+        "numberOfContainer": 34
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 13,
+        "numberOfMotorcycle": 42,
+        "numberOfCar": 39,
+        "numberOfVan": 48,
+        "numberOfTruck": 41,
+        "numberOfBus": 46,
+        "numberOfFireTruck": 41,
+        "numberOfContainer": 20
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 32,
+        "numberOfMotorcycle": 41,
+        "numberOfCar": 41,
+        "numberOfVan": 32,
+        "numberOfTruck": 47,
+        "numberOfBus": 14,
+        "numberOfFireTruck": 30,
+        "numberOfContainer": 28
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 22,
+        "numberOfMotorcycle": 35,
+        "numberOfCar": 16,
+        "numberOfVan": 45,
+        "numberOfTruck": 44,
+        "numberOfBus": 36,
+        "numberOfFireTruck": 28,
+        "numberOfContainer": 29
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 14,
+        "numberOfMotorcycle": 12,
+        "numberOfCar": 17,
+        "numberOfVan": 19,
+        "numberOfTruck": 15,
+        "numberOfBus": 30,
+        "numberOfFireTruck": 27,
+        "numberOfContainer": 43
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 29,
+        "numberOfMotorcycle": 46,
+        "numberOfCar": 38,
+        "numberOfVan": 33,
+        "numberOfTruck": 12,
+        "numberOfBus": 19,
+        "numberOfFireTruck": 11,
+        "numberOfContainer": 27
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 07:30:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 42,
+        "numberOfMotorcycle": 10,
+        "numberOfCar": 44,
+        "numberOfVan": 15,
+        "numberOfTruck": 10,
+        "numberOfBus": 42,
+        "numberOfFireTruck": 42,
+        "numberOfContainer": 16
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 35,
+        "numberOfMotorcycle": 33,
+        "numberOfCar": 47,
+        "numberOfVan": 26,
+        "numberOfTruck": 18,
+        "numberOfBus": 19,
+        "numberOfFireTruck": 27,
+        "numberOfContainer": 14
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 37,
+        "numberOfMotorcycle": 19,
+        "numberOfCar": 33,
+        "numberOfVan": 22,
+        "numberOfTruck": 39,
+        "numberOfBus": 46,
+        "numberOfFireTruck": 25,
+        "numberOfContainer": 37
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 16,
+        "numberOfMotorcycle": 27,
+        "numberOfCar": 32,
+        "numberOfVan": 40,
+        "numberOfTruck": 45,
+        "numberOfBus": 35,
+        "numberOfFireTruck": 12,
+        "numberOfContainer": 25
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 21,
+        "numberOfMotorcycle": 48,
+        "numberOfCar": 36,
+        "numberOfVan": 43,
+        "numberOfTruck": 22,
+        "numberOfBus": 44,
+        "numberOfFireTruck": 18,
+        "numberOfContainer": 41
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 18,
+        "numberOfMotorcycle": 29,
+        "numberOfCar": 13,
+        "numberOfVan": 34,
+        "numberOfTruck": 37,
+        "numberOfBus": 47,
+        "numberOfFireTruck": 26,
+        "numberOfContainer": 31
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 14,
+        "numberOfMotorcycle": 41,
+        "numberOfCar": 40,
+        "numberOfVan": 22,
+        "numberOfTruck": 36,
+        "numberOfBus": 35,
+        "numberOfFireTruck": 18,
+        "numberOfContainer": 15
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 08:00:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 41,
+        "numberOfMotorcycle": 11,
+        "numberOfCar": 31,
+        "numberOfVan": 11,
+        "numberOfTruck": 21,
+        "numberOfBus": 50,
+        "numberOfFireTruck": 24,
+        "numberOfContainer": 45
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 23,
+        "numberOfMotorcycle": 37,
+        "numberOfCar": 34,
+        "numberOfVan": 12,
+        "numberOfTruck": 39,
+        "numberOfBus": 45,
+        "numberOfFireTruck": 49,
+        "numberOfContainer": 20
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 24,
+        "numberOfMotorcycle": 50,
+        "numberOfCar": 36,
+        "numberOfVan": 17,
+        "numberOfTruck": 32,
+        "numberOfBus": 15,
+        "numberOfFireTruck": 35,
+        "numberOfContainer": 24
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 34,
+        "numberOfMotorcycle": 15,
+        "numberOfCar": 39,
+        "numberOfVan": 37,
+        "numberOfTruck": 14,
+        "numberOfBus": 23,
+        "numberOfFireTruck": 36,
+        "numberOfContainer": 46
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 29,
+        "numberOfMotorcycle": 29,
+        "numberOfCar": 36,
+        "numberOfVan": 50,
+        "numberOfTruck": 42,
+        "numberOfBus": 27,
+        "numberOfFireTruck": 48,
+        "numberOfContainer": 45
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 29,
+        "numberOfMotorcycle": 19,
+        "numberOfCar": 10,
+        "numberOfVan": 39,
+        "numberOfTruck": 39,
+        "numberOfBus": 41,
+        "numberOfFireTruck": 22,
+        "numberOfContainer": 28
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 46,
+        "numberOfMotorcycle": 43,
+        "numberOfCar": 13,
+        "numberOfVan": 37,
+        "numberOfTruck": 49,
+        "numberOfBus": 18,
+        "numberOfFireTruck": 24,
+        "numberOfContainer": 47
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 08:30:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 37,
+        "numberOfMotorcycle": 42,
+        "numberOfCar": 18,
+        "numberOfVan": 38,
+        "numberOfTruck": 40,
+        "numberOfBus": 40,
+        "numberOfFireTruck": 41,
+        "numberOfContainer": 10
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 36,
+        "numberOfMotorcycle": 17,
+        "numberOfCar": 29,
+        "numberOfVan": 32,
+        "numberOfTruck": 28,
+        "numberOfBus": 33,
+        "numberOfFireTruck": 38,
+        "numberOfContainer": 13
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 39,
+        "numberOfMotorcycle": 12,
+        "numberOfCar": 33,
+        "numberOfVan": 33,
+        "numberOfTruck": 25,
+        "numberOfBus": 17,
+        "numberOfFireTruck": 22,
+        "numberOfContainer": 29
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 23,
+        "numberOfMotorcycle": 13,
+        "numberOfCar": 25,
+        "numberOfVan": 36,
+        "numberOfTruck": 37,
+        "numberOfBus": 23,
+        "numberOfFireTruck": 47,
+        "numberOfContainer": 34
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 22,
+        "numberOfMotorcycle": 11,
+        "numberOfCar": 10,
+        "numberOfVan": 38,
+        "numberOfTruck": 18,
+        "numberOfBus": 48,
+        "numberOfFireTruck": 34,
+        "numberOfContainer": 35
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 26,
+        "numberOfMotorcycle": 20,
+        "numberOfCar": 47,
+        "numberOfVan": 36,
+        "numberOfTruck": 25,
+        "numberOfBus": 12,
+        "numberOfFireTruck": 16,
+        "numberOfContainer": 27
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 46,
+        "numberOfMotorcycle": 22,
+        "numberOfCar": 13,
+        "numberOfVan": 42,
+        "numberOfTruck": 31,
+        "numberOfBus": 29,
+        "numberOfFireTruck": 42,
+        "numberOfContainer": 25
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 09:00:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 49,
+        "numberOfMotorcycle": 25,
+        "numberOfCar": 15,
+        "numberOfVan": 41,
+        "numberOfTruck": 28,
+        "numberOfBus": 25,
+        "numberOfFireTruck": 15,
+        "numberOfContainer": 15
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 33,
+        "numberOfMotorcycle": 36,
+        "numberOfCar": 22,
+        "numberOfVan": 22,
+        "numberOfTruck": 19,
+        "numberOfBus": 33,
+        "numberOfFireTruck": 21,
+        "numberOfContainer": 36
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 17,
+        "numberOfMotorcycle": 28,
+        "numberOfCar": 29,
+        "numberOfVan": 20,
+        "numberOfTruck": 27,
+        "numberOfBus": 31,
+        "numberOfFireTruck": 45,
+        "numberOfContainer": 42
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 31,
+        "numberOfMotorcycle": 40,
+        "numberOfCar": 28,
+        "numberOfVan": 44,
+        "numberOfTruck": 48,
+        "numberOfBus": 11,
+        "numberOfFireTruck": 38,
+        "numberOfContainer": 40
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 48,
+        "numberOfMotorcycle": 40,
+        "numberOfCar": 24,
+        "numberOfVan": 44,
+        "numberOfTruck": 17,
+        "numberOfBus": 46,
+        "numberOfFireTruck": 40,
+        "numberOfContainer": 19
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 11,
+        "numberOfMotorcycle": 23,
+        "numberOfCar": 36,
+        "numberOfVan": 31,
+        "numberOfTruck": 27,
+        "numberOfBus": 27,
+        "numberOfFireTruck": 16,
+        "numberOfContainer": 30
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 24,
+        "numberOfMotorcycle": 32,
+        "numberOfCar": 25,
+        "numberOfVan": 23,
+        "numberOfTruck": 46,
+        "numberOfBus": 13,
+        "numberOfFireTruck": 49,
+        "numberOfContainer": 40
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 09:30:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 38,
+        "numberOfMotorcycle": 13,
+        "numberOfCar": 48,
+        "numberOfVan": 23,
+        "numberOfTruck": 48,
+        "numberOfBus": 44,
+        "numberOfFireTruck": 28,
+        "numberOfContainer": 18
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 14,
+        "numberOfMotorcycle": 27,
+        "numberOfCar": 31,
+        "numberOfVan": 17,
+        "numberOfTruck": 23,
+        "numberOfBus": 42,
+        "numberOfFireTruck": 25,
+        "numberOfContainer": 22
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 24,
+        "numberOfMotorcycle": 24,
+        "numberOfCar": 17,
+        "numberOfVan": 20,
+        "numberOfTruck": 35,
+        "numberOfBus": 10,
+        "numberOfFireTruck": 45,
+        "numberOfContainer": 32
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 30,
+        "numberOfMotorcycle": 26,
+        "numberOfCar": 26,
+        "numberOfVan": 19,
+        "numberOfTruck": 27,
+        "numberOfBus": 15,
+        "numberOfFireTruck": 50,
+        "numberOfContainer": 24
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 10,
+        "numberOfMotorcycle": 18,
+        "numberOfCar": 14,
+        "numberOfVan": 14,
+        "numberOfTruck": 26,
+        "numberOfBus": 18,
+        "numberOfFireTruck": 30,
+        "numberOfContainer": 18
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 37,
+        "numberOfMotorcycle": 32,
+        "numberOfCar": 20,
+        "numberOfVan": 14,
+        "numberOfTruck": 18,
+        "numberOfBus": 13,
+        "numberOfFireTruck": 50,
+        "numberOfContainer": 10
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 33,
+        "numberOfMotorcycle": 30,
+        "numberOfCar": 18,
+        "numberOfVan": 38,
+        "numberOfTruck": 25,
+        "numberOfBus": 41,
+        "numberOfFireTruck": 43,
+        "numberOfContainer": 34
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 10:00:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 16,
+        "numberOfMotorcycle": 19,
+        "numberOfCar": 33,
+        "numberOfVan": 42,
+        "numberOfTruck": 45,
+        "numberOfBus": 47,
+        "numberOfFireTruck": 44,
+        "numberOfContainer": 46
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 33,
+        "numberOfMotorcycle": 38,
+        "numberOfCar": 42,
+        "numberOfVan": 43,
+        "numberOfTruck": 23,
+        "numberOfBus": 31,
+        "numberOfFireTruck": 32,
+        "numberOfContainer": 38
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 48,
+        "numberOfMotorcycle": 23,
+        "numberOfCar": 24,
+        "numberOfVan": 25,
+        "numberOfTruck": 31,
+        "numberOfBus": 47,
+        "numberOfFireTruck": 46,
+        "numberOfContainer": 46
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 17,
+        "numberOfMotorcycle": 18,
+        "numberOfCar": 36,
+        "numberOfVan": 39,
+        "numberOfTruck": 13,
+        "numberOfBus": 47,
+        "numberOfFireTruck": 38,
+        "numberOfContainer": 12
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 36,
+        "numberOfMotorcycle": 33,
+        "numberOfCar": 19,
+        "numberOfVan": 10,
+        "numberOfTruck": 14,
+        "numberOfBus": 40,
+        "numberOfFireTruck": 19,
+        "numberOfContainer": 46
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 43,
+        "numberOfMotorcycle": 24,
+        "numberOfCar": 22,
+        "numberOfVan": 13,
+        "numberOfTruck": 17,
+        "numberOfBus": 21,
+        "numberOfFireTruck": 19,
+        "numberOfContainer": 44
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 16,
+        "numberOfMotorcycle": 47,
+        "numberOfCar": 40,
+        "numberOfVan": 47,
+        "numberOfTruck": 43,
+        "numberOfBus": 12,
+        "numberOfFireTruck": 26,
+        "numberOfContainer": 27
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 10:30:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 49,
+        "numberOfMotorcycle": 19,
+        "numberOfCar": 39,
+        "numberOfVan": 42,
+        "numberOfTruck": 17,
+        "numberOfBus": 10,
+        "numberOfFireTruck": 49,
+        "numberOfContainer": 27
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 21,
+        "numberOfMotorcycle": 39,
+        "numberOfCar": 25,
+        "numberOfVan": 35,
+        "numberOfTruck": 44,
+        "numberOfBus": 22,
+        "numberOfFireTruck": 25,
+        "numberOfContainer": 18
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 26,
+        "numberOfMotorcycle": 49,
+        "numberOfCar": 12,
+        "numberOfVan": 42,
+        "numberOfTruck": 34,
+        "numberOfBus": 18,
+        "numberOfFireTruck": 40,
+        "numberOfContainer": 41
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 21,
+        "numberOfMotorcycle": 44,
+        "numberOfCar": 26,
+        "numberOfVan": 30,
+        "numberOfTruck": 12,
+        "numberOfBus": 46,
+        "numberOfFireTruck": 38,
+        "numberOfContainer": 47
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 31,
+        "numberOfMotorcycle": 23,
+        "numberOfCar": 47,
+        "numberOfVan": 26,
+        "numberOfTruck": 24,
+        "numberOfBus": 15,
+        "numberOfFireTruck": 15,
+        "numberOfContainer": 27
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 13,
+        "numberOfMotorcycle": 34,
+        "numberOfCar": 15,
+        "numberOfVan": 36,
+        "numberOfTruck": 30,
+        "numberOfBus": 24,
+        "numberOfFireTruck": 48,
+        "numberOfContainer": 25
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 21,
+        "numberOfMotorcycle": 48,
+        "numberOfCar": 30,
+        "numberOfVan": 32,
+        "numberOfTruck": 45,
+        "numberOfBus": 37,
+        "numberOfFireTruck": 26,
+        "numberOfContainer": 28
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 11:00:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 22,
+        "numberOfMotorcycle": 19,
+        "numberOfCar": 42,
+        "numberOfVan": 32,
+        "numberOfTruck": 18,
+        "numberOfBus": 40,
+        "numberOfFireTruck": 17,
+        "numberOfContainer": 43
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 42,
+        "numberOfMotorcycle": 49,
+        "numberOfCar": 37,
+        "numberOfVan": 38,
+        "numberOfTruck": 34,
+        "numberOfBus": 14,
+        "numberOfFireTruck": 24,
+        "numberOfContainer": 47
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 41,
+        "numberOfMotorcycle": 30,
+        "numberOfCar": 31,
+        "numberOfVan": 47,
+        "numberOfTruck": 12,
+        "numberOfBus": 43,
+        "numberOfFireTruck": 46,
+        "numberOfContainer": 42
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 11,
+        "numberOfMotorcycle": 38,
+        "numberOfCar": 19,
+        "numberOfVan": 25,
+        "numberOfTruck": 27,
+        "numberOfBus": 15,
+        "numberOfFireTruck": 48,
+        "numberOfContainer": 19
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 49,
+        "numberOfMotorcycle": 45,
+        "numberOfCar": 39,
+        "numberOfVan": 32,
+        "numberOfTruck": 34,
+        "numberOfBus": 50,
+        "numberOfFireTruck": 26,
+        "numberOfContainer": 31
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 27,
+        "numberOfMotorcycle": 50,
+        "numberOfCar": 42,
+        "numberOfVan": 49,
+        "numberOfTruck": 31,
+        "numberOfBus": 39,
+        "numberOfFireTruck": 34,
+        "numberOfContainer": 42
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 16,
+        "numberOfMotorcycle": 21,
+        "numberOfCar": 50,
+        "numberOfVan": 18,
+        "numberOfTruck": 49,
+        "numberOfBus": 23,
+        "numberOfFireTruck": 31,
+        "numberOfContainer": 37
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 11:30:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 35,
+        "numberOfMotorcycle": 13,
+        "numberOfCar": 42,
+        "numberOfVan": 33,
+        "numberOfTruck": 34,
+        "numberOfBus": 25,
+        "numberOfFireTruck": 22,
+        "numberOfContainer": 39
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 24,
+        "numberOfMotorcycle": 38,
+        "numberOfCar": 31,
+        "numberOfVan": 31,
+        "numberOfTruck": 34,
+        "numberOfBus": 30,
+        "numberOfFireTruck": 42,
+        "numberOfContainer": 39
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 50,
+        "numberOfMotorcycle": 10,
+        "numberOfCar": 40,
+        "numberOfVan": 44,
+        "numberOfTruck": 14,
+        "numberOfBus": 12,
+        "numberOfFireTruck": 46,
+        "numberOfContainer": 38
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 46,
+        "numberOfMotorcycle": 47,
+        "numberOfCar": 21,
+        "numberOfVan": 21,
+        "numberOfTruck": 12,
+        "numberOfBus": 47,
+        "numberOfFireTruck": 12,
+        "numberOfContainer": 39
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 49,
+        "numberOfMotorcycle": 44,
+        "numberOfCar": 45,
+        "numberOfVan": 39,
+        "numberOfTruck": 41,
+        "numberOfBus": 17,
+        "numberOfFireTruck": 48,
+        "numberOfContainer": 18
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 39,
+        "numberOfMotorcycle": 11,
+        "numberOfCar": 17,
+        "numberOfVan": 40,
+        "numberOfTruck": 10,
+        "numberOfBus": 46,
+        "numberOfFireTruck": 23,
+        "numberOfContainer": 39
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 25,
+        "numberOfMotorcycle": 27,
+        "numberOfCar": 39,
+        "numberOfVan": 48,
+        "numberOfTruck": 42,
+        "numberOfBus": 13,
+        "numberOfFireTruck": 28,
+        "numberOfContainer": 35
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 12:00:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 22,
+        "numberOfMotorcycle": 39,
+        "numberOfCar": 23,
+        "numberOfVan": 28,
+        "numberOfTruck": 39,
+        "numberOfBus": 10,
+        "numberOfFireTruck": 17,
+        "numberOfContainer": 36
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 22,
+        "numberOfMotorcycle": 23,
+        "numberOfCar": 27,
+        "numberOfVan": 39,
+        "numberOfTruck": 10,
+        "numberOfBus": 17,
+        "numberOfFireTruck": 32,
+        "numberOfContainer": 48
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 29,
+        "numberOfMotorcycle": 38,
+        "numberOfCar": 50,
+        "numberOfVan": 44,
+        "numberOfTruck": 32,
+        "numberOfBus": 32,
+        "numberOfFireTruck": 37,
+        "numberOfContainer": 47
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 50,
+        "numberOfMotorcycle": 37,
+        "numberOfCar": 28,
+        "numberOfVan": 49,
+        "numberOfTruck": 22,
+        "numberOfBus": 45,
+        "numberOfFireTruck": 37,
+        "numberOfContainer": 24
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 16,
+        "numberOfMotorcycle": 36,
+        "numberOfCar": 44,
+        "numberOfVan": 17,
+        "numberOfTruck": 12,
+        "numberOfBus": 21,
+        "numberOfFireTruck": 34,
+        "numberOfContainer": 33
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 36,
+        "numberOfMotorcycle": 41,
+        "numberOfCar": 38,
+        "numberOfVan": 49,
+        "numberOfTruck": 12,
+        "numberOfBus": 44,
+        "numberOfFireTruck": 40,
+        "numberOfContainer": 11
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 43,
+        "numberOfMotorcycle": 17,
+        "numberOfCar": 32,
+        "numberOfVan": 34,
+        "numberOfTruck": 32,
+        "numberOfBus": 37,
+        "numberOfFireTruck": 36,
+        "numberOfContainer": 10
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 12:30:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 34,
+        "numberOfMotorcycle": 33,
+        "numberOfCar": 29,
+        "numberOfVan": 19,
+        "numberOfTruck": 49,
+        "numberOfBus": 35,
+        "numberOfFireTruck": 38,
+        "numberOfContainer": 50
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 16,
+        "numberOfMotorcycle": 48,
+        "numberOfCar": 23,
+        "numberOfVan": 44,
+        "numberOfTruck": 10,
+        "numberOfBus": 25,
+        "numberOfFireTruck": 28,
+        "numberOfContainer": 41
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 11,
+        "numberOfMotorcycle": 23,
+        "numberOfCar": 48,
+        "numberOfVan": 19,
+        "numberOfTruck": 23,
+        "numberOfBus": 23,
+        "numberOfFireTruck": 26,
+        "numberOfContainer": 46
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 28,
+        "numberOfMotorcycle": 11,
+        "numberOfCar": 38,
+        "numberOfVan": 46,
+        "numberOfTruck": 18,
+        "numberOfBus": 32,
+        "numberOfFireTruck": 50,
+        "numberOfContainer": 30
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 32,
+        "numberOfMotorcycle": 22,
+        "numberOfCar": 40,
+        "numberOfVan": 10,
+        "numberOfTruck": 36,
+        "numberOfBus": 21,
+        "numberOfFireTruck": 34,
+        "numberOfContainer": 26
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 33,
+        "numberOfMotorcycle": 22,
+        "numberOfCar": 44,
+        "numberOfVan": 21,
+        "numberOfTruck": 25,
+        "numberOfBus": 22,
+        "numberOfFireTruck": 46,
+        "numberOfContainer": 28
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 42,
+        "numberOfMotorcycle": 36,
+        "numberOfCar": 48,
+        "numberOfVan": 44,
+        "numberOfTruck": 25,
+        "numberOfBus": 16,
+        "numberOfFireTruck": 42,
+        "numberOfContainer": 12
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 13:00:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 25,
+        "numberOfMotorcycle": 28,
+        "numberOfCar": 22,
+        "numberOfVan": 12,
+        "numberOfTruck": 27,
+        "numberOfBus": 37,
+        "numberOfFireTruck": 26,
+        "numberOfContainer": 34
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 35,
+        "numberOfMotorcycle": 50,
+        "numberOfCar": 17,
+        "numberOfVan": 12,
+        "numberOfTruck": 23,
+        "numberOfBus": 12,
+        "numberOfFireTruck": 16,
+        "numberOfContainer": 23
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 35,
+        "numberOfMotorcycle": 15,
+        "numberOfCar": 14,
+        "numberOfVan": 46,
+        "numberOfTruck": 47,
+        "numberOfBus": 16,
+        "numberOfFireTruck": 23,
+        "numberOfContainer": 27
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 39,
+        "numberOfMotorcycle": 29,
+        "numberOfCar": 45,
+        "numberOfVan": 21,
+        "numberOfTruck": 45,
+        "numberOfBus": 35,
+        "numberOfFireTruck": 25,
+        "numberOfContainer": 27
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 19,
+        "numberOfMotorcycle": 49,
+        "numberOfCar": 16,
+        "numberOfVan": 15,
+        "numberOfTruck": 14,
+        "numberOfBus": 29,
+        "numberOfFireTruck": 25,
+        "numberOfContainer": 13
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 48,
+        "numberOfMotorcycle": 16,
+        "numberOfCar": 19,
+        "numberOfVan": 11,
+        "numberOfTruck": 27,
+        "numberOfBus": 19,
+        "numberOfFireTruck": 25,
+        "numberOfContainer": 11
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 26,
+        "numberOfMotorcycle": 47,
+        "numberOfCar": 48,
+        "numberOfVan": 29,
+        "numberOfTruck": 20,
+        "numberOfBus": 25,
+        "numberOfFireTruck": 28,
+        "numberOfContainer": 10
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 13:30:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 35,
+        "numberOfMotorcycle": 38,
+        "numberOfCar": 43,
+        "numberOfVan": 16,
+        "numberOfTruck": 12,
+        "numberOfBus": 44,
+        "numberOfFireTruck": 35,
+        "numberOfContainer": 33
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 47,
+        "numberOfMotorcycle": 32,
+        "numberOfCar": 32,
+        "numberOfVan": 19,
+        "numberOfTruck": 28,
+        "numberOfBus": 23,
+        "numberOfFireTruck": 37,
+        "numberOfContainer": 44
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 37,
+        "numberOfMotorcycle": 26,
+        "numberOfCar": 46,
+        "numberOfVan": 18,
+        "numberOfTruck": 29,
+        "numberOfBus": 45,
+        "numberOfFireTruck": 49,
+        "numberOfContainer": 17
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 45,
+        "numberOfMotorcycle": 40,
+        "numberOfCar": 22,
+        "numberOfVan": 17,
+        "numberOfTruck": 42,
+        "numberOfBus": 16,
+        "numberOfFireTruck": 38,
+        "numberOfContainer": 13
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 49,
+        "numberOfMotorcycle": 42,
+        "numberOfCar": 31,
+        "numberOfVan": 11,
+        "numberOfTruck": 25,
+        "numberOfBus": 41,
+        "numberOfFireTruck": 35,
+        "numberOfContainer": 10
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 24,
+        "numberOfMotorcycle": 32,
+        "numberOfCar": 41,
+        "numberOfVan": 24,
+        "numberOfTruck": 10,
+        "numberOfBus": 34,
+        "numberOfFireTruck": 11,
+        "numberOfContainer": 13
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 36,
+        "numberOfMotorcycle": 46,
+        "numberOfCar": 48,
+        "numberOfVan": 43,
+        "numberOfTruck": 17,
+        "numberOfBus": 12,
+        "numberOfFireTruck": 13,
+        "numberOfContainer": 18
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 14:00:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 37,
+        "numberOfMotorcycle": 32,
+        "numberOfCar": 42,
+        "numberOfVan": 34,
+        "numberOfTruck": 25,
+        "numberOfBus": 15,
+        "numberOfFireTruck": 18,
+        "numberOfContainer": 37
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 24,
+        "numberOfMotorcycle": 38,
+        "numberOfCar": 31,
+        "numberOfVan": 42,
+        "numberOfTruck": 32,
+        "numberOfBus": 13,
+        "numberOfFireTruck": 19,
+        "numberOfContainer": 38
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 23,
+        "numberOfMotorcycle": 49,
+        "numberOfCar": 29,
+        "numberOfVan": 20,
+        "numberOfTruck": 16,
+        "numberOfBus": 13,
+        "numberOfFireTruck": 26,
+        "numberOfContainer": 34
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 29,
+        "numberOfMotorcycle": 19,
+        "numberOfCar": 30,
+        "numberOfVan": 44,
+        "numberOfTruck": 30,
+        "numberOfBus": 43,
+        "numberOfFireTruck": 21,
+        "numberOfContainer": 16
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 14,
+        "numberOfMotorcycle": 39,
+        "numberOfCar": 15,
+        "numberOfVan": 16,
+        "numberOfTruck": 10,
+        "numberOfBus": 43,
+        "numberOfFireTruck": 43,
+        "numberOfContainer": 49
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 22,
+        "numberOfMotorcycle": 19,
+        "numberOfCar": 14,
+        "numberOfVan": 29,
+        "numberOfTruck": 11,
+        "numberOfBus": 20,
+        "numberOfFireTruck": 45,
+        "numberOfContainer": 44
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 45,
+        "numberOfMotorcycle": 50,
+        "numberOfCar": 43,
+        "numberOfVan": 16,
+        "numberOfTruck": 20,
+        "numberOfBus": 50,
+        "numberOfFireTruck": 33,
+        "numberOfContainer": 32
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 14:30:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 29,
+        "numberOfMotorcycle": 45,
+        "numberOfCar": 15,
+        "numberOfVan": 25,
+        "numberOfTruck": 24,
+        "numberOfBus": 14,
+        "numberOfFireTruck": 13,
+        "numberOfContainer": 29
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 43,
+        "numberOfMotorcycle": 46,
+        "numberOfCar": 40,
+        "numberOfVan": 14,
+        "numberOfTruck": 45,
+        "numberOfBus": 33,
+        "numberOfFireTruck": 48,
+        "numberOfContainer": 34
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 15,
+        "numberOfMotorcycle": 15,
+        "numberOfCar": 29,
+        "numberOfVan": 45,
+        "numberOfTruck": 49,
+        "numberOfBus": 32,
+        "numberOfFireTruck": 50,
+        "numberOfContainer": 23
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 26,
+        "numberOfMotorcycle": 11,
+        "numberOfCar": 18,
+        "numberOfVan": 10,
+        "numberOfTruck": 45,
+        "numberOfBus": 46,
+        "numberOfFireTruck": 43,
+        "numberOfContainer": 41
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 25,
+        "numberOfMotorcycle": 20,
+        "numberOfCar": 32,
+        "numberOfVan": 44,
+        "numberOfTruck": 44,
+        "numberOfBus": 25,
+        "numberOfFireTruck": 20,
+        "numberOfContainer": 30
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 12,
+        "numberOfMotorcycle": 34,
+        "numberOfCar": 50,
+        "numberOfVan": 47,
+        "numberOfTruck": 49,
+        "numberOfBus": 37,
+        "numberOfFireTruck": 40,
+        "numberOfContainer": 36
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 46,
+        "numberOfMotorcycle": 19,
+        "numberOfCar": 38,
+        "numberOfVan": 29,
+        "numberOfTruck": 46,
+        "numberOfBus": 41,
+        "numberOfFireTruck": 43,
+        "numberOfContainer": 36
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 15:00:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 30,
+        "numberOfMotorcycle": 50,
+        "numberOfCar": 18,
+        "numberOfVan": 30,
+        "numberOfTruck": 39,
+        "numberOfBus": 25,
+        "numberOfFireTruck": 13,
+        "numberOfContainer": 49
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 16,
+        "numberOfMotorcycle": 36,
+        "numberOfCar": 15,
+        "numberOfVan": 50,
+        "numberOfTruck": 29,
+        "numberOfBus": 38,
+        "numberOfFireTruck": 45,
+        "numberOfContainer": 32
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 12,
+        "numberOfMotorcycle": 22,
+        "numberOfCar": 34,
+        "numberOfVan": 27,
+        "numberOfTruck": 47,
+        "numberOfBus": 48,
+        "numberOfFireTruck": 25,
+        "numberOfContainer": 33
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 28,
+        "numberOfMotorcycle": 39,
+        "numberOfCar": 42,
+        "numberOfVan": 45,
+        "numberOfTruck": 44,
+        "numberOfBus": 21,
+        "numberOfFireTruck": 29,
+        "numberOfContainer": 18
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 47,
+        "numberOfMotorcycle": 39,
+        "numberOfCar": 26,
+        "numberOfVan": 23,
+        "numberOfTruck": 27,
+        "numberOfBus": 43,
+        "numberOfFireTruck": 47,
+        "numberOfContainer": 22
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 11,
+        "numberOfMotorcycle": 16,
+        "numberOfCar": 34,
+        "numberOfVan": 35,
+        "numberOfTruck": 15,
+        "numberOfBus": 22,
+        "numberOfFireTruck": 31,
+        "numberOfContainer": 20
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 28,
+        "numberOfMotorcycle": 42,
+        "numberOfCar": 45,
+        "numberOfVan": 11,
+        "numberOfTruck": 33,
+        "numberOfBus": 29,
+        "numberOfFireTruck": 47,
+        "numberOfContainer": 40
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 15:30:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 47,
+        "numberOfMotorcycle": 49,
+        "numberOfCar": 19,
+        "numberOfVan": 39,
+        "numberOfTruck": 24,
+        "numberOfBus": 17,
+        "numberOfFireTruck": 15,
+        "numberOfContainer": 15
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 19,
+        "numberOfMotorcycle": 37,
+        "numberOfCar": 16,
+        "numberOfVan": 28,
+        "numberOfTruck": 27,
+        "numberOfBus": 18,
+        "numberOfFireTruck": 43,
+        "numberOfContainer": 43
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 50,
+        "numberOfMotorcycle": 18,
+        "numberOfCar": 39,
+        "numberOfVan": 47,
+        "numberOfTruck": 10,
+        "numberOfBus": 41,
+        "numberOfFireTruck": 10,
+        "numberOfContainer": 30
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 11,
+        "numberOfMotorcycle": 45,
+        "numberOfCar": 17,
+        "numberOfVan": 24,
+        "numberOfTruck": 29,
+        "numberOfBus": 46,
+        "numberOfFireTruck": 25,
+        "numberOfContainer": 23
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 50,
+        "numberOfMotorcycle": 20,
+        "numberOfCar": 28,
+        "numberOfVan": 29,
+        "numberOfTruck": 29,
+        "numberOfBus": 43,
+        "numberOfFireTruck": 37,
+        "numberOfContainer": 23
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 31,
+        "numberOfMotorcycle": 24,
+        "numberOfCar": 47,
+        "numberOfVan": 24,
+        "numberOfTruck": 47,
+        "numberOfBus": 34,
+        "numberOfFireTruck": 48,
+        "numberOfContainer": 24
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 38,
+        "numberOfMotorcycle": 36,
+        "numberOfCar": 48,
+        "numberOfVan": 19,
+        "numberOfTruck": 15,
+        "numberOfBus": 43,
+        "numberOfFireTruck": 10,
+        "numberOfContainer": 49
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 16:00:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 12,
+        "numberOfMotorcycle": 32,
+        "numberOfCar": 39,
+        "numberOfVan": 30,
+        "numberOfTruck": 25,
+        "numberOfBus": 18,
+        "numberOfFireTruck": 13,
+        "numberOfContainer": 25
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 24,
+        "numberOfMotorcycle": 32,
+        "numberOfCar": 17,
+        "numberOfVan": 27,
+        "numberOfTruck": 49,
+        "numberOfBus": 20,
+        "numberOfFireTruck": 10,
+        "numberOfContainer": 23
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 32,
+        "numberOfMotorcycle": 50,
+        "numberOfCar": 36,
+        "numberOfVan": 33,
+        "numberOfTruck": 28,
+        "numberOfBus": 12,
+        "numberOfFireTruck": 48,
+        "numberOfContainer": 31
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 48,
+        "numberOfMotorcycle": 43,
+        "numberOfCar": 25,
+        "numberOfVan": 17,
+        "numberOfTruck": 47,
+        "numberOfBus": 32,
+        "numberOfFireTruck": 12,
+        "numberOfContainer": 39
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 44,
+        "numberOfMotorcycle": 38,
+        "numberOfCar": 28,
+        "numberOfVan": 40,
+        "numberOfTruck": 24,
+        "numberOfBus": 43,
+        "numberOfFireTruck": 19,
+        "numberOfContainer": 44
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 13,
+        "numberOfMotorcycle": 40,
+        "numberOfCar": 10,
+        "numberOfVan": 28,
+        "numberOfTruck": 19,
+        "numberOfBus": 10,
+        "numberOfFireTruck": 20,
+        "numberOfContainer": 22
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 27,
+        "numberOfMotorcycle": 47,
+        "numberOfCar": 14,
+        "numberOfVan": 45,
+        "numberOfTruck": 41,
+        "numberOfBus": 40,
+        "numberOfFireTruck": 26,
+        "numberOfContainer": 17
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 16:30:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 49,
+        "numberOfMotorcycle": 33,
+        "numberOfCar": 33,
+        "numberOfVan": 28,
+        "numberOfTruck": 18,
+        "numberOfBus": 32,
+        "numberOfFireTruck": 49,
+        "numberOfContainer": 27
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 26,
+        "numberOfMotorcycle": 48,
+        "numberOfCar": 34,
+        "numberOfVan": 22,
+        "numberOfTruck": 24,
+        "numberOfBus": 23,
+        "numberOfFireTruck": 16,
+        "numberOfContainer": 41
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 34,
+        "numberOfMotorcycle": 47,
+        "numberOfCar": 22,
+        "numberOfVan": 15,
+        "numberOfTruck": 41,
+        "numberOfBus": 10,
+        "numberOfFireTruck": 49,
+        "numberOfContainer": 35
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 15,
+        "numberOfMotorcycle": 11,
+        "numberOfCar": 18,
+        "numberOfVan": 23,
+        "numberOfTruck": 21,
+        "numberOfBus": 10,
+        "numberOfFireTruck": 48,
+        "numberOfContainer": 24
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 46,
+        "numberOfMotorcycle": 14,
+        "numberOfCar": 46,
+        "numberOfVan": 35,
+        "numberOfTruck": 16,
+        "numberOfBus": 15,
+        "numberOfFireTruck": 19,
+        "numberOfContainer": 10
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 41,
+        "numberOfMotorcycle": 32,
+        "numberOfCar": 21,
+        "numberOfVan": 40,
+        "numberOfTruck": 25,
+        "numberOfBus": 15,
+        "numberOfFireTruck": 19,
+        "numberOfContainer": 39
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 31,
+        "numberOfMotorcycle": 25,
+        "numberOfCar": 45,
+        "numberOfVan": 21,
+        "numberOfTruck": 26,
+        "numberOfBus": 21,
+        "numberOfFireTruck": 28,
+        "numberOfContainer": 30
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 17:00:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 31,
+        "numberOfMotorcycle": 17,
+        "numberOfCar": 20,
+        "numberOfVan": 42,
+        "numberOfTruck": 49,
+        "numberOfBus": 35,
+        "numberOfFireTruck": 16,
+        "numberOfContainer": 14
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 25,
+        "numberOfMotorcycle": 28,
+        "numberOfCar": 49,
+        "numberOfVan": 23,
+        "numberOfTruck": 38,
+        "numberOfBus": 49,
+        "numberOfFireTruck": 17,
+        "numberOfContainer": 23
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 29,
+        "numberOfMotorcycle": 20,
+        "numberOfCar": 34,
+        "numberOfVan": 26,
+        "numberOfTruck": 11,
+        "numberOfBus": 28,
+        "numberOfFireTruck": 29,
+        "numberOfContainer": 18
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 37,
+        "numberOfMotorcycle": 41,
+        "numberOfCar": 40,
+        "numberOfVan": 43,
+        "numberOfTruck": 49,
+        "numberOfBus": 15,
+        "numberOfFireTruck": 29,
+        "numberOfContainer": 28
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 49,
+        "numberOfMotorcycle": 30,
+        "numberOfCar": 37,
+        "numberOfVan": 27,
+        "numberOfTruck": 13,
+        "numberOfBus": 15,
+        "numberOfFireTruck": 25,
+        "numberOfContainer": 21
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 49,
+        "numberOfMotorcycle": 16,
+        "numberOfCar": 24,
+        "numberOfVan": 50,
+        "numberOfTruck": 47,
+        "numberOfBus": 48,
+        "numberOfFireTruck": 17,
+        "numberOfContainer": 37
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 31,
+        "numberOfMotorcycle": 46,
+        "numberOfCar": 13,
+        "numberOfVan": 11,
+        "numberOfTruck": 28,
+        "numberOfBus": 11,
+        "numberOfFireTruck": 10,
+        "numberOfContainer": 34
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 17:30:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 25,
+        "numberOfMotorcycle": 16,
+        "numberOfCar": 20,
+        "numberOfVan": 48,
+        "numberOfTruck": 35,
+        "numberOfBus": 19,
+        "numberOfFireTruck": 35,
+        "numberOfContainer": 36
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 47,
+        "numberOfMotorcycle": 37,
+        "numberOfCar": 46,
+        "numberOfVan": 48,
+        "numberOfTruck": 13,
+        "numberOfBus": 46,
+        "numberOfFireTruck": 43,
+        "numberOfContainer": 28
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 39,
+        "numberOfMotorcycle": 39,
+        "numberOfCar": 29,
+        "numberOfVan": 15,
+        "numberOfTruck": 30,
+        "numberOfBus": 40,
+        "numberOfFireTruck": 18,
+        "numberOfContainer": 30
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 23,
+        "numberOfMotorcycle": 40,
+        "numberOfCar": 47,
+        "numberOfVan": 38,
+        "numberOfTruck": 31,
+        "numberOfBus": 27,
+        "numberOfFireTruck": 30,
+        "numberOfContainer": 47
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 18,
+        "numberOfMotorcycle": 21,
+        "numberOfCar": 36,
+        "numberOfVan": 36,
+        "numberOfTruck": 44,
+        "numberOfBus": 16,
+        "numberOfFireTruck": 49,
+        "numberOfContainer": 48
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 23,
+        "numberOfMotorcycle": 41,
+        "numberOfCar": 18,
+        "numberOfVan": 47,
+        "numberOfTruck": 37,
+        "numberOfBus": 21,
+        "numberOfFireTruck": 47,
+        "numberOfContainer": 50
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 27,
+        "numberOfMotorcycle": 15,
+        "numberOfCar": 13,
+        "numberOfVan": 36,
+        "numberOfTruck": 41,
+        "numberOfBus": 47,
+        "numberOfFireTruck": 14,
+        "numberOfContainer": 30
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 18:00:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 26,
+        "numberOfMotorcycle": 48,
+        "numberOfCar": 39,
+        "numberOfVan": 39,
+        "numberOfTruck": 38,
+        "numberOfBus": 22,
+        "numberOfFireTruck": 11,
+        "numberOfContainer": 17
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 14,
+        "numberOfMotorcycle": 24,
+        "numberOfCar": 45,
+        "numberOfVan": 14,
+        "numberOfTruck": 44,
+        "numberOfBus": 17,
+        "numberOfFireTruck": 18,
+        "numberOfContainer": 47
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 28,
+        "numberOfMotorcycle": 13,
+        "numberOfCar": 33,
+        "numberOfVan": 48,
+        "numberOfTruck": 44,
+        "numberOfBus": 25,
+        "numberOfFireTruck": 34,
+        "numberOfContainer": 30
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 50,
+        "numberOfMotorcycle": 39,
+        "numberOfCar": 43,
+        "numberOfVan": 38,
+        "numberOfTruck": 35,
+        "numberOfBus": 21,
+        "numberOfFireTruck": 11,
+        "numberOfContainer": 13
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 10,
+        "numberOfMotorcycle": 16,
+        "numberOfCar": 44,
+        "numberOfVan": 22,
+        "numberOfTruck": 50,
+        "numberOfBus": 15,
+        "numberOfFireTruck": 43,
+        "numberOfContainer": 13
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 24,
+        "numberOfMotorcycle": 48,
+        "numberOfCar": 43,
+        "numberOfVan": 10,
+        "numberOfTruck": 28,
+        "numberOfBus": 12,
+        "numberOfFireTruck": 12,
+        "numberOfContainer": 10
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 39,
+        "numberOfMotorcycle": 23,
+        "numberOfCar": 35,
+        "numberOfVan": 18,
+        "numberOfTruck": 23,
+        "numberOfBus": 49,
+        "numberOfFireTruck": 18,
+        "numberOfContainer": 47
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 18:30:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 32,
+        "numberOfMotorcycle": 48,
+        "numberOfCar": 13,
+        "numberOfVan": 33,
+        "numberOfTruck": 15,
+        "numberOfBus": 13,
+        "numberOfFireTruck": 35,
+        "numberOfContainer": 27
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 28,
+        "numberOfMotorcycle": 22,
+        "numberOfCar": 49,
+        "numberOfVan": 16,
+        "numberOfTruck": 26,
+        "numberOfBus": 27,
+        "numberOfFireTruck": 16,
+        "numberOfContainer": 47
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 17,
+        "numberOfMotorcycle": 25,
+        "numberOfCar": 47,
+        "numberOfVan": 17,
+        "numberOfTruck": 13,
+        "numberOfBus": 43,
+        "numberOfFireTruck": 30,
+        "numberOfContainer": 17
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 42,
+        "numberOfMotorcycle": 23,
+        "numberOfCar": 13,
+        "numberOfVan": 14,
+        "numberOfTruck": 11,
+        "numberOfBus": 29,
+        "numberOfFireTruck": 28,
+        "numberOfContainer": 12
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 43,
+        "numberOfMotorcycle": 12,
+        "numberOfCar": 38,
+        "numberOfVan": 47,
+        "numberOfTruck": 34,
+        "numberOfBus": 38,
+        "numberOfFireTruck": 14,
+        "numberOfContainer": 13
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 14,
+        "numberOfMotorcycle": 47,
+        "numberOfCar": 38,
+        "numberOfVan": 13,
+        "numberOfTruck": 25,
+        "numberOfBus": 36,
+        "numberOfFireTruck": 27,
+        "numberOfContainer": 43
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 32,
+        "numberOfMotorcycle": 10,
+        "numberOfCar": 38,
+        "numberOfVan": 28,
+        "numberOfTruck": 49,
+        "numberOfBus": 45,
+        "numberOfFireTruck": 16,
+        "numberOfContainer": 13
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 19:00:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 35,
+        "numberOfMotorcycle": 12,
+        "numberOfCar": 24,
+        "numberOfVan": 34,
+        "numberOfTruck": 47,
+        "numberOfBus": 25,
+        "numberOfFireTruck": 10,
+        "numberOfContainer": 24
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 37,
+        "numberOfMotorcycle": 27,
+        "numberOfCar": 16,
+        "numberOfVan": 43,
+        "numberOfTruck": 35,
+        "numberOfBus": 45,
+        "numberOfFireTruck": 11,
+        "numberOfContainer": 28
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 19,
+        "numberOfMotorcycle": 43,
+        "numberOfCar": 38,
+        "numberOfVan": 17,
+        "numberOfTruck": 13,
+        "numberOfBus": 36,
+        "numberOfFireTruck": 23,
+        "numberOfContainer": 46
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 24,
+        "numberOfMotorcycle": 22,
+        "numberOfCar": 36,
+        "numberOfVan": 50,
+        "numberOfTruck": 17,
+        "numberOfBus": 49,
+        "numberOfFireTruck": 15,
+        "numberOfContainer": 32
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 44,
+        "numberOfMotorcycle": 46,
+        "numberOfCar": 50,
+        "numberOfVan": 32,
+        "numberOfTruck": 43,
+        "numberOfBus": 17,
+        "numberOfFireTruck": 17,
+        "numberOfContainer": 25
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 50,
+        "numberOfMotorcycle": 13,
+        "numberOfCar": 45,
+        "numberOfVan": 22,
+        "numberOfTruck": 38,
+        "numberOfBus": 37,
+        "numberOfFireTruck": 21,
+        "numberOfContainer": 25
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 24,
+        "numberOfMotorcycle": 11,
+        "numberOfCar": 43,
+        "numberOfVan": 16,
+        "numberOfTruck": 24,
+        "numberOfBus": 38,
+        "numberOfFireTruck": 41,
+        "numberOfContainer": 29
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 19:30:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 38,
+        "numberOfMotorcycle": 23,
+        "numberOfCar": 36,
+        "numberOfVan": 19,
+        "numberOfTruck": 37,
+        "numberOfBus": 50,
+        "numberOfFireTruck": 32,
+        "numberOfContainer": 22
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 16,
+        "numberOfMotorcycle": 44,
+        "numberOfCar": 36,
+        "numberOfVan": 28,
+        "numberOfTruck": 49,
+        "numberOfBus": 50,
+        "numberOfFireTruck": 44,
+        "numberOfContainer": 23
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 19,
+        "numberOfMotorcycle": 31,
+        "numberOfCar": 13,
+        "numberOfVan": 34,
+        "numberOfTruck": 14,
+        "numberOfBus": 29,
+        "numberOfFireTruck": 47,
+        "numberOfContainer": 40
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 39,
+        "numberOfMotorcycle": 13,
+        "numberOfCar": 11,
+        "numberOfVan": 48,
+        "numberOfTruck": 21,
+        "numberOfBus": 16,
+        "numberOfFireTruck": 26,
+        "numberOfContainer": 16
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 20,
+        "numberOfMotorcycle": 26,
+        "numberOfCar": 50,
+        "numberOfVan": 13,
+        "numberOfTruck": 30,
+        "numberOfBus": 10,
+        "numberOfFireTruck": 19,
+        "numberOfContainer": 22
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 31,
+        "numberOfMotorcycle": 36,
+        "numberOfCar": 38,
+        "numberOfVan": 18,
+        "numberOfTruck": 20,
+        "numberOfBus": 29,
+        "numberOfFireTruck": 23,
+        "numberOfContainer": 29
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 47,
+        "numberOfMotorcycle": 50,
+        "numberOfCar": 21,
+        "numberOfVan": 10,
+        "numberOfTruck": 45,
+        "numberOfBus": 32,
+        "numberOfFireTruck": 39,
+        "numberOfContainer": 16
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 20:00:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 28,
+        "numberOfMotorcycle": 20,
+        "numberOfCar": 37,
+        "numberOfVan": 18,
+        "numberOfTruck": 12,
+        "numberOfBus": 10,
+        "numberOfFireTruck": 31,
+        "numberOfContainer": 45
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 39,
+        "numberOfMotorcycle": 18,
+        "numberOfCar": 12,
+        "numberOfVan": 17,
+        "numberOfTruck": 50,
+        "numberOfBus": 27,
+        "numberOfFireTruck": 26,
+        "numberOfContainer": 14
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 44,
+        "numberOfMotorcycle": 34,
+        "numberOfCar": 13,
+        "numberOfVan": 15,
+        "numberOfTruck": 34,
+        "numberOfBus": 31,
+        "numberOfFireTruck": 46,
+        "numberOfContainer": 48
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 49,
+        "numberOfMotorcycle": 40,
+        "numberOfCar": 26,
+        "numberOfVan": 14,
+        "numberOfTruck": 36,
+        "numberOfBus": 50,
+        "numberOfFireTruck": 24,
+        "numberOfContainer": 38
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 10,
+        "numberOfMotorcycle": 23,
+        "numberOfCar": 32,
+        "numberOfVan": 31,
+        "numberOfTruck": 50,
+        "numberOfBus": 45,
+        "numberOfFireTruck": 41,
+        "numberOfContainer": 36
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 25,
+        "numberOfMotorcycle": 37,
+        "numberOfCar": 13,
+        "numberOfVan": 45,
+        "numberOfTruck": 23,
+        "numberOfBus": 20,
+        "numberOfFireTruck": 15,
+        "numberOfContainer": 18
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 18,
+        "numberOfMotorcycle": 42,
+        "numberOfCar": 45,
+        "numberOfVan": 37,
+        "numberOfTruck": 12,
+        "numberOfBus": 26,
+        "numberOfFireTruck": 17,
+        "numberOfContainer": 39
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 20:30:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 48,
+        "numberOfMotorcycle": 36,
+        "numberOfCar": 16,
+        "numberOfVan": 29,
+        "numberOfTruck": 24,
+        "numberOfBus": 37,
+        "numberOfFireTruck": 40,
+        "numberOfContainer": 41
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 44,
+        "numberOfMotorcycle": 14,
+        "numberOfCar": 12,
+        "numberOfVan": 27,
+        "numberOfTruck": 47,
+        "numberOfBus": 36,
+        "numberOfFireTruck": 18,
+        "numberOfContainer": 16
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 23,
+        "numberOfMotorcycle": 30,
+        "numberOfCar": 49,
+        "numberOfVan": 50,
+        "numberOfTruck": 18,
+        "numberOfBus": 27,
+        "numberOfFireTruck": 20,
+        "numberOfContainer": 37
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 39,
+        "numberOfMotorcycle": 10,
+        "numberOfCar": 34,
+        "numberOfVan": 43,
+        "numberOfTruck": 29,
+        "numberOfBus": 10,
+        "numberOfFireTruck": 47,
+        "numberOfContainer": 33
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 44,
+        "numberOfMotorcycle": 39,
+        "numberOfCar": 34,
+        "numberOfVan": 39,
+        "numberOfTruck": 11,
+        "numberOfBus": 26,
+        "numberOfFireTruck": 48,
+        "numberOfContainer": 49
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 38,
+        "numberOfMotorcycle": 15,
+        "numberOfCar": 26,
+        "numberOfVan": 30,
+        "numberOfTruck": 50,
+        "numberOfBus": 37,
+        "numberOfFireTruck": 39,
+        "numberOfContainer": 25
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 15,
+        "numberOfMotorcycle": 36,
+        "numberOfCar": 13,
+        "numberOfVan": 10,
+        "numberOfTruck": 41,
+        "numberOfBus": 32,
+        "numberOfFireTruck": 48,
+        "numberOfContainer": 34
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 21:00:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 32,
+        "numberOfMotorcycle": 32,
+        "numberOfCar": 18,
+        "numberOfVan": 34,
+        "numberOfTruck": 23,
+        "numberOfBus": 22,
+        "numberOfFireTruck": 27,
+        "numberOfContainer": 40
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 32,
+        "numberOfMotorcycle": 38,
+        "numberOfCar": 30,
+        "numberOfVan": 31,
+        "numberOfTruck": 46,
+        "numberOfBus": 39,
+        "numberOfFireTruck": 29,
+        "numberOfContainer": 46
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 34,
+        "numberOfMotorcycle": 49,
+        "numberOfCar": 36,
+        "numberOfVan": 48,
+        "numberOfTruck": 35,
+        "numberOfBus": 41,
+        "numberOfFireTruck": 22,
+        "numberOfContainer": 18
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 29,
+        "numberOfMotorcycle": 13,
+        "numberOfCar": 46,
+        "numberOfVan": 41,
+        "numberOfTruck": 41,
+        "numberOfBus": 35,
+        "numberOfFireTruck": 49,
+        "numberOfContainer": 47
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 21,
+        "numberOfMotorcycle": 50,
+        "numberOfCar": 39,
+        "numberOfVan": 13,
+        "numberOfTruck": 35,
+        "numberOfBus": 30,
+        "numberOfFireTruck": 29,
+        "numberOfContainer": 29
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 44,
+        "numberOfMotorcycle": 21,
+        "numberOfCar": 30,
+        "numberOfVan": 40,
+        "numberOfTruck": 37,
+        "numberOfBus": 36,
+        "numberOfFireTruck": 23,
+        "numberOfContainer": 22
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 39,
+        "numberOfMotorcycle": 42,
+        "numberOfCar": 15,
+        "numberOfVan": 23,
+        "numberOfTruck": 10,
+        "numberOfBus": 49,
+        "numberOfFireTruck": 35,
+        "numberOfContainer": 33
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 21:30:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 40,
+        "numberOfMotorcycle": 16,
+        "numberOfCar": 47,
+        "numberOfVan": 42,
+        "numberOfTruck": 28,
+        "numberOfBus": 36,
+        "numberOfFireTruck": 37,
+        "numberOfContainer": 26
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 14,
+        "numberOfMotorcycle": 24,
+        "numberOfCar": 32,
+        "numberOfVan": 43,
+        "numberOfTruck": 42,
+        "numberOfBus": 46,
+        "numberOfFireTruck": 33,
+        "numberOfContainer": 10
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 45,
+        "numberOfMotorcycle": 10,
+        "numberOfCar": 14,
+        "numberOfVan": 35,
+        "numberOfTruck": 13,
+        "numberOfBus": 50,
+        "numberOfFireTruck": 38,
+        "numberOfContainer": 13
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 30,
+        "numberOfMotorcycle": 27,
+        "numberOfCar": 19,
+        "numberOfVan": 12,
+        "numberOfTruck": 25,
+        "numberOfBus": 43,
+        "numberOfFireTruck": 29,
+        "numberOfContainer": 43
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 34,
+        "numberOfMotorcycle": 14,
+        "numberOfCar": 41,
+        "numberOfVan": 44,
+        "numberOfTruck": 13,
+        "numberOfBus": 46,
+        "numberOfFireTruck": 40,
+        "numberOfContainer": 24
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 23,
+        "numberOfMotorcycle": 13,
+        "numberOfCar": 43,
+        "numberOfVan": 27,
+        "numberOfTruck": 46,
+        "numberOfBus": 36,
+        "numberOfFireTruck": 22,
+        "numberOfContainer": 41
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 23,
+        "numberOfMotorcycle": 33,
+        "numberOfCar": 46,
+        "numberOfVan": 39,
+        "numberOfTruck": 43,
+        "numberOfBus": 49,
+        "numberOfFireTruck": 15,
+        "numberOfContainer": 42
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 22:00:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 36,
+        "numberOfMotorcycle": 40,
+        "numberOfCar": 17,
+        "numberOfVan": 36,
+        "numberOfTruck": 40,
+        "numberOfBus": 13,
+        "numberOfFireTruck": 11,
+        "numberOfContainer": 34
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 47,
+        "numberOfMotorcycle": 38,
+        "numberOfCar": 24,
+        "numberOfVan": 29,
+        "numberOfTruck": 18,
+        "numberOfBus": 49,
+        "numberOfFireTruck": 40,
+        "numberOfContainer": 17
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 37,
+        "numberOfMotorcycle": 36,
+        "numberOfCar": 46,
+        "numberOfVan": 37,
+        "numberOfTruck": 15,
+        "numberOfBus": 21,
+        "numberOfFireTruck": 28,
+        "numberOfContainer": 50
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 37,
+        "numberOfMotorcycle": 38,
+        "numberOfCar": 26,
+        "numberOfVan": 44,
+        "numberOfTruck": 22,
+        "numberOfBus": 36,
+        "numberOfFireTruck": 16,
+        "numberOfContainer": 33
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 38,
+        "numberOfMotorcycle": 36,
+        "numberOfCar": 44,
+        "numberOfVan": 30,
+        "numberOfTruck": 43,
+        "numberOfBus": 12,
+        "numberOfFireTruck": 30,
+        "numberOfContainer": 42
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 46,
+        "numberOfMotorcycle": 33,
+        "numberOfCar": 24,
+        "numberOfVan": 26,
+        "numberOfTruck": 20,
+        "numberOfBus": 47,
+        "numberOfFireTruck": 33,
+        "numberOfContainer": 11
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 47,
+        "numberOfMotorcycle": 35,
+        "numberOfCar": 44,
+        "numberOfVan": 45,
+        "numberOfTruck": 39,
+        "numberOfBus": 12,
+        "numberOfFireTruck": 28,
+        "numberOfContainer": 10
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 22:30:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 32,
+        "numberOfMotorcycle": 10,
+        "numberOfCar": 13,
+        "numberOfVan": 16,
+        "numberOfTruck": 48,
+        "numberOfBus": 39,
+        "numberOfFireTruck": 45,
+        "numberOfContainer": 44
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 34,
+        "numberOfMotorcycle": 16,
+        "numberOfCar": 48,
+        "numberOfVan": 44,
+        "numberOfTruck": 31,
+        "numberOfBus": 45,
+        "numberOfFireTruck": 40,
+        "numberOfContainer": 22
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 24,
+        "numberOfMotorcycle": 47,
+        "numberOfCar": 18,
+        "numberOfVan": 26,
+        "numberOfTruck": 34,
+        "numberOfBus": 49,
+        "numberOfFireTruck": 27,
+        "numberOfContainer": 18
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 16,
+        "numberOfMotorcycle": 39,
+        "numberOfCar": 31,
+        "numberOfVan": 37,
+        "numberOfTruck": 35,
+        "numberOfBus": 27,
+        "numberOfFireTruck": 35,
+        "numberOfContainer": 28
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 15,
+        "numberOfMotorcycle": 27,
+        "numberOfCar": 35,
+        "numberOfVan": 30,
+        "numberOfTruck": 38,
+        "numberOfBus": 17,
+        "numberOfFireTruck": 38,
+        "numberOfContainer": 45
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 41,
+        "numberOfMotorcycle": 18,
+        "numberOfCar": 42,
+        "numberOfVan": 44,
+        "numberOfTruck": 37,
+        "numberOfBus": 32,
+        "numberOfFireTruck": 14,
+        "numberOfContainer": 49
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 33,
+        "numberOfMotorcycle": 39,
+        "numberOfCar": 46,
+        "numberOfVan": 13,
+        "numberOfTruck": 49,
+        "numberOfBus": 42,
+        "numberOfFireTruck": 42,
+        "numberOfContainer": 11
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 23:00:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 27,
+        "numberOfMotorcycle": 26,
+        "numberOfCar": 40,
+        "numberOfVan": 11,
+        "numberOfTruck": 11,
+        "numberOfBus": 16,
+        "numberOfFireTruck": 15,
+        "numberOfContainer": 28
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 42,
+        "numberOfMotorcycle": 45,
+        "numberOfCar": 12,
+        "numberOfVan": 38,
+        "numberOfTruck": 47,
+        "numberOfBus": 49,
+        "numberOfFireTruck": 47,
+        "numberOfContainer": 35
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 48,
+        "numberOfMotorcycle": 41,
+        "numberOfCar": 13,
+        "numberOfVan": 48,
+        "numberOfTruck": 12,
+        "numberOfBus": 25,
+        "numberOfFireTruck": 35,
+        "numberOfContainer": 43
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 39,
+        "numberOfMotorcycle": 33,
+        "numberOfCar": 48,
+        "numberOfVan": 48,
+        "numberOfTruck": 23,
+        "numberOfBus": 23,
+        "numberOfFireTruck": 47,
+        "numberOfContainer": 10
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 12,
+        "numberOfMotorcycle": 30,
+        "numberOfCar": 31,
+        "numberOfVan": 35,
+        "numberOfTruck": 25,
+        "numberOfBus": 49,
+        "numberOfFireTruck": 12,
+        "numberOfContainer": 25
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 30,
+        "numberOfMotorcycle": 19,
+        "numberOfCar": 44,
+        "numberOfVan": 33,
+        "numberOfTruck": 34,
+        "numberOfBus": 35,
+        "numberOfFireTruck": 21,
+        "numberOfContainer": 24
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 41,
+        "numberOfMotorcycle": 14,
+        "numberOfCar": 26,
+        "numberOfVan": 34,
+        "numberOfTruck": 28,
+        "numberOfBus": 48,
+        "numberOfFireTruck": 14,
+        "numberOfContainer": 22
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-02 23:30:00",
+    "data": [
+      {
+        "camera": "56de42f611f398ec0c48127d",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75270736217499,
+            10.80498476893258
+          ]
+        },
+        "numberOfBicycle": 44,
+        "numberOfMotorcycle": 48,
+        "numberOfCar": 24,
+        "numberOfVan": 30,
+        "numberOfTruck": 39,
+        "numberOfBus": 31,
+        "numberOfFireTruck": 50,
+        "numberOfContainer": 31
+      },
+      {
+        "camera": "56de42f611f398ec0c48127e",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75406455993652,
+            10.80625467043043
+          ]
+        },
+        "numberOfBicycle": 38,
+        "numberOfMotorcycle": 41,
+        "numberOfCar": 47,
+        "numberOfVan": 35,
+        "numberOfTruck": 37,
+        "numberOfBus": 33,
+        "numberOfFireTruck": 50,
+        "numberOfContainer": 22
+      },
+      {
+        "camera": "56de42f611f398ec0c48127f",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75110340118408,
+            10.791531914197964
+          ]
+        },
+        "numberOfBicycle": 38,
+        "numberOfMotorcycle": 26,
+        "numberOfCar": 50,
+        "numberOfVan": 20,
+        "numberOfTruck": 35,
+        "numberOfBus": 20,
+        "numberOfFireTruck": 11,
+        "numberOfContainer": 46
+      },
+      {
+        "camera": "56de42f611f398ec0c481280",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.75144672393799,
+            10.792627978171955
+          ]
+        },
+        "numberOfBicycle": 31,
+        "numberOfMotorcycle": 21,
+        "numberOfCar": 37,
+        "numberOfVan": 25,
+        "numberOfTruck": 38,
+        "numberOfBus": 43,
+        "numberOfFireTruck": 44,
+        "numberOfContainer": 32
+      },
+      {
+        "camera": "56de42f611f398ec0c481282",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.74994468688965,
+            10.787685119587834
+          ]
+        },
+        "numberOfBicycle": 13,
+        "numberOfMotorcycle": 33,
+        "numberOfCar": 47,
+        "numberOfVan": 43,
+        "numberOfTruck": 43,
+        "numberOfBus": 46,
+        "numberOfFireTruck": 46,
+        "numberOfContainer": 19
+      },
+      {
+        "camera": "56de42f611f398ec0c481283",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.72761797904968,
+            10.775796632402953
+          ]
+        },
+        "numberOfBicycle": 10,
+        "numberOfMotorcycle": 36,
+        "numberOfCar": 10,
+        "numberOfVan": 29,
+        "numberOfTruck": 11,
+        "numberOfBus": 19,
+        "numberOfFireTruck": 21,
+        "numberOfContainer": 33
+      },
+      {
+        "camera": "56de42f611f398ec0c481284",
+        "loc": {
+          "type": "Point",
+          "coordinates": [
+            106.68248176574707,
+            10.766489980132722
+          ]
+        },
+        "numberOfBicycle": 30,
+        "numberOfMotorcycle": 38,
+        "numberOfCar": 35,
+        "numberOfVan": 22,
+        "numberOfTruck": 49,
+        "numberOfBus": 24,
+        "numberOfFireTruck": 39,
+        "numberOfContainer": 48
+      }
+    ]
+  }
+]

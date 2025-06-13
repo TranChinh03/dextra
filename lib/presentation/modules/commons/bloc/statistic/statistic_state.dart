@@ -6,7 +6,6 @@ class StatisticState extends Equatable {
   final StatisticResult resultByCustom;
   final StatisticResult resultByDistrict;
   final StatisticResult resultByCamera;
-  final StatisticResult resultHeatmap;
   final List<ResultDetail> trackingByDate;
   final ApiStatus apiStatus;
   final ApiStatus sendEmailStatus;
@@ -16,22 +15,19 @@ class StatisticState extends Equatable {
     StatisticResult? resultByCustom,
     StatisticResult? resultByDistrict,
     StatisticResult? resultByCamera,
-    StatisticResult? resultHeatmap,
     this.trackingByDate = const [],
     this.apiStatus = ApiStatus.idle,
     this.sendEmailStatus = ApiStatus.idle,
   })  : resultByDate = resultByDate ?? StatisticResult(),
         resultByCustom = resultByCustom ?? StatisticResult(),
         resultByDistrict = resultByDistrict ?? StatisticResult(),
-        resultByCamera = resultByCamera ?? StatisticResult(),
-        resultHeatmap = resultHeatmap ?? StatisticResult();
+        resultByCamera = resultByCamera ?? StatisticResult();
 
   StatisticState copyWith({
     StatisticResult? resultByDate,
     StatisticResult? resultByCustom,
     StatisticResult? resultByDistrict,
     StatisticResult? resultByCamera,
-    StatisticResult? resultHeatmap,
     List<ResultDetail>? trackingByDate,
     ApiStatus? apiStatus,
     ApiStatus? sendEmailStatus,
@@ -41,7 +37,6 @@ class StatisticState extends Equatable {
       resultByCustom: resultByCustom ?? this.resultByCustom,
       resultByDistrict: resultByDistrict ?? this.resultByDistrict,
       resultByCamera: resultByCamera ?? this.resultByCamera,
-      resultHeatmap: resultHeatmap ?? this.resultHeatmap,
       trackingByDate: trackingByDate ?? this.trackingByDate,
       apiStatus: apiStatus ?? this.apiStatus,
       sendEmailStatus: sendEmailStatus ?? this.sendEmailStatus,
@@ -54,7 +49,6 @@ class StatisticState extends Equatable {
         resultByCustom,
         resultByDistrict,
         resultByCamera,
-        resultHeatmap,
         trackingByDate,
         apiStatus,
         sendEmailStatus

@@ -15,6 +15,7 @@ import 'package:injectable/injectable.dart' as _i526;
 import '../domain/interfaces/api_client.dart' as _i1065;
 import '../domain/interfaces/interface_camera_repository.dart' as _i574;
 import '../domain/interfaces/interface_detection_repository.dart' as _i65;
+import '../domain/interfaces/interface_heatmap_repository.dart' as _i635;
 import '../domain/interfaces/interface_statistic_repository.dart' as _i474;
 import '../domain/usecases/camera/queries/fetch_cameras/fetch_cameras_handler.dart'
     as _i187;
@@ -28,14 +29,16 @@ import '../domain/usecases/detection/queries/detect_streamline/detect_streamline
     as _i475;
 import '../domain/usecases/detection/queries/detect_vehicle/detect_vehicle_handler.dart'
     as _i604;
+import '../domain/usecases/heatmap/queries/fetch_heat_map_in_day/fetch_heatmap_in_day_handler.dart'
+    as _i383;
+import '../domain/usecases/heatmap/queries/fetch_heatmap/fetch_heatmap_handler.dart'
+    as _i1070;
 import '../domain/usecases/statistic/commands/send_email_by_date.dart/send_email_by_date_handler.dart'
     as _i80;
 import '../domain/usecases/statistic/queries/fecth_timestamp/fetch_timestamp_handler.dart'
     as _i58;
 import '../domain/usecases/statistic/queries/fetch_date/fetch_date_handler.dart'
     as _i699;
-import '../domain/usecases/statistic/queries/fetch_heatmap/fetch_heatmap_handler.dart'
-    as _i409;
 import '../domain/usecases/statistic/queries/statistic_by_camera/statistic_by_camera_handler.dart'
     as _i884;
 import '../domain/usecases/statistic/queries/statistic_by_custom/statistic_by_custom_handler.dart'
@@ -50,6 +53,7 @@ import '../infrastructure/base_api/dio_client/client.dart' as _i447;
 import '../infrastructure/camera_repository/camera_repository.dart' as _i866;
 import '../infrastructure/detection_repository/detection_repository.dart'
     as _i842;
+import '../infrastructure/heatmap_repository/heatmap_repository.dart' as _i615;
 import '../infrastructure/statistic_repository/statistic_repository.dart'
     as _i520;
 import '../presentation/app/blocs/app/app_bloc.dart' as _i875;
@@ -61,6 +65,8 @@ import '../presentation/modules/commons/bloc/datetime/datetime_bloc.dart'
     as _i530;
 import '../presentation/modules/commons/bloc/detection/detection_bloc.dart'
     as _i792;
+import '../presentation/modules/commons/bloc/heatmap/heatmap_bloc.dart'
+    as _i465;
 import '../presentation/modules/commons/bloc/search/search_bloc.dart' as _i317;
 import '../presentation/modules/commons/bloc/statistic/statistic_bloc.dart'
     as _i407;
@@ -99,8 +105,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i58.FetchTimestampHandler(gh<_i474.IStatisticRepository>()));
     gh.factory<_i699.FetchDateHandler>(
         () => _i699.FetchDateHandler(gh<_i474.IStatisticRepository>()));
-    gh.factory<_i409.FetchHeatmapHandler>(
-        () => _i409.FetchHeatmapHandler(gh<_i474.IStatisticRepository>()));
     gh.factory<_i884.DetectByCameraHandler>(
         () => _i884.DetectByCameraHandler(gh<_i474.IStatisticRepository>()));
     gh.factory<_i459.DetectByCustomHandler>(
@@ -113,6 +117,16 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i255.TrackingByDateHandler(gh<_i474.IStatisticRepository>()));
     gh.factory<_i65.IDetectionRepository>(
         () => _i842.DetectionRepository(gh<_i1065.IApiClient>()));
+    gh.factory<_i635.IHeatmapRepository>(
+        () => _i615.HeatmapRepository(gh<_i1065.IApiClient>()));
+    gh.singleton<_i407.StatisticBloc>(() => _i407.StatisticBloc(
+          gh<_i412.DetectByDateHandler>(),
+          gh<_i459.DetectByCustomHandler>(),
+          gh<_i691.DetectByDistrictHandler>(),
+          gh<_i884.DetectByCameraHandler>(),
+          gh<_i255.TrackingByDateHandler>(),
+          gh<_i80.SendEmailByDateHandler>(),
+        ));
     gh.factory<_i317.SearchBloc>(
         () => _i317.SearchBloc(gh<_i63.SearchCamerasHandler>()));
     gh.singleton<_i530.DateTimeBloc>(() => _i530.DateTimeBloc(
@@ -123,19 +137,18 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i475.DetectStreamlineHandler(gh<_i65.IDetectionRepository>()));
     gh.factory<_i604.DetectVehicleHandler>(
         () => _i604.DetectVehicleHandler(gh<_i65.IDetectionRepository>()));
+    gh.factory<_i1070.FetchHeatmapHandler>(
+        () => _i1070.FetchHeatmapHandler(gh<_i635.IHeatmapRepository>()));
+    gh.factory<_i383.FetchHeatmapInDayHandler>(
+        () => _i383.FetchHeatmapInDayHandler(gh<_i635.IHeatmapRepository>()));
     gh.singleton<_i247.CameraBloc>(() => _i247.CameraBloc(
           gh<_i187.FetchCamerasHandler>(),
           gh<_i702.FetchDistrictsHandler>(),
           gh<_i655.FetchVehiclesHandler>(),
         ));
-    gh.singleton<_i407.StatisticBloc>(() => _i407.StatisticBloc(
-          gh<_i412.DetectByDateHandler>(),
-          gh<_i459.DetectByCustomHandler>(),
-          gh<_i691.DetectByDistrictHandler>(),
-          gh<_i884.DetectByCameraHandler>(),
-          gh<_i255.TrackingByDateHandler>(),
-          gh<_i409.FetchHeatmapHandler>(),
-          gh<_i80.SendEmailByDateHandler>(),
+    gh.singleton<_i465.HeatmapBloc>(() => _i465.HeatmapBloc(
+          gh<_i1070.FetchHeatmapHandler>(),
+          gh<_i383.FetchHeatmapInDayHandler>(),
         ));
     gh.factory<_i792.DetectionBloc>(() => _i792.DetectionBloc(
           gh<_i604.DetectVehicleHandler>(),
