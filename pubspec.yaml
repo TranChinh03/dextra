@@ -106,6 +106,7 @@ flutter:
     - assets/translations/
     - assets/png/
     - assets/json/camera_results.json
+    - assets/json/traffic_heatmap_timeseries.json
   fonts:
     - family: Inter
       fonts:

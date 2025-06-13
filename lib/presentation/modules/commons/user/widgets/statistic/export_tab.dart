@@ -1,10 +1,8 @@
 import 'package:dextra/di/injectable.dart';
-import 'package:dextra/domain/usecases/statistic/queries/fetch_heatmap/fetch_heatmap_query.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_camera/statistic_by_camera_querry.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_custom/statistic_by_custom_query.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_date/statistic_by_date_query.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_district/statistic_by_district_query.dart';
-import 'package:dextra/presentation/commons/api_state.dart';
 import 'package:dextra/presentation/modules/commons/bloc/camera/camera_bloc.dart';
 import 'package:dextra/presentation/modules/commons/bloc/datetime/datetime_bloc.dart';
 import 'package:dextra/presentation/modules/commons/bloc/statistic/statistic_bloc.dart';
@@ -16,9 +14,9 @@ import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_lin
 import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_pie_chart.dart';
 import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_pie_chart_2.dart';
 import 'package:dextra/presentation/modules/commons/widgets/input/simple_dropdown.dart';
-import 'package:dextra/presentation/modules/commons/widgets/map/heatmap.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_heading.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
+import 'package:dextra/shareds/utils/time_validators.dart';
 import 'package:dextra/theme/color/app_color.dart';
 import 'package:dextra/theme/font/app_font_size.dart';
 import 'package:dextra/theme/font/app_font_weight.dart';
@@ -38,7 +36,6 @@ class ExportTab extends StatefulWidget {
 class _ExportTabState extends State<ExportTab> {
   final _formKey = GlobalKey<FormState>();
   final _formKeyDist = GlobalKey<FormState>();
-  final _formKeyHeatmap = GlobalKey<FormState>();
   final _cameraBloc = getIt.get<CameraBloc>();
   final _datetimeBloc = getIt.get<DateTimeBloc>();
   final _statisticBloc = getIt.get<StatisticBloc>();
@@ -52,11 +49,6 @@ class _ExportTabState extends State<ExportTab> {
   String? _endTimeDist;
 
   String? _selectedDate;
-
-  String? _selectedDayHeatmap;
-  String? _startTimeHeatmap;
-  String? _endTimeHeatmap;
-  String? _selectedVehicle;
 
   @override
   void initState() {
@@ -135,10 +127,6 @@ class _ExportTabState extends State<ExportTab> {
     );
   }
 
-  void _onFetchHeatmap(String date) {
-    _statisticBloc.add(FetchHeatmapEvent(query: FetchHeatmapQuery(date: date)));
-  }
-
   void _onFetchByCam() {
     _statisticBloc.add(DetectByCameratEvent(
         query: DetectByCameraQuery(
@@ -164,36 +152,8 @@ class _ExportTabState extends State<ExportTab> {
     }
   }
 
-  void _onDateHmChange(String? value) {
-    setState(() {
-      _selectedDayHeatmap = value;
-      _startTimeHeatmap = null;
-      _endTimeHeatmap = null;
-    });
-    _onFetchHeatmap(_selectedDayHeatmap ?? "");
-  }
-
   DateTime _parseTime(String timeString) {
     return DateFormat("HH:mm:ss").parse(timeString);
-  }
-
-  String? _validateStart(String? value, String? end) {
-    final startTime = _parseTime(value!);
-    final endTime = _parseTime(end ?? _datetimeBloc.state.timestamps.last.time);
-    if (endTime.isBefore(startTime)) {
-      return tr('Common.invalid_time_range');
-    }
-    return null;
-  }
-
-  String? _validateEnd(String? start, String? value) {
-    final endTime = _parseTime(value!);
-    final startTime =
-        _parseTime(start ?? _datetimeBloc.state.timestamps.last.time);
-    if (endTime.isBefore(startTime)) {
-      return tr('Common.invalid_time_range');
-    }
-    return null;
   }
 
   void _submitForm() {
@@ -210,30 +170,6 @@ class _ExportTabState extends State<ExportTab> {
       _onFetchByDist(district, date, timeFrom, timeTo);
     } else {
       // print('Form is not valid');
-    }
-  }
-
-  void _submitFormHeatmap() {
-    if (_startTimeHeatmap == null || _endTimeHeatmap == null) {
-      _statisticBloc.add(FetchHeatmapEvent(
-        query: FetchHeatmapQuery(
-          date: _selectedDayHeatmap ?? _datetimeBloc.state.dates.last.date,
-          timeFrom: _startTimeHeatmap,
-          timeTo: _endTimeHeatmap,
-        ),
-      ));
-      return;
-    }
-    if (_formKeyHeatmap.currentState!.validate()) {
-      _statisticBloc.add(FetchHeatmapEvent(
-        query: FetchHeatmapQuery(
-          date: _selectedDayHeatmap ?? _datetimeBloc.state.dates.last.date,
-          timeFrom: _startTimeHeatmap,
-          timeTo: _endTimeHeatmap,
-        ),
-      ));
-    } else {
-      debugPrint('Form is not valid');
     }
   }
 
@@ -281,7 +217,6 @@ class _ExportTabState extends State<ExportTab> {
               //Fetch by District
               _onFetchByDist(firstDistrict, latestDate, latestTime, latestTime);
               _onFetchByCam();
-              _onFetchHeatmap(latestDate);
             }
           }
 
@@ -289,8 +224,7 @@ class _ExportTabState extends State<ExportTab> {
               builder: (context, statisticState) {
             final hasStatisticData = statisticState.resultByDate.date != null &&
                 statisticState.resultByDistrict.date != null &&
-                statisticState.resultByCamera.details!.isNotEmpty &&
-                statisticState.resultHeatmap.date != null;
+                statisticState.resultByCamera.details!.isNotEmpty;
             if (!hasDateData || !hasCameraData || !hasStatisticData) {
               return const Center(child: CircularProgressIndicator());
             }
@@ -406,7 +340,11 @@ class _ExportTabState extends State<ExportTab> {
                               _startTime = value;
                             });
                           },
-                          validator: (value) => _validateStart(value, _endTime),
+                          validator: (value) => TimeValidators.validateStart(
+                            value,
+                            _endTime,
+                            tr: tr,
+                          ),
                         )),
                         CommonText(
                           tr('Common.to'),
@@ -416,8 +354,11 @@ class _ExportTabState extends State<ExportTab> {
                         ),
                         Expanded(
                           child: SimpleDropdown(
-                            validator: (value) =>
-                                _validateEnd(_startTime, value),
+                            validator: (value) => TimeValidators.validateEnd(
+                              _startTime,
+                              value,
+                              tr: tr,
+                            ),
                             value: _endTime ?? latestTime,
                             itemsList: _datetimeBloc.state.timestamps
                                 .where((option) =>
@@ -564,8 +505,11 @@ class _ExportTabState extends State<ExportTab> {
                               _startTimeDist = value;
                             });
                           },
-                          validator: (value) =>
-                              _validateStart(value, _endTimeDist),
+                          validator: (value) => TimeValidators.validateStart(
+                            value,
+                            _endTimeDist,
+                            tr: tr,
+                          ),
                         )),
                         CommonText(
                           tr('Common.to'),
@@ -575,8 +519,11 @@ class _ExportTabState extends State<ExportTab> {
                         ),
                         Expanded(
                           child: SimpleDropdown(
-                            validator: (value) =>
-                                _validateEnd(_startTimeDist, value),
+                            validator: (value) => TimeValidators.validateEnd(
+                              _startTimeDist,
+                              value,
+                              tr: tr,
+                            ),
                             value: _endTimeDist ?? latestTime,
                             itemsList: _datetimeBloc.state.timestamps
                                 .where((option) =>
@@ -731,136 +678,6 @@ class _ExportTabState extends State<ExportTab> {
                           "${tr('Common.max')}: ${_statisticBloc.state.resultByCamera.numberOfMotorcycle} motorcycles",
                       textColor: colors.buttonPrimaryBackground,
                     )
-                  ],
-                ),
-                CommonHeading(
-                  heading: tr('Common.heatmap_overview'),
-                  subheading: tr('Common.visualize'),
-                  headingStyle: TextStyle(
-                      fontSize: AppFontSize.xlg,
-                      fontWeight: AppFontWeight.bold,
-                      color: colors.primary),
-                ),
-                Column(
-                  spacing: AppSpacing.rem300.h,
-                  children: [
-                    Row(spacing: AppSpacing.rem300.w, children: [
-                      CommonText(
-                        tr('Common.date'),
-                        style: TextStyle(
-                            fontSize: AppFontSize.xxxl,
-                            fontWeight: AppFontWeight.semiBold),
-                      ),
-                      SizedBox(
-                        width: AppSpacing.rem4150.w,
-                        child: SimpleDropdown(
-                            value: _selectedDayHeatmap ?? latestDate,
-                            itemsList: _datetimeBloc.state.dates.map((option) {
-                              return DropdownMenuItem<String>(
-                                value: option.date,
-                                child: Text(option.date),
-                              );
-                            }).toList(),
-                            onChanged: _onDateHmChange),
-                      ),
-                      SizedBox(
-                        width: AppSpacing.rem4150.w,
-                        child: SimpleDropdown(
-                            value: _selectedVehicle ?? tr('Common.all'),
-                            itemsList: [
-                              DropdownMenuItem<String>(
-                                value: tr('Common.all'),
-                                child: Text(tr('Common.all')),
-                              ),
-                              ..._cameraBloc.state.vehicles.map((option) {
-                                return DropdownMenuItem<String>(
-                                  value: option,
-                                  child: Text(option),
-                                );
-                              })
-                            ],
-                            onChanged: (value) => setState(() {
-                                  _selectedVehicle = value;
-                                })),
-                      ),
-                    ]),
-                    Form(
-                      key: _formKeyHeatmap,
-                      child: Row(
-                        spacing: AppSpacing.rem600.w,
-                        children: [
-                          CommonText(
-                            tr('Common.from'),
-                            style: TextStyle(
-                                fontSize: AppFontSize.xxl,
-                                fontWeight: AppFontWeight.semiBold),
-                          ),
-                          Expanded(
-                              child: SimpleDropdown(
-                            value: _startTimeHeatmap,
-                            itemsList: _datetimeBloc.state.timestamps
-                                .where((option) =>
-                                    option.date ==
-                                    (_selectedDayHeatmap ?? latestDate))
-                                .map((option) => DropdownMenuItem<String>(
-                                      value: option.time,
-                                      child: Text(option.time),
-                                    ))
-                                .toList(),
-                            onChanged: (value) {
-                              setState(() {
-                                _startTimeHeatmap = value;
-                              });
-                            },
-                            validator: (value) =>
-                                _validateStart(value, _endTimeHeatmap),
-                          )),
-                          CommonText(
-                            tr('Common.to'),
-                            style: TextStyle(
-                                fontSize: AppFontSize.xxl,
-                                fontWeight: AppFontWeight.semiBold),
-                          ),
-                          Expanded(
-                            child: SimpleDropdown(
-                              validator: (value) =>
-                                  _validateEnd(_startTimeHeatmap, value),
-                              value: _endTimeHeatmap,
-                              itemsList: _datetimeBloc.state.timestamps
-                                  .where((option) =>
-                                      option.date ==
-                                      (_selectedDayHeatmap ?? latestDate))
-                                  .map((option) => DropdownMenuItem<String>(
-                                        value: option.time,
-                                        child: Text(option.time),
-                                      ))
-                                  .toList(),
-                              onChanged: (value) {
-                                setState(() {
-                                  _endTimeHeatmap = value;
-                                });
-                              },
-                            ),
-                          ),
-                          CommonPrimaryButton(
-                            text: tr('Common.ok'),
-                            onPressed: _submitFormHeatmap,
-                          )
-                        ],
-                      ),
-                    ),
-                    CommonText(
-                        "${tr('Common.heatmap_on')} ${_selectedDayHeatmap ?? latestDate},  ${_startTimeHeatmap ?? "00:00:00"} to ${_endTimeHeatmap ?? "24:00:00"}"),
-                    Container(
-                        margin:
-                            EdgeInsets.symmetric(vertical: AppSpacing.rem600.h),
-                        height: AppSpacing.rem8975.h,
-                        width: double.infinity,
-                        color: colors.primaryBannerBg,
-                        child: TrafficHeatmap(
-                          data: _statisticBloc.state.resultHeatmap,
-                          vehicle: _selectedVehicle ?? tr('Common.all'),
-                        ))
                   ],
                 ),
               ])

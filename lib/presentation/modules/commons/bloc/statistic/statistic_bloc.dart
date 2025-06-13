@@ -2,8 +2,6 @@ import 'package:dextra/domain/entities/statistic_result.dart';
 import 'package:dextra/domain/models/query.dart';
 import 'package:dextra/domain/usecases/statistic/commands/send_email_by_date.dart/send_email_by_date_handler.dart';
 import 'package:dextra/domain/usecases/statistic/commands/send_email_by_date.dart/send_email_by_date_query.dart';
-import 'package:dextra/domain/usecases/statistic/queries/fetch_heatmap/fetch_heatmap_handler.dart';
-import 'package:dextra/domain/usecases/statistic/queries/fetch_heatmap/fetch_heatmap_query.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_camera/statistic_by_camera_handler.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_camera/statistic_by_camera_querry.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_custom/statistic_by_custom_handler.dart';
@@ -29,7 +27,6 @@ class StatisticBloc extends Bloc<StatisticEvent, StatisticState> {
   final DetectByDistrictHandler _detectByDistrictHandler;
   final DetectByCameraHandler _detectByCameraHandler;
   final TrackingByDateHandler _trackingByDateHandler;
-  final FetchHeatmapHandler _fetchHeatmapHandler;
   final SendEmailByDateHandler _sendEmailByDateHandler;
   StatisticBloc(
       this._detectByDateHandler,
@@ -37,7 +34,6 @@ class StatisticBloc extends Bloc<StatisticEvent, StatisticState> {
       this._detectByDistrictHandler,
       this._detectByCameraHandler,
       this._trackingByDateHandler,
-      this._fetchHeatmapHandler,
       this._sendEmailByDateHandler)
       : super(StatisticState()) {
     on<DetectByDateEvent>(_onDetectByDate);
@@ -45,7 +41,6 @@ class StatisticBloc extends Bloc<StatisticEvent, StatisticState> {
     on<DetectByDistrictEvent>(_onDetectByDistrict);
     on<DetectByCameratEvent>(_onDetectByCamera);
     on<TrackingByDateEvent>(_onTrackingByDate);
-    on<FetchHeatmapEvent>(_onFetchHeatmap);
     on<SendEmailByDateEvent>(_onSendEmailByDate);
   }
 
@@ -124,22 +119,6 @@ class StatisticBloc extends Bloc<StatisticEvent, StatisticState> {
       state.copyWith(
         apiStatus: ApiStatus.hasData,
         trackingByDate: response,
-      ),
-    );
-  }
-
-  Future<void> _onFetchHeatmap(
-    FetchHeatmapEvent event,
-    Emitter<StatisticState> emit,
-  ) async {
-    emit(state.copyWith(apiStatus: ApiStatus.loading));
-
-    final response =
-        await _fetchHeatmapHandler.handle(Query(query: event.query));
-    emit(
-      state.copyWith(
-        apiStatus: ApiStatus.hasData,
-        resultHeatmap: response,
       ),
     );
   }

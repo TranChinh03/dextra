@@ -25,4 +25,6 @@ class ApiPath {
   static const String fetchHeatmapUrl = 'http://localhost:8004/heatmap';
   static const String sendEmailByDateUrl =
       'http://localhost:8004/send_email_by_date';
+  static const String fetchHeatmapInDayUrl =
+      'http://localhost:8004/heatmap_in_a_day';
 }

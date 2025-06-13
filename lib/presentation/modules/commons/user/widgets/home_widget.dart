@@ -55,8 +55,9 @@ class _HomeWidgetState extends State<HomeWidget> {
   @override
   void initState() {
     super.initState();
-    _onFetchCamera();
-    _onFetchByDate();
+    print('HomeWidget initState');
+    // _onFetchCamera();
+    // _onFetchByDate();
   }
 
   @override
