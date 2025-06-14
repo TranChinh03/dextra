@@ -117,6 +117,7 @@ class _LineChart extends StatelessWidget {
     final String label = index.toString();
 
     return SideTitleWidget(
+      space: 25,
       meta: meta,
       child: Text(
         label,

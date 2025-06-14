@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dextra/di/injectable.dart';
 import 'package:dextra/domain/entities/heatmap_result.dart';
 import 'package:dextra/domain/usecases/heatmap/queries/fetch_heat_map_in_day/fetch_heatmap_in_day_query.dart';
+import 'package:dextra/presentation/commons/api_state.dart';
 import 'package:dextra/presentation/modules/commons/bloc/camera/camera_bloc.dart';
 import 'package:dextra/presentation/modules/commons/bloc/datetime/datetime_bloc.dart';
 import 'package:dextra/presentation/modules/commons/bloc/heatmap/heatmap_bloc.dart';
@@ -31,21 +32,19 @@ class TrafficHeatmap extends StatefulWidget {
   State<TrafficHeatmap> createState() => _TrafficHeatmapState();
 }
 
-late String latestDate;
-late String latestStartHmTime;
-late String latestEndHmTime;
-
 class _TrafficHeatmapState extends State<TrafficHeatmap> {
   final _heatmapBloc = getIt.get<HeatmapBloc>();
   final _datetimeBloc = getIt.get<DateTimeBloc>();
   final _cameraBloc = getIt.get<CameraBloc>();
+  late String latestDate;
+  late String latestStartHmTime;
+  late String latestEndHmTime;
 
   late List<HeatmapDetail> heatmapData;
   final _controller = Completer<GoogleMapController>();
   final Set<Heatmap> _heatmaps = {};
   bool isProcessing = false;
   bool isStarted = false;
-  bool isFirstFetch = false;
 
   String currentTime = "";
   List<WeightedLatLng> currentData = [];
@@ -96,10 +95,22 @@ class _TrafficHeatmapState extends State<TrafficHeatmap> {
 
   void _submitFormHeatmap() {
     if (_formKeyHeatmap.currentState!.validate()) {
-      _onFetchHeatmapInDay(
-          _selectedDayHeatmap ?? _datetimeBloc.state.dates.last.date,
-          _startTimeHeatmap ?? "",
+      _selectedDayHeatmap == null
+          ? setState(() {
+              _selectedDayHeatmap == _datetimeBloc.state.dates.first.date;
+            })
+          : null;
+      _onFetchHeatmapInDay(_selectedDayHeatmap ?? "", _startTimeHeatmap ?? "",
           _endTimeHeatmap ?? "");
+      setState(() {
+        isProcessing = false;
+        isStarted = false;
+        currentIndex = 0;
+        _heatmaps.clear();
+        currentTime = _datetimeBloc.state.timestamps
+            .firstWhere((date) => date.date == _selectedDayHeatmap)
+            .time;
+      });
     } else {
       debugPrint('Form is not valid');
     }
@@ -160,17 +171,25 @@ class _TrafficHeatmapState extends State<TrafficHeatmap> {
   }
 
   void startHeatmapAnimation() {
+    _heatmaps.clear();
+    heatmapTimer?.cancel();
+    currentIndex = 0;
     setState(() {
       isProcessing = true;
       isStarted = true;
       currentTime = heatmapData.first.time ?? "";
     });
-    heatmapTimer?.cancel();
-    currentIndex = 0;
 
     final totalFrames = heatmapData.length;
 
-    if (totalFrames == 0) return;
+    if (totalFrames <= 1) {
+      setState(() {
+        isProcessing = false;
+        isStarted = false;
+      });
+      heatmapTimer?.cancel();
+      return;
+    }
 
     heatmapTimer = Timer.periodic(Duration(seconds: 1), (timer) {
       currentIndex++;
@@ -193,9 +212,7 @@ class _TrafficHeatmapState extends State<TrafficHeatmap> {
         setState(() {
           isProcessing = false;
           isStarted = false;
-          isStarted = false;
         });
-        _heatmaps.clear();
         heatmapTimer?.cancel();
         return;
       }
@@ -204,7 +221,6 @@ class _TrafficHeatmapState extends State<TrafficHeatmap> {
 
   @override
   Widget build(BuildContext context) {
-    print("currentidx $currentIndex");
     final colors = IAppColor.watch(context);
 
     _heatmaps.add(Heatmap(
@@ -223,14 +239,16 @@ class _TrafficHeatmapState extends State<TrafficHeatmap> {
     ));
     return BlocBuilder<HeatmapBloc, HeatmapState>(
         builder: (context, heatmapState) {
-      if (heatmapState.resultHeatmapInDay.date == null) {
-        return Center(child: CircularProgressIndicator());
+      if (heatmapState.resultHeatmapInDay.date == null ||
+          heatmapState.apiStatus == ApiStatus.loading) {
+        return Center(
+            child: SizedBox(
+                height: AppSpacing.rem3875.h,
+                child: CircularProgressIndicator()));
       }
-      if (_heatmapBloc.state.resultHeatmapInDay.date != null) {
-        heatmapData = _heatmapBloc.state.resultHeatmapInDay.details ?? [];
-        currentData = _createPoints(
-            heatmapData.first.data ?? [], _selectedVehicle ?? "All vehicles");
-      }
+      heatmapData = _heatmapBloc.state.resultHeatmapInDay.details ?? [];
+      currentData = _createPoints(
+          heatmapData.first.data ?? [], _selectedVehicle ?? "All vehicles");
 
       return Column(
         spacing: AppSpacing.rem600.h,
@@ -382,7 +400,14 @@ class _TrafficHeatmapState extends State<TrafficHeatmap> {
             spacing: AppSpacing.rem600.w,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              currentTime != "" ? CommonText(currentTime) : SizedBox(),
+              currentTime != ""
+                  ? CommonText(
+                      currentTime,
+                      style: TextStyle(
+                          fontWeight: AppFontWeight.semiBold,
+                          color: colors.textMuted),
+                    )
+                  : SizedBox(),
               !isStarted
                   ? CommonPrimaryButton(
                       text: tr('Common.start'),
@@ -435,24 +460,25 @@ class _TrafficHeatmapState extends State<TrafficHeatmap> {
               ),
             ],
           ),
-          IgnorePointer(
-            ignoring: isProcessing,
-            child: Slider(
-              label: heatmapData[currentIndex].time ?? "",
-              value: currentIndex.toDouble(),
-              min: 0,
-              max: (heatmapData.length - 1).toDouble(),
-              divisions: heatmapData.length - 1,
-              onChanged: (value) {
-                print(value);
-                setState(() {
-                  currentIndex = value.toInt();
-                  currentTime = heatmapData[currentIndex].time ?? "";
-                  _heatmaps.clear();
-                });
-              },
-            ),
-          ),
+          heatmapData.length > 1
+              ? IgnorePointer(
+                  ignoring: isProcessing,
+                  child: Slider(
+                    label: heatmapData[currentIndex].time ?? "",
+                    value: currentIndex.toDouble(),
+                    min: 0,
+                    max: (heatmapData.length - 1).toDouble(),
+                    divisions: heatmapData.length - 1,
+                    onChanged: (value) {
+                      setState(() {
+                        currentIndex = value.toInt();
+                        currentTime = heatmapData[currentIndex].time ?? "";
+                        _heatmaps.clear();
+                      });
+                    },
+                  ),
+                )
+              : SizedBox(),
           Container(
             height: AppSpacing.rem8975.h,
             width: double.infinity,
@@ -464,7 +490,9 @@ class _TrafficHeatmapState extends State<TrafficHeatmap> {
               ),
               heatmaps: _heatmaps,
               onMapCreated: (GoogleMapController controller) {
-                _controller.complete(controller);
+                if (!_controller.isCompleted) {
+                  _controller.complete(controller);
+                }
               },
             ),
           ),

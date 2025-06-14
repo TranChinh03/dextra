@@ -11,6 +11,7 @@ import 'package:dextra/presentation/modules/commons/widgets/dialog/image_dialog.
 import 'package:dextra/presentation/modules/commons/widgets/input/search_box.dart';
 import 'package:dextra/presentation/modules/commons/widgets/input/simple_dropdown.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
+import 'package:dextra/theme/color/app_color.dart';
 import 'package:dextra/theme/spacing/app_spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,7 +35,7 @@ class SearchCameraListWidget extends StatefulWidget {
 class _SearchCameraListWidgetState extends State<SearchCameraListWidget> {
   int currentPage = 1;
   String searchText = "";
-  String currentDistrict = "All";
+  String currentDistrict = "All districts";
 
   final _searchBloc = getIt.get<SearchBloc>();
   final _cameraBloc = getIt.get<CameraBloc>();
@@ -51,7 +52,7 @@ class _SearchCameraListWidgetState extends State<SearchCameraListWidget> {
         SearchCamerasEvent(
           query: SearchCamerasQuery(
             cameraName: value,
-            district: currentDistrict == "All" ? "" : currentDistrict,
+            district: currentDistrict == "All districts" ? "" : currentDistrict,
           ),
         ),
       );
@@ -68,7 +69,7 @@ class _SearchCameraListWidgetState extends State<SearchCameraListWidget> {
         SearchCamerasEvent(
           query: SearchCamerasQuery(
             cameraName: searchText,
-            district: value == "All" ? "" : value,
+            district: value == "All districts" ? "" : value,
           ),
         ),
       );
@@ -90,6 +91,8 @@ class _SearchCameraListWidgetState extends State<SearchCameraListWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = IAppColor.watch(context);
+
     return BlocProvider.value(
       value: _searchBloc,
       child: BlocBuilder<SearchBloc, SearchState>(
@@ -109,8 +112,10 @@ class _SearchCameraListWidgetState extends State<SearchCameraListWidget> {
                   Expanded(
                     child: SimpleDropdown(
                       value: currentDistrict,
-                      itemsList:
-                          ["All", ..._cameraBloc.state.districts].map((option) {
+                      itemsList: [
+                        "All districts",
+                        ..._cameraBloc.state.districts
+                      ].map((option) {
                         return DropdownMenuItem<String>(
                           value: option,
                           child: CommonText(option),
@@ -131,12 +136,12 @@ class _SearchCameraListWidgetState extends State<SearchCameraListWidget> {
                       const EdgeInsets.symmetric(vertical: AppSpacing.rem600),
                   child: ListView.builder(
                       itemBuilder: (context, index) {
-                        if (index + (currentPage - 1) * 20 >=
+                        if (index + (currentPage - 1) * 15 >=
                             searchCameras.length) {
                           return const SizedBox();
                         }
                         final camera =
-                            searchCameras[index + (currentPage - 1) * 20];
+                            searchCameras[index + (currentPage - 1) * 15];
 
                         return Padding(
                           padding: EdgeInsets.all(AppSpacing.rem350.h),
@@ -166,9 +171,9 @@ class _SearchCameraListWidgetState extends State<SearchCameraListWidget> {
                           ),
                         );
                       },
-                      itemCount: state.resultsCam.length < 20
+                      itemCount: state.resultsCam.length < 15
                           ? state.resultsCam.length
-                          : 20,
+                          : 15,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics()),
                 ),
@@ -177,14 +182,15 @@ class _SearchCameraListWidgetState extends State<SearchCameraListWidget> {
                 SizedBox()
               else
                 NumberPagination(
+                  selectedButtonColor: colors.primary,
                   onPageChanged: (int pageNumber) {
                     setState(() {
                       currentPage = pageNumber;
                     });
                   },
                   visiblePagesCount: 5,
-                  totalPages: searchCameras.length ~/ 20 +
-                      (searchCameras.length % 20 == 0 ? 0 : 1),
+                  totalPages: searchCameras.length ~/ 15 +
+                      (searchCameras.length % 15 == 0 ? 0 : 1),
                   currentPage: currentPage,
                 ),
             ],
