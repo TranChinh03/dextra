@@ -117,7 +117,9 @@ class ResultDetail {
         date: json.containsKey('date') ? json['date'].toString() : null,
         time: json.containsKey('time') ? json['time'].toString() : null,
         camera: json.containsKey('camera') ? json['camera'].toString() : null,
-        loc: json.containsKey('loc') ? Location.fromJson(json['loc']) : null,
+        loc: json.containsKey('loc') && json['loc'] != null
+            ? Location.fromJson(json['loc'])
+            : null,
         numberOfBicycle: json.containsKey('numberOfBicycle')
             ? json['numberOfBicycle'].toString()
             : null,

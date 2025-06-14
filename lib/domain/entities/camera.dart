@@ -31,7 +31,9 @@ class Camera {
       privateId: json.containsKey('_id') ? json['_id'] : null,
       id: json.containsKey('id') ? json['id'] : null,
       name: json.containsKey('name') ? json['name'] : null,
-      loc: json.containsKey('loc') ? Location.fromJson(json['loc']) : null,
+      loc: json.containsKey('loc') && json['loc'] != null
+          ? Location.fromJson(json['loc'])
+          : null,
       values:
           json.containsKey('values') ? Values.fromJson(json['values']) : null,
       dist: json.containsKey('dist') ? json['dist'] : '',

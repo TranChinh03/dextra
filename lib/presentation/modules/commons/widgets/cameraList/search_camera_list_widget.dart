@@ -78,14 +78,14 @@ class _SearchCameraListWidgetState extends State<SearchCameraListWidget> {
   @override
   void initState() {
     super.initState();
-    // _searchBloc.add(
-    //   SearchCamerasEvent(
-    //     query: SearchCamerasQuery(
-    //       cameraName: "",
-    //       district: "",
-    //     ),
-    //   ),
-    // );
+    _searchBloc.add(
+      SearchCamerasEvent(
+        query: SearchCamerasQuery(
+          cameraName: "",
+          district: "",
+        ),
+      ),
+    );
   }
 
   @override
@@ -108,6 +108,7 @@ class _SearchCameraListWidgetState extends State<SearchCameraListWidget> {
                   ),
                   Expanded(
                     child: SimpleDropdown(
+                      value: currentDistrict,
                       itemsList:
                           ["All", ..._cameraBloc.state.districts].map((option) {
                         return DropdownMenuItem<String>(

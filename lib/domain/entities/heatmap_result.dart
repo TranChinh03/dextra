@@ -123,7 +123,9 @@ class HeatmapData {
   factory HeatmapData.fromJson(Map<String, dynamic> json) {
     return HeatmapData(
         camera: json.containsKey('camera') ? json['camera'].toString() : null,
-        loc: json.containsKey('loc') ? Location.fromJson(json['loc']) : null,
+        loc: json.containsKey('loc') && json['loc'] != null
+            ? Location.fromJson(json['loc'])
+            : null,
         numberOfBicycle: json.containsKey('numberOfBicycle')
             ? json['numberOfBicycle'].toString()
             : null,
