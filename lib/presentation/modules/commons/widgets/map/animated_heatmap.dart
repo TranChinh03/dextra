@@ -76,7 +76,7 @@ class _AnimatedHeatmapState extends State<AnimatedHeatmap> {
   void startHeatmapAnimation(Function(List<WeightedLatLng>) onUpdate) {
     heatmapTimer?.cancel(); // stop previous timer if any
 
-    heatmapTimer = Timer.periodic(Duration(seconds: 2), (timer) {
+    heatmapTimer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (_heatmapData.isEmpty) return;
 
       final currentPoint = _heatmapData[currentIndex];
