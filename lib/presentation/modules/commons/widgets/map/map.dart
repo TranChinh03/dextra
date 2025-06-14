@@ -151,8 +151,9 @@ class MapSampleState extends State<MapSample> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CommonText(
-                        DateFormat('hh:mm:ss a').format(
-                            _selectedCam?.lastModified ?? DateTime.now()),
+                        // DateFormat('hh:mm:ss a').format(
+                        //     _selectedCam?.lastModified ?? DateTime.now()),
+                        DateFormat('hh:mm:ss a').format(DateTime.now()),
                         style: TextStyle(
                             fontSize: AppFontSize.xxxs,
                             fontWeight: FontWeight.w300),

@@ -33,7 +33,7 @@ class HeatmapRepository implements IHeatmapRepository {
   Future<BaseApiResponse<HeatmapResult>> fetchHeatmapInDay(Query query) async {
     final FetchHeatmapInDayQuery fetchHeatmapInDayQuery = query.query;
     final response = await _apiClient.get<HeatmapResult, HeatmapResult>(
-      "$fetchHeatmapInDayUrl?date=${fetchHeatmapInDayQuery.date}&time_from=${fetchHeatmapInDayQuery.timeFrom ?? ""}&time_to=${fetchHeatmapInDayQuery.timeTo ?? ""}",
+      "$fetchHeatmapInDayUrl?date=${fetchHeatmapInDayQuery.date}&timeFrom=${fetchHeatmapInDayQuery.timeFrom ?? ""}&timeTo=${fetchHeatmapInDayQuery.timeTo ?? ""}",
       parser: (json) => HeatmapResult.fromJson(json),
     );
 

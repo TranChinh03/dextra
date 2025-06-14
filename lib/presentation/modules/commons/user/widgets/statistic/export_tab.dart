@@ -1,4 +1,5 @@
 import 'package:dextra/di/injectable.dart';
+import 'package:dextra/domain/entities/statistic_result.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_camera/statistic_by_camera_querry.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_custom/statistic_by_custom_query.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_date/statistic_by_date_query.dart';
@@ -10,10 +11,12 @@ import 'package:dextra/presentation/modules/commons/widgets/button/common_primar
 import 'package:dextra/presentation/modules/commons/widgets/card/common_statistic_card.dart';
 import 'package:dextra/presentation/modules/commons/widgets/card/small_statistic_card.dart';
 import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_bar_chart.dart';
+import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_bar_chart_no_animation.dart';
 import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_line_chart.dart';
 import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_pie_chart.dart';
 import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_pie_chart_2.dart';
 import 'package:dextra/presentation/modules/commons/widgets/input/simple_dropdown.dart';
+import 'package:dextra/presentation/modules/commons/widgets/map/heatmap.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_heading.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
 import 'package:dextra/shareds/utils/time_validators.dart';
@@ -25,6 +28,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:screenshot/screenshot.dart';
 
 class ExportTab extends StatefulWidget {
   const ExportTab({super.key});
@@ -60,6 +64,14 @@ class _ExportTabState extends State<ExportTab> {
     _onFetchVehicle();
     _onTrackingByDate();
     // _onFetchHeatmap();
+  }
+
+  String findMaxMotorcycle(List<ResultDetail> dataList) {
+    if (dataList.isEmpty) return "0";
+
+    return dataList.map((e) => e.numberOfMotorcycle).reduce(
+            (a, b) => int.parse(a ?? "0") > int.parse(b ?? "0") ? a : b) ??
+        "";
   }
 
   void _onTrackingByDate() {
@@ -102,7 +114,12 @@ class _ExportTabState extends State<ExportTab> {
           (item) => item.date == _datetimeBloc.state.dates.last.date,
         )
         .time;
-    _endTime ??= _datetimeBloc.state.timestamps.last.time;
+    _endTime ??= _datetimeBloc.state.timestamps
+        .lastWhere(
+          (item) => item.date == _datetimeBloc.state.dates.last.date,
+        )
+        .time;
+    ;
     _statisticBloc.add(
       DetectByCustomEvent(
         query: DetectByCustomQuery(
@@ -137,18 +154,25 @@ class _ExportTabState extends State<ExportTab> {
     if (value != null) {
       setState(() {
         _selectedDate = value;
-        _startTime = _startTimeDist =
-            _endTime = _endTimeDist = _datetimeBloc.state.timestamps
-                .firstWhere(
-                  (item) => item.date == value,
-                )
-                .time;
+        _startTime = _startTimeDist = _datetimeBloc.state.timestamps
+            .firstWhere(
+              (item) => item.date == value,
+            )
+            .time;
+
+        _endTime = _endTimeDist = _datetimeBloc.state.timestamps
+            .lastWhere(
+              (item) => item.date == value,
+            )
+            .time;
       });
       _statisticBloc.add(
           DetectByDateEvent(query: DetectByDateQuery(date: _selectedDate)));
       _statisticBloc.add(DetectByCustomEvent(
           query: DetectByCustomQuery(
               date: _selectedDate, timeFrom: _startTime, timeTo: _endTime)));
+      _onFetchByDist(_selectedDistrict ?? _cameraBloc.state.districts.first,
+          _selectedDate, _startTimeDist, _endTimeDist);
     }
   }
 
@@ -193,15 +217,17 @@ class _ExportTabState extends State<ExportTab> {
           //         _statisticBloc.state.resultByCamera.details == null &&
           //         _statisticBloc.state.resultHeatmap.date == null;
           String latestDate = "";
-          String latestTime = "";
+          String latestStartTime = "";
+          String latestEndTime = "";
           String firstDistrict = "";
           String firstCam = "";
 
           if (hasDateData && hasCameraData) {
             latestDate = dateState.dates.last.date;
-            latestTime = dateState.timestamps
-                .firstWhere(
-                  (item) => item.date == _datetimeBloc.state.dates.last.date,
+            latestStartTime = dateState.timestamps.first.time;
+            latestEndTime = dateState.timestamps
+                .lastWhere(
+                  (item) => item.date == latestDate,
                 )
                 .time;
             firstDistrict = cameraState.districts.first;
@@ -215,7 +241,8 @@ class _ExportTabState extends State<ExportTab> {
                 ),
               );
               //Fetch by District
-              _onFetchByDist(firstDistrict, latestDate, latestTime, latestTime);
+              _onFetchByDist(
+                  firstDistrict, latestDate, latestStartTime, latestEndTime);
               _onFetchByCam();
             }
           }
@@ -246,7 +273,8 @@ class _ExportTabState extends State<ExportTab> {
               ),
               StatisticBarChart(
                   data: _statisticBloc.state.trackingByDate,
-                  maxY: 500000,
+                  maxY: double.parse(
+                      findMaxMotorcycle(_statisticBloc.state.trackingByDate)),
                   intervalY: 50000),
               CommonHeading(
                 heading: tr('Common.statistic'),
@@ -326,7 +354,7 @@ class _ExportTabState extends State<ExportTab> {
                         ),
                         Expanded(
                             child: SimpleDropdown(
-                          value: _startTime ?? latestTime,
+                          value: _startTime ?? latestStartTime,
                           itemsList: _datetimeBloc.state.timestamps
                               .where((option) =>
                                   option.date == (_selectedDate ?? latestDate))
@@ -359,7 +387,7 @@ class _ExportTabState extends State<ExportTab> {
                               value,
                               tr: tr,
                             ),
-                            value: _endTime ?? latestTime,
+                            value: _endTime ?? latestEndTime,
                             itemsList: _datetimeBloc.state.timestamps
                                 .where((option) =>
                                     option.date ==
@@ -386,8 +414,18 @@ class _ExportTabState extends State<ExportTab> {
                       padding:
                           EdgeInsets.symmetric(vertical: AppSpacing.rem600.h),
                       child: StatisticLineChart(
-                        maxY: 20000,
-                        intervalY: 2000,
+                        maxY: double.parse(findMaxMotorcycle(
+                            _statisticBloc.state.resultByCustom.details ??
+                                _statisticBloc.state.resultByDate.details ??
+                                [])),
+                        intervalY: (double.parse(findMaxMotorcycle(
+                                    _statisticBloc
+                                            .state.resultByCustom.details ??
+                                        _statisticBloc
+                                            .state.resultByDate.details ??
+                                        [])) /
+                                12)
+                            .toPrecision(0),
                         datas: _statisticBloc.state.resultByCustom.details ??
                             _statisticBloc.state.resultByDate.details ??
                             [],
@@ -491,7 +529,7 @@ class _ExportTabState extends State<ExportTab> {
                         ),
                         Expanded(
                             child: SimpleDropdown(
-                          value: _startTimeDist ?? latestTime,
+                          value: _startTimeDist ?? latestStartTime,
                           itemsList: _datetimeBloc.state.timestamps
                               .where((option) =>
                                   option.date == (_selectedDate ?? latestDate))
@@ -524,7 +562,7 @@ class _ExportTabState extends State<ExportTab> {
                               value,
                               tr: tr,
                             ),
-                            value: _endTimeDist ?? latestTime,
+                            value: _endTimeDist ?? latestEndTime,
                             itemsList: _datetimeBloc.state.timestamps
                                 .where((option) =>
                                     option.date ==
@@ -546,8 +584,8 @@ class _ExportTabState extends State<ExportTab> {
                           onPressed: () => _submitFormDist(
                               _selectedDistrict ?? firstDistrict,
                               _selectedDate ?? latestDate,
-                              _startTimeDist ?? latestTime,
-                              _endTimeDist ?? latestTime),
+                              _startTimeDist ?? latestStartTime,
+                              _endTimeDist ?? latestEndTime),
                         )
                       ],
                     ),
@@ -618,8 +656,13 @@ class _ExportTabState extends State<ExportTab> {
                     padding:
                         EdgeInsets.symmetric(vertical: AppSpacing.rem600.h),
                     child: StatisticLineChart(
-                      maxY: 3000,
-                      intervalY: 300,
+                      maxY: double.parse(findMaxMotorcycle(
+                          _statisticBloc.state.resultByDistrict.details ?? [])),
+                      intervalY: (double.parse(findMaxMotorcycle(_statisticBloc
+                                      .state.resultByDistrict.details ??
+                                  [])) /
+                              12)
+                          .toPrecision(0),
                       datas:
                           _statisticBloc.state.resultByDistrict.details ?? [],
                     ),
@@ -654,9 +697,10 @@ class _ExportTabState extends State<ExportTab> {
                                 })),
                   ],
                 ),
-                StatisticBarChart(
+                StatisticBarChartNoAnimation(
                   data: _statisticBloc.state.resultByCamera.details,
-                  maxY: 1000,
+                  maxY: double.parse(findMaxMotorcycle(
+                      _statisticBloc.state.resultByCamera.details ?? [])),
                   intervalY: 50,
                 ),
                 Row(

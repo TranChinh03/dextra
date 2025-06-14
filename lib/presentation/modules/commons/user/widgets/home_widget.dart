@@ -55,9 +55,8 @@ class _HomeWidgetState extends State<HomeWidget> {
   @override
   void initState() {
     super.initState();
-    print('HomeWidget initState');
-    // _onFetchCamera();
-    // _onFetchByDate();
+    _onFetchCamera();
+    _onFetchByDate();
   }
 
   @override
@@ -66,12 +65,13 @@ class _HomeWidgetState extends State<HomeWidget> {
     return BlocBuilder<CameraBloc, CameraState>(builder: (context, state) {
       return BlocBuilder<StatisticBloc, StatisticState>(
           builder: (context, statisticState) {
-        // if (statisticState.trackingByDate.isEmpty)
-        //   return CircularProgressIndicator();
-        // List data = _statisticBloc.state.trackingByDate;
-        int length = sampleTracking.length;
-        ResultDetail lastDay = sampleTracking.last;
-        ResultDetail beforeDay = sampleTracking[length - 2];
+        if (statisticState.trackingByDate.isEmpty) {
+          return Center(child: CircularProgressIndicator());
+        }
+        List data = _statisticBloc.state.trackingByDate;
+        int length = data.length;
+        ResultDetail lastDay = data.last;
+        ResultDetail beforeDay = data[length - 2];
         double rate = ((lastDay.totalVehicles ?? 0) *
                 100 /
                 (beforeDay.totalVehicles ?? 1))
@@ -307,10 +307,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                         )
                       : CircularProgressIndicator(),
                   StatisticBarChart3(
-                    maxY: double.parse(
-                        sampleTracking.last.numberOfMotorcycle ?? "0"),
+                    maxY: double.parse(data.last.numberOfMotorcycle ?? "0"),
                     intervalY: 50000,
-                    data: sampleTracking.last,
+                    data: data.last,
                   ),
                   Stack(
                     children: [
