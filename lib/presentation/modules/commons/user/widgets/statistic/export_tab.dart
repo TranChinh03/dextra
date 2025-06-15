@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:dextra/di/injectable.dart';
 import 'package:dextra/domain/entities/statistic_result.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_camera/statistic_by_camera_querry.dart';
@@ -8,6 +10,7 @@ import 'package:dextra/presentation/modules/commons/bloc/camera/camera_bloc.dart
 import 'package:dextra/presentation/modules/commons/bloc/datetime/datetime_bloc.dart';
 import 'package:dextra/presentation/modules/commons/bloc/statistic/statistic_bloc.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
+import 'package:dextra/presentation/modules/commons/widgets/button/common_save_img_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/card/common_statistic_card.dart';
 import 'package:dextra/presentation/modules/commons/widgets/card/small_statistic_card.dart';
 import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_bar_chart.dart';
@@ -16,9 +19,9 @@ import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_lin
 import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_pie_chart.dart';
 import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_pie_chart_2.dart';
 import 'package:dextra/presentation/modules/commons/widgets/input/simple_dropdown.dart';
-import 'package:dextra/presentation/modules/commons/widgets/map/heatmap.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_heading.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
+import 'package:dextra/shareds/utils/app_utils.dart';
 import 'package:dextra/shareds/utils/time_validators.dart';
 import 'package:dextra/theme/color/app_color.dart';
 import 'package:dextra/theme/font/app_font_size.dart';
@@ -26,9 +29,13 @@ import 'package:dextra/theme/font/app_font_weight.dart';
 import 'package:dextra/theme/spacing/app_spacing.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pdf/pdf.dart';
+import 'package:printing/printing.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:pdf/widgets.dart' as pw;
 
 class ExportTab extends StatefulWidget {
   const ExportTab({super.key});
@@ -51,9 +58,23 @@ class _ExportTabState extends State<ExportTab> {
   String? _selectedDistrict;
   String? _startTimeDist;
   String? _endTimeDist;
-
   String? _selectedDate;
 
+  String latestDate = "";
+  String latestStartTime = "";
+  String latestEndTime = "";
+  String firstDistrict = "";
+  String firstCam = "";
+
+  bool _isExporting = false;
+
+  final ScreenshotController trackingCtrl = ScreenshotController();
+  final ScreenshotController datePieCtrl = ScreenshotController();
+  final ScreenshotController timeLineCtrl = ScreenshotController();
+  final ScreenshotController timePieCtrl = ScreenshotController();
+  final ScreenshotController regionLineCtrl = ScreenshotController();
+  final ScreenshotController cameraBarCtrl = ScreenshotController();
+  final ScreenshotController cameraPieCtrl = ScreenshotController();
   @override
   void initState() {
     super.initState();
@@ -63,7 +84,6 @@ class _ExportTabState extends State<ExportTab> {
     _onFetchCamera();
     _onFetchVehicle();
     _onTrackingByDate();
-    // _onFetchHeatmap();
   }
 
   String findMaxMotorcycle(List<ResultDetail> dataList) {
@@ -197,6 +217,274 @@ class _ExportTabState extends State<ExportTab> {
     }
   }
 
+  Future<void> generatePdfWithChart() async {
+    setState(() => _isExporting = true);
+    final results = await Future.wait([
+      trackingCtrl.capture(),
+      datePieCtrl.capture(),
+      timeLineCtrl.capture(),
+      timePieCtrl.capture(),
+      regionLineCtrl.capture(),
+      cameraBarCtrl.capture(),
+      cameraPieCtrl.capture(),
+    ]);
+
+    final Uint8List? trackingImageBytes = results[0];
+    final Uint8List? datePieImageBytes = results[1];
+    final Uint8List? timeLineImageBytes = results[2];
+    final Uint8List? timePieImageBytes = results[3];
+    final Uint8List? regionImageBytes = results[4];
+    final Uint8List? cameraBarImageBytes = results[5];
+    final Uint8List? cameraPieImageBytes = results[6];
+
+    final trackingData = _statisticBloc.state.trackingByDate;
+    // final statByDateData = _statisticBloc.state.resultByDate;
+    final statByTimeData = _statisticBloc.state.resultByCustom.district == null
+        ? _statisticBloc.state.resultByDate
+        : _statisticBloc.state.resultByCustom;
+    final statByRegionData = _statisticBloc.state.resultByDistrict;
+    final statByCamData = _statisticBloc.state.resultByCamera;
+
+    // Check if any screenshot failed
+    if (results.any((bytes) => bytes == null)) {
+      return;
+    }
+    var titleFont =
+        await rootBundle.load("assets/fonts/inter/Inter-ExtraBold.ttf");
+    var headingFont =
+        await rootBundle.load("assets/fonts/inter/Inter-Bold.ttf");
+    var subHeadingFont =
+        await rootBundle.load("assets/fonts/inter/Inter-Bold.ttf");
+    var bodyFont =
+        await rootBundle.load("assets/fonts/inter/Inter-Regular.ttf");
+    final pdf = pw.Document();
+
+    final date = _selectedDate ?? latestDate;
+    final startTime = _startTime ?? latestStartTime;
+    final endTime = _endTime ?? latestEndTime;
+    final district = _selectedDistrict ?? firstDistrict;
+    final startTimeDist = _startTimeDist ?? startTime;
+    final endTimeDist = _endTimeDist ?? endTime;
+    final camera = _selectedCam != null
+        ? _cameraBloc.state.cameras
+            .firstWhere((item) => item.privateId == _selectedCam)
+            .name
+        : _cameraBloc.state.cameras.first.name;
+
+    final titleStyle = pw.TextStyle(
+        fontSize: AppFontSize.xxxl,
+        font: pw.Font.ttf(titleFont),
+        color: PdfColor(117 / 255, 181 / 255, 251 / 255, 1));
+    final headingStyle = pw.TextStyle(
+        fontSize: AppFontSize.xxxl,
+        font: pw.Font.ttf(headingFont),
+        color: PdfColor(40 / 255, 40 / 255, 40 / 255));
+    final subHeadingStyle = pw.TextStyle(
+        fontSize: AppFontSize.xl,
+        font: pw.Font.ttf(subHeadingFont),
+        color: PdfColor(60 / 255, 60 / 255, 60 / 255));
+
+    pdf.addPage(
+      pw.MultiPage(
+          maxPages: 100,
+          build: (pw.Context context) => [
+                pw.Text("Full Traffic Report", style: titleStyle),
+                pw.SizedBox(height: AppSpacing.rem1000.h),
+                pw.Text("Overview", style: headingStyle),
+                pw.Text("Statistics in Ho Chi Minh City",
+                    style: subHeadingStyle),
+                pw.SizedBox(height: AppSpacing.rem500.h),
+                pw.Image(pw.MemoryImage(trackingImageBytes!)),
+                pw.SizedBox(height: AppSpacing.rem500.h),
+                pw.TableHelper.fromTextArray(
+                  context: context,
+                  data: [
+                    [
+                      'Date',
+                      'Bicycles',
+                      'Motorcycles',
+                      'Cars',
+                      'Vans',
+                      'Trucks',
+                      'Buses',
+                      'Fire Trucks',
+                      'Containers'
+                    ],
+                    ...trackingData.map((e) => [
+                          e.date ?? '',
+                          e.numberOfBicycle ?? '',
+                          e.numberOfMotorcycle ?? '',
+                          e.numberOfCar ?? '',
+                          e.numberOfVan ?? '',
+                          e.numberOfTruck ?? '',
+                          e.numberOfBus ?? '',
+                          e.numberOfFireTruck ?? '',
+                          e.numberOfContainer ?? '',
+                        ]),
+                  ],
+                ),
+                pw.SizedBox(height: AppSpacing.rem1000.h),
+                pw.Text("Statistic", style: headingStyle),
+                pw.Text("Statistics in Ho Chi Minh City on $date",
+                    style: subHeadingStyle),
+                pw.SizedBox(height: AppSpacing.rem500.h),
+                pw.Image(pw.MemoryImage(datePieImageBytes!)),
+                pw.SizedBox(height: AppSpacing.rem1000.h),
+                pw.Text(
+                    "Statistics in Ho Chi Minh City on $date, from $startTime to $endTime",
+                    style: subHeadingStyle),
+                pw.SizedBox(height: AppSpacing.rem500.h),
+                pw.Image(pw.MemoryImage(timeLineImageBytes!)),
+                pw.SizedBox(height: AppSpacing.rem500.h),
+                pw.Text("Statistics in Ho Chi Minh City on $date",
+                    style: subHeadingStyle),
+                pw.SizedBox(height: AppSpacing.rem500.h),
+                pw.TableHelper.fromTextArray(context: context, data: [
+                  [
+                    'Time',
+                    'Bicycles',
+                    'Motorcycles',
+                    'Cars',
+                    'Vans',
+                    'Trucks',
+                    'Buses',
+                    'Fire Trucks',
+                    'Containers'
+                  ],
+                  ...statByTimeData.details!.map((e) => [
+                        e.time ?? '',
+                        e.numberOfBicycle ?? '',
+                        e.numberOfMotorcycle ?? '',
+                        e.numberOfCar ?? '',
+                        e.numberOfVan ?? '',
+                        e.numberOfTruck ?? '',
+                        e.numberOfBus ?? '',
+                        e.numberOfFireTruck ?? '',
+                        e.numberOfContainer ?? '',
+                      ]),
+                ]),
+                pw.SizedBox(height: AppSpacing.rem500.h),
+                pw.Image(pw.MemoryImage(timePieImageBytes!)),
+                pw.SizedBox(height: AppSpacing.rem600.h),
+                pw.TableHelper.fromTextArray(
+                  context: context,
+                  data: [
+                    ['Total', statByTimeData.totalVehicles],
+                    ['Bicycles', statByTimeData.numberOfBicycle],
+                    ['Motorcycles', statByTimeData.numberOfMotorcycle],
+                    ['Cars', statByTimeData.numberOfCar],
+                    ['Vans', statByTimeData.numberOfVan],
+                    ['Trucks', statByTimeData.numberOfTruck],
+                    ['Buses', statByTimeData.numberOfBus],
+                    ['Fire Trucks', statByTimeData.numberOfFireTruck],
+                    ['Containers', statByTimeData.numberOfContainer]
+                  ],
+                ),
+                pw.SizedBox(height: AppSpacing.rem1000.h),
+                pw.Text("Statistic", style: headingStyle),
+                pw.Text(
+                    "Statistics in $district, on $date, from $startTimeDist to $endTimeDist",
+                    style: subHeadingStyle),
+                pw.SizedBox(height: AppSpacing.rem500.h),
+                pw.Image(pw.MemoryImage(regionImageBytes!)),
+                pw.SizedBox(height: AppSpacing.rem500.h),
+                pw.TableHelper.fromTextArray(
+                  context: context,
+                  data: [
+                    [
+                      'Time',
+                      'Bicycles',
+                      'Motorcycles',
+                      'Cars',
+                      'Vans',
+                      'Trucks',
+                      'Buses',
+                      'Fire Trucks',
+                      'Containers',
+                    ],
+                    ...statByRegionData.details!.map((e) => [
+                          e.time ?? '',
+                          e.numberOfBicycle ?? '',
+                          e.numberOfMotorcycle ?? '',
+                          e.numberOfCar ?? '',
+                          e.numberOfVan ?? '',
+                          e.numberOfTruck ?? '',
+                          e.numberOfBus ?? '',
+                          e.numberOfFireTruck ?? '',
+                          e.numberOfContainer ?? '',
+                        ]),
+                  ],
+                ),
+                pw.SizedBox(height: AppSpacing.rem500.h),
+                pw.TableHelper.fromTextArray(
+                  context: context,
+                  data: [
+                    ['Total', statByRegionData.totalVehicles],
+                    ['Bicycles', statByRegionData.numberOfBicycle],
+                    ['Motorcycles', statByRegionData.numberOfMotorcycle],
+                    ['Cars', statByRegionData.numberOfCar],
+                    ['Vans', statByRegionData.numberOfVan],
+                    ['Trucks', statByRegionData.numberOfTruck],
+                    ['Buses', statByRegionData.numberOfBus],
+                    ['Fire Trucks', statByRegionData.numberOfFireTruck],
+                    ['Containers', statByRegionData.numberOfContainer]
+                  ],
+                ),
+                pw.SizedBox(height: AppSpacing.rem1000.h),
+                pw.Text("Statistic", style: headingStyle),
+                pw.Text("Statistics by Camera $camera", style: subHeadingStyle),
+                pw.SizedBox(height: AppSpacing.rem500.h),
+                pw.Image(pw.MemoryImage(cameraBarImageBytes!)),
+                pw.SizedBox(height: AppSpacing.rem500.h),
+                pw.Image(pw.MemoryImage(cameraPieImageBytes!)),
+                pw.SizedBox(height: AppSpacing.rem500.h),
+                pw.TableHelper.fromTextArray(context: context, data: [
+                  [
+                    'Date',
+                    'Bicycles',
+                    'Motorcycles',
+                    'Cars',
+                    'Vans',
+                    'Trucks',
+                    'Buses',
+                    'Fire Trucks',
+                    'Containers',
+                  ],
+                  ...statByCamData.details!.map((e) => [
+                        e.date ?? '',
+                        e.numberOfBicycle ?? '',
+                        e.numberOfMotorcycle ?? '',
+                        e.numberOfCar ?? '',
+                        e.numberOfVan ?? '',
+                        e.numberOfTruck ?? '',
+                        e.numberOfBus ?? '',
+                        e.numberOfFireTruck ?? '',
+                        e.numberOfContainer ?? '',
+                      ]),
+                ]),
+                pw.SizedBox(height: AppSpacing.rem500.h),
+                pw.TableHelper.fromTextArray(
+                  context: context,
+                  data: [
+                    ['Total', statByCamData.totalVehicles],
+                    ['Bicycles', statByCamData.numberOfBicycle],
+                    ['Motorcycles', statByCamData.numberOfMotorcycle],
+                    ['Cars', statByCamData.numberOfCar],
+                    ['Vans', statByCamData.numberOfVan],
+                    ['Trucks', statByCamData.numberOfTruck],
+                    ['Buses', statByCamData.numberOfBus],
+                    ['Fire Trucks', statByCamData.numberOfFireTruck],
+                    ['Containers', statByCamData.numberOfContainer]
+                  ],
+                ),
+              ]),
+    );
+
+    await Printing.sharePdf(
+        bytes: await pdf.save(), filename: 'full_report.pdf');
+    setState(() => _isExporting = false);
+  }
+
   @override
   Widget build(BuildContext context) {
     final colors = IAppColor.watch(context);
@@ -210,17 +498,6 @@ class _ExportTabState extends State<ExportTab> {
           final hasCameraData = cameraState.districts.isNotEmpty &&
               cameraState.cameras.isNotEmpty &&
               cameraState.vehicles.isNotEmpty;
-          // final hasStatisticData =
-          //     _statisticBloc.state.resultByDate.date != null &&
-          //         _statisticBloc.state.resultByDistrict.date != null &&
-          //         _statisticBloc.state.resultByCamera.date != null &&
-          //         _statisticBloc.state.resultByCamera.details == null &&
-          //         _statisticBloc.state.resultHeatmap.date == null;
-          String latestDate = "";
-          String latestStartTime = "";
-          String latestEndTime = "";
-          String firstDistrict = "";
-          String firstCam = "";
 
           if (hasDateData && hasCameraData) {
             latestDate = dateState.dates.last.date;
@@ -255,12 +532,6 @@ class _ExportTabState extends State<ExportTab> {
             if (!hasDateData || !hasCameraData || !hasStatisticData) {
               return const Center(child: CircularProgressIndicator());
             }
-            // String lastestStartTime = sampleTimestamp
-            //     .firstWhere(
-            //       (item) => item.date == sampleDates.last.date,
-            //     )
-            //     .time;
-            // String lastestEndTime = sampleTimestamp.last.time;
 
             return Column(spacing: AppSpacing.rem1000.h, children: [
               CommonHeading(
@@ -271,11 +542,32 @@ class _ExportTabState extends State<ExportTab> {
                     fontWeight: AppFontWeight.bold,
                     color: colors.primary),
               ),
-              StatisticBarChart(
-                  data: _statisticBloc.state.trackingByDate,
-                  maxY: double.parse(
-                      findMaxMotorcycle(_statisticBloc.state.trackingByDate)),
-                  intervalY: 50000),
+              Stack(
+                children: [
+                  Screenshot(
+                    controller: trackingCtrl,
+                    child: Container(
+                      color: colors.white,
+                      child: StatisticBarChart(
+                          data: _statisticBloc.state.trackingByDate,
+                          maxY: double.parse(findMaxMotorcycle(
+                              _statisticBloc.state.trackingByDate)),
+                          intervalY: 50000),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: CommonSaveImgButton(
+                      onPressed: () {
+                        AppUtils.downloadWidgetAsImage(
+                          controller: trackingCtrl,
+                          filename: "tracking_by_day.png",
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
               CommonHeading(
                 heading: tr('Common.statistic'),
                 subheading: tr('Common.statistic_by_date'),
@@ -328,19 +620,39 @@ class _ExportTabState extends State<ExportTab> {
                       ),
                     ],
                   ),
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: AppSpacing.rem600.h),
-                    child: StatisticPieChart(
-                      detectResult: _statisticBloc.state.resultByDate,
-                      showTitle: true,
-                    ),
+                  Stack(
+                    children: [
+                      Screenshot(
+                        controller: datePieCtrl,
+                        child: Container(
+                          color: Colors.white,
+                          padding: EdgeInsets.symmetric(
+                              vertical: AppSpacing.rem600.h),
+                          child: StatisticPieChart(
+                            detectResult: _statisticBloc.state.resultByDate,
+                            showTitle: true,
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: CommonSaveImgButton(
+                          onPressed: () {
+                            AppUtils.downloadWidgetAsImage(
+                              controller: datePieCtrl,
+                              filename: "stat_by_date.png",
+                            );
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
               Form(
                 key: _formKey,
                 child: Column(
+                  spacing: AppSpacing.rem300.h,
                   children: [
                     Row(
                       spacing: AppSpacing.rem600,
@@ -410,26 +722,47 @@ class _ExportTabState extends State<ExportTab> {
                         )
                       ],
                     ),
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: AppSpacing.rem600.h),
-                      child: StatisticLineChart(
-                        maxY: double.parse(findMaxMotorcycle(
-                            _statisticBloc.state.resultByCustom.details ??
-                                _statisticBloc.state.resultByDate.details ??
-                                [])),
-                        intervalY: (double.parse(findMaxMotorcycle(
-                                    _statisticBloc
-                                            .state.resultByCustom.details ??
-                                        _statisticBloc
-                                            .state.resultByDate.details ??
-                                        [])) /
-                                12)
-                            .toPrecision(0),
-                        datas: _statisticBloc.state.resultByCustom.details ??
-                            _statisticBloc.state.resultByDate.details ??
-                            [],
-                      ),
+                    Stack(
+                      children: [
+                        Screenshot(
+                          controller: timeLineCtrl,
+                          child: Container(
+                            color: colors.white,
+                            padding: EdgeInsets.symmetric(
+                                vertical: AppSpacing.rem600.h),
+                            child: StatisticLineChart(
+                              maxY: double.parse(findMaxMotorcycle(
+                                  _statisticBloc.state.resultByCustom.details ??
+                                      _statisticBloc
+                                          .state.resultByDate.details ??
+                                      [])),
+                              intervalY: (double.parse(findMaxMotorcycle(
+                                          _statisticBloc.state.resultByCustom
+                                                  .details ??
+                                              _statisticBloc
+                                                  .state.resultByDate.details ??
+                                              [])) /
+                                      12)
+                                  .toPrecision(0),
+                              datas: _statisticBloc
+                                      .state.resultByCustom.details ??
+                                  _statisticBloc.state.resultByDate.details ??
+                                  [],
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: CommonSaveImgButton(
+                            onPressed: () {
+                              AppUtils.downloadWidgetAsImage(
+                                controller: timeLineCtrl,
+                                filename: "stat_by_time(line).png",
+                              );
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                     Row(children: [
                       SizedBox(
@@ -450,13 +783,32 @@ class _ExportTabState extends State<ExportTab> {
                         ),
                       ),
                       Expanded(
-                          child: StatisticPieChart(
-                        radius: 150,
-                        showTitle: false,
-                        detectResult:
-                            _statisticBloc.state.resultByCustom.date == null
-                                ? _statisticBloc.state.resultByDate
-                                : _statisticBloc.state.resultByCustom,
+                          child: Stack(
+                        children: [
+                          Screenshot(
+                            controller: timePieCtrl,
+                            child: StatisticPieChart(
+                              radius: 150,
+                              showTitle: false,
+                              detectResult:
+                                  _statisticBloc.state.resultByCustom.date ==
+                                          null
+                                      ? _statisticBloc.state.resultByDate
+                                      : _statisticBloc.state.resultByCustom,
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: CommonSaveImgButton(
+                              onPressed: () {
+                                AppUtils.downloadWidgetAsImage(
+                                  controller: timePieCtrl,
+                                  filename: "stat_by_time(pie).png",
+                                );
+                              },
+                            ),
+                          ),
+                        ],
                       ))
                     ])
                   ],
@@ -652,24 +1004,46 @@ class _ExportTabState extends State<ExportTab> {
                       ),
                     ],
                   ),
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: AppSpacing.rem600.h),
-                    child: StatisticLineChart(
-                      maxY: double.parse(findMaxMotorcycle(
-                          _statisticBloc.state.resultByDistrict.details ?? [])),
-                      intervalY: (double.parse(findMaxMotorcycle(_statisticBloc
-                                      .state.resultByDistrict.details ??
-                                  [])) /
-                              12)
-                          .toPrecision(0),
-                      datas:
-                          _statisticBloc.state.resultByDistrict.details ?? [],
-                    ),
+                  Stack(
+                    children: [
+                      Screenshot(
+                        controller: regionLineCtrl,
+                        child: Container(
+                          color: colors.white,
+                          padding: EdgeInsets.symmetric(
+                              vertical: AppSpacing.rem600.h),
+                          child: StatisticLineChart(
+                            maxY: double.parse(findMaxMotorcycle(
+                                _statisticBloc.state.resultByDistrict.details ??
+                                    [])),
+                            intervalY: (double.parse(findMaxMotorcycle(
+                                        _statisticBloc.state.resultByDistrict
+                                                .details ??
+                                            [])) /
+                                    12)
+                                .toPrecision(0),
+                            datas:
+                                _statisticBloc.state.resultByDistrict.details ??
+                                    [],
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: CommonSaveImgButton(
+                          onPressed: () {
+                            AppUtils.downloadWidgetAsImage(
+                              controller: regionLineCtrl,
+                              filename: "stat_by_region.png",
+                            );
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-              Column(children: [
+              Column(spacing: AppSpacing.rem300.h, children: [
                 Row(
                   spacing: AppSpacing.rem600,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -697,17 +1071,57 @@ class _ExportTabState extends State<ExportTab> {
                                 })),
                   ],
                 ),
-                StatisticBarChartNoAnimation(
-                  data: _statisticBloc.state.resultByCamera.details,
-                  maxY: double.parse(findMaxMotorcycle(
-                      _statisticBloc.state.resultByCamera.details ?? [])),
-                  intervalY: 50,
+                Stack(
+                  children: [
+                    Screenshot(
+                      controller: cameraBarCtrl,
+                      child: Container(
+                        color: colors.white,
+                        child: StatisticBarChartNoAnimation(
+                          data: _statisticBloc.state.resultByCamera.details,
+                          maxY: double.parse(findMaxMotorcycle(
+                              _statisticBloc.state.resultByCamera.details ??
+                                  [])),
+                          intervalY: 50,
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: CommonSaveImgButton(
+                        onPressed: () {
+                          AppUtils.downloadWidgetAsImage(
+                            controller: cameraBarCtrl,
+                            filename: "stat_by_cam(bar).png",
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 ),
                 Row(
                   children: [
                     Expanded(
-                        child: StatisticPieChart2(
-                      data: _statisticBloc.state.resultByCamera,
+                        child: Stack(
+                      children: [
+                        Screenshot(
+                          controller: cameraPieCtrl,
+                          child: StatisticPieChart2(
+                            data: _statisticBloc.state.resultByCamera,
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: CommonSaveImgButton(
+                            onPressed: () {
+                              AppUtils.downloadWidgetAsImage(
+                                controller: cameraPieCtrl,
+                                filename: "stat_by_cam(pie).png",
+                              );
+                            },
+                          ),
+                        ),
+                      ],
                     )),
                     CommonStatisticCard(
                       label: _selectedCam != null
@@ -724,7 +1138,16 @@ class _ExportTabState extends State<ExportTab> {
                     )
                   ],
                 ),
-              ])
+              ]),
+              _isExporting
+                  ? Center(
+                      child: CommonText("Exporting..."),
+                    )
+                  : CommonPrimaryButton(
+                      text: "Download full report",
+                      onPressed: () async {
+                        await generatePdfWithChart();
+                      }),
             ]);
           });
         });

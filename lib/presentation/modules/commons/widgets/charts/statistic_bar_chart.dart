@@ -87,158 +87,128 @@ class StatisticBarChartState extends State<StatisticBarChart> {
 
     return AspectRatio(
       aspectRatio: 16 / 9,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              spacing: AppSpacing.rem250.w,
-              children: List.generate(
-                  colors.length,
-                  (index) => _buildLegend(
-                        color: colors[index],
-                        text: labels[index],
-                      )),
-            ),
-            Expanded(
-              child: BarChart(
-                BarChartData(
-                  maxY: widget.maxY,
-                  barTouchData: BarTouchData(
-                    touchTooltipData: BarTouchTooltipData(
-                      getTooltipColor: ((group) {
-                        return Colors.grey.withValues(alpha: 0.5);
-                      }),
-                      getTooltipItem: (group, groupIndex, rod, rodIndex) {
-                        String label = widget.data![groupIndex].date ?? "";
+      child: Column(
+        spacing: AppSpacing.rem600.h,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            spacing: AppSpacing.rem250.w,
+            children: List.generate(
+                colors.length,
+                (index) => _buildLegend(
+                      color: colors[index],
+                      text: labels[index],
+                    )),
+          ),
+          Expanded(
+            child: BarChart(
+              BarChartData(
+                maxY: widget.maxY,
+                barTouchData: BarTouchData(
+                  touchTooltipData: BarTouchTooltipData(
+                    getTooltipColor: ((group) {
+                      return Colors.grey.withValues(alpha: 0.5);
+                    }),
+                    getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                      String label = widget.data![groupIndex].date ?? "";
 
-                        return BarTooltipItem(
-                          '$label\n',
-                          const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: (rod.toY).toString(),
-                              style: const TextStyle(
-                                color: Colors.white, //widget.touchedBarColor,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                              ),
+                      return BarTooltipItem(
+                        '$label\n',
+                        const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: (rod.toY).toString(),
+                            style: const TextStyle(
+                              color: Colors.white, //widget.touchedBarColor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
                             ),
-                          ],
-                        );
-                      },
-                    ),
-                    touchCallback: (FlTouchEvent event, response) {
-                      if (response == null || response.spot == null) {
-                        setState(() {
-                          touchedGroupIndex = -1;
-                          showingBarGroups = List.of(rawBarGroups);
-                        });
-                        return;
-                      }
-
-                      touchedGroupIndex = response.spot!.touchedBarGroupIndex;
-
-                      setState(() {
-                        if (!event.isInterestedForInteractions) {
-                          touchedGroupIndex = -1;
-                          showingBarGroups = List.of(rawBarGroups);
-                          return;
-                        }
-                        showingBarGroups = List.of(rawBarGroups);
-                        if (touchedGroupIndex != -1) {
-                          var sum = 0.0;
-                          for (final rod
-                              in showingBarGroups[touchedGroupIndex].barRods) {
-                            sum += rod.toY;
-                          }
-                          final avg = sum /
-                              showingBarGroups[touchedGroupIndex]
-                                  .barRods
-                                  .length;
-
-                          showingBarGroups[touchedGroupIndex] =
-                              showingBarGroups[touchedGroupIndex].copyWith(
-                            barRods: showingBarGroups[touchedGroupIndex]
-                                .barRods
-                                .map((rod) {
-                              return rod.copyWith(
-                                  toY: avg, color: appColors.menuBackground);
-                            }).toList(),
-                          );
-                        }
-                      });
+                          ),
+                        ],
+                      );
                     },
                   ),
-                  titlesData: FlTitlesData(
-                    show: true,
-                    rightTitles: const AxisTitles(
-                      sideTitles: SideTitles(showTitles: false),
-                    ),
-                    topTitles: const AxisTitles(
-                      sideTitles: SideTitles(showTitles: false),
-                    ),
-                    bottomTitles: AxisTitles(
-                      sideTitles: SideTitles(
-                        showTitles: true,
-                        getTitlesWidget: bottomTitles,
-                        reservedSize: 100,
-                      ),
-                    ),
-                    leftTitles: AxisTitles(
-                      sideTitles: SideTitles(
-                        showTitles: true,
-                        reservedSize: 100,
-                        interval: widget.intervalY,
-                        getTitlesWidget: leftTitles,
-                      ),
-                    ),
-                  ),
-                  borderData: FlBorderData(
-                    show: false,
-                  ),
-                  barGroups: showingBarGroups,
-                  gridData: const FlGridData(show: false),
+                  touchCallback: (FlTouchEvent event, response) {
+                    if (response == null || response.spot == null) {
+                      setState(() {
+                        touchedGroupIndex = -1;
+                        showingBarGroups = List.of(rawBarGroups);
+                      });
+                      return;
+                    }
+
+                    touchedGroupIndex = response.spot!.touchedBarGroupIndex;
+
+                    setState(() {
+                      if (!event.isInterestedForInteractions) {
+                        touchedGroupIndex = -1;
+                        showingBarGroups = List.of(rawBarGroups);
+                        return;
+                      }
+                      showingBarGroups = List.of(rawBarGroups);
+                      if (touchedGroupIndex != -1) {
+                        var sum = 0.0;
+                        for (final rod
+                            in showingBarGroups[touchedGroupIndex].barRods) {
+                          sum += rod.toY;
+                        }
+                        final avg = sum /
+                            showingBarGroups[touchedGroupIndex].barRods.length;
+
+                        showingBarGroups[touchedGroupIndex] =
+                            showingBarGroups[touchedGroupIndex].copyWith(
+                          barRods: showingBarGroups[touchedGroupIndex]
+                              .barRods
+                              .map((rod) {
+                            return rod.copyWith(
+                                toY: avg, color: appColors.menuBackground);
+                          }).toList(),
+                        );
+                      }
+                    });
+                  },
                 ),
+                titlesData: FlTitlesData(
+                  show: true,
+                  rightTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                  topTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                  bottomTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      getTitlesWidget: bottomTitles,
+                      reservedSize: 50,
+                    ),
+                  ),
+                  leftTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      reservedSize: 100,
+                      interval: widget.intervalY,
+                      getTitlesWidget: leftTitles,
+                    ),
+                  ),
+                ),
+                borderData: FlBorderData(
+                  show: false,
+                ),
+                barGroups: showingBarGroups,
+                gridData: const FlGridData(show: false),
               ),
             ),
-            const SizedBox(
-              height: 12,
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
-
-  // Widget leftTitles(double value, TitleMeta meta) {
-  //   const style = TextStyle(
-  //     color: Color(0xff7589a2),
-  //     fontWeight: FontWeight.bold,
-  //     fontSize: 14,
-  //   );
-  //   String text;
-  //   if (value == 0) {
-  //     text = '1K';
-  //   } else if (value == 10) {
-  //     text = '5K';
-  //   } else if (value == 19) {
-  //     text = '10K';
-  //   } else {
-  //     return Container();
-  //   }
-  //   return SideTitleWidget(
-  //     meta: meta,
-  //     space: 0,
-  //     child: Text(text, style: style),
-  //   );
-  // }
 
   Widget leftTitles(double value, TitleMeta meta) {
     const style = TextStyle(
@@ -333,25 +303,6 @@ class StatisticBarChartState extends State<StatisticBarChart> {
       }).toList(),
     );
   }
-
-  // BarChartGroupData makeGroupData(int x, double y1, double y2) {
-  //   return BarChartGroupData(
-  //     barsSpace: 4,
-  //     x: x,
-  //     barRods: [
-  //       BarChartRodData(
-  //         toY: y1,
-  //         color: widget.leftBarColor,
-  //         width: width,
-  //       ),
-  //       BarChartRodData(
-  //         toY: y2,
-  //         color: widget.rightBarColor,
-  //         width: width,
-  //       ),
-  //     ],
-  //   );
-  // }
 
   Widget makeTransactionsIcon() {
     const width = 4.5;

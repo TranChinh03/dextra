@@ -5,6 +5,7 @@ import 'package:dextra/domain/entities/camera.dart';
 import 'package:dextra/presentation/assets/assets.dart';
 import 'package:dextra/presentation/modules/commons/bloc/camera/camera_bloc.dart';
 import 'package:dextra/presentation/modules/commons/bloc/datetime/datetime_bloc.dart';
+import 'package:dextra/presentation/modules/commons/widgets/button/common_back_to_to_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/cameraList/search_camera_list_widget.dart';
 import 'package:dextra/presentation/modules/commons/widgets/commonImage/common_image.dart';
 import 'package:dextra/presentation/modules/commons/widgets/dialog/image_dialog.dart';
@@ -34,7 +35,7 @@ class _MapCamWidgetState extends State<MapCamWidget> {
   final _datetimeBloc = getIt.get<DateTimeBloc>();
   final _cameraBloc = getIt.get<CameraBloc>();
 
-  final ScrollController _scrollController2 = ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   late Timer _timer;
   String _currentTime = '';
@@ -85,7 +86,7 @@ class _MapCamWidgetState extends State<MapCamWidget> {
 
   void _scrollToTop() {
     // print("Scrolling to top");
-    _scrollController2.animateTo(
+    _scrollController.animateTo(
       0.0,
       duration: Duration(milliseconds: 500),
       curve: Curves.easeInOut,
@@ -95,7 +96,7 @@ class _MapCamWidgetState extends State<MapCamWidget> {
   @override
   void dispose() {
     _timer.cancel();
-    _scrollController2.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -130,126 +131,135 @@ class _MapCamWidgetState extends State<MapCamWidget> {
           return ScreenContainer(
             child: SizedBox(
               width: double.infinity,
-              child: SingleChildScrollView(
-                controller: _scrollController2,
-                padding: EdgeInsets.symmetric(
-                  horizontal: AppSpacing.rem600.w,
-                  vertical: AppSpacing.rem600.h,
-                ),
-                child: Column(
-                  children: [
-                    Row(
+              child: Stack(
+                children: [
+                  SingleChildScrollView(
+                    controller: _scrollController,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: AppSpacing.rem600.w,
+                      vertical: AppSpacing.rem600.h,
+                    ),
+                    child: Column(
                       children: [
-                        Container(
-                          height: AppSpacing.rem200.h,
-                          width: AppSpacing.rem200.h,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: colors.liveBadgeTextColor),
+                        Row(
+                          children: [
+                            Container(
+                              height: AppSpacing.rem200.h,
+                              width: AppSpacing.rem200.h,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: colors.liveBadgeTextColor),
+                            ),
+                            SizedBox(
+                              width: AppSpacing.rem300.w,
+                            ),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: AppSpacing.rem125.h,
+                                  horizontal: AppSpacing.rem700.w),
+                              decoration: BoxDecoration(
+                                  color: colors.liveBadgeBgColor,
+                                  borderRadius: BorderRadius.circular(
+                                      AppBorderRadius.spacing3xl)),
+                              child: CommonText(
+                                "Live",
+                                style: TextStyle(
+                                    color: colors.liveBadgeTextColor,
+                                    fontWeight: AppFontWeight.semiBold),
+                              ),
+                            ),
+                            SizedBox(
+                              width: AppSpacing.rem400.w,
+                            ),
+                            CommonText(
+                              _currentTime,
+                              style: TextStyle(
+                                  fontWeight: AppFontWeight.bold,
+                                  fontSize: AppFontSize.xxl),
+                            )
+                          ],
                         ),
                         SizedBox(
-                          width: AppSpacing.rem300.w,
+                          height: AppSpacing.rem600.h,
                         ),
                         Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: AppSpacing.rem125.h,
-                              horizontal: AppSpacing.rem700.w),
-                          decoration: BoxDecoration(
-                              color: colors.liveBadgeBgColor,
-                              borderRadius: BorderRadius.circular(
-                                  AppBorderRadius.spacing3xl)),
-                          child: CommonText(
-                            "Live",
-                            style: TextStyle(
-                                color: colors.liveBadgeTextColor,
-                                fontWeight: AppFontWeight.semiBold),
+                          margin: EdgeInsets.only(bottom: AppSpacing.rem600.h),
+                          height: AppSpacing.rem8975.h,
+                          width: double.infinity,
+                          color: colors.primaryBannerBg,
+                          child: MapSample(
+                            // cameraList: _cameraBloc.state.cameras,
+                            location: _currentPos,
+                            selectedCam: _selectedCam ??
+                                Camera(
+                                  privateId: '',
+                                  name: tr('Common.default_cam'),
+                                  lastModified: DateTime.now(),
+                                ),
                           ),
                         ),
-                        SizedBox(
-                          width: AppSpacing.rem400.w,
+                        SearchCameraListWidget(
+                          isCliked: updateCurrentPos,
+                          scrollToTop: _scrollToTop,
                         ),
-                        CommonText(
-                          _currentTime,
-                          style: TextStyle(
-                              fontWeight: AppFontWeight.bold,
-                              fontSize: AppFontSize.xxl),
-                        )
+                        // CommonHeading(
+                        //   heading: tr('Common.analyze_traffic'),
+                        //   subheading: tr('Common.analyze_traffic_info'),
+                        // ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //   children: [
+                        //     SearchBox(
+                        //       onChanged: (value) => {},
+                        //     ),
+                        //     CommonText(
+                        //       "${tr('Common.time')}: ",
+                        //       style: TextStyle(fontWeight: AppFontWeight.bold),
+                        //     ),
+                        //     // DateTimePicker(label: '', onPressed: () {}, isDate: true)
+                        //   ],
+                        // ),
+                        // GridView.count(
+                        //   padding:
+                        //       EdgeInsets.symmetric(vertical: AppSpacing.rem600.h),
+                        //   crossAxisCount: 3,
+                        //   crossAxisSpacing: AppSpacing.rem300.w,
+                        //   mainAxisSpacing: AppSpacing.rem300.h,
+                        //   shrinkWrap: true,
+                        //   physics: NeverScrollableScrollPhysics(),
+                        //   children: imageList,
+                        // ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //   children: [
+                        //     CommonStatisticCard(
+                        //       label: tr('Common.avg_congestion_label'),
+                        //       value: tr('Common.default_avg_congestion'),
+                        //       info: tr('Common.peak_congestion_label') +
+                        //           tr('Common.default_peak_congestion_value'),
+                        //       background: colors.cardBackground2,
+                        //       decoration: colors.cardDecorate2,
+                        //     ),
+                        //   ],
+                        // ),
+                        // Container(
+                        //     margin: EdgeInsets.symmetric(
+                        //         vertical: AppSpacing.rem600.h),
+                        //     height: AppSpacing.rem8975.h,
+                        //     width: double.infinity,
+                        //     color: colors.primaryBannerBg,
+                        //     child: AnimatedHeatmap()),
+
+                        TrafficHeatmap(),
                       ],
                     ),
-                    SizedBox(
-                      height: AppSpacing.rem600.h,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(bottom: AppSpacing.rem600.h),
-                      height: AppSpacing.rem8975.h,
-                      width: double.infinity,
-                      color: colors.primaryBannerBg,
-                      child: MapSample(
-                        // cameraList: _cameraBloc.state.cameras,
-                        location: _currentPos,
-                        selectedCam: _selectedCam ??
-                            Camera(
-                              privateId: '',
-                              name: tr('Common.default_cam'),
-                              lastModified: DateTime.now(),
-                            ),
-                      ),
-                    ),
-                    SearchCameraListWidget(
-                      isCliked: updateCurrentPos,
-                      scrollToTop: _scrollToTop,
-                    ),
-                    // CommonHeading(
-                    //   heading: tr('Common.analyze_traffic'),
-                    //   subheading: tr('Common.analyze_traffic_info'),
-                    // ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //   children: [
-                    //     SearchBox(
-                    //       onChanged: (value) => {},
-                    //     ),
-                    //     CommonText(
-                    //       "${tr('Common.time')}: ",
-                    //       style: TextStyle(fontWeight: AppFontWeight.bold),
-                    //     ),
-                    //     // DateTimePicker(label: '', onPressed: () {}, isDate: true)
-                    //   ],
-                    // ),
-                    // GridView.count(
-                    //   padding:
-                    //       EdgeInsets.symmetric(vertical: AppSpacing.rem600.h),
-                    //   crossAxisCount: 3,
-                    //   crossAxisSpacing: AppSpacing.rem300.w,
-                    //   mainAxisSpacing: AppSpacing.rem300.h,
-                    //   shrinkWrap: true,
-                    //   physics: NeverScrollableScrollPhysics(),
-                    //   children: imageList,
-                    // ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //   children: [
-                    //     CommonStatisticCard(
-                    //       label: tr('Common.avg_congestion_label'),
-                    //       value: tr('Common.default_avg_congestion'),
-                    //       info: tr('Common.peak_congestion_label') +
-                    //           tr('Common.default_peak_congestion_value'),
-                    //       background: colors.cardBackground2,
-                    //       decoration: colors.cardDecorate2,
-                    //     ),
-                    //   ],
-                    // ),
-                    // Container(
-                    //     margin: EdgeInsets.symmetric(
-                    //         vertical: AppSpacing.rem600.h),
-                    //     height: AppSpacing.rem8975.h,
-                    //     width: double.infinity,
-                    //     color: colors.primaryBannerBg,
-                    //     child: AnimatedHeatmap()),
-
-                    TrafficHeatmap(),
-                  ],
-                ),
+                  ),
+                  Positioned(
+                      bottom: AppSpacing.rem800.h,
+                      right: AppSpacing.rem800.h,
+                      child: CommonBackToToButton(
+                          scrollController: _scrollController))
+                ],
               ),
             ),
           );

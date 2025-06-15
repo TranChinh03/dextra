@@ -4,6 +4,7 @@ import 'package:dextra/presentation/modules/commons/bloc/statistic/statistic_blo
 import 'package:dextra/presentation/modules/commons/user/widgets/statistic/detect_tab.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/statistic/export_tab.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/statistic/schedule_tab.dart';
+import 'package:dextra/presentation/modules/commons/widgets/button/common_back_to_to_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_secondary_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/screen-container/screen_container.dart';
@@ -22,6 +23,13 @@ class StatisticWidget extends StatefulWidget {
 
 class _StatisticWidgetState extends State<StatisticWidget> {
   int _selectedTab = 0;
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   final List<Widget> _tabs = [ExportTab(), ScheduleTab(), DetectTab()];
   @override
@@ -32,77 +40,87 @@ class _StatisticWidgetState extends State<StatisticWidget> {
         isShowLoading: state.apiStatus == ApiStatus.loading,
         child: SizedBox(
           width: double.infinity,
-          child: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(
-              horizontal: AppSpacing.rem600.w,
-              vertical: AppSpacing.rem600.h,
-            ),
-            child: Column(
-              children: [
-                Row(
-                  spacing: AppSpacing.rem600.w,
-                  mainAxisAlignment: MainAxisAlignment.start,
+          child: Stack(
+            children: [
+              SingleChildScrollView(
+                controller: _scrollController,
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppSpacing.rem600.w,
+                  vertical: AppSpacing.rem600.h,
+                ),
+                child: Column(
                   children: [
-                    _selectedTab == 0
-                        ? CommonPrimaryButton(
-                            text: tr('Common.export_report'),
-                            onPressed: () {
-                              setState(() {
-                                _selectedTab = 0;
-                              });
-                            },
-                          )
-                        : CommonSecondaryButton(
-                            text: tr('Common.export_report'),
-                            onPressed: () {
-                              setState(() {
-                                _selectedTab = 0;
-                              });
-                            },
-                          ),
-                    _selectedTab == 1
-                        ? CommonPrimaryButton(
-                            text: tr('Common.schedule_report'),
-                            onPressed: () {
-                              setState(() {
-                                _selectedTab = 1;
-                              });
-                            },
-                          )
-                        : CommonSecondaryButton(
-                            text: tr('Common.schedule_report'),
-                            onPressed: () {
-                              setState(() {
-                                _selectedTab = 1;
-                              });
-                            },
-                          ),
-                    _selectedTab == 2
-                        ? CommonPrimaryButton(
-                            text: tr('Common.detect'),
-                            onPressed: () {
-                              setState(() {
-                                _selectedTab = 2;
-                              });
-                            },
-                          )
-                        : CommonSecondaryButton(
-                            text: tr('Common.detect'),
-                            onPressed: () {
-                              setState(() {
-                                _selectedTab = 2;
-                              });
-                            },
-                          )
+                    Row(
+                      spacing: AppSpacing.rem600.w,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        _selectedTab == 0
+                            ? CommonPrimaryButton(
+                                text: tr('Common.export_report'),
+                                onPressed: () {
+                                  setState(() {
+                                    _selectedTab = 0;
+                                  });
+                                },
+                              )
+                            : CommonSecondaryButton(
+                                text: tr('Common.export_report'),
+                                onPressed: () {
+                                  setState(() {
+                                    _selectedTab = 0;
+                                  });
+                                },
+                              ),
+                        _selectedTab == 1
+                            ? CommonPrimaryButton(
+                                text: tr('Common.schedule_report'),
+                                onPressed: () {
+                                  setState(() {
+                                    _selectedTab = 1;
+                                  });
+                                },
+                              )
+                            : CommonSecondaryButton(
+                                text: tr('Common.schedule_report'),
+                                onPressed: () {
+                                  setState(() {
+                                    _selectedTab = 1;
+                                  });
+                                },
+                              ),
+                        _selectedTab == 2
+                            ? CommonPrimaryButton(
+                                text: tr('Common.detect'),
+                                onPressed: () {
+                                  setState(() {
+                                    _selectedTab = 2;
+                                  });
+                                },
+                              )
+                            : CommonSecondaryButton(
+                                text: tr('Common.detect'),
+                                onPressed: () {
+                                  setState(() {
+                                    _selectedTab = 2;
+                                  });
+                                },
+                              )
+                      ],
+                    ),
+                    SizedBox(height: AppSpacing.rem600.h),
+                    IndexedStack(
+                      index: _selectedTab,
+                      children: _tabs,
+                    ),
                   ],
                 ),
-                SizedBox(height: AppSpacing.rem600.h),
-                IndexedStack(
-                  index: _selectedTab,
-                  children: _tabs,
-                ),
-              ],
-            ),
+              ),
+              Positioned(
+                  bottom: AppSpacing.rem800.h,
+                  right: AppSpacing.rem800.h,
+                  child:
+                      CommonBackToToButton(scrollController: _scrollController))
+            ],
           ),
         ),
       );

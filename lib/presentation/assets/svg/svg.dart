@@ -27,4 +27,5 @@ class AssetsSvg {
   String get containerIcon => 'assets/svg/container.svg';
   String get cameraV2Icon => 'assets/svg/camera_v2.svg';
   String get whiteTopArrowIcon => 'assets/svg/white_top_arrow.svg';
+  String get saveImgIcon => 'assets/svg/save_img.svg';
 }

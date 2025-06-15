@@ -97,7 +97,7 @@ class _TrafficHeatmapState extends State<TrafficHeatmap> {
     if (_formKeyHeatmap.currentState!.validate()) {
       _selectedDayHeatmap == null
           ? setState(() {
-              _selectedDayHeatmap == _datetimeBloc.state.dates.first.date;
+              _selectedDayHeatmap = _datetimeBloc.state.dates.first.date;
             })
           : null;
       _onFetchHeatmapInDay(_selectedDayHeatmap ?? "", _startTimeHeatmap ?? "",
@@ -244,7 +244,7 @@ class _TrafficHeatmapState extends State<TrafficHeatmap> {
         return Center(
             child: SizedBox(
                 height: AppSpacing.rem3875.h,
-                child: CircularProgressIndicator()));
+                child: Center(child: CircularProgressIndicator())));
       }
       heatmapData = _heatmapBloc.state.resultHeatmapInDay.details ?? [];
       currentData = _createPoints(

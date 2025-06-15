@@ -5,6 +5,7 @@ import 'package:dextra/di/injectable.dart';
 import 'package:dextra/main.dart';
 import 'package:dextra/presentation/assets/assets.dart';
 import 'package:dextra/presentation/modules/commons/bloc/camera/camera_bloc.dart';
+import 'package:dextra/presentation/modules/commons/widgets/button/common_back_to_to_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_camera_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_secondary_button.dart';
@@ -70,6 +71,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
   final _phoneControlller = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -253,6 +255,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     _lastNameController.dispose();
     _phoneControlller.dispose();
     _userSubscription?.cancel();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -268,399 +271,434 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                 _isAvatarLoading || _isDetailLoading || _isProfileLoading,
             child: SizedBox(
               width: double.infinity,
-              child: SingleChildScrollView(
-                padding: EdgeInsets.symmetric(
-                  horizontal: AppSpacing.rem600.w,
-                  vertical: AppSpacing.rem600.h,
-                ),
-                child: Column(
-                  spacing: AppSpacing.rem1000.h,
-                  children: [
-                    Form(
-                      key: _formKeyProfile,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        spacing: AppSpacing.rem200.h,
-                        children: [
-                          CommonText(
-                            tr('Common.my_profile'),
-                            style: TextStyle(
-                                fontWeight: AppFontWeight.bold,
-                                fontSize: AppFontSize.xxxl),
-                          ),
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: AppSpacing.rem650.h,
-                                horizontal: AppSpacing.rem650.w),
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    width: 1, color: colors.dividerColor),
-                                borderRadius: BorderRadius.circular(
-                                    AppBorderRadius.spacing4xl)),
-                            child: Row(
-                              spacing: AppSpacing.rem600.w,
-                              children: [
-                                Stack(children: [
-                                  _avatar != null
-                                      ? ClipOval(
-                                          child: SizedBox(
-                                              width: AppSpacing.rem1925.w,
-                                              height: AppSpacing.rem1925.w,
-                                              child: CommonImage(
-                                                imageUrl: _avatar?.path,
-                                              )))
-                                      : ClipOval(
-                                          child: SizedBox(
-                                            width: AppSpacing.rem1925.w,
-                                            height: AppSpacing.rem1925.w,
-                                            child: CommonImage(
-                                              imagePath:
-                                                  Assets.png.placeHolder.path,
+              child: Stack(
+                children: [
+                  SingleChildScrollView(
+                    controller: _scrollController,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: AppSpacing.rem600.w,
+                      vertical: AppSpacing.rem600.h,
+                    ),
+                    child: Column(
+                      spacing: AppSpacing.rem1000.h,
+                      children: [
+                        Form(
+                          key: _formKeyProfile,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            spacing: AppSpacing.rem200.h,
+                            children: [
+                              CommonText(
+                                tr('Common.my_profile'),
+                                style: TextStyle(
+                                    fontWeight: AppFontWeight.bold,
+                                    fontSize: AppFontSize.xxxl),
+                              ),
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: AppSpacing.rem650.h,
+                                    horizontal: AppSpacing.rem650.w),
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        width: 1, color: colors.dividerColor),
+                                    borderRadius: BorderRadius.circular(
+                                        AppBorderRadius.spacing4xl)),
+                                child: Row(
+                                  spacing: AppSpacing.rem600.w,
+                                  children: [
+                                    Stack(children: [
+                                      _avatar != null
+                                          ? ClipOval(
+                                              child: SizedBox(
+                                                  width: AppSpacing.rem1925.w,
+                                                  height: AppSpacing.rem1925.w,
+                                                  child: CommonImage(
+                                                    imageUrl: _avatar?.path,
+                                                  )))
+                                          : ClipOval(
+                                              child: SizedBox(
+                                                width: AppSpacing.rem1925.w,
+                                                height: AppSpacing.rem1925.w,
+                                                child: CommonImage(
+                                                  imagePath: Assets
+                                                      .png.placeHolder.path,
+                                                ),
+                                              ),
+                                            ),
+                                      _isEditingProfile
+                                          ? CommonCameraButton(
+                                              onPressed: _pickImage,
+                                            )
+                                          : SizedBox()
+                                    ]),
+                                    _isEditingProfile || _isAvatarLoading
+                                        ? Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                width: AppSpacing.rem3375.w,
+                                                padding: EdgeInsets.only(
+                                                    bottom:
+                                                        AppSpacing.rem300.h),
+                                                child: CommonTextInput(
+                                                    controller:
+                                                        _displayNameController,
+                                                    value: _displayName ??
+                                                        tr('Auth.user_name'),
+                                                    hintText:
+                                                        tr('Auth.user_name'),
+                                                    onChanged: (value) => ()),
+                                              ),
+                                              Container(
+                                                width: AppSpacing.rem3375.w,
+                                                padding: EdgeInsets.only(
+                                                    bottom:
+                                                        AppSpacing.rem300.h),
+                                                child: CommonTextInput(
+                                                    controller:
+                                                        _positionController,
+                                                    value: _position ??
+                                                        tr('Auth.position'),
+                                                    hintText:
+                                                        tr('Auth.position'),
+                                                    onChanged: (value) => ()),
+                                              ),
+                                              Container(
+                                                width: AppSpacing.rem3375.w,
+                                                padding: EdgeInsets.only(
+                                                    bottom:
+                                                        AppSpacing.rem300.h),
+                                                child: CommonTextInput(
+                                                    controller:
+                                                        _locationController,
+                                                    value: _location ??
+                                                        tr('Auth.location'),
+                                                    hintText:
+                                                        tr('Auth.location'),
+                                                    onChanged: (value) => ()),
+                                              )
+                                            ],
+                                          )
+                                        : Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              CommonText(
+                                                _displayName ??
+                                                    tr('Auth.user_name'),
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        AppFontWeight.bold,
+                                                    fontSize: AppFontSize.xl),
+                                              ),
+                                              CommonText(_position ??
+                                                  tr('Auth.position')),
+                                              CommonText(_location ??
+                                                  tr('Auth.location'))
+                                            ],
+                                          ),
+                                    _isEditingProfile
+                                        ? Expanded(
+                                            child: Align(
+                                              alignment: Alignment.bottomRight,
+                                              child: Row(
+                                                spacing: AppSpacing.rem300.w,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  CommonPrimaryButton(
+                                                      text: "Save",
+                                                      onPressed: _isProfileLoading
+                                                          ? null
+                                                          : _onUpdateProfile),
+                                                  CommonSecondaryButton(
+                                                      text: "Cancel",
+                                                      onPressed:
+                                                          _cancelEditProfile),
+                                                ],
+                                              ),
+                                            ),
+                                          )
+                                        : Expanded(
+                                            child: Align(
+                                              alignment: Alignment.bottomRight,
+                                              child: InkWell(
+                                                onTap: () {
+                                                  setState(() {
+                                                    _isEditingProfile = true;
+                                                  });
+                                                },
+                                                child: SvgPicture.asset(
+                                                  _isEditingProfile
+                                                      ? Assets.svg.editIcon
+                                                      : Assets.svg.editIcon,
+                                                  fit: BoxFit.scaleDown,
+                                                ),
+                                              ),
                                             ),
                                           ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          spacing: AppSpacing.rem200.h,
+                          children: [
+                            CommonText(
+                              tr('Auth.personal_info'),
+                              style: TextStyle(
+                                  fontWeight: AppFontWeight.bold,
+                                  fontSize: AppFontSize.xxxl),
+                            ),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: AppSpacing.rem650.h,
+                                  horizontal: AppSpacing.rem650.w),
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      width: 1, color: colors.dividerColor),
+                                  borderRadius: BorderRadius.circular(
+                                      AppBorderRadius.spacing4xl)),
+                              child: _isEditingDetail
+                                  ? Row(
+                                      spacing: AppSpacing.rem600.w,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            CommonText(
+                                              tr('Common.first_name_title'),
+                                              style: TextStyle(
+                                                  fontWeight:
+                                                      AppFontWeight.bold,
+                                                  fontSize: AppFontSize.xl),
+                                            ),
+                                            SizedBox(
+                                              width: AppSpacing.rem3375.w,
+                                              child: CommonTextInput(
+                                                  controller:
+                                                      _firstNameController,
+                                                  value: _firstName ??
+                                                      tr(
+                                                          'Common.first_name_title'),
+                                                  hintText: tr(
+                                                      'Common.first_name_title'),
+                                                  onChanged: (value) => ()),
+                                            ),
+                                            SizedBox(
+                                              height: AppSpacing.rem450.h,
+                                            ),
+                                            CommonText(
+                                              tr('Common.last_name_title'),
+                                              style: TextStyle(
+                                                  fontWeight:
+                                                      AppFontWeight.bold,
+                                                  fontSize: AppFontSize.xl),
+                                            ),
+                                            SizedBox(
+                                              width: AppSpacing.rem3375.w,
+                                              child: CommonTextInput(
+                                                  controller:
+                                                      _lastNameController,
+                                                  hintText: tr(
+                                                      'Common.last_name_title'),
+                                                  value: _lastName ??
+                                                      tr('Common.last_name_title'),
+                                                  onChanged: (value) => ()),
+                                            ),
+                                          ],
                                         ),
-                                  _isEditingProfile
-                                      ? CommonCameraButton(
-                                          onPressed: _pickImage,
-                                        )
-                                      : SizedBox()
-                                ]),
-                                _isEditingProfile || _isAvatarLoading
-                                    ? Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            width: AppSpacing.rem3375.w,
-                                            padding: EdgeInsets.only(
-                                                bottom: AppSpacing.rem300.h),
-                                            child: CommonTextInput(
-                                                controller:
-                                                    _displayNameController,
-                                                value: _displayName ??
-                                                    tr('Auth.user_name'),
-                                                hintText: tr('Auth.user_name'),
-                                                onChanged: (value) => ()),
-                                          ),
-                                          Container(
-                                            width: AppSpacing.rem3375.w,
-                                            padding: EdgeInsets.only(
-                                                bottom: AppSpacing.rem300.h),
-                                            child: CommonTextInput(
-                                                controller: _positionController,
-                                                value: _position ??
-                                                    tr('Auth.position'),
-                                                hintText: tr('Auth.position'),
-                                                onChanged: (value) => ()),
-                                          ),
-                                          Container(
-                                            width: AppSpacing.rem3375.w,
-                                            padding: EdgeInsets.only(
-                                                bottom: AppSpacing.rem300.h),
-                                            child: CommonTextInput(
-                                                controller: _locationController,
-                                                value: _location ??
-                                                    tr('Auth.location'),
-                                                hintText: tr('Auth.location'),
-                                                onChanged: (value) => ()),
-                                          )
-                                        ],
-                                      )
-                                    : Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          CommonText(
-                                            _displayName ??
-                                                tr('Auth.user_name'),
-                                            style: TextStyle(
-                                                fontWeight: AppFontWeight.bold,
-                                                fontSize: AppFontSize.xl),
-                                          ),
-                                          CommonText(
-                                              _position ?? tr('Auth.position')),
-                                          CommonText(
-                                              _location ?? tr('Auth.location'))
-                                        ],
-                                      ),
-                                _isEditingProfile
-                                    ? Expanded(
-                                        child: Align(
-                                          alignment: Alignment.bottomRight,
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            CommonText(
+                                              tr('Auth.email'),
+                                              style: TextStyle(
+                                                  fontWeight:
+                                                      AppFontWeight.bold,
+                                                  fontSize: AppFontSize.xl),
+                                            ),
+                                            CommonText(
+                                                tr('Auth.email_placeholder')),
+                                            SizedBox(
+                                              height: AppSpacing.rem450.h,
+                                            ),
+                                            CommonText(
+                                              tr('Auth.phone'),
+                                              style: TextStyle(
+                                                  fontWeight:
+                                                      AppFontWeight.bold,
+                                                  fontSize: AppFontSize.xl),
+                                            ),
+                                            SizedBox(
+                                              width: AppSpacing.rem3375.w,
+                                              child: CommonTextInput(
+                                                  controller: _phoneControlller,
+                                                  value: _phone ??
+                                                      tr('Auth.phone'),
+                                                  hintText: tr('Auth.phone'),
+                                                  onChanged: (value) => ()),
+                                            ),
+                                          ],
+                                        ),
+                                        Expanded(
                                           child: Row(
                                             spacing: AppSpacing.rem300.w,
                                             mainAxisAlignment:
                                                 MainAxisAlignment.end,
                                             children: [
                                               CommonPrimaryButton(
-                                                  text: "Save",
-                                                  onPressed: _isProfileLoading
-                                                      ? null
-                                                      : _onUpdateProfile),
+                                                text: "Save",
+                                                onPressed: _isDetailLoading
+                                                    ? null
+                                                    : _onUpdateDetail,
+                                              ),
                                               CommonSecondaryButton(
-                                                  text: "Cancel",
-                                                  onPressed:
-                                                      _cancelEditProfile),
+                                                text: "Cancel",
+                                                onPressed: _cancelEditDetail,
+                                              ),
                                             ],
                                           ),
+                                        )
+                                      ],
+                                    )
+                                  : Row(
+                                      spacing: AppSpacing.rem600.w,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            CommonText(
+                                              tr('Common.first_name_title'),
+                                              style: TextStyle(
+                                                  fontWeight:
+                                                      AppFontWeight.bold,
+                                                  fontSize: AppFontSize.xl),
+                                            ),
+                                            CommonText(_firstName ??
+                                                tr('Common.first_name_title')),
+                                            SizedBox(
+                                              height: AppSpacing.rem450.h,
+                                            ),
+                                            CommonText(
+                                              tr('Common.last_name_title'),
+                                              style: TextStyle(
+                                                  fontWeight:
+                                                      AppFontWeight.bold,
+                                                  fontSize: AppFontSize.xl),
+                                            ),
+                                            CommonText(_lastName ??
+                                                tr('Common.last_name_title')),
+                                          ],
                                         ),
-                                      )
-                                    : Expanded(
-                                        child: Align(
-                                          alignment: Alignment.bottomRight,
-                                          child: InkWell(
-                                            onTap: () {
-                                              setState(() {
-                                                _isEditingProfile = true;
-                                              });
-                                            },
-                                            child: SvgPicture.asset(
-                                              _isEditingProfile
-                                                  ? Assets.svg.editIcon
-                                                  : Assets.svg.editIcon,
-                                              fit: BoxFit.scaleDown,
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            CommonText(
+                                              tr('Auth.email'),
+                                              style: TextStyle(
+                                                  fontWeight:
+                                                      AppFontWeight.bold,
+                                                  fontSize: AppFontSize.xl),
+                                            ),
+                                            CommonText(_email ?? ""),
+                                            SizedBox(
+                                              height: AppSpacing.rem450.h,
+                                            ),
+                                            CommonText(
+                                              tr('Auth.phone'),
+                                              style: TextStyle(
+                                                  fontWeight:
+                                                      AppFontWeight.bold,
+                                                  fontSize: AppFontSize.xl),
+                                            ),
+                                            CommonText(
+                                                _phone ?? tr('Auth.phone')),
+                                          ],
+                                        ),
+                                        Expanded(
+                                          child: Align(
+                                            alignment: Alignment.bottomRight,
+                                            child: InkWell(
+                                              onTap: () {
+                                                setState(() {
+                                                  _isEditingDetail = true;
+                                                });
+                                              },
+                                              child: SvgPicture.asset(
+                                                _isEditingDetail
+                                                    ? Assets.svg.editIcon
+                                                    : Assets.svg.editIcon,
+                                                fit: BoxFit.scaleDown,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      spacing: AppSpacing.rem200.h,
-                      children: [
-                        CommonText(
-                          tr('Auth.personal_info'),
-                          style: TextStyle(
-                              fontWeight: AppFontWeight.bold,
-                              fontSize: AppFontSize.xxxl),
+                                      ],
+                                    ),
+                            )
+                          ],
                         ),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: AppSpacing.rem650.h,
-                              horizontal: AppSpacing.rem650.w),
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  width: 1, color: colors.dividerColor),
-                              borderRadius: BorderRadius.circular(
-                                  AppBorderRadius.spacing4xl)),
-                          child: _isEditingDetail
-                              ? Row(
-                                  spacing: AppSpacing.rem600.w,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        CommonText(
-                                          tr('Common.first_name_title'),
-                                          style: TextStyle(
-                                              fontWeight: AppFontWeight.bold,
-                                              fontSize: AppFontSize.xl),
-                                        ),
-                                        SizedBox(
-                                          width: AppSpacing.rem3375.w,
-                                          child: CommonTextInput(
-                                              controller: _firstNameController,
-                                              value: _firstName ??
-                                                  tr('Common.first_name_title'),
-                                              hintText:
-                                                  tr('Common.first_name_title'),
-                                              onChanged: (value) => ()),
-                                        ),
-                                        SizedBox(
-                                          height: AppSpacing.rem450.h,
-                                        ),
-                                        CommonText(
-                                          tr('Common.last_name_title'),
-                                          style: TextStyle(
-                                              fontWeight: AppFontWeight.bold,
-                                              fontSize: AppFontSize.xl),
-                                        ),
-                                        SizedBox(
-                                          width: AppSpacing.rem3375.w,
-                                          child: CommonTextInput(
-                                              controller: _lastNameController,
-                                              hintText:
-                                                  tr('Common.last_name_title'),
-                                              value: _lastName ??
-                                                  tr('Common.last_name_title'),
-                                              onChanged: (value) => ()),
-                                        ),
-                                      ],
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        CommonText(
-                                          tr('Auth.email'),
-                                          style: TextStyle(
-                                              fontWeight: AppFontWeight.bold,
-                                              fontSize: AppFontSize.xl),
-                                        ),
-                                        CommonText(
-                                            tr('Auth.email_placeholder')),
-                                        SizedBox(
-                                          height: AppSpacing.rem450.h,
-                                        ),
-                                        CommonText(
-                                          tr('Auth.phone'),
-                                          style: TextStyle(
-                                              fontWeight: AppFontWeight.bold,
-                                              fontSize: AppFontSize.xl),
-                                        ),
-                                        SizedBox(
-                                          width: AppSpacing.rem3375.w,
-                                          child: CommonTextInput(
-                                              controller: _phoneControlller,
-                                              value: _phone ?? tr('Auth.phone'),
-                                              hintText: tr('Auth.phone'),
-                                              onChanged: (value) => ()),
-                                        ),
-                                      ],
-                                    ),
-                                    Expanded(
-                                      child: Row(
-                                        spacing: AppSpacing.rem300.w,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          CommonPrimaryButton(
-                                            text: "Save",
-                                            onPressed: _isDetailLoading
-                                                ? null
-                                                : _onUpdateDetail,
-                                          ),
-                                          CommonSecondaryButton(
-                                            text: "Cancel",
-                                            onPressed: _cancelEditDetail,
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                )
-                              : Row(
-                                  spacing: AppSpacing.rem600.w,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        CommonText(
-                                          tr('Common.first_name_title'),
-                                          style: TextStyle(
-                                              fontWeight: AppFontWeight.bold,
-                                              fontSize: AppFontSize.xl),
-                                        ),
-                                        CommonText(_firstName ??
-                                            tr('Common.first_name_title')),
-                                        SizedBox(
-                                          height: AppSpacing.rem450.h,
-                                        ),
-                                        CommonText(
-                                          tr('Common.last_name_title'),
-                                          style: TextStyle(
-                                              fontWeight: AppFontWeight.bold,
-                                              fontSize: AppFontSize.xl),
-                                        ),
-                                        CommonText(_lastName ??
-                                            tr('Common.last_name_title')),
-                                      ],
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        CommonText(
-                                          tr('Auth.email'),
-                                          style: TextStyle(
-                                              fontWeight: AppFontWeight.bold,
-                                              fontSize: AppFontSize.xl),
-                                        ),
-                                        CommonText(_email ?? ""),
-                                        SizedBox(
-                                          height: AppSpacing.rem450.h,
-                                        ),
-                                        CommonText(
-                                          tr('Auth.phone'),
-                                          style: TextStyle(
-                                              fontWeight: AppFontWeight.bold,
-                                              fontSize: AppFontSize.xl),
-                                        ),
-                                        CommonText(_phone ?? tr('Auth.phone')),
-                                      ],
-                                    ),
-                                    Expanded(
-                                      child: Align(
-                                        alignment: Alignment.bottomRight,
-                                        child: InkWell(
-                                          onTap: () {
-                                            setState(() {
-                                              _isEditingDetail = true;
-                                            });
-                                          },
-                                          child: SvgPicture.asset(
-                                            _isEditingDetail
-                                                ? Assets.svg.editIcon
-                                                : Assets.svg.editIcon,
-                                            fit: BoxFit.scaleDown,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                        Column(
+                          children: [
+                            CommonText(
+                              tr('Common.saved_cam'),
+                              style: TextStyle(
+                                  fontWeight: AppFontWeight.bold,
+                                  fontSize: AppFontSize.xxxl),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: AppSpacing.rem600),
+                              child: Wrap(
+                                spacing: AppSpacing.rem100.w,
+                                runSpacing:
+                                    AppSpacing.rem100.h, // space between lines
+                                children: _savedCams != null
+                                    ? _cameraBloc.state.cameras
+                                        .where((cam) =>
+                                            _savedCams
+                                                ?.contains(cam.privateId) ==
+                                            true)
+                                        .map((camera) => CameraImgItem(
+                                              name: camera.name,
+                                              cameraId: camera.privateId,
+                                              time: camera.lastModified != null
+                                                  ? DateFormat('dd MMMM yyyy')
+                                                      .format(
+                                                          camera.lastModified!)
+                                                  : '',
+                                              isSaved: true,
+                                              onPressed: () => showDialog(
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      ImageDialog(
+                                                        selectedCam: camera,
+                                                      )),
+                                            ))
+                                        .toList()
+                                    : [],
+                              ),
+                            ),
+                          ],
                         )
                       ],
                     ),
-                    Column(
-                      children: [
-                        CommonText(
-                          tr('Common.saved_cam'),
-                          style: TextStyle(
-                              fontWeight: AppFontWeight.bold,
-                              fontSize: AppFontSize.xxxl),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: AppSpacing.rem600),
-                          child: Wrap(
-                            spacing: AppSpacing.rem100.w,
-                            runSpacing:
-                                AppSpacing.rem100.h, // space between lines
-                            children: _savedCams != null
-                                ? _cameraBloc.state.cameras
-                                    .where((cam) =>
-                                        _savedCams?.contains(cam.privateId) ==
-                                        true)
-                                    .map((camera) => CameraImgItem(
-                                          name: camera.name,
-                                          cameraId: camera.privateId,
-                                          time: camera.lastModified != null
-                                              ? DateFormat('dd MMMM yyyy')
-                                                  .format(camera.lastModified!)
-                                              : '',
-                                          isSaved: true,
-                                          onPressed: () => showDialog(
-                                              context: context,
-                                              builder: (context) => ImageDialog(
-                                                    selectedCam: camera,
-                                                  )),
-                                        ))
-                                    .toList()
-                                : [],
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
+                  ),
+                  Positioned(
+                      bottom: AppSpacing.rem800.h,
+                      right: AppSpacing.rem800.h,
+                      child: CommonBackToToButton(
+                          scrollController: _scrollController))
+                ],
               ),
             ),
           );
