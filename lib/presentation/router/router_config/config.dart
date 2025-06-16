@@ -11,6 +11,7 @@ class Config {
   static const _statisticWidget = 'statistic';
   static const _configurationWidget = 'configuration';
   static const _profileWidget = 'profile';
+  static const _aboutUsWidget = 'about-us';
 
   static final routes = <RouteBase>[
     GoRoute(
@@ -63,6 +64,12 @@ class Config {
               path: _profileWidget,
               builder: (_, state) {
                 return ProfileWidget();
+              },
+            ),
+            GoRoute(
+              path: _aboutUsWidget,
+              builder: (_, state) {
+                return AboutUsWidget();
               },
             ),
           ],

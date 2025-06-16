@@ -30,38 +30,6 @@ class _ScheduleTabState extends State<ScheduleTab> {
   final _cameraBloc = getIt.get<CameraBloc>();
   final _statisticBloc = getIt.get<StatisticBloc>();
 
-  // final List<String> _cams = [
-  //   'Phan Dang Luu - Dinh Tien Hoang 2',
-  //   'Vo Nguyen Giap - Thao Dien',
-  //   'Ly Tu Trong - Chu Manh Trinh',
-  //   'Dang Thuc Vinh - Trinh Thi Mieng',
-  // ];
-
-  // final List<String> _districts = [
-  //   'District 1',
-  //   'District 3',
-  //   'District 4',
-  //   'District 5',
-  //   'District 6',
-  //   'District 7',
-  //   'District 8',
-  //   'District 10',
-  //   'District 11',
-  //   'District 12',
-  //   'Binh Thanh District',
-  //   'Go Vap District',
-  //   'Phu Nhuan District',
-  //   'Tan Binh District',
-  //   'Tan Phu District',
-  //   'Thu Duc District',
-  //   'Binh Chanh District',
-  //   'Cu Chi District',
-  //   'Hoc Mon District',
-  //   'Nha Be District',
-  //   'Can Gio District',
-  //   'Thu Duc City',
-  // ];
-
   String? _selectedCam;
   String? _selectedDistrict;
   DateTime? _startDate;
@@ -82,27 +50,13 @@ class _ScheduleTabState extends State<ScheduleTab> {
   @override
   void initState() {
     super.initState();
-    _onFetchCamera();
-    _onFetchDistrict();
-  }
-
-  void _onFetchCamera() {
-    if (_cameraBloc.state.cameras.isNotEmpty) {
-      return;
-    }
-    _cameraBloc.add(FetchCamerasEvent());
-  }
-
-  void _onFetchDistrict() {
-    if (_cameraBloc.state.districts.isNotEmpty) return;
-    _cameraBloc.add(FetchDistrictsEvent());
   }
 
   void _onSendEmailByDate(String dateFrom, String dateTo) {
     final email = FirebaseAuth.instance.currentUser?.email;
     _statisticBloc.add(SendEmailByDateEvent(
         query: SendEmailByDateQuery(
-      email: email, // You can set a default email or leave it null
+      email: email,
       dateFrom: dateFrom,
       dateTo: dateTo,
     )));

@@ -9,6 +9,7 @@ import 'package:dextra/theme/color/app_color.dart';
 import 'package:dextra/theme/font/app_font_size.dart';
 import 'package:dextra/theme/font/app_font_weight.dart';
 import 'package:dextra/theme/spacing/app_spacing.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -69,7 +70,7 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                           Align(
                             alignment: Alignment.center,
                             child: CommonText(
-                              'About Us',
+                              tr('About.about_us'),
                               style: TextStyle(
                                   fontSize: AppFontSize.xlg,
                                   fontWeight: AppFontWeight.bold,
@@ -90,8 +91,7 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                             width: AppSpacing.rem6250.w,
                             child: CommonText.rich(
                               TextSpan(
-                                text:
-                                    'Dextra is an AI-powered platform dedicated to ',
+                                text: tr('About.about_dextra'),
                                 style: TextStyle(
                                   fontSize: AppFontSize.xxl,
                                   fontWeight: AppFontWeight.regular,
@@ -99,8 +99,7 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                 ),
                                 children: [
                                   TextSpan(
-                                    text:
-                                        " automated traffic statistics and analysis ",
+                                    text: tr('About.about_dextra_2'),
                                     style: TextStyle(
                                       fontSize: AppFontSize.xxl,
                                       fontWeight: AppFontWeight.bold,
@@ -108,7 +107,7 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                     ),
                                   ),
                                   TextSpan(
-                                    text: "by leveraging",
+                                    text: tr('About.by_leveraging'),
                                     style: TextStyle(
                                       fontSize: AppFontSize.xxl,
                                       fontWeight: AppFontWeight.regular,
@@ -116,8 +115,7 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                     ),
                                   ),
                                   TextSpan(
-                                    text:
-                                        " computer vision and machine learning",
+                                    text: tr('About.about_dextra_3'),
                                     style: TextStyle(
                                       fontSize: AppFontSize.xxl,
                                       fontWeight: AppFontWeight.bold,
@@ -137,7 +135,7 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                             Column(
                               children: [
                                 CommonText(
-                                  '"OUR MISSION"',
+                                  tr('About.our_mission'),
                                   style: TextStyle(
                                     fontSize: AppFontSize.lg,
                                     fontWeight: AppFontWeight.bold,
@@ -151,7 +149,7 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                   width: AppSpacing.rem6250.w,
                                   child: CommonText.rich(
                                     TextSpan(
-                                      text: 'To ',
+                                      text: "${tr('Common.to')} ",
                                       style: TextStyle(
                                         fontSize: AppFontSize.xxl,
                                         fontWeight: AppFontWeight.regular,
@@ -159,8 +157,7 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                       ),
                                       children: [
                                         TextSpan(
-                                          text:
-                                              "revolutionize traffic monitoring ",
+                                          text: tr('About.our_mission_1'),
                                           style: TextStyle(
                                             fontSize: AppFontSize.xxl,
                                             fontWeight: AppFontWeight.bold,
@@ -168,7 +165,7 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                           ),
                                         ),
                                         TextSpan(
-                                          text: "by leveraging",
+                                          text: tr('About.by_leveraging'),
                                           style: TextStyle(
                                             fontSize: AppFontSize.xxl,
                                             fontWeight: AppFontWeight.regular,
@@ -176,8 +173,7 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                           ),
                                         ),
                                         TextSpan(
-                                          text:
-                                              "computer vision and machine learning,",
+                                          text: tr('About.our_mission_2'),
                                           style: TextStyle(
                                             fontSize: AppFontSize.xxl,
                                             fontWeight: AppFontWeight.bold,
@@ -185,7 +181,7 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                           ),
                                         ),
                                         TextSpan(
-                                          text: "making traffic data more",
+                                          text: tr('About.our_mission_3'),
                                           style: TextStyle(
                                             fontSize: AppFontSize.xxl,
                                             fontWeight: AppFontWeight.regular,
@@ -193,8 +189,7 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                           ),
                                         ),
                                         TextSpan(
-                                          text:
-                                              "accessible, accurate, and actionable.",
+                                          text: tr('About.our_mission_4'),
                                           style: TextStyle(
                                             fontSize: AppFontSize.xxl,
                                             fontWeight: AppFontWeight.bold,
@@ -222,7 +217,7 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                             )
                           ]),
                       CommonHeading(
-                        heading: "KEY FEATURES",
+                        heading: tr('About.key_features'),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

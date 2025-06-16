@@ -7,6 +7,7 @@ import 'package:dextra/theme/color/app_color.dart';
 import 'package:dextra/theme/font/app_font_size.dart';
 import 'package:dextra/theme/font/app_font_weight.dart';
 import 'package:dextra/theme/spacing/app_spacing.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -20,7 +21,9 @@ class Footer extends StatelessWidget {
 
     return Container(
       padding: EdgeInsets.symmetric(
-          vertical: AppSpacing.rem1200.h, horizontal: AppSpacing.rem1400.w),
+        vertical: AppSpacing.rem600.h,
+        horizontal: AppSpacing.rem600.w,
+      ),
       color: colors.backgroundApp,
       child: Column(
         children: [
@@ -34,14 +37,15 @@ class Footer extends StatelessWidget {
               SizedBox(
                 width: AppSpacing.rem6250.w,
                 child: CommonText(
-                  "Smart Traffic Analytics: Real-time traffic monitoring and analysis powered by AI. Enhancing urban mobility with data-driven insights",
+                  tr('Footer.info'),
                 ),
               ),
               Column(
+                spacing: AppSpacing.rem300.h,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CommonText(
-                    "Contact",
+                    tr('Footer.contact'),
                     style: TextStyle(
                         fontWeight: AppFontWeight.bold,
                         color: colors.buttonPrimaryBackground,
@@ -53,7 +57,7 @@ class Footer extends StatelessWidget {
                         Assets.svg.mailIcon,
                         fit: BoxFit.scaleDown,
                       ),
-                      CommonText("daylaemail@gmail.com")
+                      CommonText("dextra2025vn@gmail.com")
                     ],
                   )
                 ],
@@ -77,7 +81,7 @@ class Footer extends StatelessWidget {
                   }
                 },
                 child: CommonText(
-                  "HOME",
+                  tr('Common.home').toUpperCase(),
                   style: TextStyle(
                       fontSize: AppFontSize.xxxl,
                       color: colors.buttonPrimaryBackground,
@@ -96,7 +100,7 @@ class Footer extends StatelessWidget {
                     {DextraRouter.go(ScreenPath.statistic.value)}
                 },
                 child: CommonText(
-                  "STATISTIC",
+                  tr('Common.statistic').toUpperCase(),
                   style: TextStyle(
                       fontSize: AppFontSize.xxxl,
                       color: colors.buttonPrimaryBackground,
@@ -113,7 +117,7 @@ class Footer extends StatelessWidget {
                     {DextraRouter.go(ScreenPath.mapCam.value)}
                 },
                 child: CommonText(
-                  "MAP & CAMERA",
+                  tr('Common.map_and_cam').toUpperCase(),
                   style: TextStyle(
                       fontSize: AppFontSize.xxxl,
                       color: colors.buttonPrimaryBackground,
@@ -130,7 +134,7 @@ class Footer extends StatelessWidget {
                     {DextraRouter.go(ScreenPath.configuration.value)}
                 },
                 child: CommonText(
-                  "CONFIGURATION",
+                  tr('Common.configuration').toUpperCase(),
                   style: TextStyle(
                       fontSize: AppFontSize.xxxl,
                       color: colors.buttonPrimaryBackground,
@@ -140,23 +144,23 @@ class Footer extends StatelessWidget {
                           : AppFontWeight.regular),
                 ),
               ),
-              // InkWell(
-              //   onTap: () => {
-              //     if (DextraRouter.getCurrentLocation() !=
-              //         ScreenPath.statistic.value)
-              //       {DextraRouter.go(ScreenPath.statistic.value)}
-              //   },
-              //   child: CommonText(
-              //     "ABOUT US",
-              //     style: TextStyle(
-              //         fontSize: AppFontSize.xxxl,
-              //         color: colors.buttonPrimaryBackground,
-              //         fontWeight: DextraRouter.getCurrentLocation() ==
-              //                 ScreenPath.statistic.value
-              //             ? AppFontWeight.bold
-              //             : AppFontWeight.regular),
-              //   ),
-              // )
+              InkWell(
+                onTap: () => {
+                  if (DextraRouter.getCurrentLocation() !=
+                      ScreenPath.aboutus.value)
+                    {DextraRouter.go(ScreenPath.aboutus.value)}
+                },
+                child: CommonText(
+                  tr('About.about_us').toUpperCase(),
+                  style: TextStyle(
+                      fontSize: AppFontSize.xxxl,
+                      color: colors.buttonPrimaryBackground,
+                      fontWeight: DextraRouter.getCurrentLocation() ==
+                              ScreenPath.aboutus.value
+                          ? AppFontWeight.bold
+                          : AppFontWeight.regular),
+                ),
+              )
             ],
           )
         ],
