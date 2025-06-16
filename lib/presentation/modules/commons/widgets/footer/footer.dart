@@ -81,7 +81,7 @@ class Footer extends StatelessWidget {
                   }
                 },
                 child: CommonText(
-                  "HOME",
+                  tr('Common.home').toUpperCase(),
                   style: TextStyle(
                       fontSize: AppFontSize.xxxl,
                       color: colors.buttonPrimaryBackground,
@@ -100,7 +100,7 @@ class Footer extends StatelessWidget {
                     {DextraRouter.go(ScreenPath.statistic.value)}
                 },
                 child: CommonText(
-                  "STATISTIC",
+                  tr('Common.statistic').toUpperCase(),
                   style: TextStyle(
                       fontSize: AppFontSize.xxxl,
                       color: colors.buttonPrimaryBackground,
@@ -117,7 +117,7 @@ class Footer extends StatelessWidget {
                     {DextraRouter.go(ScreenPath.mapCam.value)}
                 },
                 child: CommonText(
-                  "MAP & CAMERA",
+                  tr('Common.map_and_cam').toUpperCase(),
                   style: TextStyle(
                       fontSize: AppFontSize.xxxl,
                       color: colors.buttonPrimaryBackground,
@@ -134,7 +134,7 @@ class Footer extends StatelessWidget {
                     {DextraRouter.go(ScreenPath.configuration.value)}
                 },
                 child: CommonText(
-                  "CONFIGURATION",
+                  tr('Common.configuration').toUpperCase(),
                   style: TextStyle(
                       fontSize: AppFontSize.xxxl,
                       color: colors.buttonPrimaryBackground,
@@ -151,7 +151,7 @@ class Footer extends StatelessWidget {
                     {DextraRouter.go(ScreenPath.aboutus.value)}
                 },
                 child: CommonText(
-                  "ABOUT US",
+                  tr('About.about_us').toUpperCase(),
                   style: TextStyle(
                       fontSize: AppFontSize.xxxl,
                       color: colors.buttonPrimaryBackground,
