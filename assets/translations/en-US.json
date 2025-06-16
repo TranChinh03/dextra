@@ -122,6 +122,7 @@
   "Common.img_retrieval_interval": "Image Retrieval Interval",
   "Common.every_12s": "Every 12 seconds",
   "Common.every_24s": "Every 24 seconds",
+  "Common.every_36s": "Every 36 seconds",
   "Common.every_48s": "Every 48 seconds",
    "Common.every_1m": "Every 1 minute",
    "Common.model": "Model",

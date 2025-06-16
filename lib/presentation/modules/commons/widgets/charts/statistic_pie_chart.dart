@@ -48,22 +48,6 @@ class StatisticPieChartState extends State<StatisticPieChart> {
       aspectRatio: 16 / 9,
       child: Column(
         children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ...vehicleData.keys.map((key) {
-                final index = vehicleData.keys.toList().indexOf(key);
-                return Indicator(
-                  color: colorsChart[index % colorsChart.length],
-                  text: key,
-                  isSquare: false,
-                  size: touchedIndex == index ? 18 : 16,
-                  textColor:
-                      touchedIndex == index ? colors.primary : colors.textMuted,
-                );
-              }),
-            ],
-          ),
           Expanded(
             child: AspectRatio(
               aspectRatio: 1,
@@ -93,6 +77,22 @@ class StatisticPieChartState extends State<StatisticPieChart> {
                 ),
               ),
             ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ...vehicleData.keys.map((key) {
+                final index = vehicleData.keys.toList().indexOf(key);
+                return Indicator(
+                  color: colorsChart[index % colorsChart.length],
+                  text: key,
+                  isSquare: false,
+                  size: touchedIndex == index ? 18 : 16,
+                  textColor:
+                      touchedIndex == index ? colors.primary : colors.textMuted,
+                );
+              }),
+            ],
           ),
         ],
       ),
