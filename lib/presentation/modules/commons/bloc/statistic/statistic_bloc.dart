@@ -2,8 +2,10 @@ import 'package:dextra/domain/entities/statistic_result.dart';
 import 'package:dextra/domain/models/query.dart';
 import 'package:dextra/domain/usecases/statistic/commands/send_email_by_date.dart/send_email_by_date_handler.dart';
 import 'package:dextra/domain/usecases/statistic/commands/send_email_by_date.dart/send_email_by_date_query.dart';
+import 'package:dextra/domain/usecases/statistic/queries/statistic_by_cam_custom/statistic_by_cam_custom_handler.dart';
+import 'package:dextra/domain/usecases/statistic/queries/statistic_by_cam_custom/statistic_by_cam_custom_query.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_camera/statistic_by_camera_handler.dart';
-import 'package:dextra/domain/usecases/statistic/queries/statistic_by_camera/statistic_by_camera_querry.dart';
+import 'package:dextra/domain/usecases/statistic/queries/statistic_by_camera/statistic_by_camera_query.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_custom/statistic_by_custom_handler.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_custom/statistic_by_custom_query.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_date/statistic_by_date_handler.dart';
@@ -26,6 +28,7 @@ class StatisticBloc extends Bloc<StatisticEvent, StatisticState> {
   final DetectByCustomHandler _detectByCustomHandler;
   final DetectByDistrictHandler _detectByDistrictHandler;
   final DetectByCameraHandler _detectByCameraHandler;
+  final DetectByCameraCustomHandler _detectByCameraCustomHandler;
   final TrackingByDateHandler _trackingByDateHandler;
   final SendEmailByDateHandler _sendEmailByDateHandler;
   StatisticBloc(
@@ -33,13 +36,15 @@ class StatisticBloc extends Bloc<StatisticEvent, StatisticState> {
       this._detectByCustomHandler,
       this._detectByDistrictHandler,
       this._detectByCameraHandler,
+      this._detectByCameraCustomHandler,
       this._trackingByDateHandler,
       this._sendEmailByDateHandler)
       : super(StatisticState()) {
     on<DetectByDateEvent>(_onDetectByDate);
     on<DetectByCustomEvent>(_onDetectByCustom);
     on<DetectByDistrictEvent>(_onDetectByDistrict);
-    on<DetectByCameratEvent>(_onDetectByCamera);
+    on<DetectByCameraEvent>(_onDetectByCamera);
+    on<DetectByCameraCustomEvent>(_onDetectByCamCustom);
     on<TrackingByDateEvent>(_onTrackingByDate);
     on<SendEmailByDateEvent>(_onSendEmailByDate);
   }
@@ -93,7 +98,7 @@ class StatisticBloc extends Bloc<StatisticEvent, StatisticState> {
   }
 
   Future<void> _onDetectByCamera(
-    DetectByCameratEvent event,
+    DetectByCameraEvent event,
     Emitter<StatisticState> emit,
   ) async {
     emit(state.copyWith(apiStatus: ApiStatus.loading));
@@ -104,6 +109,22 @@ class StatisticBloc extends Bloc<StatisticEvent, StatisticState> {
       state.copyWith(
         apiStatus: ApiStatus.hasData,
         resultByCamera: response,
+      ),
+    );
+  }
+
+  Future<void> _onDetectByCamCustom(
+    DetectByCameraCustomEvent event,
+    Emitter<StatisticState> emit,
+  ) async {
+    emit(state.copyWith(apiStatus: ApiStatus.loading));
+
+    final response =
+        await _detectByCameraCustomHandler.handle(Query(query: event.query));
+    emit(
+      state.copyWith(
+        apiStatus: ApiStatus.hasData,
+        resultByCameraCustom: response,
       ),
     );
   }

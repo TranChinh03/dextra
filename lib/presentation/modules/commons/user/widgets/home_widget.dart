@@ -3,8 +3,8 @@ import 'package:dextra/domain/entities/statistic_result.dart';
 import 'package:dextra/domain/enum/screen_path.dart';
 import 'package:dextra/presentation/assets/assets.dart';
 import 'package:dextra/presentation/modules/commons/bloc/camera/camera_bloc.dart';
+import 'package:dextra/presentation/modules/commons/bloc/datetime/datetime_bloc.dart';
 import 'package:dextra/presentation/modules/commons/bloc/statistic/statistic_bloc.dart';
-import 'package:dextra/presentation/modules/commons/user/widgets/sample_data.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_arrow_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_back_to_to_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
@@ -38,17 +38,22 @@ class HomeWidget extends StatefulWidget {
 class _HomeWidgetState extends State<HomeWidget> {
   final _cameraBloc = getIt.get<CameraBloc>();
   final _statisticBloc = getIt.get<StatisticBloc>();
+  final _datetimeBloc = getIt.get<DateTimeBloc>();
 
   final ScrollController _scrollController = ScrollController();
-
-  void _onFetchCamera() {
+  void _onFetchInitialVale() {
     if (_cameraBloc.state.cameras.isNotEmpty) {
       return;
     }
     _cameraBloc.add(FetchCamerasEvent());
-  }
-
-  void _onFetchByDate() {
+    if (_cameraBloc.state.districts.isNotEmpty) return;
+    _cameraBloc.add(FetchDistrictsEvent());
+    if (_cameraBloc.state.vehicles.isNotEmpty) return;
+    _cameraBloc.add(FetchVehiclesEvent());
+    if (_datetimeBloc.state.timestamps.isNotEmpty) return;
+    _datetimeBloc.add(FetchTimestampEvent());
+    if (_datetimeBloc.state.timestamps.isNotEmpty) return;
+    _datetimeBloc.add(FetchDateEvent());
     if (_statisticBloc.state.trackingByDate.isNotEmpty) {
       return;
     }
@@ -58,8 +63,7 @@ class _HomeWidgetState extends State<HomeWidget> {
   @override
   void initState() {
     super.initState();
-    _onFetchCamera();
-    _onFetchByDate();
+    _onFetchInitialVale();
   }
 
   @override

@@ -1,6 +1,6 @@
 import 'package:dextra/presentation/modules/commons/auth/auth_screen.dart';
 import 'package:dextra/presentation/modules/commons/user/screens/user_master_page.dart';
-import 'package:dextra/presentation/modules/commons/user/widgets/configuration_screen.dart';
+import 'package:dextra/presentation/modules/commons/user/widgets/configtabs/general.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/home_widget.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/map_cam_widget.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/profile_widget.dart';

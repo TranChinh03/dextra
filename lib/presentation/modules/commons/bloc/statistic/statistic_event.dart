@@ -22,10 +22,16 @@ class DetectByDistrictEvent extends StatisticEvent {
   DetectByDistrictEvent({required this.query});
 }
 
-class DetectByCameratEvent extends StatisticEvent {
+class DetectByCameraEvent extends StatisticEvent {
   final DetectByCameraQuery query;
 
-  DetectByCameratEvent({required this.query});
+  DetectByCameraEvent({required this.query});
+}
+
+class DetectByCameraCustomEvent extends StatisticEvent {
+  final DetectByCameraCustomQuery query;
+
+  DetectByCameraCustomEvent({required this.query});
 }
 
 class TrackingByDateEvent extends StatisticEvent {}
