@@ -6,6 +6,8 @@ import 'package:dextra/presentation/commons/api_state.dart';
 import 'package:dextra/presentation/modules/commons/bloc/detection/detection_bloc.dart';
 import 'package:dextra/presentation/modules/commons/widgets/charts/detection_pie_chart.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
+import 'package:dextra/presentation/modules/commons/widgets/input/simple_dropdown.dart';
+import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
 import 'package:dextra/theme/font/app_font_size.dart';
 import 'package:dextra/theme/font/app_font_weight.dart';
 import 'package:dextra/theme/spacing/app_spacing.dart';
@@ -26,11 +28,7 @@ class _DetectTabState extends State<DetectTab> {
   final _detectionBloc = getIt.get<DetectionBloc>();
   XFile? _pickedImage;
   final ImagePicker _picker = ImagePicker();
-
-  // final TextStyle _normalText = TextStyle(
-  //   fontSize: AppFontSize.xl,
-  //   fontWeight: AppFontWeight.semiBold,
-  // );
+  String _threshold = '0.7';
 
   Future<void> _pickImage() async {
     try {
@@ -64,6 +62,14 @@ class _DetectTabState extends State<DetectTab> {
         detectResult.numberOfBus! +
         detectResult.numberOfFireTruck! +
         detectResult.numberOfContainer!;
+  }
+
+  void _updateThreshold(String? value) {
+    if (value != null) {
+      setState(() {
+        _threshold = value;
+      });
+    }
   }
 
   @override
@@ -100,7 +106,30 @@ class _DetectTabState extends State<DetectTab> {
                           ),
                   ],
                 ),
-                _pickedImage == null
+                Row(
+                  spacing: AppSpacing.rem600.w,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    CommonText(
+                      tr('Common.threshold'),
+                      style: TextStyle(
+                          fontWeight: AppFontWeight.bold,
+                          fontSize: AppFontSize.xxxl),
+                    ),
+                    SizedBox(
+                      width: AppSpacing.rem2775.w,
+                      child: SimpleDropdown(
+                          value: _threshold,
+                          itemsList: [
+                            DropdownMenuItem(value: '0.5', child: Text('0.5')),
+                            DropdownMenuItem(value: '0.7', child: Text('0.7')),
+                            DropdownMenuItem(value: '0.9', child: Text('0.9')),
+                          ],
+                          onChanged: _updateThreshold),
+                    ),
+                  ],
+                ),
+                _pickedImage == null && state.detectedImage == null
                     ? Text(tr('Common.no_img'))
                     : FutureBuilder<Uint8List>(
                         future: _pickedImage!.readAsBytes(),
@@ -123,7 +152,6 @@ class _DetectTabState extends State<DetectTab> {
                           }
                         },
                       ),
-                DetectionPieChart(detectResult: state.detectResult),
                 if (state.detectedImage != null)
                   Center(
                     child: Image.memory(
@@ -132,6 +160,26 @@ class _DetectTabState extends State<DetectTab> {
                       fit: BoxFit.cover,
                     ),
                   ),
+                Row(
+                  children: [
+                    DetectionPieChart(detectResult: state.detectResult),
+                    // DataTable(
+                    //   columns: const [
+                    //     DataColumn(label: Text('Label')),
+                    //     DataColumn(label: Text('Confidence')),
+                    //     DataColumn(label: Text('BBox (x1, y1, x2, y2)')),
+                    //   ],
+                    //   rows: state.detectResult.d.map((item) {
+                    //     return DataRow(cells: [
+                    //       DataCell(Text(item['label'])),
+                    //       DataCell(Text(
+                    //           '${(item['confidence'] * 100).toStringAsFixed(1)}%')),
+                    //       DataCell(Text(item['bbox'].join(', '))),
+                    //     ]);
+                    //   }).toList(),
+                    // ),
+                  ],
+                ),
               ]);
         },
       ),

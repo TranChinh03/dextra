@@ -10,14 +10,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ConfigurationWidget extends StatefulWidget {
-  const ConfigurationWidget({super.key});
+class ConfigurationScreen extends StatefulWidget {
+  const ConfigurationScreen({super.key});
 
   @override
-  State<ConfigurationWidget> createState() => _ConfigurationWidgetState();
+  State<ConfigurationScreen> createState() => _ConfigurationScreenState();
 }
 
-class _ConfigurationWidgetState extends State<ConfigurationWidget> {
+class _ConfigurationScreenState extends State<ConfigurationScreen> {
   int _selectedTab = 0;
   final List<String> _tabsName = [
     tr('Common.general'),

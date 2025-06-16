@@ -1,5 +1,4 @@
 import 'package:dextra/di/injectable.dart';
-import 'package:dextra/domain/entities/general_setting.dart';
 import 'package:dextra/presentation/app/blocs/theme/app_theme_bloc.dart';
 import 'package:dextra/presentation/modules/commons/widgets/input/simple_dropdown.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
@@ -18,43 +17,12 @@ class GeneralConfiguration extends StatefulWidget {
 }
 
 class _GeneralConfigurationState extends State<GeneralConfiguration> {
-  late AppSettings _settings;
-  bool _isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    _initializeSettings();
-  }
-
-  Future<AppSettings> loadUserSettings() async {
-    await Future.delayed(Duration(milliseconds: 500));
-    return AppSettings(
-      language: 'en',
-      isDarkMode: false,
-      format: "12h, DD/MM/YYYY",
-    );
-  }
-
-  Future<void> _initializeSettings() async {
-    final settings = await loadUserSettings();
-    setState(() {
-      _settings = settings;
-      _isLoading = false;
-    });
-  }
-
-  void _updateLanguage(String? newLang) {
-    if (newLang != null) {
-      setState(() {
-        _settings.language = newLang;
-      });
-    }
-  }
+  bool _isDarkMode = true;
+  String _language = "vi";
 
   void _toggleDarkMode(bool value) {
     setState(() {
-      _settings.isDarkMode = value;
+      _isDarkMode = value;
     });
     final appThemeBloc = getIt.get<AppThemeBloc>();
 
@@ -67,17 +35,10 @@ class _GeneralConfigurationState extends State<GeneralConfiguration> {
     );
   }
 
-  void _updateTimeFormat(String value) {
-    setState(() {
-      _settings.format = value;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final colors = IAppColor.watch(context);
 
-    if (_isLoading) return Center(child: CircularProgressIndicator());
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: AppSpacing.rem600.w),
       child: Column(
@@ -94,10 +55,15 @@ class _GeneralConfigurationState extends State<GeneralConfiguration> {
               ),
               SizedBox(
                 width: AppSpacing.rem2775.w,
-                child: SimpleDropdown(itemsList: [
-                  DropdownMenuItem(value: 'en', child: Text('English')),
-                  DropdownMenuItem(value: 'vi', child: Text('Vietnamese')),
-                ], onChanged: _updateLanguage),
+                child: SimpleDropdown(
+                    value: _language,
+                    itemsList: [
+                      DropdownMenuItem(value: 'en', child: Text('English')),
+                      DropdownMenuItem(value: 'vi', child: Text('Vietnamese')),
+                    ],
+                    onChanged: (value) => setState(() {
+                          _language = value;
+                        })),
               )
             ],
           ),
@@ -110,7 +76,7 @@ class _GeneralConfigurationState extends State<GeneralConfiguration> {
                     fontWeight: AppFontWeight.bold, fontSize: AppFontSize.xxxl),
               ),
               Switch(
-                value: _settings.isDarkMode,
+                value: _isDarkMode,
                 activeColor: colors.buttonPrimaryBackground,
                 inactiveThumbColor: colors.buttonPrimaryBackground,
                 trackOutlineColor: WidgetStateProperty.resolveWith<Color?>(
@@ -121,25 +87,25 @@ class _GeneralConfigurationState extends State<GeneralConfiguration> {
               ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CommonText(
-                "Date & Time Format",
-                style: TextStyle(
-                    fontWeight: AppFontWeight.bold, fontSize: AppFontSize.xxxl),
-              ),
-              SizedBox(
-                width: AppSpacing.rem4150.w,
-                child: SimpleDropdown(itemsList: [
-                  DropdownMenuItem(
-                      value: '12h, DD/MM/YYYY', child: Text('12h, DD/MM/YYYY')),
-                  DropdownMenuItem(
-                      value: '24h, DD/MM/YYYY', child: Text('24h, DD/MM/YYYY')),
-                ], onChanged: _updateTimeFormat),
-              ),
-            ],
-          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     CommonText(
+          //       "Date & Time Format",
+          //       style: TextStyle(
+          //           fontWeight: AppFontWeight.bold, fontSize: AppFontSize.xxxl),
+          //     ),
+          //     SizedBox(
+          //       width: AppSpacing.rem4150.w,
+          //       child: SimpleDropdown(itemsList: [
+          //         DropdownMenuItem(
+          //             value: '12h, DD/MM/YYYY', child: Text('12h, DD/MM/YYYY')),
+          //         DropdownMenuItem(
+          //             value: '24h, DD/MM/YYYY', child: Text('24h, DD/MM/YYYY')),
+          //       ], onChanged: _updateTimeFormat),
+          //     ),
+          //   ],
+          // ),
         ],
       ),
     );

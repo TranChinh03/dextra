@@ -1,13 +1,17 @@
 import 'package:dextra/domain/entities/statistic_result.dart';
+import 'package:dextra/presentation/modules/commons/widgets/button/common_save_img_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/charts/app_colors.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
+import 'package:dextra/shareds/utils/app_utils.dart';
 import 'package:dextra/theme/border/app_border_radius.dart';
+import 'package:dextra/theme/color/app_color.dart';
 import 'package:dextra/theme/font/app_font_size.dart';
 import 'package:dextra/theme/font/app_font_weight.dart';
 import 'package:dextra/theme/spacing/app_spacing.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:screenshot/screenshot.dart';
 
 class _LineChart extends StatelessWidget {
   final List<ResultDetail> datas;
@@ -131,7 +135,7 @@ class _LineChart extends StatelessWidget {
         getTitlesWidget: leftTitleWidgets,
         showTitles: true,
         interval: intervalY,
-        reservedSize: 200,
+        reservedSize: 100,
       );
 
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
@@ -219,6 +223,9 @@ class _LineChart extends StatelessWidget {
 }
 
 class StatisticLineChart extends StatefulWidget {
+  final ScreenshotController controller;
+  final String? filename;
+  final bool isDownloadable;
   final List<ResultDetail> datas;
   final double maxY;
   final double intervalY;
@@ -226,7 +233,10 @@ class StatisticLineChart extends StatefulWidget {
       {super.key,
       required this.datas,
       required this.maxY,
-      required this.intervalY});
+      required this.intervalY,
+      required this.controller,
+      this.filename,
+      required this.isDownloadable});
 
   @override
   State<StatefulWidget> createState() => StatisticLineChartState();
@@ -243,59 +253,81 @@ class StatisticLineChartState extends State<StatisticLineChart> {
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 16 / 9,
-      child: Stack(
-        children: <Widget>[
-          Column(
-            spacing: AppSpacing.rem600.h,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                "Statistics on ${widget.datas.first.date}",
-                style: TextStyle(
-                  color: AppColors.primary,
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 2,
-                ),
-                textAlign: TextAlign.center,
+    final appColors = IAppColor.watch(context);
+
+    return Stack(
+      children: [
+        AspectRatio(
+          aspectRatio: 16 / 9,
+          child: Screenshot(
+            controller: widget.controller,
+            child: Container(
+              color: appColors.backgroundApp,
+              padding: EdgeInsets.symmetric(vertical: AppSpacing.rem600.h),
+              child: Column(
+                spacing: AppSpacing.rem600.h,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    "Statistics on ${widget.datas.first.date}",
+                    style: TextStyle(
+                      color: AppColors.primary,
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 2,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 16, left: 6),
+                      child: _LineChart(
+                          maxY: widget.maxY,
+                          intervalY: widget.intervalY,
+                          datas: widget.datas
+                              .asMap()
+                              .entries
+                              .where((entry) => widget.datas.length > 24
+                                  ? entry.key % 4 == 0
+                                  : widget.datas.length > 12
+                                      ? entry.key % 2 == 0
+                                      : true)
+                              .map((
+                                entry,
+                              ) =>
+                                  entry.value)
+                              .toList()),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    spacing: AppSpacing.rem250.w,
+                    children: List.generate(
+                        colors.length,
+                        (index) => _buildLegend(
+                              color: colors[index],
+                              text: labels[index],
+                            )),
+                  ),
+                ],
               ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 16, left: 6),
-                  child: _LineChart(
-                      maxY: widget.maxY,
-                      intervalY: widget.intervalY,
-                      datas: widget.datas
-                          .asMap()
-                          .entries
-                          .where((entry) => widget.datas.length > 24
-                              ? entry.key % 4 == 0
-                              : widget.datas.length > 12
-                                  ? entry.key % 2 == 0
-                                  : true)
-                          .map((
-                            entry,
-                          ) =>
-                              entry.value)
-                          .toList()),
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                spacing: AppSpacing.rem250.w,
-                children: List.generate(
-                    colors.length,
-                    (index) => _buildLegend(
-                          color: colors[index],
-                          text: labels[index],
-                        )),
-              ),
-            ],
+            ),
           ),
-        ],
-      ),
+        ),
+        widget.isDownloadable
+            ? Align(
+                alignment: Alignment.topRight,
+                child: CommonSaveImgButton(
+                  onPressed: () {
+                    AppUtils.downloadWidgetAsImage(
+                      controller: widget.controller,
+                      filename: widget.filename ?? "chart.png",
+                    );
+                  },
+                ),
+              )
+            : SizedBox()
+      ],
     );
   }
 

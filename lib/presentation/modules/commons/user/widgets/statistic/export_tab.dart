@@ -1,8 +1,7 @@
-import 'dart:typed_data';
-
 import 'package:dextra/di/injectable.dart';
 import 'package:dextra/domain/entities/statistic_result.dart';
-import 'package:dextra/domain/usecases/statistic/queries/statistic_by_camera/statistic_by_camera_querry.dart';
+import 'package:dextra/domain/usecases/statistic/queries/statistic_by_cam_custom/statistic_by_cam_custom_query.dart';
+import 'package:dextra/domain/usecases/statistic/queries/statistic_by_camera/statistic_by_camera_query.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_custom/statistic_by_custom_query.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_date/statistic_by_date_query.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_district/statistic_by_district_query.dart';
@@ -47,13 +46,17 @@ class ExportTab extends StatefulWidget {
 class _ExportTabState extends State<ExportTab> {
   final _formKey = GlobalKey<FormState>();
   final _formKeyDist = GlobalKey<FormState>();
+  final _formKeyCam = GlobalKey<FormState>();
   final _cameraBloc = getIt.get<CameraBloc>();
   final _datetimeBloc = getIt.get<DateTimeBloc>();
   final _statisticBloc = getIt.get<StatisticBloc>();
 
-  String? _selectedCam;
   String? _startTime;
   String? _endTime;
+
+  String? _selectedCam;
+  String? _startTimeCam;
+  String? _endTimeCam;
 
   String? _selectedDistrict;
   String? _startTimeDist;
@@ -75,15 +78,10 @@ class _ExportTabState extends State<ExportTab> {
   final ScreenshotController regionLineCtrl = ScreenshotController();
   final ScreenshotController cameraBarCtrl = ScreenshotController();
   final ScreenshotController cameraPieCtrl = ScreenshotController();
+  final ScreenshotController cameraLineCtrl = ScreenshotController();
   @override
   void initState() {
     super.initState();
-    _onFetchDistrict();
-    _onFetchTimestamp();
-    _onFetchDate();
-    _onFetchCamera();
-    _onFetchVehicle();
-    _onTrackingByDate();
   }
 
   String findMaxMotorcycle(List<ResultDetail> dataList) {
@@ -94,58 +92,13 @@ class _ExportTabState extends State<ExportTab> {
         "";
   }
 
-  void _onTrackingByDate() {
-    if (_statisticBloc.state.trackingByDate.isNotEmpty) {
-      return;
-    }
-    _statisticBloc.add(TrackingByDateEvent());
-  }
-
-  void _onFetchCamera() {
-    if (_cameraBloc.state.cameras.isNotEmpty) {
-      return;
-    }
-    _cameraBloc.add(FetchCamerasEvent());
-  }
-
-  void _onFetchDistrict() {
-    if (_cameraBloc.state.districts.isNotEmpty) return;
-    _cameraBloc.add(FetchDistrictsEvent());
-  }
-
-  void _onFetchVehicle() {
-    if (_cameraBloc.state.vehicles.isNotEmpty) return;
-    _cameraBloc.add(FetchVehiclesEvent());
-  }
-
-  void _onFetchTimestamp() {
-    if (_datetimeBloc.state.timestamps.isNotEmpty) return;
-    _datetimeBloc.add(FetchTimestampEvent());
-  }
-
-  void _onFetchDate() {
-    if (_datetimeBloc.state.timestamps.isNotEmpty) return;
-    _datetimeBloc.add(FetchDateEvent());
-  }
-
   void _onFetchCustom() {
-    _startTime ??= _datetimeBloc.state.timestamps
-        .firstWhere(
-          (item) => item.date == _datetimeBloc.state.dates.last.date,
-        )
-        .time;
-    _endTime ??= _datetimeBloc.state.timestamps
-        .lastWhere(
-          (item) => item.date == _datetimeBloc.state.dates.last.date,
-        )
-        .time;
-    ;
     _statisticBloc.add(
       DetectByCustomEvent(
         query: DetectByCustomQuery(
           date: _selectedDate ?? _datetimeBloc.state.dates.last.date,
-          timeFrom: _startTime,
-          timeTo: _endTime,
+          timeFrom: _startTime ?? latestStartTime,
+          timeTo: _endTime ?? latestEndTime,
         ),
       ),
     );
@@ -165,34 +118,51 @@ class _ExportTabState extends State<ExportTab> {
   }
 
   void _onFetchByCam() {
-    _statisticBloc.add(DetectByCameratEvent(
+    _statisticBloc.add(DetectByCameraEvent(
         query: DetectByCameraQuery(
             camera: _selectedCam ?? _cameraBloc.state.cameras.last.privateId)));
+  }
+
+  void _onFetchByCamCustom() {
+    _statisticBloc.add(DetectByCameraCustomEvent(
+        query: DetectByCameraCustomQuery(
+            camera: _selectedCam ?? _cameraBloc.state.cameras.last.privateId,
+            date: _selectedDate ?? latestDate,
+            timeFrom: _startTimeCam ?? latestStartTime,
+            timeTo: _endTimeCam ?? latestEndTime)));
+  }
+
+  void _onFetchByDate() {
+    _statisticBloc.add(
+      DetectByDateEvent(
+        query: DetectByDateQuery(date: _selectedDate ?? latestDate),
+      ),
+    );
   }
 
   void _onDateChanged(String? value) {
     if (value != null) {
       setState(() {
         _selectedDate = value;
-        _startTime = _startTimeDist = _datetimeBloc.state.timestamps
-            .firstWhere(
-              (item) => item.date == value,
-            )
-            .time;
+        _startTime =
+            _startTimeDist = _startTimeCam = _datetimeBloc.state.timestamps
+                .firstWhere(
+                  (item) => item.date == value,
+                )
+                .time;
 
-        _endTime = _endTimeDist = _datetimeBloc.state.timestamps
+        _endTime = _endTimeDist = _endTimeCam = _datetimeBloc.state.timestamps
             .lastWhere(
               (item) => item.date == value,
             )
             .time;
       });
-      _statisticBloc.add(
-          DetectByDateEvent(query: DetectByDateQuery(date: _selectedDate)));
-      _statisticBloc.add(DetectByCustomEvent(
-          query: DetectByCustomQuery(
-              date: _selectedDate, timeFrom: _startTime, timeTo: _endTime)));
+      _onFetchByDate();
+      _onFetchCustom();
       _onFetchByDist(_selectedDistrict ?? _cameraBloc.state.districts.first,
           _selectedDate, _startTimeDist, _endTimeDist);
+      _onFetchCustom();
+      _onFetchByCamCustom();
     }
   }
 
@@ -217,6 +187,14 @@ class _ExportTabState extends State<ExportTab> {
     }
   }
 
+  void _submitFormCam() {
+    if (_formKeyCam.currentState!.validate()) {
+      _onFetchByCamCustom();
+    } else {
+      // print('Form is not valid');
+    }
+  }
+
   Future<void> generatePdfWithChart() async {
     setState(() => _isExporting = true);
     final results = await Future.wait([
@@ -227,6 +205,7 @@ class _ExportTabState extends State<ExportTab> {
       regionLineCtrl.capture(),
       cameraBarCtrl.capture(),
       cameraPieCtrl.capture(),
+      cameraLineCtrl.capture()
     ]);
 
     final Uint8List? trackingImageBytes = results[0];
@@ -236,6 +215,7 @@ class _ExportTabState extends State<ExportTab> {
     final Uint8List? regionImageBytes = results[4];
     final Uint8List? cameraBarImageBytes = results[5];
     final Uint8List? cameraPieImageBytes = results[6];
+    final Uint8List? cameraLineImageBytes = results[7];
 
     final trackingData = _statisticBloc.state.trackingByDate;
     // final statByDateData = _statisticBloc.state.resultByDate;
@@ -244,6 +224,7 @@ class _ExportTabState extends State<ExportTab> {
         : _statisticBloc.state.resultByCustom;
     final statByRegionData = _statisticBloc.state.resultByDistrict;
     final statByCamData = _statisticBloc.state.resultByCamera;
+    final statByCamCustomData = _statisticBloc.state.resultByCameraCustom;
 
     // Check if any screenshot failed
     if (results.any((bytes) => bytes == null)) {
@@ -270,6 +251,8 @@ class _ExportTabState extends State<ExportTab> {
             .firstWhere((item) => item.privateId == _selectedCam)
             .name
         : _cameraBloc.state.cameras.first.name;
+    final startTimeCam = _startTimeCam ?? startTime;
+    final endTimeCam = _endTimeCam ?? endTime;
 
     final titleStyle = pw.TextStyle(
         fontSize: AppFontSize.xxxl,
@@ -477,6 +460,40 @@ class _ExportTabState extends State<ExportTab> {
                     ['Containers', statByCamData.numberOfContainer]
                   ],
                 ),
+                pw.SizedBox(height: AppSpacing.rem500.h),
+                pw.Text(
+                    "Statistics by Camera $camera, on $date, from $startTimeCam to $endTimeCam",
+                    style: subHeadingStyle),
+                pw.SizedBox(height: AppSpacing.rem500.h),
+                pw.Image(pw.MemoryImage(cameraLineImageBytes!)),
+                pw.SizedBox(height: AppSpacing.rem500.h),
+                pw.TableHelper.fromTextArray(
+                  context: context,
+                  data: [
+                    [
+                      'Time',
+                      'Bicycles',
+                      'Motorcycles',
+                      'Cars',
+                      'Vans',
+                      'Trucks',
+                      'Buses',
+                      'Fire Trucks',
+                      'Containers',
+                    ],
+                    ...statByCamCustomData.details!.map((e) => [
+                          e.time ?? '',
+                          e.numberOfBicycle ?? '',
+                          e.numberOfMotorcycle ?? '',
+                          e.numberOfCar ?? '',
+                          e.numberOfVan ?? '',
+                          e.numberOfTruck ?? '',
+                          e.numberOfBus ?? '',
+                          e.numberOfFireTruck ?? '',
+                          e.numberOfContainer ?? '',
+                        ]),
+                  ],
+                ),
               ]),
     );
 
@@ -511,16 +528,11 @@ class _ExportTabState extends State<ExportTab> {
             firstCam = cameraState.cameras.first.privateId ?? "";
             if (_selectedDate == null &&
                 _statisticBloc.state.resultByDate.date == null) {
-              //Fetch by date
-              _statisticBloc.add(
-                DetectByDateEvent(
-                  query: DetectByDateQuery(date: latestDate),
-                ),
-              );
-              //Fetch by District
+              _onFetchByDate();
               _onFetchByDist(
                   firstDistrict, latestDate, latestStartTime, latestEndTime);
               _onFetchByCam();
+              _onFetchByCamCustom();
             }
           }
 
@@ -528,7 +540,8 @@ class _ExportTabState extends State<ExportTab> {
               builder: (context, statisticState) {
             final hasStatisticData = statisticState.resultByDate.date != null &&
                 statisticState.resultByDistrict.date != null &&
-                statisticState.resultByCamera.details!.isNotEmpty;
+                statisticState.resultByCamera.details!.isNotEmpty &&
+                statisticState.resultByCameraCustom.details!.isNotEmpty;
             if (!hasDateData || !hasCameraData || !hasStatisticData) {
               return const Center(child: CircularProgressIndicator());
             }
@@ -542,32 +555,14 @@ class _ExportTabState extends State<ExportTab> {
                     fontWeight: AppFontWeight.bold,
                     color: colors.primary),
               ),
-              Stack(
-                children: [
-                  Screenshot(
-                    controller: trackingCtrl,
-                    child: Container(
-                      color: colors.white,
-                      child: StatisticBarChart(
-                          data: _statisticBloc.state.trackingByDate,
-                          maxY: double.parse(findMaxMotorcycle(
-                              _statisticBloc.state.trackingByDate)),
-                          intervalY: 50000),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: CommonSaveImgButton(
-                      onPressed: () {
-                        AppUtils.downloadWidgetAsImage(
-                          controller: trackingCtrl,
-                          filename: "tracking_by_day.png",
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
+              StatisticBarChart(
+                  isDownloadable: true,
+                  controller: trackingCtrl,
+                  filename: "tracking.png",
+                  data: _statisticBloc.state.trackingByDate,
+                  maxY: double.parse(
+                      findMaxMotorcycle(_statisticBloc.state.trackingByDate)),
+                  intervalY: 50000),
               CommonHeading(
                 heading: tr('Common.statistic'),
                 subheading: tr('Common.statistic_by_date'),
@@ -620,32 +615,12 @@ class _ExportTabState extends State<ExportTab> {
                       ),
                     ],
                   ),
-                  Stack(
-                    children: [
-                      Screenshot(
-                        controller: datePieCtrl,
-                        child: Container(
-                          color: Colors.white,
-                          padding: EdgeInsets.symmetric(
-                              vertical: AppSpacing.rem600.h),
-                          child: StatisticPieChart(
-                            detectResult: _statisticBloc.state.resultByDate,
-                            showTitle: true,
-                          ),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: CommonSaveImgButton(
-                          onPressed: () {
-                            AppUtils.downloadWidgetAsImage(
-                              controller: datePieCtrl,
-                              filename: "stat_by_date.png",
-                            );
-                          },
-                        ),
-                      ),
-                    ],
+                  StatisticPieChart(
+                    controller: datePieCtrl,
+                    isDownloadable: true,
+                    filename: "stat_by_date.png",
+                    detectResult: _statisticBloc.state.resultByDate,
+                    showTitle: true,
                   ),
                 ],
               ),
@@ -722,47 +697,23 @@ class _ExportTabState extends State<ExportTab> {
                         )
                       ],
                     ),
-                    Stack(
-                      children: [
-                        Screenshot(
-                          controller: timeLineCtrl,
-                          child: Container(
-                            color: colors.white,
-                            padding: EdgeInsets.symmetric(
-                                vertical: AppSpacing.rem600.h),
-                            child: StatisticLineChart(
-                              maxY: double.parse(findMaxMotorcycle(
-                                  _statisticBloc.state.resultByCustom.details ??
-                                      _statisticBloc
-                                          .state.resultByDate.details ??
-                                      [])),
-                              intervalY: (double.parse(findMaxMotorcycle(
-                                          _statisticBloc.state.resultByCustom
-                                                  .details ??
-                                              _statisticBloc
-                                                  .state.resultByDate.details ??
-                                              [])) /
-                                      12)
-                                  .toPrecision(0),
-                              datas: _statisticBloc
+                    StatisticLineChart(
+                      controller: timeLineCtrl,
+                      isDownloadable: true,
+                      filename: "stat_by_time(line).png",
+                      maxY: double.parse(findMaxMotorcycle(
+                          _statisticBloc.state.resultByCustom.details ??
+                              _statisticBloc.state.resultByDate.details ??
+                              [])),
+                      intervalY: (double.parse(findMaxMotorcycle(_statisticBloc
                                       .state.resultByCustom.details ??
                                   _statisticBloc.state.resultByDate.details ??
-                                  [],
-                            ),
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.topRight,
-                          child: CommonSaveImgButton(
-                            onPressed: () {
-                              AppUtils.downloadWidgetAsImage(
-                                controller: timeLineCtrl,
-                                filename: "stat_by_time(line).png",
-                              );
-                            },
-                          ),
-                        ),
-                      ],
+                                  [])) /
+                              12)
+                          .toPrecision(0),
+                      datas: _statisticBloc.state.resultByCustom.details ??
+                          _statisticBloc.state.resultByDate.details ??
+                          [],
                     ),
                     Row(children: [
                       SizedBox(
@@ -783,33 +734,18 @@ class _ExportTabState extends State<ExportTab> {
                         ),
                       ),
                       Expanded(
-                          child: Stack(
-                        children: [
-                          Screenshot(
-                            controller: timePieCtrl,
-                            child: StatisticPieChart(
-                              radius: 150,
-                              showTitle: false,
-                              detectResult:
-                                  _statisticBloc.state.resultByCustom.date ==
-                                          null
-                                      ? _statisticBloc.state.resultByDate
-                                      : _statisticBloc.state.resultByCustom,
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: CommonSaveImgButton(
-                              onPressed: () {
-                                AppUtils.downloadWidgetAsImage(
-                                  controller: timePieCtrl,
-                                  filename: "stat_by_time(pie).png",
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                      ))
+                        child: StatisticPieChart(
+                          isDownloadable: true,
+                          controller: timePieCtrl,
+                          filename: "stat_by_time(pie).png",
+                          radius: 150,
+                          showTitle: false,
+                          detectResult:
+                              _statisticBloc.state.resultByCustom.date == null
+                                  ? _statisticBloc.state.resultByDate
+                                  : _statisticBloc.state.resultByCustom,
+                        ),
+                      ),
                     ])
                   ],
                 ),
@@ -1004,42 +940,18 @@ class _ExportTabState extends State<ExportTab> {
                       ),
                     ],
                   ),
-                  Stack(
-                    children: [
-                      Screenshot(
-                        controller: regionLineCtrl,
-                        child: Container(
-                          color: colors.white,
-                          padding: EdgeInsets.symmetric(
-                              vertical: AppSpacing.rem600.h),
-                          child: StatisticLineChart(
-                            maxY: double.parse(findMaxMotorcycle(
+                  StatisticLineChart(
+                    controller: regionLineCtrl,
+                    isDownloadable: true,
+                    filename: "stat_by_region.png",
+                    maxY: double.parse(findMaxMotorcycle(
+                        _statisticBloc.state.resultByDistrict.details ?? [])),
+                    intervalY: (double.parse(findMaxMotorcycle(
                                 _statisticBloc.state.resultByDistrict.details ??
-                                    [])),
-                            intervalY: (double.parse(findMaxMotorcycle(
-                                        _statisticBloc.state.resultByDistrict
-                                                .details ??
-                                            [])) /
-                                    12)
-                                .toPrecision(0),
-                            datas:
-                                _statisticBloc.state.resultByDistrict.details ??
-                                    [],
-                          ),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: CommonSaveImgButton(
-                          onPressed: () {
-                            AppUtils.downloadWidgetAsImage(
-                              controller: regionLineCtrl,
-                              filename: "stat_by_region.png",
-                            );
-                          },
-                        ),
-                      ),
-                    ],
+                                    [])) /
+                            12)
+                        .toPrecision(0),
+                    datas: _statisticBloc.state.resultByDistrict.details ?? [],
                   ),
                 ],
               ),
@@ -1067,62 +979,30 @@ class _ExportTabState extends State<ExportTab> {
                                   setState(() {
                                     _selectedCam = value;
                                   }),
-                                  _onFetchByCam()
+                                  _onFetchByCam(),
+                                  _onFetchByCamCustom()
                                 })),
                   ],
                 ),
-                Stack(
-                  children: [
-                    Screenshot(
-                      controller: cameraBarCtrl,
-                      child: Container(
-                        color: colors.white,
-                        child: StatisticBarChartNoAnimation(
-                          data: _statisticBloc.state.resultByCamera.details,
-                          maxY: double.parse(findMaxMotorcycle(
-                              _statisticBloc.state.resultByCamera.details ??
-                                  [])),
-                          intervalY: 50,
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: CommonSaveImgButton(
-                        onPressed: () {
-                          AppUtils.downloadWidgetAsImage(
-                            controller: cameraBarCtrl,
-                            filename: "stat_by_cam(bar).png",
-                          );
-                        },
-                      ),
-                    ),
-                  ],
+                StatisticBarChartNoAnimation(
+                  controller: cameraBarCtrl,
+                  isDownloadable: true,
+                  filename: "stat_by_cam(bar)",
+                  data: _statisticBloc.state.resultByCamera.details,
+                  maxY: double.parse(findMaxMotorcycle(
+                      _statisticBloc.state.resultByCamera.details ?? [])),
+                  intervalY: 50,
                 ),
                 Row(
                   children: [
                     Expanded(
-                        child: Stack(
-                      children: [
-                        Screenshot(
-                          controller: cameraPieCtrl,
-                          child: StatisticPieChart2(
-                            data: _statisticBloc.state.resultByCamera,
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.topRight,
-                          child: CommonSaveImgButton(
-                            onPressed: () {
-                              AppUtils.downloadWidgetAsImage(
-                                controller: cameraPieCtrl,
-                                filename: "stat_by_cam(pie).png",
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    )),
+                      child: StatisticPieChart2(
+                        controller: cameraPieCtrl,
+                        isDownloadable: true,
+                        filename: "stat_by_cam(pie).png",
+                        data: _statisticBloc.state.resultByCamera,
+                      ),
+                    ),
                     CommonStatisticCard(
                       label: _selectedCam != null
                           ? _cameraBloc.state.cameras
@@ -1137,6 +1017,90 @@ class _ExportTabState extends State<ExportTab> {
                       textColor: colors.buttonPrimaryBackground,
                     )
                   ],
+                ),
+                Form(
+                  key: _formKeyCam,
+                  child: Row(
+                    spacing: AppSpacing.rem600,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CommonText(
+                        tr('Common.time_range'),
+                        style: TextStyle(
+                            fontSize: AppFontSize.xxxl,
+                            fontWeight: AppFontWeight.semiBold),
+                      ),
+                      Expanded(
+                          child: SimpleDropdown(
+                        value: _startTimeCam ?? latestStartTime,
+                        itemsList: _datetimeBloc.state.timestamps
+                            .where((option) =>
+                                option.date == (_selectedDate ?? latestDate))
+                            .map((option) => DropdownMenuItem<String>(
+                                  value: option.time,
+                                  child: Text(option.time),
+                                ))
+                            .toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            _startTimeCam = value;
+                          });
+                        },
+                        validator: (value) => TimeValidators.validateStart(
+                          value,
+                          _endTimeCam,
+                          tr: tr,
+                        ),
+                      )),
+                      CommonText(
+                        tr('Common.to'),
+                        style: TextStyle(
+                            fontSize: AppFontSize.xxl,
+                            fontWeight: AppFontWeight.semiBold),
+                      ),
+                      Expanded(
+                        child: SimpleDropdown(
+                          validator: (value) => TimeValidators.validateEnd(
+                            _startTimeCam,
+                            value,
+                            tr: tr,
+                          ),
+                          value: _endTimeCam ?? latestEndTime,
+                          itemsList: _datetimeBloc.state.timestamps
+                              .where((option) =>
+                                  option.date == (_selectedDate ?? latestDate))
+                              .map((option) => DropdownMenuItem<String>(
+                                    value: option.time,
+                                    child: Text(option.time),
+                                  ))
+                              .toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              _endTimeCam = value;
+                            });
+                          },
+                        ),
+                      ),
+                      CommonPrimaryButton(
+                        text: tr('Common.ok'),
+                        onPressed: _submitFormCam,
+                      )
+                    ],
+                  ),
+                ),
+                StatisticLineChart(
+                  controller: cameraLineCtrl,
+                  isDownloadable: true,
+                  filename: "stat_by_cam_in_day.png",
+                  maxY: double.parse(findMaxMotorcycle(
+                      _statisticBloc.state.resultByCameraCustom.details ?? [])),
+                  intervalY: (double.parse(findMaxMotorcycle(_statisticBloc
+                                  .state.resultByCameraCustom.details ??
+                              [])) /
+                          12)
+                      .toPrecision(0),
+                  datas:
+                      _statisticBloc.state.resultByCameraCustom.details ?? [],
                 ),
               ]),
               _isExporting

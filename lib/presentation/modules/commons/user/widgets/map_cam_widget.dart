@@ -49,7 +49,7 @@ class _MapCamWidgetState extends State<MapCamWidget> {
   @override
   void initState() {
     super.initState();
-    onFetchInitialVale();
+    // onFetchInitialVale();
 
     _updateTime();
     _timer = Timer.periodic(const Duration(seconds: 1), (_) => _updateTime());

@@ -56,7 +56,7 @@ class Config {
             GoRoute(
               path: _configurationWidget,
               builder: (_, state) {
-                return ConfigurationWidget();
+                return GeneralConfiguration();
               },
             ),
             GoRoute(

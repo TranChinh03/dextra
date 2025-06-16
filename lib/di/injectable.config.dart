@@ -39,6 +39,8 @@ import '../domain/usecases/statistic/queries/fecth_timestamp/fetch_timestamp_han
     as _i58;
 import '../domain/usecases/statistic/queries/fetch_date/fetch_date_handler.dart'
     as _i699;
+import '../domain/usecases/statistic/queries/statistic_by_cam_custom/statistic_by_cam_custom_handler.dart'
+    as _i662;
 import '../domain/usecases/statistic/queries/statistic_by_camera/statistic_by_camera_handler.dart'
     as _i884;
 import '../domain/usecases/statistic/queries/statistic_by_custom/statistic_by_custom_handler.dart'
@@ -107,6 +109,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i699.FetchDateHandler(gh<_i474.IStatisticRepository>()));
     gh.factory<_i884.DetectByCameraHandler>(
         () => _i884.DetectByCameraHandler(gh<_i474.IStatisticRepository>()));
+    gh.factory<_i662.DetectByCameraCustomHandler>(() =>
+        _i662.DetectByCameraCustomHandler(gh<_i474.IStatisticRepository>()));
     gh.factory<_i459.DetectByCustomHandler>(
         () => _i459.DetectByCustomHandler(gh<_i474.IStatisticRepository>()));
     gh.factory<_i412.DetectByDateHandler>(
@@ -115,18 +119,19 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i691.DetectByDistrictHandler(gh<_i474.IStatisticRepository>()));
     gh.factory<_i255.TrackingByDateHandler>(
         () => _i255.TrackingByDateHandler(gh<_i474.IStatisticRepository>()));
-    gh.factory<_i65.IDetectionRepository>(
-        () => _i842.DetectionRepository(gh<_i1065.IApiClient>()));
-    gh.factory<_i635.IHeatmapRepository>(
-        () => _i615.HeatmapRepository(gh<_i1065.IApiClient>()));
     gh.singleton<_i407.StatisticBloc>(() => _i407.StatisticBloc(
           gh<_i412.DetectByDateHandler>(),
           gh<_i459.DetectByCustomHandler>(),
           gh<_i691.DetectByDistrictHandler>(),
           gh<_i884.DetectByCameraHandler>(),
+          gh<_i662.DetectByCameraCustomHandler>(),
           gh<_i255.TrackingByDateHandler>(),
           gh<_i80.SendEmailByDateHandler>(),
         ));
+    gh.factory<_i65.IDetectionRepository>(
+        () => _i842.DetectionRepository(gh<_i1065.IApiClient>()));
+    gh.factory<_i635.IHeatmapRepository>(
+        () => _i615.HeatmapRepository(gh<_i1065.IApiClient>()));
     gh.factory<_i317.SearchBloc>(
         () => _i317.SearchBloc(gh<_i63.SearchCamerasHandler>()));
     gh.singleton<_i530.DateTimeBloc>(() => _i530.DateTimeBloc(
