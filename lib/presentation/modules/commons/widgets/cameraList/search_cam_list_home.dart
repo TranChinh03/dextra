@@ -148,7 +148,7 @@ class _SearchCamListHomeState extends State<SearchCamListHome> {
                 ),
               ],
               CommonPrimaryButton(
-                text: "All Cameras",
+                text: tr('Common.all_cams'),
                 onPressed: () => DextraRouter.go(ScreenPath.mapCam.value),
               ),
             ],

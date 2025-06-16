@@ -2,13 +2,10 @@ import 'dart:async';
 
 import 'package:dextra/di/injectable.dart';
 import 'package:dextra/domain/entities/camera.dart';
-import 'package:dextra/presentation/assets/assets.dart';
 import 'package:dextra/presentation/modules/commons/bloc/camera/camera_bloc.dart';
 import 'package:dextra/presentation/modules/commons/bloc/datetime/datetime_bloc.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_back_to_to_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/cameraList/search_camera_list_widget.dart';
-import 'package:dextra/presentation/modules/commons/widgets/commonImage/common_image.dart';
-import 'package:dextra/presentation/modules/commons/widgets/dialog/image_dialog.dart';
 import 'package:dextra/presentation/modules/commons/widgets/map/heatmap.dart';
 import 'package:dextra/presentation/modules/commons/widgets/map/map.dart';
 import 'package:dextra/presentation/modules/commons/widgets/screen-container/screen_container.dart';
@@ -49,23 +46,9 @@ class _MapCamWidgetState extends State<MapCamWidget> {
   @override
   void initState() {
     super.initState();
-    // onFetchInitialVale();
 
     _updateTime();
     _timer = Timer.periodic(const Duration(seconds: 1), (_) => _updateTime());
-  }
-
-  onFetchInitialVale() {
-    if (_datetimeBloc.state.timestamps.isNotEmpty) return;
-    _datetimeBloc.add(FetchTimestampEvent());
-    if (_datetimeBloc.state.dates.isNotEmpty) return;
-    _datetimeBloc.add(FetchDateEvent());
-    if (_cameraBloc.state.vehicles.isNotEmpty) return;
-    _cameraBloc.add(FetchVehiclesEvent());
-    if (_cameraBloc.state.cameras.isNotEmpty) return;
-    _cameraBloc.add(FetchCamerasEvent());
-    if (_cameraBloc.state.districts.isNotEmpty) return;
-    _cameraBloc.add(FetchDistrictsEvent());
   }
 
   void _updateTime() {
@@ -77,7 +60,6 @@ class _MapCamWidgetState extends State<MapCamWidget> {
   }
 
   void updateCurrentPos(LatLng newPos, Camera? selectedCam) {
-    // print("updateCurrentPos: $newPos");
     setState(() {
       _currentPos = newPos;
       _selectedCam = selectedCam;
@@ -85,7 +67,6 @@ class _MapCamWidgetState extends State<MapCamWidget> {
   }
 
   void _scrollToTop() {
-    // print("Scrolling to top");
     _scrollController.animateTo(
       0.0,
       duration: Duration(milliseconds: 500),
@@ -162,7 +143,7 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                                   borderRadius: BorderRadius.circular(
                                       AppBorderRadius.spacing3xl)),
                               child: CommonText(
-                                "Live",
+                                tr('Common.live'),
                                 style: TextStyle(
                                     color: colors.liveBadgeTextColor,
                                     fontWeight: AppFontWeight.semiBold),

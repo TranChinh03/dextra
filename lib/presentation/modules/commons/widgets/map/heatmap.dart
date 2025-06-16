@@ -69,6 +69,13 @@ class _TrafficHeatmapState extends State<TrafficHeatmap> {
     _onFetchHeatmapInDay(latestDate, latestStartHmTime, latestEndHmTime);
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    heatmapTimer!.cancel();
+  }
+
   // void _onFetchHeatmap(String date) {
   //   _heatmapBloc.add(FetchHeatmapEvent(query: FetchHeatmapQuery(date: date)));
   // }
@@ -205,8 +212,8 @@ class _TrafficHeatmapState extends State<TrafficHeatmap> {
 
       setState(() {
         currentTime = currentTimestamp.time ?? "";
-        currentData = _createPoints(
-            currentTimestamp.data ?? [], _selectedVehicle ?? "All vehicles");
+        currentData = _createPoints(currentTimestamp.data ?? [],
+            _selectedVehicle ?? tr('Common.all_vehicles'));
       });
       if (currentIndex == totalFrames - 1) {
         setState(() {
@@ -247,8 +254,8 @@ class _TrafficHeatmapState extends State<TrafficHeatmap> {
                 child: Center(child: CircularProgressIndicator())));
       }
       heatmapData = _heatmapBloc.state.resultHeatmapInDay.details ?? [];
-      currentData = _createPoints(
-          heatmapData.first.data ?? [], _selectedVehicle ?? "All vehicles");
+      currentData = _createPoints(heatmapData.first.data ?? [],
+          _selectedVehicle ?? tr('Common.all_vehicles'));
 
       return Column(
         spacing: AppSpacing.rem600.h,
@@ -362,7 +369,7 @@ class _TrafficHeatmapState extends State<TrafficHeatmap> {
                       fontWeight: AppFontWeight.semiBold,
                     )),
                 TextSpan(
-                  text: " to ",
+                  text: " ${tr('Common.to')} ",
                   style: TextStyle(
                       fontSize: AppFontSize.md, color: colors.textMuted),
                 ),
@@ -375,12 +382,12 @@ class _TrafficHeatmapState extends State<TrafficHeatmap> {
                       fontWeight: AppFontWeight.semiBold,
                     )),
                 TextSpan(
-                  text: "Vehicle: ",
+                  text: "${tr('Common.vehicle')}: ",
                   style: TextStyle(
                       fontSize: AppFontSize.md, color: colors.textMuted),
                 ),
                 TextSpan(
-                    text: _selectedVehicle ?? "All vehicle",
+                    text: _selectedVehicle ?? tr("Common.all_vehicles"),
                     style: TextStyle(
                       fontSize: AppFontSize.md,
                       color: colors.primary,
@@ -414,21 +421,21 @@ class _TrafficHeatmapState extends State<TrafficHeatmap> {
                       onPressed: startHeatmapAnimation)
                   : isProcessing
                       ? CommonSecondaryButton(
-                          text: "Stop",
+                          text: tr('Common.stop'),
                           onPressed: () => setState(() {
                             isProcessing = false;
                           }),
                         )
                       : CommonPrimaryButton(
-                          text: "Continue",
+                          text: tr('Common.continue'),
                           onPressed: () => setState(() {
                                 isProcessing = true;
                               })),
               CommonSecondaryButton(
-                text: "Reset",
+                text: tr('Common.reset'),
                 onPressed: () => setState(() {
                   currentData = _createPoints(heatmapData.first.data ?? [],
-                      _selectedVehicle ?? "All vehicles");
+                      _selectedVehicle ?? tr('Common.all_vehicles'));
                   currentTime = heatmapData.first.time ?? "";
                   currentIndex = 0;
                   _heatmaps.clear();
@@ -440,11 +447,11 @@ class _TrafficHeatmapState extends State<TrafficHeatmap> {
                 child: SizedBox(
                   width: AppSpacing.rem4150.w,
                   child: SimpleDropdown(
-                      value: _selectedVehicle ?? "All vehicles",
+                      value: _selectedVehicle ?? tr('Common.all_vehicles'),
                       itemsList: [
                         DropdownMenuItem<String>(
-                          value: "All vehicles",
-                          child: Text("All vehicles"),
+                          value: tr('Common.all_vehicles'),
+                          child: Text(tr('Common.all_vehicles')),
                         ),
                         ..._cameraBloc.state.vehicles.map((option) {
                           return DropdownMenuItem<String>(

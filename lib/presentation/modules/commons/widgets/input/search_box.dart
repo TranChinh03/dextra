@@ -1,6 +1,7 @@
 import 'package:dextra/presentation/assets/assets.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
 import 'package:dextra/theme/spacing/app_spacing.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -22,7 +23,7 @@ class _SearchBoxState extends State<SearchBox> {
         return SearchBar(
           onChanged: widget.onChanged,
           controller: controller,
-          hintText: "Search...",
+          hintText: tr('Common.search'),
           trailing: <Widget>[
             SvgPicture.asset(
               Assets.svg.search,

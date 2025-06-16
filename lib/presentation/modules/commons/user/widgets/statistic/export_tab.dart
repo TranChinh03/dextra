@@ -1013,7 +1013,7 @@ class _ExportTabState extends State<ExportTab> {
                       value: _statisticBloc.state.resultByCamera.totalVehicles
                           .toString(),
                       info:
-                          "${tr('Common.max')}: ${_statisticBloc.state.resultByCamera.numberOfMotorcycle} motorcycles",
+                          "${tr('Common.max')}: ${_statisticBloc.state.resultByCamera.numberOfMotorcycle} ${tr('Common.motorcycles')}",
                       textColor: colors.buttonPrimaryBackground,
                     )
                   ],
@@ -1105,10 +1105,10 @@ class _ExportTabState extends State<ExportTab> {
               ]),
               _isExporting
                   ? Center(
-                      child: CommonText("Exporting..."),
+                      child: CommonText(tr('Common.exporting')),
                     )
                   : CommonPrimaryButton(
-                      text: "Download full report",
+                      text: tr('Common.download_export'),
                       onPressed: () async {
                         await generatePdfWithChart();
                       }),

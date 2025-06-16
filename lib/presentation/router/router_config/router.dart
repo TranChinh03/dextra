@@ -1,5 +1,6 @@
 import 'package:dextra/presentation/modules/commons/auth/auth_screen.dart';
 import 'package:dextra/presentation/modules/commons/user/screens/user_master_page.dart';
+import 'package:dextra/presentation/modules/commons/user/widgets/about_us_widget.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/configtabs/general.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/home_widget.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/map_cam_widget.dart';
@@ -22,6 +23,7 @@ class DextraRouter {
   static const statisticWidget = Config._statisticWidget;
   static const configurationWidget = Config._configurationWidget;
   static const profileWidget = Config._profileWidget;
+  static const aboutUsWidget = Config._aboutUsWidget;
   static const userPage = Config._userPage;
 
   static final routes = Config.routes;

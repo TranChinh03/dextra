@@ -113,13 +113,13 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     } on StorageException catch (error) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(error.message)),
+          SnackBar(content: CommonText(error.message)),
         );
       }
     } catch (_) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Unexpected error occurred')),
+          SnackBar(content: CommonText(tr('Common.unexpected_err'))),
         );
       }
     }
@@ -228,7 +228,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     });
 
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(tr('Common.change_cancel'))),
+      SnackBar(content: CommonText(tr('Common.change_cancel'))),
     );
   }
 
@@ -242,7 +242,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     });
 
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(tr('Common.change_cancel'))),
+      SnackBar(content: CommonText(tr('Common.change_cancel'))),
     );
   }
 
@@ -408,12 +408,12 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                     MainAxisAlignment.end,
                                                 children: [
                                                   CommonPrimaryButton(
-                                                      text: "Save",
+                                                      text: tr('Common.save'),
                                                       onPressed: _isProfileLoading
                                                           ? null
                                                           : _onUpdateProfile),
                                                   CommonSecondaryButton(
-                                                      text: "Cancel",
+                                                      text: tr('Common.cancel'),
                                                       onPressed:
                                                           _cancelEditProfile),
                                                 ],
@@ -554,13 +554,13 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                 MainAxisAlignment.end,
                                             children: [
                                               CommonPrimaryButton(
-                                                text: "Save",
+                                                text: tr('Common.save'),
                                                 onPressed: _isDetailLoading
                                                     ? null
                                                     : _onUpdateDetail,
                                               ),
                                               CommonSecondaryButton(
-                                                text: "Cancel",
+                                                text: tr('Common.cancel'),
                                                 onPressed: _cancelEditDetail,
                                               ),
                                             ],

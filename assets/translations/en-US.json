@@ -1,5 +1,8 @@
 {
   "Common.Dextra": "Dextra",
+  "Common.home": "Home",
+  "Common.map_and_cam": "Map & Camera",
+  "Common.configuration": "Configuration",
   "Common.first_name_title": "First Name",
   "Common.middle_name_optional_title": "Middle Name (optional)",
   "Common.last_name_title": "Last Name",
@@ -35,6 +38,9 @@
   "Common.cam_default_label": "Camera 01",
   "Common.vehicles_count_label": "Vehicles Counted",
   "Common.vehicle": "Vehicles",
+  "Common.all_vehicles": "All vehicles",
+  "Common.stop": "Stop",
+  "Common.reset": "Reset",
   "Common.avg_congestion_label": "Average Congestion Level",
   "Common.default_count_value": "29,876",
   "Common.default_avg_congestion": "55%",
@@ -51,6 +57,9 @@
   "Common.access_map_info": "Access a smart, interactive map that visualizes surveillance camera locations and provides real-time traffic insights across the city.",
   "Common.today_stats": "Latest Key Stats",
   "Common.today_stats_info": "Live Traffic Insights at a Glance from All Cameras",
+  "Common.all_cams": "All Cameras",
+  "Common.search": "Search...",
+  "Common.live": "Live",
   "Common.export_banner": "Export Traffic Reports with One Click",
   "Common.export_banner_info": "Get detailed traffic analysis reports in multiple formats for easy sharing and insights",
   "Common.export_report": "Export report",
@@ -132,8 +141,24 @@
    "Common.saved_cam": "Saved Cameras",
    "Common.save": "Save",
    "Common.change_cancel": "Changes canceled",
+   "Common.unexpected_err": "Unexpected error occurred",
+   "Common.download_export": "Download full report",
+   "Common.exporting": "Exporting...",
 
-
+  "About.about_us": "About Us",
+  "About.about_dextra": "Dextra is an AI-powered platform dedicated to ",
+  "About.about_dextra_2": " automated traffic statistics and analysis ",
+  "About.about_dextra_3": " computer vision and machine learning",
+  "About.by_leveraging": "by leveraging",
+  "About.our_mission": "OUR MISSION",
+  "About.our_mission_1": "revolutionize traffic monitoring ",
+  "About.our_mission_2": "computer vision and machine learning,",
+  "About.our_mission_3": "making traffic data more",
+  "About.our_mission_4": "accessible, accurate, and actionable.",
+  "About.key_features": "KEY FEATURES",
+  
+  "Footer.info": "Smart Traffic Analytics: Real-time traffic monitoring and analysis powered by AI. Enhancing urban mobility with data-driven insights",
+  "Footer.contact": "Contact",
 
   "Common.start": "Start",
   "Common.end": "End",
@@ -156,4 +181,5 @@
   "Auth.email_placeholder": "email@gmail.com",
   "Auth.phone": "Phone",
   "Auth.already_have_account": "Already have an account?"
+
 }

@@ -8,7 +8,8 @@ enum ScreenPath {
   statistic("${DextraRouter.userPage}/${DextraRouter.statisticWidget}"),
   mapCam("${DextraRouter.userPage}/${DextraRouter.mapCamWidget}"),
   configuration("${DextraRouter.userPage}/${DextraRouter.configurationWidget}"),
-  profile("${DextraRouter.userPage}/${DextraRouter.profileWidget}");
+  profile("${DextraRouter.userPage}/${DextraRouter.profileWidget}"),
+  aboutus("${DextraRouter.userPage}/${DextraRouter.aboutUsWidget}");
 
   final String value;
   const ScreenPath(this.value);
