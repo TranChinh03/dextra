@@ -77,7 +77,7 @@ class _CameraImgItemState extends State<CameraImgItem> {
           SnackBar(
               duration: Duration(seconds: 1),
               content: CommonText(
-                "Camera added to your favorites",
+                tr('Common.add_cam'),
                 style: TextStyle(color: Colors.cyan),
               )),
         );
@@ -102,7 +102,7 @@ class _CameraImgItemState extends State<CameraImgItem> {
           SnackBar(
               duration: Duration(seconds: 1),
               content: CommonText(
-                "Camera removed from your favorites.",
+                tr('Common.del_cam'),
                 style: TextStyle(color: Colors.cyan),
               )),
         );
