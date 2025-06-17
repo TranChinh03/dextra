@@ -72,6 +72,16 @@ class _CameraImgItemState extends State<CameraImgItem> {
           "savedCameras": [...cameraIds, widget.cameraId]
         });
       }
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              duration: Duration(seconds: 1),
+              content: CommonText(
+                tr('Common.add_cam'),
+                style: TextStyle(color: Colors.cyan),
+              )),
+        );
+      }
     }
   }
 
@@ -87,6 +97,16 @@ class _CameraImgItemState extends State<CameraImgItem> {
       cameraIds.remove(widget.cameraId);
       await FirebaseDbService()
           .update(path: 'users/${user.uid}', data: {"savedCameras": cameraIds});
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              duration: Duration(seconds: 1),
+              content: CommonText(
+                tr('Common.del_cam'),
+                style: TextStyle(color: Colors.cyan),
+              )),
+        );
+      }
     }
   }
 
@@ -133,11 +153,19 @@ class _CameraImgItemState extends State<CameraImgItem> {
                       });
                       isFavorite ? _addCamera() : _removeCam();
                     },
-                    child: SvgPicture.asset(
-                      isFavorite
-                          ? Assets.svg.bookmarkFilledIcon
-                          : Assets.svg.bookmarkOutlineIcon,
-                      fit: BoxFit.scaleDown,
+                    child: Container(
+                      padding: EdgeInsetsDirectional.all(AppSpacing.rem100.w),
+                      decoration: BoxDecoration(
+                        color: colors.black.withValues(alpha: 0.3),
+                        shape: BoxShape.circle,
+                        // border: Border.all(color: colors.black),
+                      ),
+                      child: SvgPicture.asset(
+                        widget.isSaved
+                            ? Assets.svg.bookmarkFilledIcon
+                            : Assets.svg.bookmarkOutlineIcon,
+                        fit: BoxFit.scaleDown,
+                      ),
                     ),
                   ),
                 )

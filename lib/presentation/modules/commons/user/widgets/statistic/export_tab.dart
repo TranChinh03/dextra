@@ -517,7 +517,7 @@ class _ExportTabState extends State<ExportTab> {
               cameraState.vehicles.isNotEmpty;
 
           if (hasDateData && hasCameraData) {
-            latestDate = dateState.dates.last.date;
+            latestDate = dateState.dates.first.date;
             latestStartTime = dateState.timestamps.first.time;
             latestEndTime = dateState.timestamps
                 .lastWhere(
@@ -540,8 +540,8 @@ class _ExportTabState extends State<ExportTab> {
               builder: (context, statisticState) {
             final hasStatisticData = statisticState.resultByDate.date != null &&
                 statisticState.resultByDistrict.date != null &&
-                statisticState.resultByCamera.details!.isNotEmpty &&
-                statisticState.resultByCameraCustom.details!.isNotEmpty;
+                statisticState.resultByCamera.details != null &&
+                statisticState.resultByCameraCustom.date != null;
             if (!hasDateData || !hasCameraData || !hasStatisticData) {
               return const Center(child: CircularProgressIndicator());
             }
@@ -1095,10 +1095,16 @@ class _ExportTabState extends State<ExportTab> {
                   maxY: double.parse(findMaxMotorcycle(
                       _statisticBloc.state.resultByCameraCustom.details ?? [])),
                   intervalY: (double.parse(findMaxMotorcycle(_statisticBloc
-                                  .state.resultByCameraCustom.details ??
-                              [])) /
-                          12)
-                      .toPrecision(0),
+                                      .state.resultByCameraCustom.details ??
+                                  [])) /
+                              12) >
+                          1
+                      ? (double.parse(findMaxMotorcycle(_statisticBloc
+                                      .state.resultByCameraCustom.details ??
+                                  [])) /
+                              12)
+                          .toPrecision(0)
+                      : 1,
                   datas:
                       _statisticBloc.state.resultByCameraCustom.details ?? [],
                 ),

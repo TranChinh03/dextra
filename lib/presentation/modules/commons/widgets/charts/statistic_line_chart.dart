@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:dextra/domain/entities/statistic_result.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_save_img_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/charts/app_colors.dart';
@@ -78,16 +79,16 @@ class _LineChart extends StatelessWidget {
   List<FlSpot> get spots8 => getSpots("numberOfContainer");
 
   LineChartData get trafficData => LineChartData(
-        lineTouchData: lineTouchData1,
-        gridData: gridData,
-        titlesData: titlesData1,
-        borderData: borderData,
-        lineBarsData: lineBarsData1,
-        minX: 0,
-        maxX: datas.length.toDouble(),
-        maxY: maxY,
-        minY: 0,
-      );
+      lineTouchData: lineTouchData1,
+      gridData: gridData,
+      titlesData: titlesData1,
+      borderData: borderData,
+      lineBarsData: lineBarsData1,
+      minX: 0,
+      maxX: datas.length.toDouble(),
+      maxY: maxY,
+      minY: 0,
+      clipData: FlClipData.vertical());
 
   LineTouchData get lineTouchData1 => LineTouchData(
         handleBuiltInTouches: true,
@@ -279,26 +280,18 @@ class StatisticLineChartState extends State<StatisticLineChart> {
                     textAlign: TextAlign.center,
                   ),
                   Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 16, left: 6),
-                      child: _LineChart(
-                          maxY: widget.maxY,
-                          intervalY: widget.intervalY,
-                          datas: widget.datas
-                              .asMap()
-                              .entries
-                              .where((entry) => widget.datas.length > 24
-                                  ? entry.key % 4 == 0
-                                  : widget.datas.length > 12
-                                      ? entry.key % 2 == 0
-                                      : true)
-                              .map((
-                                entry,
-                              ) =>
-                                  entry.value)
-                              .toList()),
+                      child: Padding(
+                    padding: const EdgeInsets.only(right: 16, left: 6),
+                    child: _LineChart(
+                      maxY: widget.maxY,
+                      intervalY: widget.intervalY,
+                      datas: widget.datas.length > 24
+                          ? widget.datas
+                              .whereIndexed((i, _) => i % 2 == 0)
+                              .toList()
+                          : widget.datas,
                     ),
-                  ),
+                  )),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     spacing: AppSpacing.rem250.w,

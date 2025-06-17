@@ -144,6 +144,8 @@
    "Common.unexpected_err": "Unexpected error occurred",
    "Common.download_export": "Download full report",
    "Common.exporting": "Exporting...",
+   "Common.del_cam": "Camera removed from your favorites.",
+   "Common.add_cam": "Camera added to your favorites",
 
   "About.about_us": "About Us",
   "About.about_dextra": "Dextra is an AI-powered platform dedicated to ",
