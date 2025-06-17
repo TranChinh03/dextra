@@ -1,11 +1,13 @@
 import 'package:dextra/di/injectable.dart';
 import 'package:dextra/presentation/app/blocs/theme/app_theme_bloc.dart';
+import 'package:dextra/presentation/locale/localization.dart';
 import 'package:dextra/presentation/modules/commons/widgets/input/simple_dropdown.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
 import 'package:dextra/theme/color/app_color.dart';
 import 'package:dextra/theme/font/app_font_size.dart';
 import 'package:dextra/theme/font/app_font_weight.dart';
 import 'package:dextra/theme/spacing/app_spacing.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -17,22 +19,32 @@ class GeneralConfiguration extends StatefulWidget {
 }
 
 class _GeneralConfigurationState extends State<GeneralConfiguration> {
-  bool _isDarkMode = true;
-  String _language = "vi";
+  final _appthemeBloc = getIt.get<AppThemeBloc>();
+  bool _isDarkMode =
+      getIt.get<AppThemeBloc>().state.themeMode == ThemeMode.dark;
+  String _language = Localization().currentLocale!.languageCode;
 
   void _toggleDarkMode(bool value) {
     setState(() {
       _isDarkMode = value;
     });
-    final appThemeBloc = getIt.get<AppThemeBloc>();
 
-    final currentTheme = appThemeBloc.state.themeMode;
-    appThemeBloc.add(
+    final currentTheme = _appthemeBloc.state.themeMode;
+    _appthemeBloc.add(
       ChangeAppTheme(
           themeMode: currentTheme == ThemeMode.dark
               ? ThemeMode.light
               : ThemeMode.dark),
     );
+  }
+
+  void _changeLanguage(String value) {
+    setState(() {
+      _language = value;
+    });
+    // Here you can add logic to change the app language
+    Localization()
+        .updateLocale(context, Locale(value, value == 'en' ? 'US' : 'VN'));
   }
 
   @override
@@ -56,15 +68,14 @@ class _GeneralConfigurationState extends State<GeneralConfiguration> {
               SizedBox(
                 width: AppSpacing.rem2775.w,
                 child: SimpleDropdown(
-                    value: _language,
-                    itemsList: [
-                      DropdownMenuItem(value: 'en', child: Text('English')),
-                      DropdownMenuItem(value: 'vi', child: Text('Vietnamese')),
-                    ],
-                    onChanged: (value) => setState(() {
-                          _language = value;
-                        })),
-              )
+                  value: _language,
+                  itemsList: [
+                    DropdownMenuItem(value: 'en', child: Text('English')),
+                    DropdownMenuItem(value: 'vi', child: Text('Vietnamese')),
+                  ],
+                  onChanged: (value) => _changeLanguage(value),
+                ),
+              ),
             ],
           ),
           Row(

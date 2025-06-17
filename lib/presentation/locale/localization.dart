@@ -15,14 +15,15 @@ class Localization {
 
   BuildContext? _context;
   final List<LocaleInfo> _supportedLocales = [
-    // LocaleInfo(
-    //     localeKey: LocaleKey.vi.name,
-    //     localeDisplayName: 'Tiếng Việt',
-    //     locale: const Locale('vi', 'VN')),
     LocaleInfo(
       localeKey: LocaleKey.en.name,
       localeDisplayName: 'English',
       locale: const Locale('en', 'US'),
+    ),
+    LocaleInfo(
+      localeKey: LocaleKey.vi.name,
+      localeDisplayName: 'Tiếng Việt',
+      locale: const Locale('vi', 'VN'),
     ),
   ];
 

@@ -50,7 +50,7 @@ class Menu extends StatelessWidget {
               ),
             ),
             MenuItem(
-              title: ScreenEnum.home.value,
+              title: tr('Common.home'),
               prefixIcon: Assets.svg.homeIcon,
               navigateRoute: ScreenPath.home.value,
               isActive: DextraRouter.getCurrentLocation() ==
@@ -58,21 +58,21 @@ class Menu extends StatelessWidget {
                   DextraRouter.getCurrentLocation() == ScreenPath.user.value,
             ),
             MenuItem(
-              title: ScreenEnum.statistic.value,
+              title: tr('Common.statistic'),
               prefixIcon: Assets.svg.statisticIcon,
               navigateRoute: ScreenPath.statistic.value,
               isActive: DextraRouter.getCurrentLocation() ==
                   ScreenPath.statistic.value,
             ),
             MenuItem(
-              title: ScreenEnum.mapCam.value,
+              title: tr('Common.map_and_cam'),
               prefixIcon: Assets.svg.cameraIcon,
               navigateRoute: ScreenPath.mapCam.value,
               isActive:
                   DextraRouter.getCurrentLocation() == ScreenPath.mapCam.value,
             ),
             MenuItem(
-              title: ScreenEnum.configuration.value,
+              title: tr('Common.configuration'),
               prefixIcon: Assets.svg.configurationIcon,
               navigateRoute: ScreenPath.configuration.value,
               isActive: DextraRouter.getCurrentLocation() ==

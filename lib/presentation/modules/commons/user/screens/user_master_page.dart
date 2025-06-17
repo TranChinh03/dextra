@@ -2,6 +2,7 @@ import 'package:dextra/di/injectable.dart';
 import 'package:dextra/presentation/app/blocs/authentication/authentication_bloc.dart';
 import 'package:dextra/presentation/commons/api_state.dart';
 import 'package:dextra/presentation/modules/commons/widgets/appBar/common_app_bar.dart';
+import 'package:dextra/presentation/modules/commons/widgets/footer/footer.dart';
 import 'package:dextra/presentation/modules/commons/widgets/menu/menu.dart';
 import 'package:dextra/presentation/modules/commons/widgets/screen-container/screen_container.dart';
 import 'package:dextra/presentation/router/router_config/router.dart';
@@ -60,7 +61,7 @@ class _UserMasterPageState extends State<UserMasterPage> {
                         CommonAppBar(),
                         Expanded(
                           child: widget.child,
-                        )
+                        ),
                       ],
                     ),
                   )
