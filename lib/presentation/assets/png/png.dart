@@ -36,6 +36,16 @@ class AssetsPng {
   CustomAssetImage get cam3 => const CustomAssetImage('assets/png/cau_sg.png');
   CustomAssetImage get mapDemo =>
       const CustomAssetImage('assets/png/map_demo.png');
+
+  //About
+  CustomAssetImage get feature1 =>
+      const CustomAssetImage('assets/png/feature_1.png');
+  CustomAssetImage get feature2 =>
+      const CustomAssetImage('assets/png/feature_2.png');
+  CustomAssetImage get feature3 =>
+      const CustomAssetImage('assets/png/feature_3.png');
+  CustomAssetImage get feature4 =>
+      const CustomAssetImage('assets/png/feature_4.png');
 }
 
 class CustomAssetImage {
