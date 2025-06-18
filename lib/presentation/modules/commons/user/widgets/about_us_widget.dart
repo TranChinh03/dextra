@@ -224,22 +224,22 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                         children: [
                           CommonImage(
                             width: AppSpacing.rem2775.w,
-                            imagePath: Assets.png.placeHolder.path,
+                            imagePath: Assets.png.feature1.path,
                             fit: BoxFit.cover,
                           ),
                           CommonImage(
                             width: AppSpacing.rem2775.w,
-                            imagePath: Assets.png.placeHolder.path,
+                            imagePath: Assets.png.feature2.path,
                             fit: BoxFit.cover,
                           ),
                           CommonImage(
                             width: AppSpacing.rem2775.w,
-                            imagePath: Assets.png.placeHolder.path,
+                            imagePath: Assets.png.feature3.path,
                             fit: BoxFit.cover,
                           ),
                           CommonImage(
                             width: AppSpacing.rem2775.w,
-                            imagePath: Assets.png.placeHolder.path,
+                            imagePath: Assets.png.feature4.path,
                             fit: BoxFit.cover,
                           ),
                         ],
