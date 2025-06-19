@@ -285,9 +285,9 @@ class StatisticLineChartState extends State<StatisticLineChart> {
                     child: _LineChart(
                       maxY: widget.maxY,
                       intervalY: widget.intervalY,
-                      datas: widget.datas.length > 24
+                      datas: widget.datas.length > 12
                           ? widget.datas
-                              .whereIndexed((i, _) => i % 2 == 0)
+                              .whereIndexed((i, _) => i % 4 == 0)
                               .toList()
                           : widget.datas,
                     ),

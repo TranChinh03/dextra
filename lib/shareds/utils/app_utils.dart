@@ -50,10 +50,10 @@ class AppUtils {
 
         html.Url.revokeObjectUrl(url);
       } else {
-        print('❌ Screenshot capture returned null.');
+        // print('Screenshot capture returned null.');
       }
     } catch (e) {
-      print('❌ Error downloading widget as image: $e');
+      // print('Error downloading widget as image: $e');
     }
   }
 }

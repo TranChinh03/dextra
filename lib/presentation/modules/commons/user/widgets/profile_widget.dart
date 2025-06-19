@@ -191,7 +191,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           "avatarUrl": avtUrl,
         },
       );
-      // _onGetUserProfile();
+      _onGetUserProfile();
       setState(() {
         _isEditingProfile = false;
         _isProfileLoading = false;
@@ -211,7 +211,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
         "phone": _phoneControlller.text.trim()
       });
     }
-    // _onGetUserProfile();
+    _onGetUserProfile();
     setState(() {
       _isEditingDetail = false;
       _isDetailLoading = false;
