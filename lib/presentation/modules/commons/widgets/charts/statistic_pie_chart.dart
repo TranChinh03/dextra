@@ -171,7 +171,7 @@ class StatisticPieChartState extends State<StatisticPieChart> {
         value: double.parse(vehicleData.values.elementAt(i)),
         title: vehicleData.values.elementAt(i),
         radius: widget.radius ?? 250 + i * 5,
-        titlePositionPercentageOffset: 0.55,
+        titlePositionPercentageOffset: 0.6,
         borderSide: isTouched
             ? const BorderSide(color: AppColors.contentColorWhite, width: 6)
             : BorderSide(
