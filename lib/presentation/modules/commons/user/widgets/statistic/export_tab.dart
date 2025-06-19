@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:dextra/di/injectable.dart';
 import 'package:dextra/domain/entities/statistic_result.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_cam_custom/statistic_by_cam_custom_query.dart';
@@ -84,12 +85,27 @@ class _ExportTabState extends State<ExportTab> {
     super.initState();
   }
 
-  String findMaxMotorcycle(List<ResultDetail> dataList) {
+  String findMax(List<ResultDetail> dataList) {
     if (dataList.isEmpty) return "0";
+    final fields = [
+      (ResultDetail e) => e.numberOfBicycle,
+      (ResultDetail e) => e.numberOfMotorcycle,
+      (ResultDetail e) => e.numberOfCar,
+      (ResultDetail e) => e.numberOfVan,
+      (ResultDetail e) => e.numberOfTruck,
+      (ResultDetail e) => e.numberOfBus,
+      (ResultDetail e) => e.numberOfFireTruck,
+      (ResultDetail e) => e.numberOfContainer,
+    ];
 
-    return dataList.map((e) => e.numberOfMotorcycle).reduce(
-            (a, b) => int.parse(a ?? "0") > int.parse(b ?? "0") ? a : b) ??
-        "";
+    int maxValue = 0;
+    for (var field in fields) {
+      final fieldMax = dataList
+          .map((e) => int.tryParse(field(e) ?? "0") ?? 0)
+          .fold<int>(0, (prev, curr) => curr > prev ? curr : prev);
+      if (fieldMax > maxValue) maxValue = fieldMax;
+    }
+    return maxValue.toString();
   }
 
   void _onFetchCustom() {
@@ -561,7 +577,8 @@ class _ExportTabState extends State<ExportTab> {
                   filename: "tracking.png",
                   data: _statisticBloc.state.trackingByDate,
                   maxY: double.parse(
-                      findMaxMotorcycle(_statisticBloc.state.trackingByDate)),
+                          findMax(_statisticBloc.state.trackingByDate)) +
+                      10,
                   intervalY: 50000),
               CommonHeading(
                 heading: tr('Common.statistic'),
@@ -701,14 +718,17 @@ class _ExportTabState extends State<ExportTab> {
                       controller: timeLineCtrl,
                       isDownloadable: true,
                       filename: "stat_by_time(line).png",
-                      maxY: double.parse(findMaxMotorcycle(
-                          _statisticBloc.state.resultByCustom.details ??
-                              _statisticBloc.state.resultByDate.details ??
-                              [])),
-                      intervalY: (double.parse(findMaxMotorcycle(_statisticBloc
-                                      .state.resultByCustom.details ??
+                      maxY: double.parse(findMax(
+                              _statisticBloc.state.resultByCustom.details ??
                                   _statisticBloc.state.resultByDate.details ??
-                                  [])) /
+                                  [])) +
+                          10,
+                      intervalY: ((double.parse(findMax(_statisticBloc
+                                          .state.resultByCustom.details ??
+                                      _statisticBloc
+                                          .state.resultByDate.details ??
+                                      [])) +
+                                  10) /
                               12)
                           .toPrecision(0),
                       datas: _statisticBloc.state.resultByCustom.details ??
@@ -944,11 +964,14 @@ class _ExportTabState extends State<ExportTab> {
                     controller: regionLineCtrl,
                     isDownloadable: true,
                     filename: "stat_by_region.png",
-                    maxY: double.parse(findMaxMotorcycle(
-                        _statisticBloc.state.resultByDistrict.details ?? [])),
-                    intervalY: (double.parse(findMaxMotorcycle(
-                                _statisticBloc.state.resultByDistrict.details ??
-                                    [])) /
+                    maxY: double.parse(findMax(
+                            _statisticBloc.state.resultByDistrict.details ??
+                                [])) +
+                        10,
+                    intervalY: ((double.parse(findMax(_statisticBloc
+                                        .state.resultByDistrict.details ??
+                                    [])) +
+                                10) /
                             12)
                         .toPrecision(0),
                     datas: _statisticBloc.state.resultByDistrict.details ?? [],
@@ -989,8 +1012,9 @@ class _ExportTabState extends State<ExportTab> {
                   isDownloadable: true,
                   filename: "stat_by_cam(bar)",
                   data: _statisticBloc.state.resultByCamera.details,
-                  maxY: double.parse(findMaxMotorcycle(
-                      _statisticBloc.state.resultByCamera.details ?? [])),
+                  maxY: double.parse(findMax(
+                          _statisticBloc.state.resultByCamera.details ?? [])) +
+                      10,
                   intervalY: 50,
                 ),
                 Row(
@@ -1092,16 +1116,20 @@ class _ExportTabState extends State<ExportTab> {
                   controller: cameraLineCtrl,
                   isDownloadable: true,
                   filename: "stat_by_cam_in_day.png",
-                  maxY: double.parse(findMaxMotorcycle(
-                      _statisticBloc.state.resultByCameraCustom.details ?? [])),
-                  intervalY: (double.parse(findMaxMotorcycle(_statisticBloc
-                                      .state.resultByCameraCustom.details ??
-                                  [])) /
+                  maxY: double.parse(findMax(
+                          _statisticBloc.state.resultByCameraCustom.details ??
+                              [])) +
+                      10,
+                  intervalY: ((double.parse(findMax(_statisticBloc
+                                          .state.resultByCameraCustom.details ??
+                                      [])) +
+                                  10) /
                               12) >
                           1
-                      ? (double.parse(findMaxMotorcycle(_statisticBloc
-                                      .state.resultByCameraCustom.details ??
-                                  [])) /
+                      ? ((double.parse(findMax(_statisticBloc
+                                          .state.resultByCameraCustom.details ??
+                                      [])) +
+                                  10) /
                               12)
                           .toPrecision(0)
                       : 1,
