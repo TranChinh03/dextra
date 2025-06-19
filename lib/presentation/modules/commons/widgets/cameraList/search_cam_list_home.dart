@@ -43,7 +43,6 @@ class _SearchCamListHomeState extends State<SearchCamListHome> {
   void _onGetSavedCam() {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      // Listen to real-time changes in the database
       _userSubscription = FirebaseDbService()
           .getReference(path: 'users/${user.uid}')
           .onValue

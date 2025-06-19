@@ -89,4 +89,12 @@ class AppDarkColor implements IAppColor {
   Color get black => Colors.black;
   @override
   Color get primary => DextraAppColor.primary.brand600;
+
+  //Noti
+  @override
+  Color get successColor => DextraAppColor.success.success600;
+  @override
+  Color get errorColor => DextraAppColor.error.error600;
+  @override
+  Color get warningColor => DextraAppColor.warning.warning600;
 }

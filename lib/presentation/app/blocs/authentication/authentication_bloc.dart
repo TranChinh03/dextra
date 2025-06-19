@@ -20,10 +20,10 @@ class AuthenticationBloc
     on<UpdateAuthenticationStateEvent>(_onUpdateAuthenticationState);
     on<AuthenticationInitialized>(_onAuthenticationInitialized);
     on<SignInWithGoogleEvent>(_onSignInWithGoogle);
-    on<SignInWithUsernamePasswordEvent>(_onSignInWithUsernamePassword);
+    on<SignInWithEmailPasswordEvent>(_onSignInWithEmailPassword);
     on<SignOutEvent>(_onSignOut);
-    on<SignUpWithUsernamePasswordEvent>(
-      _onSignUpWithUsernamePassword,
+    on<SignUpWithEmailPasswordEvent>(
+      _onSignUpWithEmailPassword,
     );
 
     // Emit the initial state to reset the existing state
@@ -100,8 +100,8 @@ class AuthenticationBloc
     }
   }
 
-  FutureOr<void> _onSignInWithUsernamePassword(
-    SignInWithUsernamePasswordEvent event,
+  FutureOr<void> _onSignInWithEmailPassword(
+    SignInWithEmailPasswordEvent event,
     Emitter<AuthenticationState> emit,
   ) async {
     emit(
@@ -114,7 +114,7 @@ class AuthenticationBloc
 
     try {
       UserCredential userCredential = await auth.signInWithEmailAndPassword(
-        email: event.username,
+        email: event.email,
         password: event.password,
       );
       if (userCredential.user != null) {
@@ -126,12 +126,13 @@ class AuthenticationBloc
           ),
         );
       }
-    } catch (e) {
+    } on FirebaseAuthException catch (e) {
       emit(
         state.copyWith(
           apiState: ApiState(
             status: ApiStatus.error,
             errorResponse: BaseApiResponse(
+              code: e.code,
               message: e.toString(),
             ),
           ),
@@ -177,8 +178,8 @@ class AuthenticationBloc
     }
   }
 
-  FutureOr<void> _onSignUpWithUsernamePassword(
-    SignUpWithUsernamePasswordEvent event,
+  FutureOr<void> _onSignUpWithEmailPassword(
+    SignUpWithEmailPasswordEvent event,
     Emitter<AuthenticationState> emit,
   ) async {
     emit(
@@ -191,14 +192,14 @@ class AuthenticationBloc
 
     try {
       UserCredential userCredential = await auth.createUserWithEmailAndPassword(
-        email: event.username,
+        email: event.email,
         password: event.password,
       );
       if (userCredential.user != null) {
         await FirebaseDbService()
             .create(path: "users/${userCredential.user!.uid}", data: {
-          "email": event.username,
-          "displayName": userCredential.user!.displayName ?? "",
+          "email": event.email,
+          "displayName": userCredential.user!.displayName ?? event.userName,
           "createdAt": DateTime.now().toIso8601String(),
         });
         emit(
@@ -208,6 +209,8 @@ class AuthenticationBloc
             accessToken: userCredential.credential?.accessToken,
           ),
         );
+        final user = FirebaseAuth.instance.currentUser;
+        await user?.sendEmailVerification();
       }
     } catch (e) {
       emit(

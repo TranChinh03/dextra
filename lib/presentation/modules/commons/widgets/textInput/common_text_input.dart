@@ -52,6 +52,9 @@ class _CommonTextInputState extends State<CommonTextInput> {
         TextPosition(offset: _controller.text.length),
       );
     }
+    if (oldWidget.isPassword != widget.isPassword) {
+      _isObscured = widget.isPassword;
+    }
   }
 
   @override

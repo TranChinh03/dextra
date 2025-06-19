@@ -22,22 +22,24 @@ class UpdateAuthenticationStateEvent extends AuthenticationEvent {
 
 class SignInWithGoogleEvent extends AuthenticationEvent {}
 
-class SignInWithUsernamePasswordEvent extends AuthenticationEvent {
-  final String username;
+class SignInWithEmailPasswordEvent extends AuthenticationEvent {
+  final String email;
   final String password;
 
-  SignInWithUsernamePasswordEvent({
-    required this.username,
+  SignInWithEmailPasswordEvent({
+    required this.email,
     required this.password,
   });
 }
 
-class SignUpWithUsernamePasswordEvent extends AuthenticationEvent {
-  final String username;
+class SignUpWithEmailPasswordEvent extends AuthenticationEvent {
+  final String userName;
+  final String email;
   final String password;
 
-  SignUpWithUsernamePasswordEvent({
-    required this.username,
+  SignUpWithEmailPasswordEvent({
+    required this.userName,
+    required this.email,
     required this.password,
   });
 }

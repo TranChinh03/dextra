@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dextra/di/injectable.dart';
 import 'package:dextra/presentation/app/blocs/authentication/authentication_bloc.dart';
 import 'package:dextra/presentation/assets/assets.dart';
@@ -14,9 +15,11 @@ import 'package:dextra/theme/font/app_font_size.dart';
 import 'package:dextra/theme/font/app_font_weight.dart';
 import 'package:dextra/theme/spacing/app_spacing.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -27,8 +30,10 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
   String userName = '';
+  String email = '';
   String password = '';
   bool isLogin = true;
+  bool isVerified = true;
   final _authBloc = getIt.get<AuthenticationBloc>();
 
   @override
@@ -52,6 +57,12 @@ class _AuthScreenState extends State<AuthScreen> {
       });
     }
 
+    void onEmailChanged(String value) {
+      setState(() {
+        email = value;
+      });
+    }
+
     void onPasswordChanged(String value) {
       setState(() {
         password = value;
@@ -61,46 +72,128 @@ class _AuthScreenState extends State<AuthScreen> {
     void onChangeState() {
       setState(() {
         isLogin = !isLogin;
+        email = '';
+        password = '';
+        userName = '';
       });
     }
 
-    void onButtonPressed() {
+    void onButtonPressed() async {
       if (isLogin) {
         _authBloc.add(
-          SignInWithUsernamePasswordEvent(
-            username: userName,
+          SignInWithEmailPasswordEvent(
+            email: email,
             password: password,
           ),
         );
+        // final user = FirebaseAuth.instance.currentUser;
+        // await user?.reload();
+        // if (user != null && !user.emailVerified) {
+        //   _authBloc.add(SignOutEvent());
+        //   AwesomeDialog(
+        //           width: AppSpacing.rem6250.w,
+        //           context: context,
+        //           dialogType: DialogType.error,
+        //           title: 'Email Not Verified',
+        //           desc: 'Please verify your email before logging in.',
+        //           btnOkOnPress: () {},
+        //           btnOkColor: appColor.errorColor)
+        //       .show();
+        // }
       } else {
         // Handle sign-up logic here
         _authBloc.add(
-          SignUpWithUsernamePasswordEvent(
-            username: userName,
+          SignUpWithEmailPasswordEvent(
+            userName: userName,
+            email: email,
             password: password,
           ),
         );
       }
     }
 
-    void onAuthStatusChanged() {
+    void onAuthStatusChanged() async {
       if (_authBloc.state.apiState?.status == ApiStatus.hasData) {
         if (_authBloc.state.isLoggedIn == true) {
-          // Navigate to the home page
-          DextraRouter.replace(DextraRouter.userHomePage);
+          final user = FirebaseAuth.instance.currentUser;
+          await user?.reload();
+          if (user != null && user.emailVerified) {
+            setState(() {
+              isVerified = false;
+            });
+            DextraRouter.replace(DextraRouter.userHomePage);
+          } else {
+            if (!mounted) return;
+            AwesomeDialog(
+                    width: AppSpacing.rem6250.w,
+                    context: context,
+                    dialogType: DialogType.info,
+                    title: 'Verified Your Email',
+                    desc:
+                        'We’ve sent a confirmation email to your inbox. Please check your email and click the link to verify your account.',
+                    btnOkOnPress: () => _authBloc.add(SignOutEvent()),
+                    btnOkColor: appColor.primary)
+                .show();
+
+            setState(() {
+              isLogin = true;
+              isVerified = false;
+            });
+            return;
+          }
         } else {
+          if (!isVerified) return;
           // Handle login failure
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Login failed')),
-          );
+          AwesomeDialog(
+                  width: AppSpacing.rem6250.w,
+                  context: context,
+                  dialogType: DialogType.error,
+                  title: 'Login Failed',
+                  desc:
+                      'An unexpected error occurred. Please try again or contact support if the issue persists.',
+                  btnOkOnPress: () {},
+                  btnOkColor: appColor.errorColor)
+              .show();
         }
       } else if (_authBloc.state.apiState?.status == ApiStatus.error) {
         // Handle error state
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-              content: Text(
-                  _authBloc.state.apiState!.errorResponse?.message ?? 'Error')),
-        );
+        if (_authBloc.state.apiState!.errorResponse?.code == 'invalid-email') {
+          AwesomeDialog(
+                  width: AppSpacing.rem6250.w,
+                  context: context,
+                  dialogType: DialogType.error,
+                  title: 'Invalid email',
+                  desc: 'The email format is invalid',
+                  // btnCancelOnPress: () {},
+                  btnOkOnPress: () {},
+                  btnOkColor: appColor.errorColor)
+              .show();
+        } else if (_authBloc.state.apiState!.errorResponse?.code ==
+            'invalid-credential') {
+          AwesomeDialog(
+                  width: AppSpacing.rem6250.w,
+                  context: context,
+                  dialogType: DialogType.error,
+                  title: 'Invalid Credential',
+                  desc:
+                      'Incorrect email or password. Please check your credentials and try again.',
+                  // btnCancelOnPress: () {},
+                  btnOkOnPress: () {},
+                  btnOkColor: appColor.errorColor)
+              .show();
+        } else {
+          AwesomeDialog(
+                  width: AppSpacing.rem6250.w,
+                  context: context,
+                  dialogType: DialogType.error,
+                  title: 'Error',
+                  desc: _authBloc.state.apiState!.errorResponse?.message ??
+                      'Error',
+                  // btnCancelOnPress: () {},
+                  btnOkOnPress: () {},
+                  btnOkColor: appColor.errorColor)
+              .show();
+        }
       }
     }
 
@@ -211,22 +304,48 @@ class _AuthScreenState extends State<AuthScreen> {
                               ],
                             ),
                           ),
-                          Column(
-                            spacing: AppSpacing.rem500.h,
-                            children: [
-                              CommonTextInput(
-                                hintText: tr('Auth.user_name'),
-                                value: userName,
-                                onChanged: (value) => onUserNameChanged(value),
-                              ),
-                              CommonTextInput(
-                                hintText: tr('Auth.password'),
-                                isPassword: true,
-                                value: password,
-                                onChanged: onPasswordChanged,
-                              ),
-                            ],
-                          ),
+                          isLogin
+                              ? Column(
+                                  spacing: AppSpacing.rem500.h,
+                                  children: [
+                                    CommonTextInput(
+                                      hintText: tr('Auth.email'),
+                                      value: email,
+                                      onChanged: (value) =>
+                                          onEmailChanged(value),
+                                    ),
+                                    CommonTextInput(
+                                      hintText: tr('Auth.password'),
+                                      isPassword: true,
+                                      value: password,
+                                      onChanged: onPasswordChanged,
+                                    ),
+                                  ],
+                                )
+                              : Column(
+                                  spacing: AppSpacing.rem500.h,
+                                  children: [
+                                    CommonTextInput(
+                                      hintText: tr('Auth.user_name'),
+                                      value: userName,
+                                      onChanged: (value) =>
+                                          onUserNameChanged(value),
+                                    ),
+                                    CommonTextInput(
+                                      hintText: tr('Auth.email'),
+                                      isPassword: false,
+                                      value: email,
+                                      onChanged: (value) =>
+                                          onEmailChanged(value),
+                                    ),
+                                    CommonTextInput(
+                                      hintText: tr('Auth.password'),
+                                      isPassword: true,
+                                      value: password,
+                                      onChanged: onPasswordChanged,
+                                    ),
+                                  ],
+                                ),
                           Padding(
                             padding: EdgeInsets.symmetric(
                               horizontal: AppSpacing.rem1400.w,

@@ -63,6 +63,11 @@ abstract class IAppColor {
   //border divider
   Color get dividerColor;
 
+  //Noti
+  Color get successColor;
+  Color get errorColor;
+  Color get warningColor;
+
   static IAppColor watch(BuildContext context) =>
       context.watch<AppThemeBloc>().state.appColor;
 }
