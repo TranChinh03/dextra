@@ -71,6 +71,7 @@ dependencies:
   pdf: ^3.11.3
   html: ^0.15.6
   printing: ^5.14.2
+  flutter_dotenv: ^5.2.1
 
 dev_dependencies:
   flutter_test:
@@ -106,6 +107,7 @@ flutter:
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/to/asset-from-package
   assets:
+    - .env
     - assets/svg/
     - assets/translations/
     - assets/png/

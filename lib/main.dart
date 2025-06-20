@@ -1,9 +1,11 @@
 import 'package:dextra/di/injectable.dart';
 import 'package:dextra/presentation/app/app.dart';
 import 'package:dextra/presentation/locale/localization.dart';
+import 'package:dextra/shareds/config/app_config.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 // // Change to false to use live database instance.
@@ -20,13 +22,13 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load();
 
   await Firebase.initializeApp(
     options: FirebaseOptions(
         apiKey: "AIzaSyA1y5rYWMj3QX1HiIEKYxZKrztzxhUYrvs",
         authDomain: "dextra-c3ce1.firebaseapp.com",
-        databaseURL:
-            "https://dextra-c3ce1-default-rtdb.asia-southeast1.firebasedatabase.app",
+        databaseURL: AppConfig.firebaseUrl,
         projectId: "dextra-c3ce1",
         storageBucket: "dextra-c3ce1.firebasestorage.app",
         messagingSenderId: "277167601761",
@@ -35,7 +37,7 @@ void main() async {
   );
 
   await Supabase.initialize(
-    url: 'https://xciyqbvsbxdywrqpgssx.supabase.co',
+    url: AppConfig.supabaseUrl,
     anonKey:
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhjaXlxYnZzYnhkeXdycXBnc3N4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2Mjg1MDUsImV4cCI6MjA2NTIwNDUwNX0.mopYyujelOqFAIFqLjwzs1X5af-NmKZqmGUE3f2quYQ',
   );
