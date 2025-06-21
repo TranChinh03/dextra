@@ -72,7 +72,7 @@ class _TrafficHeatmapState extends State<TrafficHeatmap> {
   @override
   void dispose() {
     super.dispose();
-    heatmapTimer!.cancel();
+    // heatmapTimer!.cancel();
   }
 
   // void _onFetchHeatmap(String date) {
@@ -125,6 +125,9 @@ class _TrafficHeatmapState extends State<TrafficHeatmap> {
     num Function(dynamic camera) getValue;
     switch (vehicle) {
       case "All vehicles":
+        getValue = (camera) => camera.totalVehicles ?? 0;
+        break;
+      case "Tất cả phương tiện":
         getValue = (camera) => camera.totalVehicles ?? 0;
         break;
       case "Bicycle":

@@ -13,6 +13,7 @@ import 'package:dextra/presentation/modules/commons/widgets/input/simple_dropdow
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
 import 'package:dextra/theme/color/app_color.dart';
 import 'package:dextra/theme/spacing/app_spacing.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -35,7 +36,7 @@ class SearchCameraListWidget extends StatefulWidget {
 class _SearchCameraListWidgetState extends State<SearchCameraListWidget> {
   int currentPage = 1;
   String searchText = "";
-  String currentDistrict = "All districts";
+  String currentDistrict = tr('Common.all_district');
 
   final _searchBloc = getIt.get<SearchBloc>();
   final _cameraBloc = getIt.get<CameraBloc>();
@@ -52,7 +53,9 @@ class _SearchCameraListWidgetState extends State<SearchCameraListWidget> {
         SearchCamerasEvent(
           query: SearchCamerasQuery(
             cameraName: value,
-            district: currentDistrict == "All districts" ? "" : currentDistrict,
+            district: currentDistrict == tr('Common.all_district')
+                ? ""
+                : currentDistrict,
           ),
         ),
       );
@@ -69,7 +72,7 @@ class _SearchCameraListWidgetState extends State<SearchCameraListWidget> {
         SearchCamerasEvent(
           query: SearchCamerasQuery(
             cameraName: searchText,
-            district: value == "All districts" ? "" : value,
+            district: value == tr('Common.all_district') ? "" : value,
           ),
         ),
       );
@@ -113,7 +116,7 @@ class _SearchCameraListWidgetState extends State<SearchCameraListWidget> {
                     child: SimpleDropdown(
                       value: currentDistrict,
                       itemsList: [
-                        "All districts",
+                        tr('Common.all_district'),
                         ..._cameraBloc.state.districts
                       ].map((option) {
                         return DropdownMenuItem<String>(
