@@ -570,7 +570,11 @@ class _ExportTabState extends State<ExportTab> {
                   maxY: double.parse(
                           findMax(_statisticBloc.state.trackingByDate)) +
                       10,
-                  intervalY: 50000),
+                  intervalY: ((double.parse(findMax(
+                                  _statisticBloc.state.trackingByDate)) +
+                              10) /
+                          12)
+                      .toPrecision(0)),
               CommonHeading(
                 heading: tr('Common.statistic'),
                 subheading: tr('Common.statistic_by_date'),

@@ -1,17 +1,24 @@
 import 'package:dextra/domain/entities/statistic_result.dart';
+import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
 import 'package:dextra/theme/color/app_color.dart';
+import 'package:dextra/theme/font/app_font_size.dart';
+import 'package:dextra/theme/font/app_font_weight.dart';
+import 'package:dextra/theme/spacing/app_spacing.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class StatisticBarChart3 extends StatefulWidget {
   final ResultDetail data;
   final double maxY;
   final double intervalY;
+  final String? title;
   const StatisticBarChart3(
       {super.key,
       required this.data,
       required this.maxY,
-      required this.intervalY});
+      required this.intervalY,
+      this.title});
 
   @override
   State<StatefulWidget> createState() => StatisticBarChartState();
@@ -58,35 +65,7 @@ class StatisticBarChartState extends State<StatisticBarChart3> {
     rawBarGroups = items;
 
     showingBarGroups = rawBarGroups;
-
-    // final vehicleData = [
-    //   widget.data.numberOfBicycle,
-    //   widget.data.numberOfMotorcycle,
-    //   widget.data.numberOfCar,
-    //   widget.data.numberOfVan,
-    //   widget.data.numberOfTruck,
-    //   widget.data.numberOfBus,
-    //   widget.data.numberOfFireTruck,
-    //   widget.data.numberOfContainer,
-    // ].map((e) => double.tryParse(e ?? "0") ?? 0).toList();
   }
-
-  // Widget _buildLegend({required Color color, required String text}) {
-  //   return Row(
-  //     spacing: AppSpacing.rem125.w,
-  //     children: [
-  //       Container(
-  //         width: AppSpacing.rem300.w,
-  //         height: AppSpacing.rem150.h,
-  //         decoration: BoxDecoration(
-  //           borderRadius: BorderRadius.circular(AppBorderRadius.spacing2xl),
-  //           color: color,
-  //         ),
-  //       ),
-  //       CommonText(text, style: TextStyle(fontSize: AppFontSize.sm)),
-  //     ],
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -99,16 +78,6 @@ class StatisticBarChartState extends State<StatisticBarChart3> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   spacing: AppSpacing.rem250.w,
-            //   children: List.generate(
-            //       colors.length,
-            //       (index) => _buildLegend(
-            //             color: colors[index],
-            //             text: labels[index],
-            //           )),
-            // ),
             Expanded(
               child: BarChart(
                 BarChartData(
@@ -215,37 +184,20 @@ class StatisticBarChartState extends State<StatisticBarChart3> {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 12,
-            ),
+            Center(
+                child: CommonText(
+              align: TextAlign.center,
+              widget.title ?? "",
+              style: TextStyle(
+                  fontWeight: AppFontWeight.bold,
+                  color: appColors.chartTitle,
+                  fontSize: AppFontSize.xxxl),
+            ))
           ],
         ),
       ),
     );
   }
-
-  // Widget leftTitles(double value, TitleMeta meta) {
-  //   const style = TextStyle(
-  //     color: Color(0xff7589a2),
-  //     fontWeight: FontWeight.bold,
-  //     fontSize: 14,
-  //   );
-  //   String text;
-  //   if (value == 0) {
-  //     text = '1K';
-  //   } else if (value == 10) {
-  //     text = '5K';
-  //   } else if (value == 19) {
-  //     text = '10K';
-  //   } else {
-  //     return Container();
-  //   }
-  //   return SideTitleWidget(
-  //     meta: meta,
-  //     space: 0,
-  //     child: Text(text, style: style),
-  //   );
-  // }
 
   Widget leftTitles(double value, TitleMeta meta) {
     const style = TextStyle(
@@ -273,22 +225,12 @@ class StatisticBarChartState extends State<StatisticBarChart3> {
 
     return SideTitleWidget(
       meta: meta,
-      space: 16, //margin top
+      space: 16,
       child: text,
     );
   }
 
   BarChartGroupData makeGroupData(int x) {
-    // const keys = [
-    //   "numberOfBicycle",
-    //   "numberOfMotorcycle",
-    //   "numberOfCar",
-    //   "numberOfVan",
-    //   "numberOfTruck",
-    //   "numberOfBus",
-    //   "numberOfFireTruck",
-    //   "numberOfContainer"
-    // ];
     final vehicleData = [
       widget.data.numberOfBicycle,
       widget.data.numberOfMotorcycle,
@@ -307,25 +249,6 @@ class StatisticBarChartState extends State<StatisticBarChart3> {
       )
     ]);
   }
-
-  // BarChartGroupData makeGroupData(int x, double y1, double y2) {
-  //   return BarChartGroupData(
-  //     barsSpace: 4,
-  //     x: x,
-  //     barRods: [
-  //       BarChartRodData(
-  //         toY: y1,
-  //         color: widget.leftBarColor,
-  //         width: width,
-  //       ),
-  //       BarChartRodData(
-  //         toY: y2,
-  //         color: widget.rightBarColor,
-  //         width: width,
-  //       ),
-  //     ],
-  //   );
-  // }
 
   Widget makeTransactionsIcon() {
     const width = 4.5;

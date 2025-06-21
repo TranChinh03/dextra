@@ -132,6 +132,7 @@ class _CameraImgItemState extends State<CameraImgItem> {
       ),
       width: AppSpacing.rem4150.w,
       child: Column(
+        spacing: AppSpacing.rem250.h,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -171,9 +172,6 @@ class _CameraImgItemState extends State<CameraImgItem> {
                 )
               ],
             ),
-          ),
-          SizedBox(
-            height: AppSpacing.rem250.h,
           ),
           CommonText(
             widget.name ?? tr('Common.cam_default_label'),

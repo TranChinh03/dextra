@@ -146,6 +146,8 @@
    "Common.exporting": "Exporting...",
    "Common.del_cam": "Camera removed from your favorites.",
    "Common.add_cam": "Camera added to your favorites",
+   "Common.traffic_overview": "Traffic overview across the city on",
+   "Common.from_all_cams": "from all cameras",
 
   "About.about_us": "About Us",
   "About.about_dextra": "Dextra is an AI-powered platform dedicated to ",

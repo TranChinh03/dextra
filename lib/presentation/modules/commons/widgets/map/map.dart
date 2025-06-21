@@ -121,7 +121,7 @@ class MapSampleState extends State<MapSample> {
             child: Container(
               padding: EdgeInsets.all(AppSpacing.rem125.w),
               decoration: BoxDecoration(
-                color: colors.white,
+                color: colors.backgroundApp,
                 borderRadius: BorderRadius.circular(AppBorderRadius.l),
                 boxShadow: [
                   BoxShadow(
@@ -143,7 +143,9 @@ class MapSampleState extends State<MapSample> {
                   SizedBox(height: AppSpacing.rem100.h),
                   CommonText(
                     _selectedCam?.name ?? "Camera Name",
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   Row(
                     spacing: AppSpacing.rem100.w,

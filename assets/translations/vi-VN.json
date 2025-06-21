@@ -75,7 +75,7 @@
   "Common.select_date": "Chọn ngày",
   "Common.select_time": "Chọn thời gian",
   "Common.date_range": "Khoảng ngày",
-  "Common.time_range": "Khoảng thời gian",
+  "Common.time_range": "Từ",
   "Common.time": "Thời gian",
   "Common.start_date_after_end_date": "Ngày bắt đầu phải trước ngày kết thúc.",
   "Common.end_date_before_start_date": "Ngày kết thúc phải sau ngày bắt đầu.",
@@ -144,6 +144,8 @@
   "Common.unexpected_err": "Đã xảy ra lỗi không mong muốn",
   "Common.download_export": "Tải toàn bộ báo cáo",
   "Common.exporting": "Đang xuất...",
+    "Common.traffic_overview": "Tổng quan về giao thông trên toàn thành phố vào ngày ",
+   "Common.from_all_cams": "từ tất cả các camera",
 
   "About.about_us": "Về chúng tôi",
   "About.about_dextra": "Dextra là một nền tảng ứng dụng AI chuyên về",

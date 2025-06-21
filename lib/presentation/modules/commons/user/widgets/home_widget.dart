@@ -27,6 +27,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:screenshot/screenshot.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({super.key});
@@ -273,22 +274,26 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     color:
                                         colors.primary.withValues(alpha: 0.5),
                                     child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         CommonHeading(
                                           heading: tr('Common.access_map'),
                                           subheading:
                                               tr('Common.access_map_info'),
                                           headingStyle: TextStyle(
-                                              color: colors.backgroundApp,
+                                              color: colors.white,
                                               fontSize: AppFontSize.lg,
                                               fontWeight: AppFontWeight.bold),
                                           subheadingStyle: TextStyle(
-                                              color: colors.backgroundApp,
+                                              color: colors.white,
                                               fontSize: AppFontSize.xxl,
                                               fontWeight:
                                                   AppFontWeight.regular),
                                         ),
                                         CommonSecondaryButton(
+                                          backgroundColor: colors.white,
+                                          textColor: colors.primary,
                                           text: tr('Common.explore'),
                                           onPressed: () => DextraRouter.go(
                                               ScreenPath.mapCam.value),
@@ -328,8 +333,13 @@ class _HomeWidgetState extends State<HomeWidget> {
                             )
                           : CircularProgressIndicator(),
                       StatisticBarChart3(
+                        title:
+                            "${tr('Common.traffic_overview')} ${lastDay.date} ${tr('Common.from_all_cams')}",
                         maxY: double.parse(data.last.numberOfMotorcycle ?? "0"),
-                        intervalY: 50000,
+                        intervalY:
+                            (double.parse(data.last.numberOfMotorcycle ?? "0") /
+                                    12)
+                                .toPrecision(0),
                         data: data.last,
                       ),
                       Stack(
@@ -390,7 +400,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                 Positioned(
                     bottom: AppSpacing.rem800.h,
                     right: AppSpacing.rem800.h,
-                    child: CommonBackToToButton(
+                    child: CommonBackToTopButton(
                         scrollController: _scrollController))
               ],
             ),

@@ -248,7 +248,7 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                 Positioned(
                     bottom: AppSpacing.rem800.h,
                     right: AppSpacing.rem800.h,
-                    child: CommonBackToToButton(
+                    child: CommonBackToTopButton(
                         scrollController: _scrollController))
               ],
             )));

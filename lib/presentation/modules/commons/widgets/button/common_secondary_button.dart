@@ -15,6 +15,8 @@ class CommonSecondaryButton extends StatelessWidget {
   final bool isEnable;
   final int? maxLines;
   final TextOverflow? overflow;
+  final Color? backgroundColor;
+  final Color? textColor;
 
   const CommonSecondaryButton({
     super.key,
@@ -25,14 +27,17 @@ class CommonSecondaryButton extends StatelessWidget {
     this.isEnable = true,
     this.maxLines,
     this.overflow,
+    this.backgroundColor,
+    this.textColor,
   });
 
   @override
   Widget build(BuildContext context) {
     final colors = IAppColor.watch(context);
 
-    final buttonColor =
-        isEnable ? colors.buttonSecondaryBackground : colors.backgroundDisable;
+    final buttonColor = isEnable
+        ? backgroundColor ?? colors.buttonSecondaryBackground
+        : colors.backgroundDisable;
 
     return IntrinsicWidth(
       child: InkWell(
@@ -61,7 +66,7 @@ class CommonSecondaryButton extends StatelessWidget {
               text ?? '',
               style: TextStyle(
                 color: isEnable
-                    ? colors.buttonSecondaryColorForeground
+                    ? textColor ?? colors.buttonSecondaryColorForeground
                     : colors.foregroundDisabled,
                 fontWeight: AppFontWeight.semiBold,
                 fontSize: AppFontSize.md,

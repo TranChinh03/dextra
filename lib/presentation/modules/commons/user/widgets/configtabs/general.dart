@@ -51,7 +51,7 @@ class _GeneralConfigurationState extends State<GeneralConfiguration> {
     final colors = IAppColor.watch(context);
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: AppSpacing.rem600.w),
+      padding: EdgeInsets.all(AppSpacing.rem600.w),
       child: Column(
         spacing: AppSpacing.rem600.h,
         crossAxisAlignment: CrossAxisAlignment.start,

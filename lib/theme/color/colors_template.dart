@@ -73,7 +73,7 @@ class ModernGreyColors {
   final Color grey300 = const Color(0xFFCDD5DF);
   final Color grey400 = const Color(0xFF9AA4B2);
   final Color grey500 = const Color(0xFF697586);
-  final Color grey600 = const Color(0xFF4B5565);
+  final Color grey600 = const Color(0xFF7589a2);
   final Color grey700 = const Color(0xFF364152);
   final Color grey800 = const Color(0xFF202939);
   final Color grey900 = const Color(0xFF121926);
