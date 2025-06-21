@@ -77,7 +77,7 @@ class AppDarkColor implements IAppColor {
   // Badge Colors
   @override
   Color get liveBadgeBgColor =>
-      DextraAppColor.error.error50.withValues(alpha: 0.4);
+      DextraAppColor.error.error50.withValues(alpha: 0.6);
 
   // Menu Colors
   @override

@@ -7,6 +7,7 @@ import 'package:dextra/theme/color/app_color.dart';
 import 'package:dextra/theme/font/app_font_size.dart';
 import 'package:dextra/theme/font/app_font_weight.dart';
 import 'package:dextra/theme/spacing/app_spacing.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -60,7 +61,7 @@ class _GeneralConfigurationState extends State<GeneralConfiguration> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CommonText(
-                "Language",
+                tr('Common.language'),
                 style: TextStyle(
                     fontWeight: AppFontWeight.bold, fontSize: AppFontSize.xxxl),
               ),
@@ -69,8 +70,10 @@ class _GeneralConfigurationState extends State<GeneralConfiguration> {
                 child: SimpleDropdown(
                   value: _language,
                   itemsList: [
-                    DropdownMenuItem(value: 'en', child: Text('English')),
-                    DropdownMenuItem(value: 'vi', child: Text('Vietnamese')),
+                    DropdownMenuItem(
+                        value: 'en', child: Text(tr('Common.english'))),
+                    DropdownMenuItem(
+                        value: 'vi', child: Text(tr('Common.vietnamese'))),
                   ],
                   onChanged: (value) => _changeLanguage(value),
                 ),
@@ -81,7 +84,7 @@ class _GeneralConfigurationState extends State<GeneralConfiguration> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CommonText(
-                "Darkmode",
+                tr('Common.darkmode'),
                 style: TextStyle(
                     fontWeight: AppFontWeight.bold, fontSize: AppFontSize.xxxl),
               ),

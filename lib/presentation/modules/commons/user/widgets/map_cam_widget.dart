@@ -42,18 +42,25 @@ class _MapCamWidgetState extends State<MapCamWidget> {
   int pagesPerSeg = 5;
   LatLng? _currentPos = LatLng(10.80498476893258, 106.75270736217499);
   Camera? _selectedCam;
+  late String currentLocale;
 
   @override
   void initState() {
     super.initState();
-
-    _updateTime();
     _timer = Timer.periodic(const Duration(seconds: 1), (_) => _updateTime());
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    currentLocale = context.locale.toLanguageTag();
+    _updateTime();
   }
 
   void _updateTime() {
     final now = DateTime.now();
-    final formatted = DateFormat('dd MMMM yyyy hh:mm:ss a').format(now);
+    final formatted =
+        DateFormat('dd MMMM yyyy hh:mm:ss a', currentLocale).format(now);
     setState(() {
       _currentTime = formatted;
     });

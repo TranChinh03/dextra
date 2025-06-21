@@ -691,7 +691,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                               name: camera.name,
                                               cameraId: camera.privateId,
                                               time: camera.lastModified != null
-                                                  ? DateFormat('dd MMMM yyyy')
+                                                  ? DateFormat(
+                                                          'dd MMMM yyyy',
+                                                          context.locale
+                                                              .toLanguageTag())
                                                       .format(
                                                           camera.lastModified!)
                                                   : '',

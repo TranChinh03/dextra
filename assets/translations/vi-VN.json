@@ -146,6 +146,13 @@
   "Common.exporting": "Đang xuất...",
     "Common.traffic_overview": "Tổng quan về giao thông trên toàn thành phố vào ngày ",
    "Common.from_all_cams": "từ tất cả các camera",
+   "Common.close": "Đóng",
+ "Common.language": "Ngôn ngữ",
+   "Common.english": "Tiếng Anh",
+   "Common.vietnamese": "Tiếng Việt",
+   "Common.darkmode": "Chế độ tối",
+
+
 
   "About.about_us": "Về chúng tôi",
   "About.about_dextra": "Dextra là một nền tảng ứng dụng AI chuyên về",
