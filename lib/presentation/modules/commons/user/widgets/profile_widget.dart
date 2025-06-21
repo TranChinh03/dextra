@@ -10,6 +10,7 @@ import 'package:dextra/presentation/modules/commons/widgets/button/common_camera
 import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_secondary_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/card/camera_img_item.dart';
+import 'package:dextra/presentation/modules/commons/widgets/charts/app_colors.dart';
 import 'package:dextra/presentation/modules/commons/widgets/commonImage/common_image.dart';
 import 'package:dextra/presentation/modules/commons/widgets/dialog/image_dialog.dart';
 import 'package:dextra/presentation/modules/commons/widgets/screen-container/screen_container.dart';
@@ -113,13 +114,23 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     } on StorageException catch (error) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: CommonText(error.message)),
+          SnackBar(
+              content: CommonText(
+            error.message,
+            style: TextStyle(color: AppColors.primary),
+          )),
         );
       }
     } catch (_) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: CommonText(tr('Common.unexpected_err'))),
+          SnackBar(
+              content: CommonText(
+            tr(
+              'Common.unexpected_err',
+            ),
+            style: TextStyle(color: AppColors.primary),
+          )),
         );
       }
     }
@@ -228,7 +239,11 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     });
 
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: CommonText(tr('Common.change_cancel'))),
+      SnackBar(
+          content: CommonText(
+        tr('Common.change_cancel'),
+        style: TextStyle(color: AppColors.primary),
+      )),
     );
   }
 
@@ -242,7 +257,11 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     });
 
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: CommonText(tr('Common.change_cancel'))),
+      SnackBar(
+          content: CommonText(
+        tr('Common.change_cancel'),
+        style: TextStyle(color: AppColors.primary),
+      )),
     );
   }
 

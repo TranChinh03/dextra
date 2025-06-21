@@ -4,7 +4,6 @@ import 'package:dextra/di/injectable.dart';
 import 'package:dextra/domain/entities/camera.dart';
 import 'package:dextra/presentation/assets/assets.dart';
 import 'package:dextra/presentation/modules/commons/bloc/camera/camera_bloc.dart';
-import 'package:dextra/presentation/modules/commons/user/widgets/sample_data.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/view_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/commonImage/common_image.dart';
 import 'package:dextra/presentation/modules/commons/widgets/dialog/image_dialog.dart';

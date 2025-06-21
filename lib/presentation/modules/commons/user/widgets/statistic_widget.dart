@@ -1,5 +1,4 @@
 import 'package:dextra/presentation/commons/api_state.dart';
-import 'package:dextra/presentation/modules/commons/bloc/camera/camera_bloc.dart';
 import 'package:dextra/presentation/modules/commons/bloc/statistic/statistic_bloc.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/statistic/detect_tab.dart';
 import 'package:dextra/presentation/modules/commons/user/widgets/statistic/export_tab.dart';
