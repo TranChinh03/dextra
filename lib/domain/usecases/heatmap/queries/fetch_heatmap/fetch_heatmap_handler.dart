@@ -1,6 +1,5 @@
 import 'package:dextra/domain/entities/statistic_result.dart';
 import 'package:dextra/domain/interfaces/interface_heatmap_repository.dart';
-import 'package:dextra/domain/interfaces/interface_statistic_repository.dart';
 import 'package:dextra/domain/models/query.dart';
 import 'package:injectable/injectable.dart';
 

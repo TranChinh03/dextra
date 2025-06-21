@@ -19,7 +19,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -123,7 +122,7 @@ class _AuthScreenState extends State<AuthScreen> {
             });
             DextraRouter.replace(DextraRouter.userHomePage);
           } else {
-            if (!mounted) return;
+            if (!context.mounted) return;
             AwesomeDialog(
                     width: AppSpacing.rem6250.w,
                     context: context,

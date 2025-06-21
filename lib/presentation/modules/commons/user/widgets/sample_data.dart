@@ -1,6 +1,5 @@
 import 'package:dextra/domain/entities/camera.dart';
 import 'package:dextra/domain/entities/date.dart';
-import 'package:dextra/domain/entities/heatmap_result.dart';
 import 'package:dextra/domain/entities/statistic_result.dart';
 import 'package:dextra/domain/entities/timestamp.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:screenshot/screenshot.dart';
-import 'dart:html' as html;
+import 'package:universal_html/html.dart' as html;
 
 class AppUtils {
   static void showDialog(Widget widget, BuildContext context,
@@ -44,7 +44,7 @@ class AppUtils {
         final blob = html.Blob([imageBytes]);
         final url = html.Url.createObjectUrlFromBlob(blob);
 
-        final anchor = html.AnchorElement(href: url)
+        html.AnchorElement(href: url)
           ..setAttribute('download', filename)
           ..click();
 

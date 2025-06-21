@@ -1,5 +1,4 @@
 import 'package:dextra/di/injectable.dart';
-import 'package:dextra/domain/enum/screen.dart';
 import 'package:dextra/domain/enum/screen_path.dart';
 import 'package:dextra/presentation/app/blocs/authentication/authentication_bloc.dart';
 import 'package:dextra/presentation/assets/assets.dart';

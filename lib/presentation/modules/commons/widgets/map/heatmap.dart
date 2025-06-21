@@ -71,7 +71,6 @@ class _TrafficHeatmapState extends State<TrafficHeatmap> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     heatmapTimer!.cancel();
   }
@@ -96,7 +95,6 @@ class _TrafficHeatmapState extends State<TrafficHeatmap> {
       _endTimeHeatmap = _datetimeBloc.state.timestamps
           .lastWhere((time) => time.date == _selectedDayHeatmap)
           .time;
-      ;
     });
   }
 

@@ -1,5 +1,7 @@
 class AppConfigKey {
   static const baseUrl = "BASE_URL";
+  static const firebaseUrl = "FIREBASE_URL";
+  static const supabaseUrl = "SUPABASE_URL";
   static const apiConnectionTimeout = "API_CONNECTION_TIMEOUT";
   static const clientId = 'CLIENT_ID';
   static const clientSecret = 'CLIENT_SECRET';

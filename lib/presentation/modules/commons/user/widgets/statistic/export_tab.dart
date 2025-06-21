@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:dextra/di/injectable.dart';
 import 'package:dextra/domain/entities/statistic_result.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_cam_custom/statistic_by_cam_custom_query.dart';
@@ -10,7 +9,6 @@ import 'package:dextra/presentation/modules/commons/bloc/camera/camera_bloc.dart
 import 'package:dextra/presentation/modules/commons/bloc/datetime/datetime_bloc.dart';
 import 'package:dextra/presentation/modules/commons/bloc/statistic/statistic_bloc.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
-import 'package:dextra/presentation/modules/commons/widgets/button/common_save_img_button.dart';
 import 'package:dextra/presentation/modules/commons/widgets/card/common_statistic_card.dart';
 import 'package:dextra/presentation/modules/commons/widgets/card/small_statistic_card.dart';
 import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_bar_chart.dart';
@@ -21,7 +19,6 @@ import 'package:dextra/presentation/modules/commons/widgets/charts/statistic_pie
 import 'package:dextra/presentation/modules/commons/widgets/input/simple_dropdown.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_heading.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
-import 'package:dextra/shareds/utils/app_utils.dart';
 import 'package:dextra/shareds/utils/time_validators.dart';
 import 'package:dextra/theme/color/app_color.dart';
 import 'package:dextra/theme/font/app_font_size.dart';
@@ -182,10 +179,6 @@ class _ExportTabState extends State<ExportTab> {
     }
   }
 
-  DateTime _parseTime(String timeString) {
-    return DateFormat("HH:mm:ss").parse(timeString);
-  }
-
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
       _onFetchCustom();
@@ -252,8 +245,6 @@ class _ExportTabState extends State<ExportTab> {
         await rootBundle.load("assets/fonts/inter/Inter-Bold.ttf");
     var subHeadingFont =
         await rootBundle.load("assets/fonts/inter/Inter-Bold.ttf");
-    var bodyFont =
-        await rootBundle.load("assets/fonts/inter/Inter-Regular.ttf");
     final pdf = pw.Document();
 
     final date = _selectedDate ?? latestDate;
