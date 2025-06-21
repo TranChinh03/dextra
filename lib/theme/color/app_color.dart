@@ -1,6 +1,5 @@
 import 'package:dextra/presentation/app/blocs/theme/app_theme_bloc.dart';
 import 'package:dextra/theme/color/colors_template.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 part 'app_light_color.dart';

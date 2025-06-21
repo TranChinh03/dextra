@@ -3,10 +3,8 @@ import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dar
 import 'package:dextra/theme/color/app_color.dart';
 import 'package:dextra/theme/font/app_font_size.dart';
 import 'package:dextra/theme/font/app_font_weight.dart';
-import 'package:dextra/theme/spacing/app_spacing.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class StatisticBarChart3 extends StatefulWidget {
   final ResultDetail data;
