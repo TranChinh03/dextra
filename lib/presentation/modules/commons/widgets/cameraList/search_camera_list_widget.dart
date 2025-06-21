@@ -182,6 +182,9 @@ class _SearchCameraListWidgetState extends State<SearchCameraListWidget> {
                 SizedBox()
               else
                 NumberPagination(
+                  controlButtonColor: colors.buttonSecondaryBackground,
+                  unSelectedNumberColor: colors.textMuted,
+                  unSelectedButtonColor: colors.buttonSecondaryBackground,
                   selectedButtonColor: colors.primary,
                   onPageChanged: (int pageNumber) {
                     setState(() {

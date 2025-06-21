@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-class CommonBackToToButton extends StatelessWidget {
+class CommonBackToTopButton extends StatelessWidget {
   final ScrollController scrollController;
   final String? text;
   final Color? textColor;
@@ -20,7 +20,7 @@ class CommonBackToToButton extends StatelessWidget {
   final TextOverflow? overflow;
   final String? direction;
 
-  const CommonBackToToButton({
+  const CommonBackToTopButton({
     super.key,
     this.text,
     this.textColor,

@@ -29,6 +29,7 @@ abstract class IAppColor {
 
   Color get textPrimary;
   Color get textMuted;
+  Color get chartTitle;
 
   // Shadow color
   Color get shadowXs;

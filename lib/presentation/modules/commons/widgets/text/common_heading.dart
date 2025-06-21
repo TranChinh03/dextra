@@ -42,6 +42,7 @@ class CommonHeading extends StatelessWidget {
       child: Column(
         children: [
           CommonText(
+            align: TextAlign.center,
             heading ?? '',
             style: headingStyle ??
                 TextStyle(

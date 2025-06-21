@@ -169,7 +169,6 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                           width: double.infinity,
                           color: colors.primaryBannerBg,
                           child: MapSample(
-                            // cameraList: _cameraBloc.state.cameras,
                             location: _currentPos,
                             selectedCam: _selectedCam ??
                                 Camera(
@@ -238,7 +237,7 @@ class _MapCamWidgetState extends State<MapCamWidget> {
                   Positioned(
                       bottom: AppSpacing.rem800.h,
                       right: AppSpacing.rem800.h,
-                      child: CommonBackToToButton(
+                      child: CommonBackToTopButton(
                           scrollController: _scrollController))
                 ],
               ),

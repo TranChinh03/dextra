@@ -117,8 +117,8 @@ class _StatisticWidgetState extends State<StatisticWidget> {
               Positioned(
                   bottom: AppSpacing.rem800.h,
                   right: AppSpacing.rem800.h,
-                  child:
-                      CommonBackToToButton(scrollController: _scrollController))
+                  child: CommonBackToTopButton(
+                      scrollController: _scrollController))
             ],
           ),
         ),
