@@ -80,7 +80,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
         width: AppSpacing.rem6250.w,
         context: context,
         dialogType: DialogType.error,
-        title: 'Schedule Export',
+        title: tr('Common.schedule_export'),
         desc: _textmessage,
         btnOkOnPress: () {},
         btnOkColor: Colors.redAccent.shade400,
@@ -106,7 +106,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
         width: AppSpacing.rem6250.w,
         context: context,
         dialogType: DialogType.error,
-        title: 'Schedule Export',
+        title: tr('Common.schedule_export'),
         desc: _textmessage,
         btnOkOnPress: () {},
         btnOkColor: Colors.redAccent.shade700,
@@ -140,7 +140,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
         width: AppSpacing.rem6250.w,
         context: context,
         dialogType: DialogType.success,
-        title: 'Schedule Export',
+        title: tr('Common.schedule_export'),
         desc: state.sendEmailState.dataResponse?.message,
         btnOkOnPress: () {
           _statisticBloc.add(FetchSchedulesEvent(
@@ -151,8 +151,8 @@ class _ScheduleTabState extends State<ScheduleTab> {
       AwesomeDialog(
         width: AppSpacing.rem6250.w,
         context: context,
-        dialogType: DialogType.success,
-        title: 'Schedule Export',
+        dialogType: DialogType.error,
+        title: tr('Common.schedule_export'),
         desc: state.sendEmailState.errorResponse?.message,
         btnOkOnPress: () {},
       ).show();
@@ -165,7 +165,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
         width: AppSpacing.rem6250.w,
         context: context,
         dialogType: DialogType.success,
-        title: 'Cancel Schedule',
+        title: tr('Common.cancel_schedule'),
         desc: tr('Common.cancel_schedule_success'),
         btnOkOnPress: () {
           _statisticBloc.add(FetchSchedulesEvent(
@@ -322,17 +322,13 @@ class _ScheduleTabState extends State<ScheduleTab> {
                             text: tr('Common.schedule'),
                             onPressed: _scheduleByDateRange)
                       ]),
-                      ...scheduleList.map(
-                        (date) =>
-                            CommonText("${tr('Common.schedule_from')} $date"),
-                      ),
                     ],
                   ),
                   Divider(
                     color: colors.dividerColor,
                   ),
                   CommonHeading(
-                    heading: "History Schedule",
+                    heading: tr('Common.history_schedule'),
                     headingStyle: TextStyle(
                         fontSize: AppFontSize.lg,
                         fontWeight: AppFontWeight.bold,
@@ -341,14 +337,21 @@ class _ScheduleTabState extends State<ScheduleTab> {
                   ...scheduleList.map(
                     (schedule) => ListTile(
                       title: CommonText(
-                          "${tr('Common.schedule_from')} ${schedule.scheduleId} - ${schedule.status}"),
-                      trailing: IconButton(
-                        icon: Icon(Icons.delete, color: colors.errorColor),
-                        onPressed: () {
-                          _statisticBloc.add(CancelScheduleEvent(
-                              scheduleId: schedule.scheduleId));
-                        },
+                        "${tr('Common.schedule_from')} ${schedule.dateFrom} ${tr('Common.to')} ${schedule.dateTo}",
+                        style: TextStyle(
+                            fontSize: AppFontSize.xxxl,
+                            fontWeight: AppFontWeight.semiBold),
                       ),
+                      subtitle: CommonText(
+                          "${tr('Common.status')}: ${schedule.status}"),
+                      trailing: schedule.status == "cancelled"
+                          ? CommonPrimaryButton(
+                              text: tr('Common.cancel'),
+                              onPressed: () {
+                                _statisticBloc.add(CancelScheduleEvent(
+                                    scheduleId: schedule.scheduleId));
+                              })
+                          : null,
                     ),
                   ),
                   // Column(

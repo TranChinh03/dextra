@@ -40,7 +40,7 @@ class _PickDateButtonState extends State<PickDateButton> {
       onPressed: _pickDate,
       child: Text(
         _selectedDate == null
-            ? "Pick a date"
+            ? tr('Common.pick_date')
             : DateFormat('yyyy-MM-dd').format(_selectedDate!),
       ),
     );
