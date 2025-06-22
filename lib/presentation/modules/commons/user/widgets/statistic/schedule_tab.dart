@@ -1,6 +1,6 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dextra/di/injectable.dart';
-import 'package:dextra/domain/usecases/statistic/commands/send_email_by_date.dart/send_email_by_date_query.dart';
+import 'package:dextra/domain/usecases/statistic/commands/send_email_by_date/send_email_by_date_query.dart';
 import 'package:dextra/presentation/commons/api_state.dart';
 import 'package:dextra/presentation/modules/commons/bloc/statistic/statistic_bloc.dart';
 import 'package:dextra/presentation/modules/commons/widgets/button/common_primary_button.dart';
@@ -17,7 +17,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:universal_html/js_util.dart';
 
 class ScheduleTab extends StatefulWidget {
   const ScheduleTab({super.key});
@@ -34,10 +33,10 @@ class _ScheduleTabState extends State<ScheduleTab> {
 
   String _textmessage = '';
 
-  final List<String> _byDateRangeList = [];
-
   @override
   void initState() {
+    _statisticBloc.add(FetchSchedulesEvent(
+        email: FirebaseAuth.instance.currentUser?.email ?? ''));
     super.initState();
   }
 
@@ -98,20 +97,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
     if (isValid == true) {
       final dateFrom = DateFormat('yyyy-MM-dd').format(_startDate!);
       final dateTo = DateFormat('yyyy-MM-dd').format(_endDate!);
-      // _onSendEmailByDate(dateFrom, dateTo);
-      setState(() {
-        _byDateRangeList.add("$dateFrom to $dateTo");
-        _textmessage =
-            "Schedule successfully for $dateFrom to $dateTo. Check your email for the report.";
-        AwesomeDialog(
-          width: AppSpacing.rem6250.w,
-          context: context,
-          dialogType: DialogType.success,
-          title: 'Schedule Export',
-          desc: _textmessage,
-          btnOkOnPress: () {},
-        ).show();
-      });
+      _onSendEmailByDate(dateFrom, dateTo);
     } else {
       setState(() {
         _textmessage = tr('Common.select_valid_date_range');
@@ -149,20 +135,49 @@ class _ScheduleTabState extends State<ScheduleTab> {
   // }
 
   void _onSendEmailStatusChangeState(StatisticState state) {
-    if (state.sendEmailStatus == ApiStatus.hasData) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(tr('Common.email_successfully')),
-          backgroundColor: Colors.green,
-        ),
-      );
-    } else if (state.sendEmailStatus == ApiStatus.error) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(tr('Common.email_fail')),
-          backgroundColor: Colors.red,
-        ),
-      );
+    if (state.sendEmailState.status == ApiStatus.hasData) {
+      AwesomeDialog(
+        width: AppSpacing.rem6250.w,
+        context: context,
+        dialogType: DialogType.success,
+        title: 'Schedule Export',
+        desc: state.sendEmailState.dataResponse?.message,
+        btnOkOnPress: () {},
+      ).show();
+    } else if (state.sendEmailState.status == ApiStatus.error) {
+      AwesomeDialog(
+        width: AppSpacing.rem6250.w,
+        context: context,
+        dialogType: DialogType.success,
+        title: 'Schedule Export',
+        desc: state.sendEmailState.errorResponse?.message,
+        btnOkOnPress: () {},
+      ).show();
+    }
+  }
+
+  void _onCancelScheduleStatusChangeState(StatisticState state) {
+    if (state.cancelScheduleStatus == ApiStatus.hasData) {
+      AwesomeDialog(
+        width: AppSpacing.rem6250.w,
+        context: context,
+        dialogType: DialogType.success,
+        title: 'Cancel Schedule',
+        desc: tr('Common.cancel_schedule_success'),
+        btnOkOnPress: () {
+          _statisticBloc.add(FetchSchedulesEvent(
+              email: FirebaseAuth.instance.currentUser?.email ?? ''));
+        },
+      ).show();
+    } else if (state.cancelScheduleStatus == ApiStatus.error) {
+      AwesomeDialog(
+        width: AppSpacing.rem6250.w,
+        context: context,
+        dialogType: DialogType.error,
+        title: 'Cancel Schedule',
+        desc: tr('Common.cancel_schedule_fail'),
+        btnOkOnPress: () {},
+      ).show();
     }
   }
 
@@ -170,18 +185,29 @@ class _ScheduleTabState extends State<ScheduleTab> {
   Widget build(BuildContext context) {
     final colors = IAppColor.watch(context);
 
-    return BlocListener<StatisticBloc, StatisticState>(
-      listenWhen: (previous, current) =>
-          previous.sendEmailStatus != current.sendEmailStatus,
-      listener: (context, state) {
-        _onSendEmailStatusChangeState(state);
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<StatisticBloc, StatisticState>(
+          listenWhen: (previous, current) =>
+              previous.sendEmailState != current.sendEmailState,
+          listener: (context, state) {
+            _onSendEmailStatusChangeState(state);
+          },
+        ),
+        BlocListener<StatisticBloc, StatisticState>(
+            listenWhen: (previous, current) =>
+                previous.cancelScheduleStatus != current.cancelScheduleStatus,
+            listener: (context, state) {
+              _onCancelScheduleStatusChangeState(state);
+            }),
+      ],
       child: BlocBuilder<StatisticBloc, StatisticState>(
           bloc: _statisticBloc,
           builder: (context, state) {
-            if (state.sendEmailStatus == ApiStatus.loading) {
+            if (state.sendEmailState.status == ApiStatus.loading) {
               return CircularProgressIndicator();
             }
+            final scheduleList = state.schedules;
             return SizedBox(
               width: double.infinity,
               child: LayoutBuilder(builder: (context, constraints) {
@@ -293,7 +319,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
                             text: tr('Common.schedule'),
                             onPressed: _scheduleByDateRange)
                       ]),
-                      ..._byDateRangeList.map(
+                      ...scheduleList.map(
                         (date) =>
                             CommonText("${tr('Common.schedule_from')} $date"),
                       ),
@@ -309,15 +335,15 @@ class _ScheduleTabState extends State<ScheduleTab> {
                         fontWeight: AppFontWeight.bold,
                         color: colors.primary),
                   ),
-                  ..._byDateRangeList.map(
-                    (date) => ListTile(
-                      title: CommonText("${tr('Common.schedule_from')} $date"),
+                  ...scheduleList.map(
+                    (schedule) => ListTile(
+                      title: CommonText(
+                          "${tr('Common.schedule_from')} ${schedule.scheduleId} - ${schedule.status}"),
                       trailing: IconButton(
                         icon: Icon(Icons.delete, color: colors.errorColor),
                         onPressed: () {
-                          setState(() {
-                            _byDateRangeList.remove(date);
-                          });
+                          _statisticBloc.add(CancelScheduleEvent(
+                              scheduleId: schedule.scheduleId));
                         },
                       ),
                     ),

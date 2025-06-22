@@ -29,4 +29,8 @@ class ApiPath {
       'http://localhost:8004/heatmap_in_a_day';
   static const String detectByCameraCustomUrl =
       'http://localhost:8004/traffic_tracking_by_camera_in_date';
+  static const String fetchSchedulesUrl =
+      'http://localhost:8004/get_scheduled_info';
+  static const String cancelScheduleUrl =
+      'http://localhost:8004/cancel_schedule';
 }

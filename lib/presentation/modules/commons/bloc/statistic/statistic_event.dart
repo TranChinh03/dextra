@@ -36,8 +36,20 @@ class DetectByCameraCustomEvent extends StatisticEvent {
 
 class TrackingByDateEvent extends StatisticEvent {}
 
+class FetchSchedulesEvent extends StatisticEvent {
+  final String email;
+
+  FetchSchedulesEvent({required this.email});
+}
+
 class SendEmailByDateEvent extends StatisticEvent {
   final SendEmailByDateQuery query;
 
   SendEmailByDateEvent({required this.query});
+}
+
+class CancelScheduleEvent extends StatisticEvent {
+  final String scheduleId;
+
+  CancelScheduleEvent({required this.scheduleId});
 }
