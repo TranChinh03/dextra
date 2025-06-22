@@ -1,6 +1,7 @@
 import 'package:dextra/domain/entities/statistic_result.dart';
 import 'package:dextra/presentation/modules/commons/widgets/charts/app_colors.dart';
 import 'package:dextra/presentation/modules/commons/widgets/charts/legend_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -89,7 +90,7 @@ class StatisticBarChart2 extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Statistic from ${data.first.date} to ${data.last.date}',
+            '${tr('Common.statistic')} ${tr('Common.from')} ${data.first.date} ${tr('Common.to')} ${data.last.date}',
             style: TextStyle(
               color: AppColors.contentColorBlue,
               fontSize: 16,

@@ -156,6 +156,11 @@
    "Common.english": "English",
    "Common.vietnamese": "Vietnamese",
    "Common.darkmode": "Darkmode",
+   "Common.status": "Status",
+   "Common.history_schedule": "History Schedule",
+   "Common.cancel_schedule": "Cancel Schedule",
+   "Common.pick_date": "Pick a date",
+   "Common.statistic_on": "Statistics on",
 
   "About.about_us": "About Us",
   "About.about_dextra": "Dextra is an AI-powered platform dedicated to ",

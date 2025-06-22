@@ -68,6 +68,7 @@ class StatisticBloc extends Bloc<StatisticEvent, StatisticState> {
 
     final response =
         await _detectByDateHandler.handle(Query(query: event.query));
+
     emit(
       state.copyWith(
         apiStatus: ApiStatus.hasData,
