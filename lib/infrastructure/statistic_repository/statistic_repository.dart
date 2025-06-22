@@ -1,11 +1,12 @@
 import 'package:dextra/domain/entities/date.dart';
+import 'package:dextra/domain/entities/schedule_info.dart';
 import 'package:dextra/domain/entities/statistic_result.dart';
 import 'package:dextra/domain/entities/timestamp.dart';
 import 'package:dextra/domain/interfaces/api_client.dart';
 import 'package:dextra/domain/interfaces/interface_statistic_repository.dart';
 import 'package:dextra/domain/models/base_api_response.dart';
 import 'package:dextra/domain/models/query.dart';
-import 'package:dextra/domain/usecases/statistic/commands/send_email_by_date.dart/send_email_by_date_query.dart';
+import 'package:dextra/domain/usecases/statistic/commands/send_email_by_date/send_email_by_date_query.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_cam_custom/statistic_by_cam_custom_query.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_camera/statistic_by_camera_query.dart';
 import 'package:dextra/domain/usecases/statistic/queries/statistic_by_custom/statistic_by_custom_query.dart';
@@ -24,6 +25,8 @@ const trackingByDateUrl = ApiPath.trackingByDateUrl;
 const detectByCameraCustomUrl = ApiPath.detectByCameraCustomUrl;
 // const fetchHeatmapUrl = ApiPath.fetchHeatmapUrl;
 const sendEmailByDateUrl = ApiPath.sendEmailByDateUrl;
+const fetchShedulesUrl = ApiPath.fetchSchedulesUrl;
+const cancelScheduleUrl = ApiPath.cancelScheduleUrl;
 
 @Injectable(as: IStatisticRepository)
 class StatisticRepository implements IStatisticRepository {
@@ -45,6 +48,16 @@ class StatisticRepository implements IStatisticRepository {
     final response = await _apiClient.get<List<Date>, Date>(
       getDateUrl,
       parser: (json) => Date.fromJson(json),
+    );
+
+    return response;
+  }
+
+  @override
+  Future<BaseApiResponse<List<ScheduleInfo>>> getSchedules(String email) async {
+    final response = await _apiClient.get<List<ScheduleInfo>, ScheduleInfo>(
+      "$fetchShedulesUrl?$email",
+      parser: (json) => ScheduleInfo.fromJson(json),
     );
 
     return response;
@@ -143,6 +156,18 @@ class StatisticRepository implements IStatisticRepository {
     final response = await _apiClient.post<String, String>(
       sendEmailByDateUrl,
       data: sendEmailByDateQuery.toJson(),
+    );
+
+    return response;
+  }
+
+  @override
+  Future<BaseApiResponse<String?>> cancelSchedule(String scheduleId) async {
+    final response = await _apiClient.post<String, String>(
+      cancelScheduleUrl,
+      data: {
+        "scheduleId": scheduleId,
+      },
     );
 
     return response;

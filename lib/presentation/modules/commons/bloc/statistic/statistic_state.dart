@@ -9,7 +9,9 @@ class StatisticState extends Equatable {
   final StatisticResult resultByCameraCustom;
   final List<ResultDetail> trackingByDate;
   final ApiStatus apiStatus;
-  final ApiStatus sendEmailStatus;
+  final ApiStatus cancelScheduleStatus;
+  final ApiState sendEmailState;
+  final List<ScheduleInfo> schedules;
 
   StatisticState({
     StatisticResult? resultByDate,
@@ -17,9 +19,11 @@ class StatisticState extends Equatable {
     StatisticResult? resultByDistrict,
     StatisticResult? resultByCamera,
     StatisticResult? resultByCameraCustom,
+    this.schedules = const [],
     this.trackingByDate = const [],
     this.apiStatus = ApiStatus.idle,
-    this.sendEmailStatus = ApiStatus.idle,
+    this.cancelScheduleStatus = ApiStatus.idle,
+    this.sendEmailState = const ApiState(status: ApiStatus.idle),
   })  : resultByDate = resultByDate ?? StatisticResult(),
         resultByCustom = resultByCustom ?? StatisticResult(),
         resultByDistrict = resultByDistrict ?? StatisticResult(),
@@ -34,7 +38,9 @@ class StatisticState extends Equatable {
     StatisticResult? resultByCameraCustom,
     List<ResultDetail>? trackingByDate,
     ApiStatus? apiStatus,
-    ApiStatus? sendEmailStatus,
+    ApiStatus? cancelScheduleStatus,
+    ApiState? sendEmailState,
+    List<ScheduleInfo>? schedules,
   }) {
     return StatisticState(
       resultByDate: resultByDate ?? this.resultByDate,
@@ -44,7 +50,9 @@ class StatisticState extends Equatable {
       resultByCameraCustom: resultByCameraCustom ?? this.resultByCameraCustom,
       trackingByDate: trackingByDate ?? this.trackingByDate,
       apiStatus: apiStatus ?? this.apiStatus,
-      sendEmailStatus: sendEmailStatus ?? this.sendEmailStatus,
+      sendEmailState: sendEmailState ?? this.sendEmailState,
+      schedules: schedules ?? this.schedules,
+      cancelScheduleStatus: cancelScheduleStatus ?? this.cancelScheduleStatus,
     );
   }
 
@@ -57,6 +65,8 @@ class StatisticState extends Equatable {
         resultByCameraCustom,
         trackingByDate,
         apiStatus,
-        sendEmailStatus
+        sendEmailState,
+        schedules,
+        cancelScheduleStatus,
       ];
 }
