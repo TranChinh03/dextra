@@ -116,7 +116,7 @@
   "Common.by_region_cam": "BY REGION & CAMERA",
   "Common.schedule": "Schedule",
   "Common.schedule_for": "Schedule statistics for",
-  "Common.schedule_on": "Schedule statistics on",
+  "Common.schedule_from": "Schedule statistics from",
   "Common.upload_img": "Upload an image",
   "Common.select_img": "Select Image from Device",
   "Common.no_img": "No image selected.",
