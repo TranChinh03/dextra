@@ -142,7 +142,10 @@ class _ScheduleTabState extends State<ScheduleTab> {
         dialogType: DialogType.success,
         title: 'Schedule Export',
         desc: state.sendEmailState.dataResponse?.message,
-        btnOkOnPress: () {},
+        btnOkOnPress: () {
+          _statisticBloc.add(FetchSchedulesEvent(
+              email: FirebaseAuth.instance.currentUser?.email ?? ''));
+        },
       ).show();
     } else if (state.sendEmailState.status == ApiStatus.error) {
       AwesomeDialog(
