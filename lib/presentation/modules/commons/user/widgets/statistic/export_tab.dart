@@ -109,7 +109,7 @@ class _ExportTabState extends State<ExportTab> {
     _statisticBloc.add(
       DetectByCustomEvent(
         query: DetectByCustomQuery(
-          date: _selectedDate ?? _datetimeBloc.state.dates.last.date,
+          date: _selectedDate ?? latestDate,
           timeFrom: _startTime ?? latestStartTime,
           timeTo: _endTime ?? latestEndTime,
         ),
@@ -132,14 +132,13 @@ class _ExportTabState extends State<ExportTab> {
 
   void _onFetchByCam() {
     _statisticBloc.add(DetectByCameraEvent(
-        query: DetectByCameraQuery(
-            camera: _selectedCam ?? _cameraBloc.state.cameras.last.privateId)));
+        query: DetectByCameraQuery(camera: _selectedCam ?? firstCam)));
   }
 
   void _onFetchByCamCustom() {
     _statisticBloc.add(DetectByCameraCustomEvent(
         query: DetectByCameraCustomQuery(
-            camera: _selectedCam ?? _cameraBloc.state.cameras.last.privateId,
+            camera: _selectedCam ?? firstCam,
             date: _selectedDate ?? latestDate,
             timeFrom: _startTimeCam ?? latestStartTime,
             timeTo: _endTimeCam ?? latestEndTime)));
@@ -172,8 +171,8 @@ class _ExportTabState extends State<ExportTab> {
       });
       _onFetchByDate();
       _onFetchCustom();
-      _onFetchByDist(_selectedDistrict ?? _cameraBloc.state.districts.first,
-          _selectedDate, _startTimeDist, _endTimeDist);
+      _onFetchByDist(_selectedDistrict ?? firstDistrict, _selectedDate,
+          _startTimeDist, _endTimeDist);
       _onFetchCustom();
       _onFetchByCamCustom();
     }
@@ -524,13 +523,14 @@ class _ExportTabState extends State<ExportTab> {
               cameraState.vehicles.isNotEmpty;
 
           if (hasDateData && hasCameraData) {
-            latestDate = dateState.dates.first.date;
-            latestStartTime = dateState.timestamps.first.time;
-            latestEndTime = dateState.timestamps
-                .lastWhere(
+            latestDate = dateState.dates.last.date;
+            latestStartTime = dateState.timestamps
+                .firstWhere(
                   (item) => item.date == latestDate,
                 )
                 .time;
+
+            latestEndTime = dateState.timestamps.last.time;
             firstDistrict = cameraState.districts.first;
             firstCam = cameraState.cameras.first.privateId ?? "";
             if (_selectedDate == null &&

@@ -161,6 +161,7 @@
    "Common.cancel_schedule": "Cancel Schedule",
    "Common.pick_date": "Pick a date",
    "Common.statistic_on": "Statistics on",
+   "Common.heatmap_noti": "Heatmap is playing. Please stop the animation to make changes!",
 
   "About.about_us": "About Us",
   "About.about_dextra": "Dextra is an AI-powered platform dedicated to ",

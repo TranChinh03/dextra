@@ -8,6 +8,7 @@ import 'package:dextra/presentation/modules/commons/widgets/input/date_picker.da
 import 'package:dextra/presentation/modules/commons/widgets/text/common_heading.dart';
 import 'package:dextra/presentation/modules/commons/widgets/text/common_text.dart';
 import 'package:dextra/shareds/utils/date_validators.dart';
+import 'package:dextra/theme/border/app_border_radius.dart';
 import 'package:dextra/theme/color/app_color.dart';
 import 'package:dextra/theme/font/app_font_size.dart';
 import 'package:dextra/theme/font/app_font_weight.dart';
@@ -342,9 +343,32 @@ class _ScheduleTabState extends State<ScheduleTab> {
                             fontSize: AppFontSize.xxxl,
                             fontWeight: AppFontWeight.semiBold),
                       ),
-                      subtitle: CommonText(
-                          "${tr('Common.status')}: ${schedule.status}"),
-                      trailing: schedule.status == "cancelled"
+                      subtitle: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: schedule.status == "cancelled"
+                                ? colors.errorColor
+                                : schedule.status == "scheduled"
+                                    ? colors.primary
+                                    : colors.successColor,
+                            borderRadius: BorderRadius.circular(
+                                AppBorderRadius.spacing2xl),
+                          ),
+                          margin: EdgeInsets.only(top: 4),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: AppSpacing.rem150.w,
+                            vertical: AppSpacing.rem100.h,
+                          ),
+                          child: CommonText(
+                            schedule.status.toUpperCase(),
+                            style: TextStyle(
+                                color: colors.white,
+                                fontSize: AppFontSize.xxxs),
+                          ),
+                        ),
+                      ),
+                      trailing: schedule.status == "scheduled"
                           ? CommonPrimaryButton(
                               text: tr('Common.cancel'),
                               onPressed: () {

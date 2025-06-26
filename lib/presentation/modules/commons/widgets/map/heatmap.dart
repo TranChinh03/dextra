@@ -61,11 +61,11 @@ class _TrafficHeatmapState extends State<TrafficHeatmap> {
   @override
   void initState() {
     super.initState();
-    latestDate = _datetimeBloc.state.dates.first.date;
-    latestStartHmTime = _datetimeBloc.state.timestamps.first.time;
-    latestEndHmTime = _datetimeBloc.state.timestamps
-        .lastWhere((time) => time.date == latestDate)
+    latestDate = _datetimeBloc.state.dates.last.date;
+    latestStartHmTime = _datetimeBloc.state.timestamps
+        .firstWhere((time) => time.date == latestDate)
         .time;
+    latestEndHmTime = _datetimeBloc.state.timestamps.last.time;
     _onFetchHeatmapInDay(latestDate, latestStartHmTime, latestEndHmTime);
   }
 
@@ -102,7 +102,7 @@ class _TrafficHeatmapState extends State<TrafficHeatmap> {
     if (_formKeyHeatmap.currentState!.validate()) {
       _selectedDayHeatmap == null
           ? setState(() {
-              _selectedDayHeatmap = _datetimeBloc.state.dates.first.date;
+              _selectedDayHeatmap = latestDate;
             })
           : null;
       _onFetchHeatmapInDay(_selectedDayHeatmap ?? "", _startTimeHeatmap ?? "",
@@ -190,32 +190,18 @@ class _TrafficHeatmapState extends State<TrafficHeatmap> {
 
     final totalFrames = heatmapData.length;
 
-    if (totalFrames <= 1) {
-      setState(() {
-        isProcessing = false;
-        isStarted = false;
-      });
-      heatmapTimer?.cancel();
-      return;
-    }
-
     heatmapTimer = Timer.periodic(Duration(seconds: 1), (timer) {
-      currentIndex++;
-      final currentTimestamp = heatmapData[currentIndex];
       if (!isProcessing) {
-        setState(() {
-          isProcessing = false;
-
-          currentIndex--;
-        });
         return;
       }
-
-      setState(() {
-        currentTime = currentTimestamp.time ?? "";
-        currentData = _createPoints(currentTimestamp.data ?? [],
-            _selectedVehicle ?? tr('Common.all_vehicles'));
-      });
+      if (totalFrames <= 1) {
+        setState(() {
+          isProcessing = false;
+          isStarted = false;
+        });
+        heatmapTimer?.cancel();
+        return;
+      }
       if (currentIndex == totalFrames - 1) {
         setState(() {
           isProcessing = false;
@@ -224,6 +210,13 @@ class _TrafficHeatmapState extends State<TrafficHeatmap> {
         heatmapTimer?.cancel();
         return;
       }
+      currentIndex++;
+      final currentTimestamp = heatmapData[currentIndex];
+      setState(() {
+        currentTime = currentTimestamp.time ?? "";
+        currentData = _createPoints(currentTimestamp.data ?? [],
+            _selectedVehicle ?? tr('Common.all_vehicles'));
+      });
     });
   }
 
@@ -399,7 +392,7 @@ class _TrafficHeatmapState extends State<TrafficHeatmap> {
           ),
           isProcessing
               ? CommonText(
-                  "Heatmap is playing. Please stop the animation to make changes!",
+                  tr('Common.heatmap_noti'),
                   style: TextStyle(
                       fontSize: AppFontSize.sm, color: colors.textMuted),
                 )
